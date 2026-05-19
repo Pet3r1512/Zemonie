@@ -169,3 +169,12 @@ describe("Email validation", () => {
   });
 });
 describe("Name input validation", () => {});
+it("shows error when name is empty", async () => {
+  renderForm();
+
+  fireEvent.submit(screen.getByRole("form"));
+
+  await waitFor(() => {
+    expect(screen.getByText("Your name is required")).toBeInTheDocument();
+  });
+});
