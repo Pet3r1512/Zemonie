@@ -191,4 +191,18 @@ describe("Name input validation", () => {
       expect(screen.getByText("Name is too short")).toBeInTheDocument();
     });
   });
+
+  it("shows error when name contains invalid characters (such as numbers)", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "NameWithNumbers123");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Please enter a valid name using letters only"),
+      ).toBeInTheDocument();
+    });
+  });
 });
