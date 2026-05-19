@@ -223,4 +223,22 @@ describe("Name input validation", () => {
       ).not.toBeInTheDocument();
     });
   });
+
+  it("accepts a valid name contains 2 words with space", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "John Doe");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Your name is required"),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Name is too short")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a valid name using letters only"),
+      ).not.toBeInTheDocument();
+    });
+  });
 });
