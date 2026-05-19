@@ -168,3 +168,4 @@ describe("Email validation", () => {
     });
   });
 });
+describe("Name input validation", () => {});
