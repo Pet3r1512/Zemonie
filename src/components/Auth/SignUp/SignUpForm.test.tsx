@@ -169,25 +169,26 @@ describe("Email validation", () => {
   });
 });
 
-describe("Name input validation", () => {});
-it("shows error when name is empty", async () => {
-  renderForm();
+describe("Name input validation", () => {
+  it("shows error when name is empty", async () => {
+    renderForm();
 
-  fireEvent.submit(screen.getByRole("form"));
+    fireEvent.submit(screen.getByRole("form"));
 
-  await waitFor(() => {
-    expect(screen.getByText("Your name is required")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Your name is required")).toBeInTheDocument();
+    });
   });
-});
 
-it("shows error when name is too short", async () => {
-  renderForm();
+  it("shows error when name is too short", async () => {
+    renderForm();
 
-  await userEvent.type(screen.getByRole("name-input"), "J");
+    await userEvent.type(screen.getByRole("name-input"), "J");
 
-  fireEvent.submit(screen.getByRole("form"));
+    fireEvent.submit(screen.getByRole("form"));
 
-  await waitFor(() => {
-    expect(screen.getByText("Name is too short")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Name is too short")).toBeInTheDocument();
+    });
   });
 });
