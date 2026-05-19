@@ -205,4 +205,22 @@ describe("Name input validation", () => {
       ).toBeInTheDocument();
     });
   });
+
+  it("accepts a valid name contains only 1 word", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "Vi");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Your name is required"),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Name is too short")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a valid name using letters only"),
+      ).not.toBeInTheDocument();
+    });
+  });
 });
