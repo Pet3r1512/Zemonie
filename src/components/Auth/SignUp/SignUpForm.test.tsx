@@ -515,4 +515,25 @@ describe("onError callback", () => {
       );
     });
   });
+
+  it("shows a generic toast for unknown errors", async () => {
+    mockUseMutation.mockImplementation(({ onError }: any) => ({
+      mutate: () =>
+        onError({
+          message: JSON.stringify({
+            code: "UNKNOWN_ERROR",
+          }),
+        }),
+      isPending: false,
+    }));
+
+    renderForm();
+
+    await fillForm();
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalled();
+    });
+  });
 });
