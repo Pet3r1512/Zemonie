@@ -536,4 +536,26 @@ describe("onError callback", () => {
       expect(toast.error).toHaveBeenCalled();
     });
   });
+
+  it("keeps the sign up form visible after a failed submit", async () => {
+    mockUseMutation.mockImplementation(({ onError }: any) => ({
+      mutate: () =>
+        onError({
+          message: JSON.stringify({
+            code: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+          }),
+        }),
+      isPending: false,
+    }));
+
+    renderForm();
+
+    await fillForm();
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.getByRole("submit-btn")).toBeInTheDocument();
+      expect(screen.getByTestId("signup-form-container")).toBeInTheDocument();
+    });
+  });
 });
