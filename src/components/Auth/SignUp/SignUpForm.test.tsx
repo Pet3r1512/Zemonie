@@ -309,3 +309,20 @@ describe("Password validation", () => {
     });
   });
 });
+
+describe("Confirm password validation", () => {
+  it("shows error when password and confirm password do not match", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "password1");
+    await userEvent.type(screen.getByRole("confirmPassword"), "password2");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("The passwords do not match"),
+      ).toBeInTheDocument();
+    });
+  });
+});
