@@ -22,6 +22,7 @@ import { LoaderCircle } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import useBalanceStore from "@/store/store";
+import useFetchUser from "@/hooks/useFetchUser";
 
 export type Transaction = {
   userId: string;
@@ -36,6 +37,7 @@ export function IncomeForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const methods = useForm<Transaction>();
   const queryClient = useQueryClient();
+  const userId = useFetchUser();
 
   const { register, handleSubmit, reset } = methods;
 
