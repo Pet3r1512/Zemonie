@@ -380,3 +380,23 @@ async function fillForm({
     await user.type(screen.getByRole("confirmPassword"), confirmPassword);
   return user;
 }
+
+describe("Form submission", () => {
+  it("calls mutate with the correct credentials on valid submit", async () => {
+    const mutateFn = vi.fn();
+    buildMutation({ mutateFn });
+    renderForm();
+
+    await fillForm();
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(mutateFn).toHaveBeenCalledWith({
+        email: "test@example.com",
+        name: "John Doe",
+        password: "Password1",
+        confirmPassword: "Password1",
+      });
+    });
+  });
+});
