@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import useFetchUser from "@/hooks/useFetchUser";
 import getTotalIncomeByMonth from "@/api/users/transactions/getTotalIncomeByMonth";
 import getHighestIncomeOfMonth from "@/api/users/analytics/getHighestIncomeOfMonth";
+import getIncomeGrowth from "@/api/users/analytics/getIncomeGrowth";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed
@@ -39,6 +40,15 @@ export default function IncomeOverallContainer() {
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000, // 5 mins
     gcTime: 30 * 60 * 1000, // 30 mins
+  });
+
+  const incomeGrowthRate = useQuery({
+    queryKey: ["incomeRate", userId],
+    queryFn: () => getIncomeGrowth({ userId: userId! }),
+    enabled: !!userId,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 100,
+    gcTime: 30 * 60 * 100,
   });
 
   const highestTransaction =
@@ -81,7 +91,7 @@ export default function IncomeOverallContainer() {
       ),
       isLoading: false,
       isError: false,
-      amount: -10,
+      amount: incomeGrowthRate.data?.incomeGrowthRate.growthRate,
     },
   ];
 
