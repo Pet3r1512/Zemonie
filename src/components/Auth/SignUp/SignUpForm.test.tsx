@@ -435,6 +435,14 @@ vi.mock("@tanstack/react-router", () => ({
 }));
 
 describe("onSuccess callback tests", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("calls toast.success with the user's name", async () => {
     mockUseMutation.mockImplementation(({ onSuccess }: any) => ({
       mutate: () => onSuccess({ user: { name: "Hana" } }),
@@ -449,4 +457,6 @@ describe("onSuccess callback tests", () => {
       expect(toast.success).toHaveBeenCalledWith("Hana, Everything is done!");
     });
   });
+
+  it("keeps the form visible ");
 });
