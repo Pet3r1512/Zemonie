@@ -242,3 +242,105 @@ describe("Name input validation", () => {
     });
   });
 });
+
+describe("Password validation", () => {
+  it("shows error when the password is too short", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "1234567");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Password must be at least 8 characters long"),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("shows error when the password has no number", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "passwordwithoutnumber");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          "Minimum 8 characters, at least one letter and one number",
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("shows error when the password has no letter", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "12345678910");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          "Minimum 8 characters, at least one letter and one number",
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("accepts a valid password", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "avalidpassword123");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Password must be at least 8 characters long"),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(
+          "Minimum 8 characters, at least one letter and one number",
+        ),
+      ).not.toBeInTheDocument();
+    });
+  });
+});
+
+describe("Confirm password validation", () => {
+  it("shows error when password and confirm password do not match", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "password1");
+    await userEvent.type(screen.getByRole("confirmPassword"), "password2");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("The passwords do not match"),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("accepts when password and confirm password match", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "validpassword123");
+    await userEvent.type(
+      screen.getByRole("confirmPassword"),
+      "validpassword123",
+    );
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("The passwords do not match"),
+      ).not.toBeInTheDocument();
+    });
+  });
+});
