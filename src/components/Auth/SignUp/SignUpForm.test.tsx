@@ -325,4 +325,22 @@ describe("Confirm password validation", () => {
       ).toBeInTheDocument();
     });
   });
+
+  it("accepts when password and confirm password match", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "validpassword123");
+    await userEvent.type(
+      screen.getByRole("confirmPassword"),
+      "validpassword123",
+    );
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("The passwords do not match"),
+      ).not.toBeInTheDocument();
+    });
+  });
 });
