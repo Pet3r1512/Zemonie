@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignUpFormType } from "@/lib/types/signupform";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignUpForm from "./SignUpForm";
 import { userEvent } from "@storybook/testing-library";
@@ -436,7 +442,7 @@ vi.mock("@tanstack/react-router", () => ({
 
 describe("onSuccess callback tests", () => {
   beforeEach(() => {
-    vi.useFakeTimers();
+    vi.useFakeTimers({ shouldAdvanceTime: true });
   });
 
   afterEach(() => {
@@ -453,10 +459,35 @@ describe("onSuccess callback tests", () => {
     await fillForm();
     fireEvent.submit(screen.getByRole("form"));
 
+    act(() => vi.advanceTimersByTime(1250));
+
     await waitFor(() => {
       expect(toast.success).toHaveBeenCalledWith("Hana, Everything is done!");
     });
   });
 
-  it("keeps the form visible ");
+  it("navigates to dashboard after 1250ms on success", async () => {
+    mockUseMutation.mockImplementation(({ onSuccess }: any) => ({
+      mutate: () => onSuccess({ user: { name: "Peter" } }),
+      isPending: false,
+    }));
+    const user = userEvent.setup({ delay: null });
+    renderForm();
+
+    await user.type(screen.getByRole("email-input"), "test@example.com");
+    await user.type(screen.getByRole("name-input"), "John Doe");
+    await user.type(screen.getByRole("password"), "Password1");
+    await user.type(screen.getByRole("confirmPassword"), "Password1");
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(mockNavigate).not.toHaveBeenCalled();
+    });
+
+    act(() => vi.advanceTimersByTime(1250));
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith({ to: "/dashboard" });
+    });
+  });
 });
