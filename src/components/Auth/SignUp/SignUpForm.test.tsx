@@ -411,4 +411,10 @@ describe("Form submission", () => {
       expect(mutateFn).not.toHaveBeenCalled();
     });
   });
+
+  it("disables submit button when mutation is pending", async () => {
+    buildMutation({ isPending: true });
+    renderForm();
+    expect(screen.queryByText("Create New Account")).not.toBeInTheDocument();
+  });
 });
