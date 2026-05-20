@@ -273,4 +273,20 @@ describe("Password validation", () => {
       ).toBeInTheDocument();
     });
   });
+
+  it("shows error when the password has no letter", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "12345678910");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          "Minimum 8 characters, at least one letter and one number",
+        ),
+      ).toBeInTheDocument();
+    });
+  });
 });
