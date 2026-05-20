@@ -18,10 +18,13 @@ import { useMutation } from "@tanstack/react-query";
 import SignUpEmail from "@/api/users/auth/SignUpEmail";
 import { toast } from "sonner";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
+import { useRouter } from "@tanstack/react-router";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState<boolean>(true);
+
+  const router = useRouter();
 
   const {
     register,
@@ -43,7 +46,10 @@ export default function SignUpForm({ className }: { className?: string }) {
       return toast.error(error.message);
     },
     onSuccess: (res) => {
-      return toast.success(res.user.name + ", Everything is done!");
+      toast.success(res.user.name + ", Everything is done!");
+      return setTimeout(() => {
+        router.navigate({ to: "/dashboard" });
+      }, 1250);
     },
   });
 
