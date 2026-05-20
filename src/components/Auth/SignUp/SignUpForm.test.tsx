@@ -168,3 +168,77 @@ describe("Email validation", () => {
     });
   });
 });
+
+describe("Name input validation", () => {
+  it("shows error when name is empty", async () => {
+    renderForm();
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Your name is required")).toBeInTheDocument();
+    });
+  });
+
+  it("shows error when name is too short", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "J");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Name is too short")).toBeInTheDocument();
+    });
+  });
+
+  it("shows error when name contains invalid characters (such as numbers)", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "NameWithNumbers123");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Please enter a valid name using letters only"),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("accepts a valid name contains only 1 word", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "Vi");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Your name is required"),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Name is too short")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a valid name using letters only"),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it("accepts a valid name contains 2 words with space", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "John Doe");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Your name is required"),
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Name is too short")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a valid name using letters only"),
+      ).not.toBeInTheDocument();
+    });
+  });
+});
