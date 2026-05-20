@@ -417,4 +417,10 @@ describe("Form submission", () => {
     renderForm();
     expect(screen.getByRole("submit-btn")).toBeDisabled();
   });
+
+  it("shows a spinner and hides label while mutation is pending", () => {
+    buildMutation({ isPending: true });
+    renderForm();
+    expect(screen.queryByText("Create New Account")).not.toBeInTheDocument();
+  });
 });
