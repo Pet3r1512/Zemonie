@@ -242,3 +242,19 @@ describe("Name input validation", () => {
     });
   });
 });
+
+describe("Password validation", () => {
+  it("shows error when the password is too short", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "1234567");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Password must be at least 8 characters long"),
+      ).toBeInTheDocument();
+    });
+  });
+});
