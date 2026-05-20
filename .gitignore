@@ -12,3 +12,14 @@ storybook-static
 
 .tanstack
 .wrangler
+
+node_modules
+dist
+.env
+.env.local
+
+client/node_modules
+server/node_modules
+
+client/dist
+server/dist

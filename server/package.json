@@ -1,0 +1,38 @@
+{
+  "name": "server",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "pnpm prisma generate && wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "postinstall": "prisma generate",
+    "env": "dotenv -e .dev.vars"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.5",
+    "@hono/trpc-server": "^0.4.0",
+    "@libsql/client": "^0.17.3",
+    "@neondatabase/serverless": "^1.1.0",
+    "@prisma/adapter-libsql": "^7.8.0",
+    "@prisma/adapter-neon": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "@prisma/client-runtime-utils": "^7.8.0",
+    "@trpc/client": "^11.4.3",
+    "@trpc/server": "^11.4.3",
+    "better-auth": "^1.3.34",
+    "cookie": "^1.0.2",
+    "dotenv": "^17.2.3",
+    "dotenv-expand": "^12.0.2",
+    "hono": "^4.7.11",
+    "ws": "^8.18.3",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260511.1",
+    "@types/dotenv": "^8.2.3",
+    "@types/node": "^24.0.10",
+    "@types/ws": "^8.18.1",
+    "prisma": "^7.8.0",
+    "tsx": "^4.20.3",
+    "wrangler": "^4.24.3"
+  }
+}
