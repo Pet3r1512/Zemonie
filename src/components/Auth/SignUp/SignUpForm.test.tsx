@@ -415,6 +415,6 @@ describe("Form submission", () => {
   it("disables submit button when mutation is pending", async () => {
     buildMutation({ isPending: true });
     renderForm();
-    expect(screen.queryByText("Create New Account")).not.toBeInTheDocument();
+    expect(screen.getByRole("submit-btn")).toBeDisabled();
   });
 });
