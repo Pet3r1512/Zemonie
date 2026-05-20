@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignUpForm from "./SignUpForm";
 import { userEvent } from "@storybook/testing-library";
+import { useMutation } from "@tanstack/react-query";
 
 vi.mock("@/api/users/auth/SignUpEmail", () => ({
   default: vi.fn(),
@@ -344,6 +345,7 @@ describe("Confirm password validation", () => {
     });
   });
 });
+
 const mockUseMutation = useMutation as ReturnType<typeof vi.fn>;
 
 function buildMutation(
@@ -357,4 +359,24 @@ function buildMutation(
   }));
 
   return { mutateFn };
+}
+
+async function fillForm({
+  email = "test@example.com",
+  name = "John Doe",
+  password = "Password1",
+  confirmPassword = "Password1",
+}: Partial<{
+  email: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
+}> = {}) {
+  const user = userEvent.setup();
+  if (email) await user.type(screen.getByRole("email-input"), email);
+  if (name) await user.type(screen.getByRole("name-input"), name);
+  if (password) await user.type(screen.getByRole("password"), password);
+  if (confirmPassword)
+    await user.type(screen.getByRole("confirmPassword"), confirmPassword);
+  return user;
 }
