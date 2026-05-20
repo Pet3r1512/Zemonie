@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignUpFormType } from "@/lib/types/signupform";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignUpForm from "./SignUpForm";
 import { userEvent } from "@storybook/testing-library";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 vi.mock("@/api/users/auth/SignUpEmail", () => ({
   default: vi.fn(),
@@ -422,5 +424,22 @@ describe("Form submission", () => {
     buildMutation({ isPending: true });
     renderForm();
     expect(screen.queryByText("Create New Account")).not.toBeInTheDocument();
+  });
+});
+
+describe("onSuccess callback tests", () => {
+  it("calls toast.success with the user's name", async () => {
+    mockUseMutation.mockImplementation(({ onSuccess }: any) => ({
+      mutate: () => onSuccess({ user: { name: "Hana" } }),
+      isPending: false,
+    }));
+
+    renderForm();
+    await fillForm();
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(toast.success).toHaveBeenCalledWith("Hana, Everything is done!");
+    });
   });
 });
