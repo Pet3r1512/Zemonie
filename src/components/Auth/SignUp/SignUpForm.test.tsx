@@ -491,3 +491,28 @@ describe("onSuccess callback tests", () => {
     });
   });
 });
+
+describe("onError callback", () => {
+  it("shows a specific toast when USER_ALREADY_EXISTS error is thrown", async () => {
+    mockUseMutation.mockImplementation(({ onError }: any) => ({
+      mutate: () =>
+        onError({
+          message: JSON.stringify({
+            code: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+          }),
+        }),
+      isPending: false,
+    }));
+
+    renderForm();
+
+    await fillForm();
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalledWith(
+        "This Email Is Existed. Please Sign In or Use Another Email",
+      );
+    });
+  });
+});
