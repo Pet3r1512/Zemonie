@@ -289,4 +289,23 @@ describe("Password validation", () => {
       ).toBeInTheDocument();
     });
   });
+
+  it("accepts a valid password", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("password"), "avalidpassword123");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText("Password must be at least 8 characters long"),
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(
+          "Minimum 8 characters, at least one letter and one number",
+        ),
+      ).not.toBeInTheDocument();
+    });
+  });
 });
