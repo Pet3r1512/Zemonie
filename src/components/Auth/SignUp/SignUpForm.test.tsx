@@ -399,4 +399,16 @@ describe("Form submission", () => {
       });
     });
   });
+
+  it("will NOT call mutate when form is invalid", async () => {
+    const mutateFn = vi.fn();
+    buildMutation({ mutateFn });
+    renderForm();
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(mutateFn).not.toHaveBeenCalled();
+    });
+  });
 });
