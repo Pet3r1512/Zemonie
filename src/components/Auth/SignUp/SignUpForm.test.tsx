@@ -427,6 +427,13 @@ describe("Form submission", () => {
   });
 });
 
+const mockNavigate = vi.fn();
+
+vi.mock("@tanstack/react-router", () => ({
+  useRouter: () => ({ navigate: mockNavigate }),
+  createRouter: vi.fn(),
+}));
+
 describe("onSuccess callback tests", () => {
   it("calls toast.success with the user's name", async () => {
     mockUseMutation.mockImplementation(({ onSuccess }: any) => ({
