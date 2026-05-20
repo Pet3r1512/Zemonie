@@ -344,3 +344,17 @@ describe("Confirm password validation", () => {
     });
   });
 });
+const mockUseMutation = useMutation as ReturnType<typeof vi.fn>;
+
+function buildMutation(
+  overrides: Partial<{ isPending: boolean; mutateFn: () => void }> = {},
+) {
+  const mutateFn = overrides.mutateFn ?? vi.fn();
+
+  mockUseMutation.mockImplementation(() => ({
+    mutate: mutateFn,
+    isPending: overrides.isPending ?? false,
+  }));
+
+  return { mutateFn };
+}
