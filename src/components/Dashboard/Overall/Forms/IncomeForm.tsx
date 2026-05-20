@@ -60,6 +60,11 @@ export function IncomeForm() {
 
       setIsOpen(false);
       useBalanceStore.getState().markUpdated(false);
+      queryClient.invalidateQueries({ queryKey: ["totalIncome", userId] });
+      queryClient.invalidateQueries({
+        queryKey: ["highestIncomeOfMonth", userId],
+      });
+      queryClient.invalidateQueries({ queryKey: ["incomeRate", userId] });
     },
   });
 
