@@ -412,7 +412,7 @@ describe("Form submission", () => {
     });
   });
 
-  it("disables submit button when mutation is pending", async () => {
+  it("disables submit button when mutation is pending", () => {
     buildMutation({ isPending: true });
     renderForm();
     expect(screen.getByRole("submit-btn")).toBeDisabled();
