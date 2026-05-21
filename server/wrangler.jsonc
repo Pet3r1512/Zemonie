@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "clarioserver",
+  "name": "zemonie_server",
   "main": "src/index.ts",
   "compatibility_date": "2025-06-14",
   "compatibility_flags": ["nodejs_compat"],
