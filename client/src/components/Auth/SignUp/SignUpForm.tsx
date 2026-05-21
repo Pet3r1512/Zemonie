@@ -71,12 +71,16 @@ export default function SignUpForm({ className }: { className?: string }) {
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
           <div className="flex items-center gap-x-2.5">
-            <img src="/logo/Icon.png" alt="" className="w-auto h-8" />
+            <img
+              src="/logo/zemonie-icon-light.svg"
+              alt=""
+              className="w-auto h-8"
+            />
             <p
               data-testid="brand-name"
               className="font-semibold text-primary text-lg"
             >
-              Clario
+              Zemonie
             </p>
           </div>
           <CardTitle className="text-xl lg:text-2xl text-primary-dark">
