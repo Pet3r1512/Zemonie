@@ -4,6 +4,14 @@
   "main": "src/index.ts",
   "compatibility_date": "2025-06-14",
   "compatibility_flags": ["nodejs_compat"],
+
+  "routes": [
+    {
+      "pattern": "api.zemonie.site",
+      "custom_domain": true,
+    },
+  ],
+
   "vars": {
     "NODE_ENV": "production",
     "PORT": "9999",
@@ -12,33 +20,8 @@
     "TRUSTED_ORIGIN": "https://zemonie.site",
     "BASE_URL": "https://api.zemonie.site",
   },
+
   "triggers": {
     "crons": ["*/5 * * * *"],
   },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MY_BUCKET",
-  //     "bucket_name": "my-bucket"
-  //   }
-  // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
-  // "ai": {
-  //   "binding": "AI"
-  // },
-  // "observability": {
-  //   "enabled": true,
-  //   "head_sampling_rate": 1
-  // }
 }
