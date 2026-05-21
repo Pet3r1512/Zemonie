@@ -5,7 +5,7 @@ import prisma from "./prisma";
 const isProduction = process.env.NODE_ENV === "production";
 
 export const auth = betterAuth({
-    baseURL: "https://api.clariofinance.site",
+    baseURL: "https://api.zemonie.site",
 
     basePath: "/api/auth",
 
@@ -19,8 +19,8 @@ export const auth = betterAuth({
 
     trustedOrigins: isProduction
         ? [
-            "https://www.clariofinance.site",
-            "https://clariofinance.site",
+            "https://www.zemonie.site",
+            "https://zemonie.site",
         ]
         : [
             "http://localhost:5173",
@@ -38,7 +38,7 @@ export const auth = betterAuth({
         ...(isProduction && {
             crossSubDomainCookies: {
                 enabled: true,
-                domain: ".clariofinance.site",
+                domain: ".zemonie.site",
             },
         }),
         defaultCookieAttributes: {
