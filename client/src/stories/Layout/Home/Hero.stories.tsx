@@ -28,7 +28,7 @@ export const Default: Story = {
     const HeroTitle = canvas.getByRole("heading");
 
     expect(HeroTitle).toBeInTheDocument();
-    expect(HeroTitle.textContent).toBe("Manage Your Finances with Zemnie");
+    expect(HeroTitle.textContent).toBe("Manage Your Finances with Zemonie");
 
     const HeroDesc = canvas.getByRole("description");
 
