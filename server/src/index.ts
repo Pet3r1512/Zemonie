@@ -20,8 +20,8 @@ app.use(
   cors({
     origin: (origin) => {
       const allowed = [
-        "https://www.clariofinance.site",
-        "https://clariofinance.site",
+        "https://www.zemonie.site",
+        "https://zemonie.site",
         "http://localhost:5173",
         "http://192.168.50.89:5173",
       ];
@@ -99,7 +99,7 @@ export default {
   fetch: app.fetch,
   async scheduled(event: ScheduledEvent, env: unknown, ctx: ExecutionContext) {
     ctx.waitUntil(
-      fetch("https://api.clariofinance.site/api/ping")
+      fetch("https://api.zemonie.site/api/ping")
     );
   },
 };

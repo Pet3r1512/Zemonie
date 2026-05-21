@@ -8,9 +8,9 @@
     "NODE_ENV": "production",
     "PORT": "9999",
     "LOG_LEVEL": "info",
-    "BETTER_AUTH_URL": "https://clariofinance.site",
-    "TRUSTED_ORIGIN": "https://clariofinance.site",
-    "BASE_URL": "https://api.clariofinance.site",
+    "BETTER_AUTH_URL": "https://zemonie.site",
+    "TRUSTED_ORIGIN": "https://zemonie.site",
+    "BASE_URL": "https://api.zemonie.site",
   },
   "triggers": {
     "crons": ["*/5 * * * *"],
