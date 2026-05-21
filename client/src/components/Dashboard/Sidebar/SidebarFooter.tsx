@@ -19,6 +19,7 @@ const items = [
     title: "Log Out",
     url: "",
     icon: <LogOut />,
+    type: "action",
   },
 ];
 
