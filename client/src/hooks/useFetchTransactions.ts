@@ -4,10 +4,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import useFetchUser from "./useFetchUser";
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 
+export type TransactionQueryOptions = "all" | "onlyIncome" | "onlyExpense"
+
 export default function useFetchTransactions({
   option,
 }: {
-  option?: "all" | "onlyIncome" | "onlyExpense";
+  option?: TransactionQueryOptions
 }) {
   const userId = useFetchUser();
 
@@ -49,32 +51,32 @@ export default function useFetchTransactions({
 
   const filteredData = data
     ? {
-        ...data,
-        pages: data.pages.map((page) => ({
-          ...page,
-          transactions: page.transactions.transactions.filter(
-            (transaction: TransactionInfo) => {
-              if (option === "onlyIncome") {
-                return (
-                  transaction.categoryId &&
-                  transaction.categoryId >= 1 &&
-                  transaction.categoryId <= 7
-                );
-              }
+      ...data,
+      pages: data.pages.map((page) => ({
+        ...page,
+        transactions: page.transactions.transactions.filter(
+          (transaction: TransactionInfo) => {
+            if (option === "onlyIncome") {
+              return (
+                transaction.categoryId &&
+                transaction.categoryId >= 1 &&
+                transaction.categoryId <= 7
+              );
+            }
 
-              if (option === "onlyExpense") {
-                return (
-                  transaction.categoryId &&
-                  transaction.categoryId >= 8 &&
-                  transaction.categoryId <= 21
-                );
-              }
+            if (option === "onlyExpense") {
+              return (
+                transaction.categoryId &&
+                transaction.categoryId >= 8 &&
+                transaction.categoryId <= 21
+              );
+            }
 
-              return true;
-            },
-          ),
-        })),
-      }
+            return true;
+          },
+        ),
+      })),
+    }
     : undefined;
 
   return {
