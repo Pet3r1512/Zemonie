@@ -4,10 +4,12 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import useFetchUser from "./useFetchUser";
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 
+export type TransactionQueryOptions = "all" | "onlyIncome" | "onlyExpense"
+
 export default function useFetchTransactions({
   option,
 }: {
-  option?: "all" | "onlyIncome" | "onlyExpense";
+  option?: TransactionQueryOptions
 }) {
   const userId = useFetchUser();
 
