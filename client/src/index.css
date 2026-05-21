@@ -5,10 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary: #25a18e;
-  --color-secondary: #38ef7d;
+  --color-primary: #ff7900;
+  --color-secondary: #f79d65;
 
-  --color-primary-dark: #023436;
+  --color-primary-dark: #c25500;
   --color-pink: #ff99c8;
   --color-pink-dark: #e88eed;
 

@@ -21,7 +21,7 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     expect(
-      canvas.getByAltText("Clario Dashboard Screenshot"),
+      canvas.getByAltText("Zemonie Dashboard Screenshot"),
     ).toBeInTheDocument();
   },
 };
