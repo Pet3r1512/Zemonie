@@ -1,6 +1,6 @@
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
-import IncomeOverallContainer from "@/components/Dashboard/Income/IncomeOverallContainer";
-import IncomeTableContainer from "@/components/Dashboard/Income/tables/IncomeTableContainer";
+import IncomeOverallContainer from "@/components/Dashboard/Details/IncomeOverallContainer";
+import DetailTableContainer from "@/components/Dashboard/Details/tables/DetailTableContainer";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/income")({
@@ -14,7 +14,7 @@ function RouteComponent() {
       sectionDesc="Track and manage your income sources"
     >
       <IncomeOverallContainer />
-      <IncomeTableContainer />
+      <DetailTableContainer option="onlyIncome" />
     </DashboardLayout>
   );
 }
