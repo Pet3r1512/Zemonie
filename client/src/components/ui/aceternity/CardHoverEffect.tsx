@@ -17,7 +17,7 @@ export const HoverEffect = ({
     <div
       role="card-hover-effect"
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[0.425rem]",
+        "grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[0.425rem]",
         className,
       )}
     >
@@ -32,7 +32,7 @@ export const HoverEffect = ({
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-[#52b69a] dark:bg-slate-800/[0.8] block rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-[#ff9505] dark:bg-slate-800/80 block rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -69,7 +69,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-white border border-transparent dark:border-[#52b69a] group-hover:border-[#52b69a] relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-white border border-transparent dark:border-[#ff9505] group-hover:border-[#ff9505] relative z-20",
         className,
       )}
     >
