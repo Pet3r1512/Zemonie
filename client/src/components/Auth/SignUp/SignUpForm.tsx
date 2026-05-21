@@ -87,7 +87,7 @@ export default function SignUpForm({ className }: { className?: string }) {
             Create An Account
           </CardTitle>
           <CardDescription>
-            Sign up to get started with <strong>Clario</strong>
+            Sign up to get started with <strong>Zemonie</strong>
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -122,7 +122,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                     role="name-input"
                     id="name"
                     type="text"
-                    placeholder="Clario"
+                    placeholder="Zemonie"
                     {...register("name", {
                       required: "Your name is required",
                       minLength: {

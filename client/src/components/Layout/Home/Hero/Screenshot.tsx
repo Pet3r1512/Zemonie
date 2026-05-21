@@ -21,7 +21,7 @@ export default function Screenshot() {
       <img
         ref={ref}
         src="/screenshots/Dashboard.webp"
-        alt="Clario Dashboard Screenshot"
+        alt="Zemonie Dashboard Screenshot"
         className={`rounded-2xl shadow-2xl h-auto w-full ${
           isScreenshotLoaded ? "block" : "hidden"
         }`}

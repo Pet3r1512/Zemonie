@@ -9,14 +9,14 @@ export default function Hero() {
       <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
         Manage Your Finances with{" "}
         <strong className="text-primary underline underline-offset-6">
-          Clario
+          Zemonie
         </strong>
       </h1>
       <p
         role="description"
         className="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8"
       >
-        Clario is the <span className="text-primary">all-in-one</span> money
+        Zemonie is the <span className="text-primary">all-in-one</span> money
         management tool that helps you track your income, label your expenses,
         and visualize your financial data. Get started today and achieve your
         financial goals.

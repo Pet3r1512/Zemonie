@@ -14,7 +14,7 @@ const features: FeatureCardData[] = [
   {
     icon: <Calendar className={ICON_CLASSNAME} />,
     title: "Smart Icon Tracking",
-    desc: "Set up your salary schedule and recurring income. Clario automatically adds them on the right dates.",
+    desc: "Set up your salary schedule and recurring income. Zemonie automatically adds them on the right dates.",
   },
   {
     icon: <Tag className={ICON_CLASSNAME} />,
@@ -29,5 +29,10 @@ const features: FeatureCardData[] = [
 ];
 
 export default function FeatureCards() {
-  return <HoverEffect className="mt-14 lg:mt-0" items={features} />;
+  return (
+    <HoverEffect
+      className="mt-14 lg:mt-0 md:w-md md:mx-auto lg:w-auto"
+      items={features}
+    />
+  );
 }

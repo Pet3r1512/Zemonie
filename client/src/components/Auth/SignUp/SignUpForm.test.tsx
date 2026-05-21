@@ -92,7 +92,7 @@ describe("Rendering", () => {
     renderForm();
 
     expect(screen.getByTestId("brand-name")).toBeInTheDocument();
-    expect(screen.getByTestId("brand-name")).toHaveTextContent("Clario");
+    expect(screen.getByTestId("brand-name")).toHaveTextContent("Zemonie");
   });
 
   it("applies the className prop to the container", () => {

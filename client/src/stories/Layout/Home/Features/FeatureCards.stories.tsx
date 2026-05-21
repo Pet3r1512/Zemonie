@@ -28,7 +28,7 @@ export const Default: Story = {
 
     expect(
       canvas.getByText(
-        "Set up your salary schedule and recurring income. Clario automatically adds them on the right dates.",
+        "Set up your salary schedule and recurring income. Zemonie automatically adds them on the right dates.",
       ),
     ).toBeInTheDocument();
 
