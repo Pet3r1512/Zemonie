@@ -2,7 +2,8 @@
     "name": "zemonie",
     "private": true,
     "scripts": {
-        "dev": "concurrently \"pnpm --dir client dev\" \"pnpm --dir server dev\""
+        "dev": "concurrently \"pnpm --dir client dev\" \"pnpm --dir server dev\"",
+        "test:client": "pnpm --dir client test"
     },
     "devDependencies": {
         "concurrently": "^9.0.0"
