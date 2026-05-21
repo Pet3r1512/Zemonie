@@ -51,32 +51,32 @@ export default function useFetchTransactions({
 
   const filteredData = data
     ? {
-        ...data,
-        pages: data.pages.map((page) => ({
-          ...page,
-          transactions: page.transactions.transactions.filter(
-            (transaction: TransactionInfo) => {
-              if (option === "onlyIncome") {
-                return (
-                  transaction.categoryId &&
-                  transaction.categoryId >= 1 &&
-                  transaction.categoryId <= 7
-                );
-              }
+      ...data,
+      pages: data.pages.map((page) => ({
+        ...page,
+        transactions: page.transactions.transactions.filter(
+          (transaction: TransactionInfo) => {
+            if (option === "onlyIncome") {
+              return (
+                transaction.categoryId &&
+                transaction.categoryId >= 1 &&
+                transaction.categoryId <= 7
+              );
+            }
 
-              if (option === "onlyExpense") {
-                return (
-                  transaction.categoryId &&
-                  transaction.categoryId >= 8 &&
-                  transaction.categoryId <= 21
-                );
-              }
+            if (option === "onlyExpense") {
+              return (
+                transaction.categoryId &&
+                transaction.categoryId >= 8 &&
+                transaction.categoryId <= 21
+              );
+            }
 
-              return true;
-            },
-          ),
-        })),
-      }
+            return true;
+          },
+        ),
+      })),
+    }
     : undefined;
 
   return {
