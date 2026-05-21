@@ -29,6 +29,9 @@ jobs:
         run: pnpm install
 
       # CLIENT
+      - name: Install Playwright browsers
+        run: cd client && pnpm exec playwright install
+
       - name: Test client
         run: pnpm --dir client test
 
