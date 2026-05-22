@@ -12,7 +12,7 @@ export default function ExpensesOverallContainer() {
   const totalIncome = useFetchCurrentMonthIncome({ userId: userId! });
 
   const totalExpenseQuery = useQuery({
-    queryKey: ["totalExpenses"],
+    queryKey: ["totalIncomeQuery", userId],
     queryFn: () => getTotalExpensesByMonth({ userId: userId! }),
     enabled: !!userId,
     refetchOnWindowFocus: false,
@@ -21,7 +21,7 @@ export default function ExpensesOverallContainer() {
   });
 
   const highestExpenseQuery = useQuery({
-    queryKey: ["highestExpense"],
+    queryKey: ["highestExpense", userId],
     queryFn: () => getHighestExpenseCategory({ userId: userId! }),
     enabled: !!userId,
     refetchOnWindowFocus: false,
