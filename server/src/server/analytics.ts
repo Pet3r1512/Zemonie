@@ -160,8 +160,8 @@ export const analyticsRouter = router({
         const totalExpensesAmount = await prisma.transaction.aggregate({
             where: {
                 userId,
-                categoryId: {
-                    gte: 8
+                category: {
+                    type: "EXPENSE"
                 },
                 createdAt: {
                     gte: startOfMonth,
@@ -174,5 +174,5 @@ export const analyticsRouter = router({
         })
 
         return { totalExpensesAmount: totalExpensesAmount._sum.amount }
-    })
+    }),
 })
