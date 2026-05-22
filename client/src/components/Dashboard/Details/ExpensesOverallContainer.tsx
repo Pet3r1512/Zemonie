@@ -1,4 +1,4 @@
-import { ChartPie, DollarSign, MoveDown } from "lucide-react";
+import { ChartPie, DollarSign, MoveUp } from "lucide-react";
 import { OverallDataType } from "../Overall";
 import Data from "../Overall/Data";
 
@@ -8,8 +8,8 @@ export default function ExpensesOverallContainer() {
       name: "Total Expenses",
       subtitle: "This Month",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100">
-          <MoveDown className="text-green-500" />
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-red-100">
+          <MoveUp className="text-red-500" />
         </div>
       ),
       isLoading: false,
