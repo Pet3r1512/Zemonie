@@ -221,6 +221,11 @@ export const analyticsRouter = router({
             take: 1
         })
 
+        if (!highestExpenseCategory.length) {
+            return {}
+        }
+
+
         const highestCategoryName = await prisma.category.findUnique({
             where: {
                 id: Number(highestExpenseCategory[0].categoryId)
