@@ -4,7 +4,7 @@ export default function Features() {
   return (
     <section
       aria-label="features-section"
-      className="lg:my-24 text-center max-w-6xl mx-auto space-y-6"
+      className="min-h-screen flex flex-col justify-center items-center text-center max-w-6xl mx-auto space-y-6"
     >
       <h1
         role="heading"

@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section
       aria-label="hero-section"
-      className="lg:my-24 text-center max-w-6xl mx-auto space-y-10"
+      className="lg:mt-24 text-center max-w-6xl mx-auto space-y-10"
     >
       <h1 className="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
         Manage Your Finances with{" "}
