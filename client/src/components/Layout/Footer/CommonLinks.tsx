@@ -67,7 +67,7 @@ export default function CommonLinks() {
     },
   ];
   return (
-    <section className="flex-1 flex flex-col lg:flex-row lg:justify-end gap-x-48 gap-y-10">
+    <section className="flex-1 flex flex-col md:flex-row md:justify-end md:gap-x-18 lg:gap-x-48 gap-y-10">
       {links.map((link) => {
         return (
           <div key={link.title} className="flex flex-col gap-y-4">
