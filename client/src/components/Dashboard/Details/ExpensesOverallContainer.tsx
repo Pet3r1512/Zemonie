@@ -6,6 +6,7 @@ import getTotalExpensesByMonth from "@/api/users/analytics/expenses/getTotalExpe
 import useFetchUser from "@/hooks/useFetchUser";
 import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighestExpenseCategory";
 import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
+import calculateSaveRate from "./calculateSaveRate";
 
 export default function ExpensesOverallContainer() {
   const userId = useFetchUser();
@@ -41,11 +42,12 @@ export default function ExpensesOverallContainer() {
       isLoading: totalExpenseQuery.isLoading,
       isError: totalExpenseQuery.isError,
       amount:
-        totalExpenseQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount,
+        totalExpenseQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount ??
+        0,
     },
     {
       name: "Highest Category",
-      subtitle: highestExpenseQuery.data?.categoryName,
+      subtitle: highestExpenseQuery.data?.categoryName ?? "",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-purple-100">
           <ChartPie className="text-purple-600" />
@@ -53,7 +55,7 @@ export default function ExpensesOverallContainer() {
       ),
       isLoading: highestExpenseQuery.isLoading,
       isError: highestExpenseQuery.isError,
-      amount: highestExpenseQuery.data?.highestExpenseCategoryAmount,
+      amount: highestExpenseQuery.data?.highestExpenseCategoryAmount ?? 0,
     },
     {
       name: "Save Rate",
@@ -65,12 +67,11 @@ export default function ExpensesOverallContainer() {
       ),
       isLoading: false,
       isError: false,
-      amount:
-        ((totalIncome.data?.totalCurrentMonthIncome.totalIncome -
-          totalExpenseQuery.data?.totalCurrentMonthExpenses
-            .totalExpensesAmount) /
-          totalIncome.data?.totalCurrentMonthIncome.totalIncome) *
-        100,
+      amount: calculateSaveRate(
+        totalIncome.data?.totalCurrentMonthIncome.totalIncome ?? 0,
+        totalExpenseQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount ??
+          0,
+      ),
     },
   ];
   return (
