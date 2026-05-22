@@ -1,13 +1,15 @@
-import { ChartPie, DollarSign, MoveUp } from "lucide-react";
+import { ChartPie, MoveUp, Percent } from "lucide-react";
 import { OverallDataType } from "../Overall";
 import Data from "../Overall/Data";
 import { useQuery } from "@tanstack/react-query";
 import getTotalExpensesByMonth from "@/api/users/analytics/expenses/getTotalExpensesByMonth";
 import useFetchUser from "@/hooks/useFetchUser";
 import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighestExpenseCategory";
+import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
 
 export default function ExpensesOverallContainer() {
   const userId = useFetchUser();
+  const totalIncome = useFetchCurrentMonthIncome({ userId: userId! });
 
   const totalExpenseQuery = useQuery({
     queryKey: ["totalExpenses"],
@@ -54,16 +56,21 @@ export default function ExpensesOverallContainer() {
       amount: highestExpenseQuery.data?.highestExpenseCategoryAmount,
     },
     {
-      name: "Expense Growth",
-      subtitle: "vs Last Month",
+      name: "Save Rate",
+      subtitle: "Expense Ratio",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100">
-          <DollarSign className="text-yellow-600" />
+          <Percent className="text-yellow-600" />
         </div>
       ),
       isLoading: false,
       isError: false,
-      amount: 0,
+      amount:
+        ((totalIncome.data?.totalCurrentMonthIncome.totalIncome -
+          totalExpenseQuery.data?.totalCurrentMonthExpenses
+            .totalExpensesAmount) /
+          totalIncome.data?.totalCurrentMonthIncome.totalIncome) *
+        100,
     },
   ];
   return (
