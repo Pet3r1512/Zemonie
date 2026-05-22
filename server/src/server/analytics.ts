@@ -133,5 +133,31 @@ export const analyticsRouter = router({
         growthRate = Number(growthRate.toFixed(2));
 
         return { growthRate }
+    }),
+    totalExpensesOfMonth: publicProcedure.input(z.object({
+        userId: z.string(),
+        month: z.number().min(1).max(12).default(
+            new Date().getMonth() + 1
+        ),
+
+        year: z.number().default(
+            new Date().getFullYear()
+        ),
+    })).query(async ({ input }) => {
+        const { userId, month, year } = input
+
+        const totalExpensesAmount = await prisma.transaction.aggregate({
+            where: {
+                userId,
+                categoryId: {
+                    gte: 8
+                }
+            },
+            _sum: {
+                amount: true
+            }
+        })
+
+        return { totalExpensesAmount: totalExpensesAmount._sum.amount }
     })
 })
