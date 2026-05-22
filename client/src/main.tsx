@@ -4,8 +4,12 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import "./index.css";
 import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import LoadingScreen from "./components/Layout/LoadingScreen";
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  defaultPendingComponent: LoadingScreen,
+});
 
 const queryClient = new QueryClient();
 
