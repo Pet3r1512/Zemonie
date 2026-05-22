@@ -133,5 +133,103 @@ export const analyticsRouter = router({
         growthRate = Number(growthRate.toFixed(2));
 
         return { growthRate }
+    }),
+    totalExpensesOfMonth: publicProcedure.input(z.object({
+        userId: z.string(),
+        month: z.number().min(1).max(12).default(
+            new Date().getMonth() + 1
+        ),
+
+        year: z.number().default(
+            new Date().getFullYear()
+        ),
+    })).query(async ({ input }) => {
+        const { userId, month, year } = input
+
+        const startOfMonth = new Date(year, month - 1, 1);
+
+        const endOfMonth = new Date(
+            year,
+            month,
+            0,
+            23,
+            59,
+            59
+        );
+
+        const totalExpensesAmount = await prisma.transaction.aggregate({
+            where: {
+                userId,
+                category: {
+                    type: "EXPENSE"
+                },
+                createdAt: {
+                    gte: startOfMonth,
+                    lte: endOfMonth,
+                }
+            },
+            _sum: {
+                amount: true
+            }
+        })
+
+        return { totalExpensesAmount: totalExpensesAmount._sum.amount }
+    }),
+    highestExpenseCategory: publicProcedure.input(z.object({
+        userId: z.string(),
+        month: z.number().min(1).max(12).default(
+            new Date().getMonth() + 1
+        ),
+
+        year: z.number().default(
+            new Date().getFullYear()
+        ),
+    })).query(async ({ input }) => {
+        const { userId, month, year } = input
+
+        const startOfMonth = new Date(year, month - 1, 1);
+
+        const endOfMonth = new Date(
+            year,
+            month,
+            0,
+            23,
+            59,
+            59
+        );
+
+        const highestExpenseCategory = await prisma.transaction.groupBy({
+            by: ["categoryId"],
+            where: {
+                userId,
+                category: {
+                    type: "EXPENSE"
+                },
+                createdAt: {
+                    gte: startOfMonth,
+                    lte: endOfMonth
+                }
+            },
+            _sum: {
+                amount: true
+            },
+            orderBy: {
+                _sum: {
+                    amount: "desc"
+                }
+            },
+            take: 1
+        })
+
+        const highestCategoryName = await prisma.category.findUnique({
+            where: {
+                id: Number(highestExpenseCategory[0].categoryId)
+            },
+            select: {
+                name: true
+            }
+        })
+
+        return { highestExpenseCategoryAmount: highestExpenseCategory[0]._sum.amount, categoryName: highestCategoryName?.name }
     })
 })

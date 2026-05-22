@@ -3,9 +3,9 @@ import { OverallDataType } from "../Overall";
 import Data from "../Overall/Data";
 import { useQuery } from "@tanstack/react-query";
 import useFetchUser from "@/hooks/useFetchUser";
-import getTotalIncomeByMonth from "@/api/users/transactions/getTotalIncomeByMonth";
-import getHighestIncomeOfMonth from "@/api/users/analytics/getHighestIncomeOfMonth";
-import getIncomeGrowth from "@/api/users/analytics/getIncomeGrowth";
+import getHighestIncomeOfMonth from "@/api/users/analytics/income/getHighestIncomeOfMonth";
+import getIncomeGrowth from "@/api/users/analytics/income/getIncomeGrowth";
+import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed
@@ -14,19 +14,7 @@ const currentYear = now.getFullYear();
 export default function IncomeOverallContainer() {
   const userId = useFetchUser();
 
-  const totalIncomeQuery = useQuery({
-    queryKey: ["totalIncome", userId],
-    queryFn: () =>
-      getTotalIncomeByMonth({
-        userId: userId!,
-        month: currentMonth,
-        year: currentYear,
-      }),
-    enabled: !!userId,
-    refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 mins
-    gcTime: 30 * 60 * 1000, // 30 mins
-  });
+  const totalIncomeQuery = useFetchCurrentMonthIncome({ userId: userId! });
 
   const highestIncomeOfMonth = useQuery({
     queryKey: ["highestIncomeOfMonth", userId],

@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
+import ExpensesOverallContainer from "@/components/Dashboard/Details/ExpensesOverallContainer";
 import DetailTableContainer from "@/components/Dashboard/Details/tables/DetailTableContainer";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -12,6 +13,7 @@ function RouteComponent() {
       section="Expenses"
       sectionDesc="Track and manage your spending"
     >
+      <ExpensesOverallContainer />
       <DetailTableContainer option="onlyExpense" />
     </DashboardLayout>
   );

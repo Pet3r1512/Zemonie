@@ -47,6 +47,12 @@ export function ExpenseForm() {
         queryKey: ["balance"],
       });
       useBalanceStore.getState().markUpdated(false);
+      queryClient.invalidateQueries({
+        queryKey: ["totalIncomeQuery"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["highestExpense"],
+      });
     },
   });
 

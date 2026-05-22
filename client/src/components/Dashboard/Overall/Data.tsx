@@ -23,11 +23,12 @@ export default function Data({ data }: { data: OverallDataType }) {
         <div
           className={cn(
             "lg:text-xl font-semibold flex items-center gap-1",
-            data.name === "Income Growth" &&
-              (data.amount >= 0 ? "text-green-500" : "text-red-500"),
+            data.name === "Income Growth" ||
+              (data.name === "Save Rate" &&
+                (data.amount >= 0 ? "text-green-500" : "text-red-500")),
           )}
         >
-          {data.name !== "Income Growth" ? (
+          {data.name !== "Income Growth" && data.name !== "Save Rate" ? (
             <div className="relative">
               {data.isLoading && (
                 <Skeleton className="absolute inset-0 w-1/2 h-7" />
