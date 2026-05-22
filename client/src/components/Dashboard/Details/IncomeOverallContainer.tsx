@@ -3,7 +3,7 @@ import { OverallDataType } from "../Overall";
 import Data from "../Overall/Data";
 import { useQuery } from "@tanstack/react-query";
 import useFetchUser from "@/hooks/useFetchUser";
-import getTotalIncomeByMonth from "@/api/users/transactions/getTotalIncomeByMonth";
+import getTotalIncomeByMonth from "@/api/users/analytics/income/getTotalIncomeByMonth";
 import getHighestIncomeOfMonth from "@/api/users/analytics/income/getHighestIncomeOfMonth";
 import getIncomeGrowth from "@/api/users/analytics/income/getIncomeGrowth";
 
