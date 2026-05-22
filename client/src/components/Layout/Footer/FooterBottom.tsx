@@ -2,9 +2,10 @@ import { ExternalLink } from "lucide-react";
 
 export default function FooterBottom() {
   return (
-    <div className="text-gray-500 flex justify-between">
+    <div className="text-gray-500 flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-y-5">
       <p className="cursor-default">
-        © {new Date().getFullYear().toString()} Zemonie. All rights reserved.
+        © {new Date().getFullYear().toString()}{" "}
+        <strong className="text-primary">Zemonie</strong>. All rights reserved.
       </p>
       <a
         href="https://github.com/Pet3r1512/Zemonie"
