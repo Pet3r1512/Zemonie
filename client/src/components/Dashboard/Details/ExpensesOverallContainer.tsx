@@ -8,13 +8,26 @@ import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighest
 import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
 import calculateSaveRate from "./calculateSaveRate";
 
+const now = new Date();
+const currentMonth = now.getMonth() + 1; // 1-indexed
+const currentYear = now.getFullYear();
+
 export default function ExpensesOverallContainer() {
   const userId = useFetchUser();
-  const totalIncome = useFetchCurrentMonthIncome({ userId: userId! });
+  const totalIncome = useFetchCurrentMonthIncome({
+    userId: userId!,
+    month: currentMonth,
+    year: currentYear,
+  });
 
   const totalExpenseQuery = useQuery({
     queryKey: ["totalIncomeQuery", userId],
-    queryFn: () => getTotalExpensesByMonth({ userId: userId! }),
+    queryFn: () =>
+      getTotalExpensesByMonth({
+        userId: userId!,
+        month: currentMonth,
+        year: currentYear,
+      }),
     enabled: !!userId,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
@@ -23,7 +36,12 @@ export default function ExpensesOverallContainer() {
 
   const highestExpenseQuery = useQuery({
     queryKey: ["highestExpense", userId],
-    queryFn: () => getHighestExpenseCategory({ userId: userId! }),
+    queryFn: () =>
+      getHighestExpenseCategory({
+        userId: userId!,
+        month: currentMonth,
+        year: currentYear,
+      }),
     enabled: !!userId,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
