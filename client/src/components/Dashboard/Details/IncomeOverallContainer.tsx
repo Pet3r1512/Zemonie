@@ -14,7 +14,11 @@ const currentYear = now.getFullYear();
 export default function IncomeOverallContainer() {
   const userId = useFetchUser();
 
-  const totalIncomeQuery = useFetchCurrentMonthIncome({ userId: userId! });
+  const totalIncomeQuery = useFetchCurrentMonthIncome({
+    userId: userId!,
+    month: currentMonth,
+    year: currentYear,
+  });
 
   const highestIncomeOfMonth = useQuery({
     queryKey: ["highestIncomeOfMonth", userId],
