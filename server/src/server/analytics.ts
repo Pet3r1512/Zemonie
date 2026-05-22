@@ -146,11 +146,26 @@ export const analyticsRouter = router({
     })).query(async ({ input }) => {
         const { userId, month, year } = input
 
+        const startOfMonth = new Date(year, month - 1, 1);
+
+        const endOfMonth = new Date(
+            year,
+            month,
+            0,
+            23,
+            59,
+            59
+        );
+
         const totalExpensesAmount = await prisma.transaction.aggregate({
             where: {
                 userId,
                 categoryId: {
                     gte: 8
+                },
+                createdAt: {
+                    gte: startOfMonth,
+                    lte: endOfMonth,
                 }
             },
             _sum: {
