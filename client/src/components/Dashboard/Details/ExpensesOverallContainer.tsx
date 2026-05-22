@@ -8,6 +8,9 @@ import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighest
 import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
 import calculateSaveRate from "./calculateSaveRate";
 
+const now = new Date();
+const currentMonth = now.getMonth() + 1; // 1-indexed
+const currentYear = now.getFullYear();
 export default function ExpensesOverallContainer() {
   const userId = useFetchUser();
   const totalIncome = useFetchCurrentMonthIncome({ userId: userId! });
