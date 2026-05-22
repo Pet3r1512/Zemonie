@@ -6,6 +6,7 @@ import { useNavigate } from "@tanstack/react-router";
 import getGlobalCategories from "@/api/categories/getGlobalCategories";
 import { Toaster } from "sonner";
 import useFetchSession from "@/hooks/useFetchSession";
+import LoadingScreen from "../Layout/LoadingScreen";
 
 export default function DashboardLayout({
   children,
@@ -46,7 +47,7 @@ export default function DashboardLayout({
   }
 
   if (sessionQuery.isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   if (!sessionQuery.data) {
