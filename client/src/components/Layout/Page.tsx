@@ -18,7 +18,7 @@ export default function Page({
         role="page-body"
         className={cn("flex flex-col mx-auto max-w-360", pageName)}
       >
-        <div className={cn("mx-auto w-full max-w-7xl px-6", className)}>
+        <div className={cn("mx-auto w-full max-w-7xl px-5 lg:px-0", className)}>
           {children}
         </div>
       </section>
