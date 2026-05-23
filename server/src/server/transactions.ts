@@ -124,54 +124,52 @@ export const transactionsRouter = router({
 
         return { newTransaction, newBalance: newBalance.amount }
     }),
-    getTotalIncomeByMonth: publicProcedure
-        .input(
-            z.object({
-                userId: z.string(),
+    getTotalIncomeByMonth: publicProcedure.input(
+        z.object({
+            userId: z.string(),
 
-                month: z.number().min(1).max(12).default(
-                    new Date().getMonth() + 1
-                ),
+            month: z.number().min(1).max(12).default(
+                new Date().getMonth() + 1
+            ),
 
-                year: z.number().default(
-                    new Date().getFullYear()
-                ),
-            })
-        )
-        .query(async ({ input }) => {
-            const { userId, month, year } = input;
+            year: z.number().default(
+                new Date().getFullYear()
+            ),
+        })
+    ).query(async ({ input }) => {
+        const { userId, month, year } = input;
 
-            const startOfMonth = new Date(year, month - 1, 1);
+        const startOfMonth = new Date(year, month - 1, 1);
 
-            const endOfMonth = new Date(
-                year,
-                month,
-                0,
-                23,
-                59,
-                59
-            );
+        const endOfMonth = new Date(
+            year,
+            month,
+            0,
+            23,
+            59,
+            59
+        );
 
-            const totalIncome = await prisma.transaction.aggregate({
-                _sum: {
-                    amount: true,
+        const totalIncome = await prisma.transaction.aggregate({
+            _sum: {
+                amount: true,
+            },
+            where: {
+                userId,
+                categoryId: {
+                    lt: 8,
                 },
-                where: {
-                    userId,
-                    categoryId: {
-                        lt: 8,
-                    },
-                    createdAt: {
-                        gte: startOfMonth,
-                        lte: endOfMonth,
-                    },
+                createdAt: {
+                    gte: startOfMonth,
+                    lte: endOfMonth,
                 },
-            });
+            },
+        });
 
-            return {
-                totalIncome: totalIncome._sum.amount ?? 0,
-            };
-        }),
+        return {
+            totalIncome: totalIncome._sum.amount ?? 0,
+        };
+    }),
     getLatestIncomeAndExpenses: publicProcedure.input(z.object({
         userId: z.string()
     })).query(async ({ input }) => {
