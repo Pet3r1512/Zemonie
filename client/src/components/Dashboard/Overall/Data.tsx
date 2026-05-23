@@ -15,7 +15,7 @@ export default function Data({ data }: { data: OverallDataType }) {
   return (
     <Card className="w-full py-3.5 px-5 gap-2.5 shadow-lg lg:hover:shadow-2xl transition-all duration-150 ease-linear">
       <div className="flex items-center justify-between">
-        <p className="lg:text-xl font-extrabold">{data.name}</p>
+        <p className="lg:text-xl font-extrabold truncate">{data.name}</p>
         {data.icon}
       </div>
 
@@ -77,7 +77,9 @@ export default function Data({ data }: { data: OverallDataType }) {
         </div>
       )}
 
-      <p className="text-gray-400 lg:text-sm">{data.subtitle}</p>
+      <p className="text-gray-400 lg:text-sm">
+        {data.isLoading ? <Skeleton className="h-4 w-24" /> : data.subtitle}
+      </p>
     </Card>
   );
 }
