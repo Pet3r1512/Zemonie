@@ -15,6 +15,8 @@ const app = new Hono<{
   };
 }>();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 app.use(
   "*",
   cors({
@@ -22,7 +24,7 @@ app.use(
       const allowed = [
         "https://www.zemonie.site",
         "https://zemonie.site",
-        // "http://localhost:5173", // uncomment for local dev
+        ...(!isProduction ? ["http://localhost:5173"] : []),
       ];
       return allowed.includes(origin) ? origin : null;
     },
