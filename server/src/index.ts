@@ -22,13 +22,14 @@ app.use(
       const allowed = [
         "https://www.zemonie.site",
         "https://zemonie.site",
-        "http://localhost:5173",
+        // "http://localhost:5173", // uncomment for local dev
       ];
       return allowed.includes(origin) ? origin : null;
     },
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    exposeHeaders: ["Content-Length", "Set-Cookie"],
+    allowHeaders: ["Content-Type", "Authorization", "Cookie"],
+    exposeHeaders: ["Content-Length"],
     maxAge: 600,
   }),
 );
