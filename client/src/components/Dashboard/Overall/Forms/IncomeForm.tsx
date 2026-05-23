@@ -65,6 +65,9 @@ export function IncomeForm() {
         queryKey: ["highestIncomeOfMonth", userId],
       });
       queryClient.invalidateQueries({ queryKey: ["incomeRate", userId] });
+      queryClient.invalidateQueries({
+        queryKey: ["latestTransactions", userId],
+      });
     },
   });
 

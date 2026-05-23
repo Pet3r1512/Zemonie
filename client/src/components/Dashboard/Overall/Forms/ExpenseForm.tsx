@@ -23,16 +23,18 @@ import { Transaction } from "./IncomeForm";
 import ExpenseSelect from "./Selectors/ExpenseSelector";
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import useBalanceStore from "@/store/store";
+import useFetchUser from "@/hooks/useFetchUser";
 
 export function ExpenseForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const methods = useForm<Transaction>();
   const queryClient = useQueryClient();
+  const userId = useFetchUser();
 
   const { register, handleSubmit, reset } = methods;
 
   const mutation = useMutation({
-    mutationKey: ["income"],
+    mutationKey: ["expense"],
     mutationFn: createNewTransaction,
     onError: (error) => {
       console.error(error?.message);
@@ -48,10 +50,13 @@ export function ExpenseForm() {
       });
       useBalanceStore.getState().markUpdated(false);
       queryClient.invalidateQueries({
-        queryKey: ["totalIncomeQuery"],
+        queryKey: ["totalIncomeQuery", userId],
       });
       queryClient.invalidateQueries({
-        queryKey: ["highestExpense"],
+        queryKey: ["highestExpense", userId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["latestTransactions", userId],
       });
     },
   });
