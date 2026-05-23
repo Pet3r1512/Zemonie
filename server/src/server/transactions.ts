@@ -177,24 +177,33 @@ export const transactionsRouter = router({
     })).query(async ({ input }) => {
         const { userId } = input
 
-        const latestIncome = await prisma.transaction.findFirst({
+        const latestIncome = await prisma.transaction.findMany({
             where: {
                 userId,
                 category: {
                     type: "INCOME"
                 }
-            }
+            },
+            orderBy: {
+                createdAt: "desc"
+            },
+            take: 1
         })
 
-        const latestExpense = await prisma.transaction.findFirst({
+        const latestExpense = await prisma.transaction.findMany({
             where: {
                 userId,
                 category: {
                     type: "EXPENSE"
                 }
-            }
+            },
+            orderBy: {
+                createdAt: "desc"
+            },
+            take: 1
         })
 
-        return { latestIncome: latestIncome, latestExpense: latestExpense }
+
+        return { latestIncome: latestIncome[0], latestExpense: latestExpense[0] }
     })
 })
