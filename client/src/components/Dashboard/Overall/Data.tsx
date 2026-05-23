@@ -77,9 +77,9 @@ export default function Data({ data }: { data: OverallDataType }) {
         </div>
       )}
 
-      <p className="text-gray-400 lg:text-sm">
+      <div className="text-gray-400 lg:text-sm">
         {data.isLoading ? <Skeleton className="h-4 w-24" /> : data.subtitle}
-      </p>
+      </div>
     </Card>
   );
 }
