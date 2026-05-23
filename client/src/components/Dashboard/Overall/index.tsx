@@ -2,9 +2,9 @@ import { MoveDown, MoveUp, Wallet } from "lucide-react";
 import Data from "./Data";
 import { useQuery } from "@tanstack/react-query";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
-import { authClient } from "@/lib/auth-client";
 import { ReactNode } from "react";
 import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
+import useFetchUser from "@/hooks/useFetchUser";
 
 export type OverallDataType = {
   name: string;
@@ -16,13 +16,7 @@ export type OverallDataType = {
 };
 
 export default function Overall() {
-  const userQuery = useQuery({
-    queryKey: ["auth", "session"],
-    queryFn: () => authClient.getSession(),
-    staleTime: 1000 * 60 * 5,
-  });
-
-  const userId = userQuery.data?.data?.user?.id;
+  const userId = useFetchUser();
 
   const balanceQuery = useQuery({
     queryKey: ["balance", userId],
