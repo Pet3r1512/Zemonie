@@ -15,6 +15,8 @@ const app = new Hono<{
   };
 }>();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 app.use(
   "*",
   cors({
@@ -22,14 +24,14 @@ app.use(
       const allowed = [
         "https://www.zemonie.site",
         "https://zemonie.site",
-        "http://localhost:5173",
-        "http://192.168.50.89:5173",
+        ...(!isProduction ? ["http://localhost:5173"] : []),
       ];
       return allowed.includes(origin) ? origin : null;
     },
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    exposeHeaders: ["Content-Length", "Set-Cookie"],
+    allowHeaders: ["Content-Type", "Authorization", "Cookie"],
+    exposeHeaders: ["Content-Length"],
     maxAge: 600,
   }),
 );
