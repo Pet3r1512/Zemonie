@@ -23,7 +23,6 @@ app.use(
         "https://www.zemonie.site",
         "https://zemonie.site",
         "http://localhost:5173",
-        "http://192.168.50.89:5173",
       ];
       return allowed.includes(origin) ? origin : null;
     },
