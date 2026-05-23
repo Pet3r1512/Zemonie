@@ -171,5 +171,30 @@ export const transactionsRouter = router({
             return {
                 totalIncome: totalIncome._sum.amount ?? 0,
             };
+        }),
+    getLatestIncomeAndExpenses: publicProcedure.input(z.object({
+        userId: z.string()
+    })).query(async ({ input }) => {
+        const { userId } = input
+
+        const latestIncome = await prisma.transaction.findFirst({
+            where: {
+                userId,
+                category: {
+                    type: "INCOME"
+                }
+            }
         })
+
+        const latestExpense = await prisma.transaction.findFirst({
+            where: {
+                userId,
+                category: {
+                    type: "EXPENSE"
+                }
+            }
+        })
+
+        return { latestIncome: latestIncome, latestExpense: latestExpense }
+    })
 })
