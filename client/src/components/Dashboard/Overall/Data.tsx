@@ -8,6 +8,10 @@ import NumberFlow from "@number-flow/react";
 const GROWTH_RATE_ICON_SIZE = 16;
 
 export default function Data({ data }: { data: OverallDataType }) {
+  const isRateCard = data.name === "Income Growth" || data.name === "Save Rate";
+
+  const rateColor = data.amount >= 0 ? "text-green-500" : "text-red-500";
+
   return (
     <Card className="w-full py-3.5 px-5 gap-2.5 shadow-lg lg:hover:shadow-2xl transition-all duration-150 ease-linear">
       <div className="flex items-center justify-between">
@@ -23,16 +27,15 @@ export default function Data({ data }: { data: OverallDataType }) {
         <div
           className={cn(
             "lg:text-xl font-semibold flex items-center gap-1",
-            data.name === "Income Growth" ||
-              (data.name === "Save Rate" &&
-                (data.amount >= 0 ? "text-green-500" : "text-red-500")),
+            isRateCard && rateColor,
           )}
         >
-          {data.name !== "Income Growth" && data.name !== "Save Rate" ? (
+          {!isRateCard ? (
             <div className="relative">
               {data.isLoading && (
                 <Skeleton className="absolute inset-0 w-1/2 h-7" />
               )}
+
               <NumberFlow
                 className={data.isLoading ? "invisible" : ""}
                 aria-hidden={data.isLoading}
@@ -48,6 +51,7 @@ export default function Data({ data }: { data: OverallDataType }) {
               {data.isLoading && (
                 <Skeleton className="absolute inset-0 w-1/2 h-7" />
               )}
+
               <NumberFlow
                 className={data.isLoading ? "invisible" : ""}
                 aria-hidden={data.isLoading}
@@ -57,6 +61,7 @@ export default function Data({ data }: { data: OverallDataType }) {
                   maximumFractionDigits: 2,
                 }}
               />
+
               {!data.isLoading && (
                 <>
                   %

@@ -42,7 +42,7 @@ export default function SignInForm({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-6 w-full md:max-w-md lg:max-w-lg",
+        "flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg",
         className,
       )}
     >

@@ -51,7 +51,7 @@ export default function TransactionSummary({
   return (
     <div
       ref={lastElementRef}
-      className="px-2.5 py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 lg:hover:bg-gray-200 transition-all duration-150 ease-linear"
+      className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 lg:hover:bg-gray-200 transition-all duration-150 ease-linear"
     >
       {currCategory &&
         TransactionTypeDictionary[
@@ -60,13 +60,13 @@ export default function TransactionSummary({
             : (CategoryType[currCategory.type] as keyof ComponentMap)
         ]}
 
-      <div className="space-y-2 flex-1">
+      <div className="space-y-0.5 lg:space-y-2 flex-1">
         <p className="font-semibold">{currCategory?.name}</p>
         <p>{transaction.description}</p>
       </div>
 
       <p
-        className={`text-xl font-semibold ${
+        className={`lg:text-xl font-semibold ${
           currCategory
             ? TransactionAmountTextColor[
                 typeof currCategory.type === "string"
