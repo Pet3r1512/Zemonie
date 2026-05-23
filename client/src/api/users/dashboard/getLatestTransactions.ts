@@ -16,7 +16,6 @@ export default async function getLatestTransactions({ userId }: { userId: string
     }
 
     return {
-        lastestIncome: res.result.data.lastestIncome,
-        lastestExpense: res.result.data.latestExpense
+        result: res.result.data
     }
 }
