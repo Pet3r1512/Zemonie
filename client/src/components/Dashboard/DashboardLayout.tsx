@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import AccountSetupForm from "./Setup/AccountSetupForm";
 import LoadingScreen from "../Layout/LoadingScreen";
 import { authClient } from "@/lib/auth-client";
+import checkUserSetup from "@/api/users/checkUserSetup";
 
 export default function DashboardLayout({
   children,
@@ -27,12 +28,18 @@ export default function DashboardLayout({
     enabled: !sessionStorage.getItem("globalCategories"),
   });
 
+  const setupQuery = useQuery({
+    queryKey: ["userSetupStatus"],
+    queryFn: () => checkUserSetup(),
+    enabled: !!sessionQuery.data?.user.id,
+    staleTime: 0,
+  });
+
   useEffect(() => {
-    console.log(sessionQuery.data);
     if (!sessionQuery.data?.session) {
       navigate({ to: "/auth/signin", replace: true });
     }
-  }, [navigate, sessionQuery]);
+  }, [navigate, sessionQuery.data]);
 
   if (!getGlobalCategoriesQuery.isLoading && getGlobalCategoriesQuery.data) {
     sessionStorage.setItem(
@@ -43,12 +50,11 @@ export default function DashboardLayout({
     );
   }
 
-  if (sessionQuery.isPending) {
+  if (sessionQuery.isPending || setupQuery.isPending) {
     return <LoadingScreen />;
   }
 
-  if (!sessionQuery.data?.user.isSetupDone) {
-    console.log(sessionQuery.data?.user);
+  if (!setupQuery.data?.isSetupDone) {
     return (
       <div className="w-screen h-screen flex items-center justify-center bg-transparent absolute">
         <AccountSetupForm />
