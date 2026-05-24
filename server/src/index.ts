@@ -24,7 +24,7 @@ app.use(
       const allowed = [
         "https://www.zemonie.site",
         "https://zemonie.site",
-        ...(!isProduction ? ["http://localhost:5173"] : []),
+        "http://localhost:5173"
       ];
       return allowed.includes(origin) ? origin : null;
     },
