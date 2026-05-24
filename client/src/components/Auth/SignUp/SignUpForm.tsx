@@ -70,7 +70,7 @@ export default function SignUpForm({ className }: { className?: string }) {
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
-          <div className="flex items-center gap-x-2.5">
+          <div className="flex items-center gap-x-2.5 cursor-default">
             <img
               src="/logo/zemonie-icon-light.svg"
               alt=""
