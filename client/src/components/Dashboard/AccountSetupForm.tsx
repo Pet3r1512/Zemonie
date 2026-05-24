@@ -124,7 +124,29 @@ export default function AccountSetupForm({
                   <SelectTrigger id="source" name="source" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white w-full"></SelectContent>
+                  <SelectContent className="bg-white w-full">
+                    <SelectGroup>
+                      {currencyLists.map((currency) => {
+                        return (
+                          <SelectItem
+                            key={currency.code}
+                            className="lg:hover:bg-gray-200"
+                            value={currency.code}
+                            disabled={currency.code === "VND"}
+                          >
+                            <div className="flex gap-x-2">
+                              <img
+                                src={currency.img}
+                                alt={currency.name}
+                                className="rounded-full object-contain"
+                              />
+                              <p>{currency.name}</p>
+                            </div>
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectGroup>
+                  </SelectContent>
                 </Select>
               </div>
             </div>
