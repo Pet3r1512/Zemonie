@@ -8,6 +8,7 @@ export default async function SignUpEmail(credentials: SignUpFormType) {
     name: name,
     email: email,
     password: password,
+    isSetupDone: false
   });
 
   if (error) {

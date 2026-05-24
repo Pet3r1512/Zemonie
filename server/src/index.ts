@@ -2,11 +2,11 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "./server/_index";
-import auth from "./lib/auth";
 import "dotenv/config";
 import { env } from "./env";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma from "./lib/prisma";
+import { auth } from "./lib/auth";
 
 const app = new Hono<{
   Variables: {
@@ -84,6 +84,21 @@ app.get("/session", async (c) => {
     user: session.user,
     session: session.session,
   });
+});
+
+app.get("/api/users/me", async (c) => {
+  const user = c.get("user");
+
+  if (!user) {
+    return c.json({ message: "Unauthorized" }, 401);
+  }
+
+  const dbUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: { isSetupDone: true },
+  });
+
+  return c.json(dbUser);
 });
 
 app.get("/api/ping", async (c) => {

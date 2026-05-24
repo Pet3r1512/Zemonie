@@ -5,8 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import getGlobalCategories from "@/api/categories/getGlobalCategories";
 import { Toaster } from "sonner";
-import useFetchSession from "@/hooks/useFetchSession";
+import AccountSetupForm from "./Setup/AccountSetupForm";
 import LoadingScreen from "../Layout/LoadingScreen";
+import { authClient } from "@/lib/auth-client";
+import checkUserSetup from "@/api/users/checkUserSetup";
 
 export default function DashboardLayout({
   children,
@@ -18,7 +20,7 @@ export default function DashboardLayout({
   sectionDesc?: string;
 }) {
   const navigate = useNavigate();
-  const sessionQuery = useFetchSession();
+  const sessionQuery = authClient.useSession();
 
   const getGlobalCategoriesQuery = useQuery({
     queryKey: ["globalCategories"],
@@ -26,16 +28,18 @@ export default function DashboardLayout({
     enabled: !sessionStorage.getItem("globalCategories"),
   });
 
-  useEffect(() => {
-    if (sessionQuery.isFetched) {
-      const hasValidSession =
-        sessionQuery.data?.data?.user || sessionQuery.data?.data?.session;
+  const setupQuery = useQuery({
+    queryKey: ["userSetupStatus"],
+    queryFn: () => checkUserSetup(),
+    enabled: !!sessionQuery.data?.user.id,
+    staleTime: 0,
+  });
 
-      if (!hasValidSession) {
-        navigate({ to: "/auth/signin", replace: true });
-      }
+  useEffect(() => {
+    if (!sessionQuery.data?.session) {
+      navigate({ to: "/auth/signin", replace: true });
     }
-  }, [sessionQuery.isFetched, sessionQuery.data, navigate]);
+  }, [navigate, sessionQuery.data]);
 
   if (!getGlobalCategoriesQuery.isLoading && getGlobalCategoriesQuery.data) {
     sessionStorage.setItem(
@@ -46,12 +50,16 @@ export default function DashboardLayout({
     );
   }
 
-  if (sessionQuery.isLoading) {
+  if (sessionQuery.isPending || setupQuery.isPending) {
     return <LoadingScreen />;
   }
 
-  if (!sessionQuery.data) {
-    return null;
+  if (!setupQuery.data?.isSetupDone) {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center bg-transparent absolute">
+        <AccountSetupForm />
+      </div>
+    );
   }
 
   return (
