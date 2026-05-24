@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { cn } from "@/lib/utils";
@@ -18,7 +17,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useFetchUser from "@/hooks/useFetchUser";
 import accountSetup from "@/api/users/accountSetup";
 import { Currency } from "@/api/users/createBalance";
-import { useRouter } from "@tanstack/react-router";
 
 export type AccountSetupFormValues = {
   userId: string;
@@ -54,7 +52,6 @@ export default function AccountSetupForm({
   className?: string;
 }) {
   const userId = useFetchUser();
-  const router = useRouter();
   const queryClient = useQueryClient();
   const {
     register,
@@ -81,10 +78,9 @@ export default function AccountSetupForm({
         ...credentials,
         userId: userId || "",
       }),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["session"] });
 
-      router.navigate({ to: "/dashboard" });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["userSetupStatus"] });
     },
   });
 
