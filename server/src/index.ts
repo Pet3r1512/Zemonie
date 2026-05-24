@@ -15,8 +15,6 @@ const app = new Hono<{
   };
 }>();
 
-const isProduction = process.env.NODE_ENV === "production";
-
 app.use(
   "*",
   cors({
