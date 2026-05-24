@@ -7,6 +7,7 @@ import getGlobalCategories from "@/api/categories/getGlobalCategories";
 import { Toaster } from "sonner";
 import useFetchSession from "@/hooks/useFetchSession";
 import LoadingScreen from "../Layout/LoadingScreen";
+import AccountSetupForm from "./AccountSetupForm";
 
 export default function DashboardLayout({
   children,
@@ -52,6 +53,14 @@ export default function DashboardLayout({
 
   if (!sessionQuery.data) {
     return null;
+  }
+
+  if (!sessionQuery.data.data?.user.isSetupDone) {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center bg-transparent absolute">
+        <AccountSetupForm />
+      </div>
+    );
   }
 
   return (
