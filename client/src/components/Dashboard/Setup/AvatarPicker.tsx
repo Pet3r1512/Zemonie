@@ -15,6 +15,19 @@ const avatars = [
   "owl",
 ] as const;
 
+const avatarColors: Record<AvatarId, string> = {
+  fox: "#FFD05B",
+  cat: "#B3D9F7",
+  panda: "#D9F5D6",
+  bunny: "#7C85D8",
+  dino: "#5DBD6A",
+  bear: "#EDE7F6",
+  robot: "#A8D8E8",
+  shroom: "#FFF0F5",
+  fish: "#D6F1FF",
+  owl: "#534AB7",
+};
+
 export type AvatarId = (typeof avatars)[number];
 
 interface AvatarPickerProps {
@@ -53,11 +66,15 @@ export default function AvatarPicker({
             key={avatar}
             type="button"
             onClick={() => onChange?.(avatar)}
+            style={{
+              backgroundColor: selected
+                ? `${avatarColors[avatar]}50`
+                : `${avatarColors[avatar]}25`,
+              borderColor: selected ? avatarColors[avatar] : undefined,
+            }}
             className={cn(
-              "rounded-xl border p-2 transition-all duration-200 hover:scale-[1.02] flex flex-col items-center justify-center object-cover",
-              selected
-                ? "border-primary bg-primary/0"
-                : "border-border hover:border-primary/40",
+              "rounded-xl border p-2 transition-all duration-200 hover:scale-[1.02] flex flex-col items-center min-h-30",
+              selected ? "shadow-md" : "",
             )}
           >
             <div className="flex items-center justify-center w-full flex-1">
