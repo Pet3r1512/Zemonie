@@ -37,10 +37,11 @@ export default function AvatarPicker({
   } else if (screenSize === "md") {
     size = 64;
   }
+
   return (
     <div
       className={cn(
-        "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5",
+        "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5",
         className,
       )}
     >
@@ -53,20 +54,22 @@ export default function AvatarPicker({
             type="button"
             onClick={() => onChange?.(avatar)}
             className={cn(
-              "rounded-xl border p-2 transition-all duration-200 hover:scale-[1.02] flex flex-col items-center justify-center",
+              "rounded-xl border p-2 transition-all duration-200 hover:scale-[1.02] flex flex-col items-center justify-center object-cover",
               selected
                 ? "border-primary bg-primary/0"
                 : "border-border hover:border-primary/40",
             )}
           >
-            <svg
-              width={size}
-              height={size}
-              viewBox="0 0 100 100"
-              className="mx-auto"
-            >
-              <use href={`#avatar-${avatar}`} />
-            </svg>
+            <div className="flex items-center justify-center w-full flex-1">
+              <svg
+                width={size}
+                height={size}
+                viewBox="0 0 100 100"
+                className="shrink-0"
+              >
+                <use href={`#avatar-${avatar}`} />
+              </svg>
+            </div>
 
             <p className="mt-1 text-xs font-medium capitalize">{avatar}</p>
           </button>
