@@ -11,11 +11,17 @@ export const userRouter = router({
     })).mutation(async ({ input }) => {
         const { userId, avatarId, currency } = input
 
-        await prisma.balance.create({
-            data: {
-                userId: userId,
-                amount: 0,
+        await prisma.balance.upsert({
+            where: {
+                userId
+            },
+            update: {
                 currency: currency as SupportedCurrency
+            },
+            create: {
+                userId,
+                amount: 0,
+                currency: "AUD"
             }
         })
 

@@ -5,9 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import getGlobalCategories from "@/api/categories/getGlobalCategories";
 import { Toaster } from "sonner";
-import useFetchSession from "@/hooks/useFetchSession";
-import LoadingScreen from "../Layout/LoadingScreen";
 import AccountSetupForm from "./Setup/AccountSetupForm";
+import LoadingScreen from "../Layout/LoadingScreen";
+import { authClient } from "@/lib/auth-client";
 
 export default function DashboardLayout({
   children,
@@ -19,7 +19,7 @@ export default function DashboardLayout({
   sectionDesc?: string;
 }) {
   const navigate = useNavigate();
-  const sessionQuery = useFetchSession();
+  const sessionQuery = authClient.useSession();
 
   const getGlobalCategoriesQuery = useQuery({
     queryKey: ["globalCategories"],
@@ -28,15 +28,11 @@ export default function DashboardLayout({
   });
 
   useEffect(() => {
-    if (sessionQuery.isFetched) {
-      const hasValidSession =
-        sessionQuery.data?.data?.user || sessionQuery.data?.data?.session;
-
-      if (!hasValidSession) {
-        navigate({ to: "/auth/signin", replace: true });
-      }
+    console.log(sessionQuery.data);
+    if (!sessionQuery.data?.session) {
+      navigate({ to: "/auth/signin", replace: true });
     }
-  }, [sessionQuery.isFetched, sessionQuery.data, navigate]);
+  }, [navigate, sessionQuery]);
 
   if (!getGlobalCategoriesQuery.isLoading && getGlobalCategoriesQuery.data) {
     sessionStorage.setItem(
@@ -47,15 +43,12 @@ export default function DashboardLayout({
     );
   }
 
-  if (sessionQuery.isLoading) {
+  if (sessionQuery.isPending) {
     return <LoadingScreen />;
   }
 
-  if (!sessionQuery.data) {
-    return null;
-  }
-
-  if (!sessionQuery.data.data?.user.isSetupDone) {
+  if (!sessionQuery.data?.user.isSetupDone) {
+    console.log(sessionQuery.data?.user);
     return (
       <div className="w-screen h-screen flex items-center justify-center bg-transparent absolute">
         <AccountSetupForm />

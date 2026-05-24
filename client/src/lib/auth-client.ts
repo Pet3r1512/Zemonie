@@ -1,5 +1,5 @@
 import { SERVER_URL } from "@/constant/auth";
-import { createAuthClient } from "better-auth/client";
+import { createAuthClient } from "better-auth/react";
 import { inferAdditionalFields } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({

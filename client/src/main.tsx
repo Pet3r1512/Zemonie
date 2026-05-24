@@ -5,6 +5,7 @@ import "./index.css";
 import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import LoadingScreen from "./components/Layout/LoadingScreen";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const router = createRouter({
   routeTree,
@@ -27,6 +28,7 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </StrictMode>,
   );

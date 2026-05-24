@@ -2,11 +2,11 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "./server/_index";
-import auth from "./lib/auth";
 import "dotenv/config";
 import { env } from "./env";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma from "./lib/prisma";
+import { auth } from "./lib/auth";
 
 const app = new Hono<{
   Variables: {

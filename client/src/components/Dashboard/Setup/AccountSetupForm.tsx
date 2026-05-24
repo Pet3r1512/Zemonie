@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { cn } from "@/lib/utils";
@@ -13,11 +14,16 @@ import {
 import { LoaderCircle } from "lucide-react";
 import AvatarPicker, { AvatarId } from "./AvatarPicker";
 import { Button } from "@/components/ui/button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useFetchUser from "@/hooks/useFetchUser";
+import accountSetup from "@/api/users/accountSetup";
+import { Currency } from "@/api/users/createBalance";
+import { useRouter } from "@tanstack/react-router";
 
 export type AccountSetupFormValues = {
-  avatar: AvatarId;
-  currency: "AUD" | "USD" | "VND";
+  userId: string;
+  avatarId: AvatarId;
+  currency: Currency;
 };
 
 const currencyLists: {
@@ -47,6 +53,9 @@ export default function AccountSetupForm({
 }: {
   className?: string;
 }) {
+  const userId = useFetchUser();
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -55,21 +64,34 @@ export default function AccountSetupForm({
     formState: { errors },
   } = useForm<AccountSetupFormValues>({
     defaultValues: {
-      currency: "AUD",
-      avatar: "fox",
+      currency: Currency["AUD"],
+      avatarId: "fox",
     },
   });
 
   register("currency");
-  register("avatar");
+  register("avatarId", {
+    required: "Please choose an avatar",
+  });
 
-  const mutation = useMutation({});
+  const mutation = useMutation({
+    mutationKey: ["isSetupDone", userId],
+    mutationFn: (credentials: AccountSetupFormValues) =>
+      accountSetup({
+        ...credentials,
+        userId: userId || "",
+      }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["session"] });
+
+      router.navigate({ to: "/dashboard" });
+    },
+  });
 
   const onSubmit: SubmitHandler<AccountSetupFormValues> = async (
     credentials,
   ) => {
-    console.log(credentials);
-    // mutation.mutate(credentials);
+    mutation.mutate(credentials);
   };
 
   return (
@@ -141,7 +163,7 @@ export default function AccountSetupForm({
                 <Label htmlFor="currency">Currency</Label>
                 <Select
                   onValueChange={(value) => {
-                    setValue("currency", value as "AUD" | "USD" | "VND", {
+                    setValue("currency", value as Currency, {
                       shouldDirty: true,
                       shouldTouch: true,
                       shouldValidate: true,
@@ -238,15 +260,20 @@ export default function AccountSetupForm({
               <div className="grid gap-3">
                 <Label htmlFor="avatarId">Avatar</Label>
                 <AvatarPicker
-                  value={watch("avatar")}
+                  value={watch("avatarId")}
                   onChange={(avatar) => {
-                    setValue("avatar", avatar, {
+                    setValue("avatarId", avatar, {
                       shouldDirty: true,
                       shouldTouch: true,
                       shouldValidate: true,
                     });
                   }}
                 />
+                {errors.avatarId && (
+                  <p className="text-sm text-red-500">
+                    {errors.avatarId.message}
+                  </p>
+                )}
               </div>
               <Button
                 role="submit-btn"
