@@ -1,4 +1,5 @@
 // AvatarPicker.tsx
+import useScreenSize from "@/hooks/useScreenSize";
 import { cn } from "@/lib/utils";
 
 const avatars = [
@@ -26,9 +27,16 @@ interface AvatarPickerProps {
 export default function AvatarPicker({
   value,
   onChange,
-  size = 56,
+  size = 72,
   className,
 }: AvatarPickerProps) {
+  const { screenSize } = useScreenSize();
+
+  if (screenSize === "sm") {
+    size = 48;
+  } else if (screenSize === "md") {
+    size = 64;
+  }
   return (
     <div
       className={cn(
