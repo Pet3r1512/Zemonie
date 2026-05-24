@@ -7,11 +7,19 @@ export const userRouter = router({
     setup: publicProcedure.input(z.object({
         userId: z.string(),
         avatarId: z.string(),
-        currency: SupportedCurrency
+        currency: z.enum(SupportedCurrency)
     })).mutation(async ({ input }) => {
         const { userId, avatarId, currency } = input
 
-        await prisma.user.update({
+        await prisma.balance.create({
+            data: {
+                userId: userId,
+                amount: 0,
+                currency: currency as SupportedCurrency
+            }
+        })
+
+        const user = await prisma.user.update({
             where: {
                 id: userId
             },
@@ -21,15 +29,6 @@ export const userRouter = router({
             }
         })
 
-        await prisma.balance.update({
-            where: {
-                userId: userId
-            },
-            data: {
-                currency: currency as SupportedCurrency
-            }
-        })
-
-        return { success: true }
+        return { success: true, user: user }
     })
 })
