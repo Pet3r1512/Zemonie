@@ -78,7 +78,13 @@ export default function Data({ data }: { data: OverallDataType }) {
       )}
 
       <div className="text-gray-400 lg:text-sm">
-        {data.isLoading ? <Skeleton className="h-4 w-24" /> : data.subtitle}
+        {data.isLoading ? (
+          <Skeleton className="h-4 w-24" />
+        ) : data.subtitle === "" ? (
+          <span className="invisible">{"empty"}</span>
+        ) : (
+          <p>{data.subtitle}</p>
+        )}
       </div>
     </Card>
   );
