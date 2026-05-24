@@ -1,8 +1,7 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { cn } from "@/lib/utils";
 import { Label } from "../../ui/label";
-import { Input } from "../../ui/input";
 import {
   Select,
   SelectContent,
@@ -11,11 +10,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { Moon, Sun } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import AvatarPicker, { AvatarId } from "./AvatarPicker";
+import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
 
 type FormValues = {
   avatar: AvatarId;
+  currency: "AUD" | "USD" | "VND";
 };
 
 const currencyLists: {
@@ -51,7 +53,23 @@ export default function AccountSetupForm({
     setValue,
     watch,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    defaultValues: {
+      currency: "AUD",
+      avatar: "fox",
+    },
+  });
+
+  register("currency");
+  register("avatar");
+
+  const mutation = useMutation({});
+
+  const onSubmit: SubmitHandler<FormValues> = async (credentials) => {
+    console.log(credentials);
+    // mutation.mutate(credentials);
+  };
+
   return (
     <div
       data-testid="signup-form-container"
@@ -80,10 +98,7 @@ export default function AccountSetupForm({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form
-            role="form"
-            //   onSubmit={handleSubmit(onSubmit)}
-          >
+          <form role="form" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               {/* <div className="grid gap-3">
                 <Label htmlFor="language">Language</Label>
@@ -123,8 +138,12 @@ export default function AccountSetupForm({
               <div className="grid gap-3">
                 <Label htmlFor="currency">Currency</Label>
                 <Select
-                  onValueChange={() => {
-                    // setValue("categoryId", +value);
+                  onValueChange={(value) => {
+                    setValue("currency", value as "AUD" | "USD" | "VND", {
+                      shouldDirty: true,
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    });
                   }}
                   defaultValue="AUD"
                 >
@@ -219,10 +238,26 @@ export default function AccountSetupForm({
                 <AvatarPicker
                   value={watch("avatar")}
                   onChange={(avatar) => {
-                    setValue("avatar", avatar);
+                    setValue("avatar", avatar, {
+                      shouldDirty: true,
+                      shouldTouch: true,
+                      shouldValidate: true,
+                    });
                   }}
                 />
               </div>
+              <Button
+                role="submit-btn"
+                disabled={mutation.isPending}
+                type="submit"
+                className="w-full bg-primary hover:bg-primary-dark"
+              >
+                {mutation.isPending ? (
+                  <LoaderCircle className="animate-spin" />
+                ) : (
+                  <p>Done</p>
+                )}
+              </Button>
             </div>
           </form>
         </CardContent>
