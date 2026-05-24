@@ -47,7 +47,7 @@ export default function AvatarPicker({
             className={cn(
               "rounded-xl border p-2 transition-all duration-200 hover:scale-[1.02] flex flex-col items-center justify-center",
               selected
-                ? "border-primary bg-primary/20"
+                ? "border-primary bg-primary/0"
                 : "border-border hover:border-primary/40",
             )}
           >
@@ -168,9 +168,9 @@ function AvatarSprite() {
         <path
           d="M42 61 Q50 69 58 61"
           stroke="#2C2C2A"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <rect x="64" y="68" width="5" height="22" fill="#6ABD6A" rx="2" />
         <rect x="62" y="76" width="9" height="3" fill="#5AA85A" rx="1" />
@@ -180,7 +180,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#6ABD6A"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
 
@@ -215,9 +215,9 @@ function AvatarSprite() {
         <path
           d="M44 59 Q50 64 56 59"
           stroke="#C0503A"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <circle
           cx="50"
@@ -225,7 +225,7 @@ function AvatarSprite() {
           r="30"
           fill="none"
           stroke="#9DA8D8"
-          stroke-width="2.5"
+          strokeWidth="2.5"
         />
         <circle
           cx="50"
@@ -233,7 +233,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#7C85D8"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
 
@@ -258,13 +258,13 @@ function AvatarSprite() {
         <path
           d="M38 66 Q50 76 62 66"
           stroke="#3A8A40"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
-        <line x1="46" y1="70" x2="46" y2="74" stroke="#fff" stroke-width="2" />
-        <line x1="50" y1="72" x2="50" y2="76" stroke="#fff" stroke-width="2" />
-        <line x1="54" y1="70" x2="54" y2="74" stroke="#fff" stroke-width="2" />
+        <line x1="46" y1="70" x2="46" y2="74" stroke="#fff" strokeWidth="2" />
+        <line x1="50" y1="72" x2="50" y2="76" stroke="#fff" strokeWidth="2" />
+        <line x1="54" y1="70" x2="54" y2="74" stroke="#fff" strokeWidth="2" />
         <ellipse cx="30" cy="57" rx="5" ry="3" fill="#FF9E7D" opacity="0.45" />
         <ellipse cx="70" cy="57" rx="5" ry="3" fill="#FF9E7D" opacity="0.45" />
         <circle
@@ -273,7 +273,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#5DBD6A"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
 
@@ -282,22 +282,10 @@ function AvatarSprite() {
         <circle cx="50" cy="50" r="50" fill="#EDE7F6" />
         <ellipse cx="50" cy="88" rx="28" ry="16" fill="#8B5E3C" />
         <rect x="28" y="78" width="44" height="14" rx="4" fill="#6A3FA8" />
-        <text
-          x="36"
-          y="90"
-          font-size="8"
-          fill="#FFD700"
-          font-family="sans-serif"
-        >
+        <text x="36" y="90" fontSize="8" fill="#FFD700" fontFamily="sans-serif">
           ★
         </text>
-        <text
-          x="50"
-          y="90"
-          font-size="6"
-          fill="#FFD700"
-          font-family="sans-serif"
-        >
+        <text x="50" y="90" fontSize="6" fill="#FFD700" fontFamily="sans-serif">
           ★
         </text>
         <circle cx="50" cy="52" r="25" fill="#C68C5A" />
@@ -306,9 +294,9 @@ function AvatarSprite() {
         <text
           x="44"
           y="36"
-          font-size="12"
+          fontSize="12"
           fill="#FFD700"
-          font-family="sans-serif"
+          fontFamily="sans-serif"
         >
           ★
         </text>
@@ -321,24 +309,24 @@ function AvatarSprite() {
         <path
           d="M36 44 Q40 41 44 44"
           stroke="#5A3010"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <path
           d="M56 44 Q60 41 64 44"
           stroke="#5A3010"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <ellipse cx="50" cy="58" rx="3" ry="2.5" fill="#A06030" />
         <path
           d="M43 64 Q50 71 57 64"
           stroke="#8B4A20"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <line
           x1="68"
@@ -346,8 +334,8 @@ function AvatarSprite() {
           x2="82"
           y2="38"
           stroke="#5A3010"
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
         <circle cx="82" cy="36" r="4" fill="#FFD700" />
         <circle
@@ -356,7 +344,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#6A3FA8"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
 
@@ -373,8 +361,8 @@ function AvatarSprite() {
           x2="50"
           y2="16"
           stroke="#5ABCD0"
-          stroke-width="2.5"
-          stroke-linecap="round"
+          strokeWidth="2.5"
+          strokeLinecap="round"
         />
         <circle cx="50" cy="13" r="5" fill="#FF6B6B" />
         <rect x="29" y="40" width="17" height="13" rx="4" fill="#1A1A2E" />
@@ -403,7 +391,7 @@ function AvatarSprite() {
           x2="42"
           y2="46"
           stroke="#fff"
-          stroke-width="1"
+          strokeWidth="1"
           opacity="0.6"
         />
         <line
@@ -412,7 +400,7 @@ function AvatarSprite() {
           x2="67"
           y2="46"
           stroke="#fff"
-          stroke-width="1"
+          strokeWidth="1"
           opacity="0.6"
         />
         <rect x="34" y="59" width="32" height="9" rx="3" fill="#1A1A2E" />
@@ -427,7 +415,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#5ABCD0"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
 
@@ -452,9 +440,9 @@ function AvatarSprite() {
         <path
           d="M42 80 Q50 87 58 80"
           stroke="#C0503A"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <ellipse cx="36" cy="90" rx="8" ry="5" fill="#F0C898" />
         <ellipse cx="64" cy="90" rx="8" ry="5" fill="#F0C898" />
@@ -464,7 +452,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#E8645A"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
 
@@ -482,9 +470,9 @@ function AvatarSprite() {
         <path
           d="M22 48 Q26 54 30 48"
           stroke="#C0503A"
-          stroke-width="1.5"
+          strokeWidth="1.5"
           fill="none"
-          stroke-linecap="round"
+          strokeLinecap="round"
         />
         <circle cx="16" cy="32" r="3" fill="#fff" opacity="0.7" />
         <circle cx="10" cy="22" r="2" fill="#fff" opacity="0.5" />
@@ -495,7 +483,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#FF8C42"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
 
@@ -540,9 +528,9 @@ function AvatarSprite() {
         <text
           x="44"
           y="80"
-          font-size="14"
+          fontSize="14"
           fill="#FFD700"
-          font-family="sans-serif"
+          fontFamily="sans-serif"
         >
           ★
         </text>
@@ -552,7 +540,7 @@ function AvatarSprite() {
           r="49"
           fill="none"
           stroke="#534AB7"
-          stroke-width="2"
+          strokeWidth="2"
         />
       </symbol>
     </svg>
