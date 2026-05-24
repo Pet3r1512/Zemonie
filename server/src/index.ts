@@ -86,6 +86,21 @@ app.get("/session", async (c) => {
   });
 });
 
+app.get("/api/users/me", async (c) => {
+  const user = c.get("user");
+
+  if (!user) {
+    return c.json({ message: "Unauthorized" }, 401);
+  }
+
+  const dbUser = await prisma.user.findUnique({
+    where: { id: user.id },
+    select: { isSetupDone: true },
+  });
+
+  return c.json(dbUser);
+});
+
 app.get("/api/ping", async (c) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
