@@ -45,11 +45,12 @@ export default function AvatarPicker({
 }: AvatarPickerProps) {
   const { screenSize } = useScreenSize();
 
-  if (screenSize === "sm") {
-    size = 48;
-  } else if (screenSize === "md") {
-    size = 64;
-  }
+  const avatarSize =
+    screenSize === "xs" || screenSize === "sm"
+      ? 48
+      : screenSize === "md"
+        ? 64
+        : size;
 
   return (
     <div
@@ -79,8 +80,8 @@ export default function AvatarPicker({
           >
             <div className="flex items-center justify-center w-full flex-1">
               <svg
-                width={size}
-                height={size}
+                width={avatarSize}
+                height={avatarSize}
                 viewBox="0 0 100 100"
                 className="shrink-0"
               >
