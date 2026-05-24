@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
+import { Moon, Sun } from "lucide-react";
 
 const currencyLists: {
   code: string;
@@ -170,6 +171,43 @@ export default function AccountSetupForm({
                   </SelectContent>
                 </Select>
               </div>
+              {/* <div className="grid gap-3">
+                <Label htmlFor="currency">Theme</Label>
+                <Select
+                  onValueChange={() => {
+                    // setValue("categoryId", +value);
+                  }}
+                  defaultValue="light"
+                >
+                  <SelectTrigger id="source" name="source" className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white w-full">
+                    <SelectGroup>
+                      <SelectItem
+                        key={"light"}
+                        className="lg:hover:bg-gray-200"
+                        value={"light"}
+                      >
+                        <div className="flex items-center gap-x-2">
+                          <Sun size={16} />
+                          <p>Light</p>
+                        </div>
+                      </SelectItem>
+                      <SelectItem
+                        key={"dark"}
+                        className="lg:hover:bg-gray-200"
+                        value={"dark"}
+                      >
+                        <div className="flex items-center gap-x-2">
+                          <Moon size={16} />
+                          <p>Dark</p>
+                        </div>
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div> */}
             </div>
           </form>
         </CardContent>
