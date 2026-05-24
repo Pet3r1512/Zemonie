@@ -12,6 +12,11 @@ import {
   SelectValue,
 } from "../../ui/select";
 import { Moon, Sun } from "lucide-react";
+import AvatarPicker, { AvatarId } from "./AvatarPicker";
+
+type FormValues = {
+  avatar: AvatarId;
+};
 
 const currencyLists: {
   code: string;
@@ -40,12 +45,13 @@ export default function AccountSetupForm({
 }: {
   className?: string;
 }) {
-  //   const {
-  //     register,
-  //     handleSubmit,
-  //     watch,
-  //     formState: { errors },
-  //   } = useForm<{}>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<FormValues>();
   return (
     <div
       data-testid="signup-form-container"
@@ -208,6 +214,15 @@ export default function AccountSetupForm({
                   </SelectContent>
                 </Select>
               </div> */}
+              <div className="grid gap-3">
+                <Label htmlFor="avatarId">Avatar</Label>
+                <AvatarPicker
+                  value={watch("avatar")}
+                  onChange={(avatar) => {
+                    setValue("avatar", avatar);
+                  }}
+                />
+              </div>
             </div>
           </form>
         </CardContent>
