@@ -1,4 +1,5 @@
 // AvatarPicker.tsx
+import convertHexToAlpha from "@/helpers/convertHexToAlpha";
 import useScreenSize from "@/hooks/useScreenSize";
 import { cn } from "@/lib/utils";
 
@@ -68,9 +69,10 @@ export default function AvatarPicker({
             type="button"
             onClick={() => onChange?.(avatar)}
             style={{
-              backgroundColor: selected
-                ? `${avatarColors[avatar]}50`
-                : `${avatarColors[avatar]}25`,
+              backgroundColor: convertHexToAlpha(
+                avatarColors[avatar],
+                selected ? 0.31 : 0.15,
+              ),
               borderColor: selected ? avatarColors[avatar] : undefined,
             }}
             className={cn(
