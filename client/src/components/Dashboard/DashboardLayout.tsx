@@ -7,7 +7,7 @@ import getGlobalCategories from "@/api/categories/getGlobalCategories";
 import { Toaster } from "sonner";
 import useFetchSession from "@/hooks/useFetchSession";
 import LoadingScreen from "../Layout/LoadingScreen";
-import AccountSetupForm from "./AccountSetupForm";
+import AccountSetupForm from "./Setup/AccountSetupForm";
 
 export default function DashboardLayout({
   children,
