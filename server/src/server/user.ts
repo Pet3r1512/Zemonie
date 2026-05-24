@@ -17,7 +17,7 @@ export const userRouter = router({
             },
             data: {
                 image: avatarId,
-
+                isSetupDone: true
             }
         })
 
