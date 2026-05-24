@@ -15,7 +15,7 @@ import AvatarPicker, { AvatarId } from "./AvatarPicker";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
 
-type FormValues = {
+export type AccountSetupFormValues = {
   avatar: AvatarId;
   currency: "AUD" | "USD" | "VND";
 };
@@ -53,7 +53,7 @@ export default function AccountSetupForm({
     setValue,
     watch,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm<AccountSetupFormValues>({
     defaultValues: {
       currency: "AUD",
       avatar: "fox",
@@ -65,7 +65,9 @@ export default function AccountSetupForm({
 
   const mutation = useMutation({});
 
-  const onSubmit: SubmitHandler<FormValues> = async (credentials) => {
+  const onSubmit: SubmitHandler<AccountSetupFormValues> = async (
+    credentials,
+  ) => {
     console.log(credentials);
     // mutation.mutate(credentials);
   };
