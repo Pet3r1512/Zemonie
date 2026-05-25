@@ -1,19 +1,14 @@
 import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { Settings, MessageCircleQuestion, LogOut } from "lucide-react";
+import { CircleUser, LogOut } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { useLogout } from "@/hooks/useLogOut";
 
 const items = [
   {
-    title: "Settings",
-    url: "/dashboard/settings",
-    icon: <Settings />,
-  },
-  {
-    title: "Helps",
-    url: "/dashboard/helps",
-    icon: <MessageCircleQuestion />,
+    title: "Profile",
+    url: "/dashboard/profile",
+    icon: <CircleUser />,
   },
   {
     title: "Log Out",

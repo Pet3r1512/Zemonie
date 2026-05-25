@@ -1,0 +1,56 @@
+import { Mail, Lock, User } from "lucide-react";
+import AvatarSprites from "@/components/Dashboard/Setup/AvatarSprites";
+import useFetchSession from "@/hooks/useFetchSession";
+
+const profileFields = [
+  { label: "Email", key: "email", icon: Mail },
+  { label: "Sign-in Method", key: "method", icon: Lock },
+  { label: "Name", key: "name", icon: User },
+];
+
+export default function ProfilePage() {
+  const session = useFetchSession();
+
+  const fieldValues: Record<string, string> = {
+    email: session.data?.data?.user.email ?? "",
+    method: "Email and Password",
+    name: session.data?.data?.user.name ?? "",
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto space-y-8">
+      <div className="flex flex-col items-center gap-4">
+        <div className="size-24 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center">
+          <svg width={72} height={72} viewBox="0 0 100 100">
+            <use href={`#avatar-${session.data?.data?.user?.image ?? "fox"}`} />
+          </svg>
+        </div>
+        <AvatarSprites />
+        <p className="text-lg font-semibold text-gray-900 dark:text-white capitalize">
+          {session.data?.data?.user?.image ?? "fox"}
+        </p>
+      </div>
+
+      <div className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl border border-gray-200 dark:border-neutral-800 divide-y divide-gray-200 dark:divide-neutral-800">
+        {profileFields.map((field) => {
+          const Icon = field.icon;
+          return (
+            <div key={field.key} className="flex items-center gap-4 px-6 py-5">
+              <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <Icon size={20} className="text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {field.label}
+                </p>
+                <p className="text-base font-medium text-gray-900 dark:text-white truncate">
+                  {fieldValues[field.key]}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
