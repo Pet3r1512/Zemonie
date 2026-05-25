@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as AboutUsRouteImport } from './routes/about-us'
@@ -38,6 +39,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeaturesRoute = FeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/about-us': typeof AboutUsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/faq': typeof FaqRoute
+  '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/about-us': typeof AboutUsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/faq': typeof FaqRoute
+  '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/about-us': typeof AboutUsRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/faq': typeof FaqRoute
+  '/features': typeof FeaturesRoute
   '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/terms': typeof TermsRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/cookie-policy'
     | '/faq'
+    | '/features'
     | '/pricing'
     | '/privacy'
     | '/terms'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/cookie-policy'
     | '/faq'
+    | '/features'
     | '/pricing'
     | '/privacy'
     | '/terms'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/about-us'
     | '/cookie-policy'
     | '/faq'
+    | '/features'
     | '/pricing'
     | '/privacy'
     | '/terms'
@@ -212,6 +224,7 @@ export interface RootRouteChildren {
   AboutUsRoute: typeof AboutUsRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   FaqRoute: typeof FaqRoute
+  FeaturesRoute: typeof FeaturesRoute
   PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   TermsRoute: typeof TermsRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/pricing'
       fullPath: '/pricing'
       preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/features': {
+      id: '/features'
+      path: '/features'
+      fullPath: '/features'
+      preLoaderRoute: typeof FeaturesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -340,6 +360,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutUsRoute: AboutUsRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   FaqRoute: FaqRoute,
+  FeaturesRoute: FeaturesRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   TermsRoute: TermsRoute,
