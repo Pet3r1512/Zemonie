@@ -7,6 +7,12 @@ export const Route = createFileRoute("/release-notes")({
 
 const releases = [
   {
+    version: "v1.0.1-beta",
+    date: "May 25, 2026",
+    tag: "Beta",
+    changes: [{ type: "fix", text: "Authentication error handler" }],
+  },
+  {
     version: "v1.0.0-beta",
     date: "May 25, 2026",
     tag: "Beta",
