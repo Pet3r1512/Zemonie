@@ -497,9 +497,8 @@ describe("onError callback", () => {
     mockUseMutation.mockImplementation(({ onError }: any) => ({
       mutate: () =>
         onError({
-          message: JSON.stringify({
-            code: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
-          }),
+          code: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+          message: "User already exists",
         }),
       isPending: false,
     }));
@@ -520,9 +519,8 @@ describe("onError callback", () => {
     mockUseMutation.mockImplementation(({ onError }: any) => ({
       mutate: () =>
         onError({
-          message: JSON.stringify({
-            code: "UNKNOWN_ERROR",
-          }),
+          code: "UNKNOWN_ERROR",
+          message: "Something went wrong",
         }),
       isPending: false,
     }));
@@ -533,7 +531,9 @@ describe("onError callback", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(toast.error).toHaveBeenCalled();
+      expect(toast.error).toHaveBeenCalledWith(
+        "Something went wrong",
+      );
     });
   });
 
@@ -541,9 +541,8 @@ describe("onError callback", () => {
     mockUseMutation.mockImplementation(({ onError }: any) => ({
       mutate: () =>
         onError({
-          message: JSON.stringify({
-            code: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
-          }),
+          code: "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL",
+          message: "User already exists",
         }),
       isPending: false,
     }));

@@ -36,14 +36,16 @@ export default function SignUpForm({ className }: { className?: string }) {
   const mutation = useMutation({
     mutationKey: ["signup"],
     mutationFn: SignUpEmail,
-    onError: (error) => {
-      const parsedError = JSON.parse(error.message);
-      if (parsedError.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
+      if (error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
         return toast.error(
           "This Email Is Existed. Please Sign In or Use Another Email",
         );
       }
-      return toast.error(error.message);
+      return toast.error(
+        error.message || "Something went wrong. Please try again.",
+      );
     },
     onSuccess: (res) => {
       toast.success(res.user.name + ", Everything is done!");

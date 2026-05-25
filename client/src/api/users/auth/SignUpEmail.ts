@@ -12,7 +12,7 @@ export default async function SignUpEmail(credentials: SignUpFormType) {
   });
 
   if (error) {
-    throw new Error(error.message || "Sign in failed");
+    throw error;
   }
 
   return data;
