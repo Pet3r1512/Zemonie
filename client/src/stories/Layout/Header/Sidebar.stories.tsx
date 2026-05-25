@@ -2,9 +2,18 @@ import Sidebar from "@/components/Layout/Header/Sidebar";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { createRouter, RouterProvider, createRootRoute } from "@tanstack/react-router";
+
+const rootRoute = createRootRoute({
+  component: () => <Sidebar />,
+});
+const router = createRouter({ routeTree: rootRoute });
 
 const meta: Meta<typeof Sidebar> = {
   component: Sidebar,
+  decorators: [
+    () => <RouterProvider router={router} />,
+  ],
   globals: {
     viewport: {
       value: "desktop",

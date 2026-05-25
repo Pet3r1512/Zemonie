@@ -8,7 +8,8 @@ import {
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
 import Logo from "../Logo";
-import { mobileAuthNavLinks } from "@/lib/navigations";
+import { mobileAuthNavLinks, pages } from "@/lib/navigations";
+import { Link } from "@tanstack/react-router";
 
 export default function Sidebar() {
   return (
@@ -24,13 +25,19 @@ export default function Sidebar() {
       </DrawerHeader>
       <DrawerContent className="h-dvh px-5 py-7 w-2/3! max-w-sm! rounded-r-none flex flex-col gap-y-5">
         <Logo className="h-24" />
-        {/* <div className="font-semibold text-lg flex flex-col gap-y-5">
-          <a href="/pricing">Pricing</a>
-          <div className="flex justify-between items-center">
+        <div className="font-semibold text-lg flex flex-col gap-y-5">
+          {pages.map((page) => {
+            return (
+              <Link key={page.name} to={page.link}>
+                {page.name}
+              </Link>
+            );
+          })}
+          {/* <div className="flex justify-between items-center">
             <p>Theme</p>
             <ThemeToggle />
-          </div>
-        </div> */}
+          </div> */}
+        </div>
         <div className="mt-auto flex flex-col gap-y-3.5">
           {mobileAuthNavLinks.map((nav) => {
             return (

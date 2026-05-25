@@ -38,10 +38,10 @@ export default function CommonLinks() {
           name: "About Us",
           href: "/about-us",
         },
-        {
-          name: "Contract",
-          href: "#",
-        },
+        // {
+        //   name: "Contract",
+        //   href: "#",
+        // },
         // {
         //     name: "Help Center",
         //     href: ""
