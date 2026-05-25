@@ -17,6 +17,10 @@ export default function CommonLinks() {
           name: "Features",
           href: "/features",
         },
+        {
+          name: "Release Notes",
+          href: "/release-notes",
+        },
         // {
         //     name: "Pricing",
         //     href: ""
@@ -38,14 +42,6 @@ export default function CommonLinks() {
           name: "About Us",
           href: "/about-us",
         },
-        // {
-        //   name: "Contract",
-        //   href: "#",
-        // },
-        // {
-        //     name: "Help Center",
-        //     href: ""
-        // }
       ],
     },
     {
