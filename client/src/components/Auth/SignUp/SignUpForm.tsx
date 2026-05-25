@@ -38,9 +38,9 @@ export default function SignUpForm({ className }: { className?: string }) {
     mutationFn: SignUpEmail,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
-      if (error.code === "USER_ALREADY_EXISTS") {
+      if (error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
         return toast.error(
-          "This email is already registered. Please sign in or use another email.",
+          "This Email Is Existed. Please Sign In or Use Another Email",
         );
       }
       return toast.error(
