@@ -1,4 +1,5 @@
 import About from "@/components/AboutUs";
+import Page from "@/components/Layout/Page";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/about-us")({
@@ -6,5 +7,9 @@ export const Route = createFileRoute("/about-us")({
 });
 
 function RouteComponent() {
-  return <About />;
+  return (
+    <Page pageName="About Us" fullScreen>
+      <About />
+    </Page>
+  );
 }
