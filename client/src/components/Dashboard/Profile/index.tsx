@@ -1,6 +1,6 @@
 import { Mail, Lock, User } from "lucide-react";
 import AvatarSprites from "@/components/Dashboard/Setup/AvatarSprites";
-import useFetchSession from "@/hooks/useFetchSession";
+import { authClient } from "@/lib/auth-client";
 
 const profileFields = [
   { label: "Email", key: "email", icon: Mail },
@@ -9,12 +9,12 @@ const profileFields = [
 ];
 
 export default function ProfilePage() {
-  const session = useFetchSession();
+  const session = authClient.useSession();
 
   const fieldValues: Record<string, string> = {
-    email: session.data?.data?.user.email ?? "",
+    email: session.data?.user.email ?? "",
     method: "Email and Password",
-    name: session.data?.data?.user.name ?? "",
+    name: session.data?.user.name ?? "",
   };
 
   return (
@@ -22,12 +22,12 @@ export default function ProfilePage() {
       <div className="flex flex-col items-center gap-4">
         <div className="size-24 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center">
           <svg width={72} height={72} viewBox="0 0 100 100">
-            <use href={`#avatar-${session.data?.data?.user?.image ?? "fox"}`} />
+            <use href={`#avatar-${session.data?.user?.image ?? "fox"}`} />
           </svg>
         </div>
         <AvatarSprites />
         <p className="text-lg font-semibold text-gray-900 dark:text-white capitalize">
-          {session.data?.data?.user?.image ?? "fox"}
+          {session.data?.user?.image ?? "fox"}
         </p>
       </div>
 
