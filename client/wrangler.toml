@@ -7,6 +7,9 @@ compatibility_date = "2026-04-03"
 directory = "./dist"
 not_found_handling = "single-page-application"
 
+[vars]
+VITE_SERVER_URL = "https://api.zemonie.site"
+
 [[routes]]
 pattern = "www.zemonie.site"
 custom_domain = true
