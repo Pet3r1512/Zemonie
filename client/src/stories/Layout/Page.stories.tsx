@@ -8,6 +8,7 @@ import {
   createRouter,
   RouterProvider,
 } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -30,6 +31,8 @@ const createMockRouter = (initialPath = "/") => {
   });
 };
 
+const queryClient = new QueryClient();
+
 const meta: Meta<typeof Page> = {
   component: Page,
   globals: {
@@ -40,8 +43,11 @@ const meta: Meta<typeof Page> = {
   decorators: [
     (_, { parameters }) => {
       const router = createMockRouter(parameters.initialPath || "/");
-      // Render RouterProvider only, Story will be rendered by the router
-      return <RouterProvider router={router} />;
+      return (
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      );
     },
   ],
 };

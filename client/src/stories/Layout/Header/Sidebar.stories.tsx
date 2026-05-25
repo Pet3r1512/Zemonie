@@ -3,16 +3,22 @@ import { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within, screen } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
 import { createRouter, RouterProvider, createRootRoute } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const rootRoute = createRootRoute({
   component: () => <Sidebar />,
 });
 const router = createRouter({ routeTree: rootRoute });
+const queryClient = new QueryClient();
 
 const meta: Meta<typeof Sidebar> = {
   component: Sidebar,
   decorators: [
-    () => <RouterProvider router={router} />,
+    () => (
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    ),
   ],
   globals: {
     viewport: {
