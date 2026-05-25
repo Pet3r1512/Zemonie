@@ -13,10 +13,10 @@ export default function CommonLinks() {
     {
       title: "Product",
       items: [
-        // {
-        //     name: "Features",
-        //     href: ""
-        // },
+        {
+          name: "Features",
+          href: "/features",
+        },
         // {
         //     name: "Pricing",
         //     href: ""
