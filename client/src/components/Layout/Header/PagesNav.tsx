@@ -11,7 +11,7 @@ const links = [
 
 export default function PagesNav() {
   return (
-    <ul className="text-md lg:text-lg font-semibold flex items-center gap-x-5">
+    <ul className="text-md lg:text-lg font-semibold hidden md:flex items-center gap-x-5">
       {links.map((link) => {
         return (
           <a
