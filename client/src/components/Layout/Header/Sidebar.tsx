@@ -9,6 +9,7 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Menu } from "lucide-react";
 import Logo from "../Logo";
 import { mobileAuthNavLinks, pages } from "@/lib/navigations";
+import { Link } from "@tanstack/react-router";
 
 export default function Sidebar() {
   return (
@@ -27,9 +28,9 @@ export default function Sidebar() {
         <div className="font-semibold text-lg flex flex-col gap-y-5">
           {pages.map((page) => {
             return (
-              <a key={page.name} href={page.link}>
+              <Link key={page.name} to={page.link}>
                 {page.name}
-              </a>
+              </Link>
             );
           })}
           {/* <div className="flex justify-between items-center">

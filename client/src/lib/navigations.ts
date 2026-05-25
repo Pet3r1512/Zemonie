@@ -6,13 +6,13 @@ interface Navigations {
 const pages: Navigations[] = [
   {
     name: "Features",
-    link: "/features"
+    link: "/features",
   },
   {
     name: "About Us",
-    link: "/about-us"
+    link: "/about-us",
   },
-]
+];
 
 const navigations: Navigations[] = [
   // {
