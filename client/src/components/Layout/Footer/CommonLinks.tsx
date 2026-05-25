@@ -21,13 +21,13 @@ export default function CommonLinks() {
         //     name: "Pricing",
         //     href: ""
         // },
-        {
-          name: "Testimonials",
-          href: "#",
-        },
+        // {
+        //   name: "Testimonials",
+        //   href: "#",
+        // },
         {
           name: "FAQ",
-          href: "#",
+          href: "/faq",
         },
       ],
     },
