@@ -36,7 +36,7 @@ export default function CommonLinks() {
       items: [
         {
           name: "About Us",
-          href: "#",
+          href: "/about-us",
         },
         {
           name: "Contract",
