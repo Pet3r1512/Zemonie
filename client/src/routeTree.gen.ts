@@ -19,9 +19,8 @@ import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardTransactionsRouteImport } from './routes/dashboard/transactions'
-import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardIncomeRouteImport } from './routes/dashboard/income'
-import { Route as DashboardHelpsRouteImport } from './routes/dashboard/helps'
 import { Route as DashboardExpensesRouteImport } from './routes/dashboard/expenses'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
@@ -76,19 +75,14 @@ const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
   path: '/dashboard/transactions',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
-  id: '/dashboard/settings',
-  path: '/dashboard/settings',
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/dashboard/profile',
+  path: '/dashboard/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIncomeRoute = DashboardIncomeRouteImport.update({
   id: '/dashboard/income',
   path: '/dashboard/income',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardHelpsRoute = DashboardHelpsRouteImport.update({
-  id: '/dashboard/helps',
-  path: '/dashboard/helps',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardExpensesRoute = DashboardExpensesRouteImport.update({
@@ -119,9 +113,8 @@ export interface FileRoutesByFullPath {
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/expenses': typeof DashboardExpensesRoute
-  '/dashboard/helps': typeof DashboardHelpsRoute
   '/dashboard/income': typeof DashboardIncomeRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -137,9 +130,8 @@ export interface FileRoutesByTo {
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/expenses': typeof DashboardExpensesRoute
-  '/dashboard/helps': typeof DashboardHelpsRoute
   '/dashboard/income': typeof DashboardIncomeRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard': typeof DashboardIndexRoute
 }
@@ -156,9 +148,8 @@ export interface FileRoutesById {
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/expenses': typeof DashboardExpensesRoute
-  '/dashboard/helps': typeof DashboardHelpsRoute
   '/dashboard/income': typeof DashboardIncomeRoute
-  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -176,9 +167,8 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/auth/signup'
     | '/dashboard/expenses'
-    | '/dashboard/helps'
     | '/dashboard/income'
-    | '/dashboard/settings'
+    | '/dashboard/profile'
     | '/dashboard/transactions'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -194,9 +184,8 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/auth/signup'
     | '/dashboard/expenses'
-    | '/dashboard/helps'
     | '/dashboard/income'
-    | '/dashboard/settings'
+    | '/dashboard/profile'
     | '/dashboard/transactions'
     | '/dashboard'
   id:
@@ -212,9 +201,8 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/auth/signup'
     | '/dashboard/expenses'
-    | '/dashboard/helps'
     | '/dashboard/income'
-    | '/dashboard/settings'
+    | '/dashboard/profile'
     | '/dashboard/transactions'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
@@ -231,9 +219,8 @@ export interface RootRouteChildren {
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
   DashboardExpensesRoute: typeof DashboardExpensesRoute
-  DashboardHelpsRoute: typeof DashboardHelpsRoute
   DashboardIncomeRoute: typeof DashboardIncomeRoute
-  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardTransactionsRoute: typeof DashboardTransactionsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
@@ -310,11 +297,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardTransactionsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/settings': {
-      id: '/dashboard/settings'
-      path: '/dashboard/settings'
-      fullPath: '/dashboard/settings'
-      preLoaderRoute: typeof DashboardSettingsRouteImport
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/dashboard/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/income': {
@@ -322,13 +309,6 @@ declare module '@tanstack/react-router' {
       path: '/dashboard/income'
       fullPath: '/dashboard/income'
       preLoaderRoute: typeof DashboardIncomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard/helps': {
-      id: '/dashboard/helps'
-      path: '/dashboard/helps'
-      fullPath: '/dashboard/helps'
-      preLoaderRoute: typeof DashboardHelpsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/expenses': {
@@ -367,9 +347,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
   DashboardExpensesRoute: DashboardExpensesRoute,
-  DashboardHelpsRoute: DashboardHelpsRoute,
   DashboardIncomeRoute: DashboardIncomeRoute,
-  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardProfileRoute: DashboardProfileRoute,
   DashboardTransactionsRoute: DashboardTransactionsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
