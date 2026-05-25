@@ -53,15 +53,15 @@ export default function CommonLinks() {
       items: [
         {
           name: "Terms of Service",
-          href: "#",
+          href: "/terms",
         },
         {
           name: "Privacy Policy",
-          href: "#",
+          href: "/privacy",
         },
         {
           name: "Cookie Policy",
-          href: "#",
+          href: "/cookie-policy",
         },
       ],
     },
