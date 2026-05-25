@@ -27,7 +27,7 @@ export default function CommonLinks() {
         // },
         {
           name: "FAQ",
-          href: "#",
+          href: "/faq",
         },
       ],
     },
