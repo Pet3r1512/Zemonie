@@ -3,6 +3,17 @@ interface Navigations {
   link: string;
 }
 
+const pages: Navigations[] = [
+  {
+    name: "Features",
+    link: "/features"
+  },
+  {
+    name: "About Us",
+    link: "/about-us"
+  },
+]
+
 const navigations: Navigations[] = [
   // {
   //   name: "Pricing",
@@ -37,4 +48,4 @@ const mobileAuthNavLinks: MobileAuthNav[] = [
   },
 ];
 
-export { navigations, mobileAuthNavLinks };
+export { navigations, mobileAuthNavLinks, pages };
