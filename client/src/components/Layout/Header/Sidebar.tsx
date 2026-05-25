@@ -10,6 +10,7 @@ import { Menu } from "lucide-react";
 import Logo from "../Logo";
 import { mobileAuthNavLinks, pages } from "@/lib/navigations";
 import { Link } from "@tanstack/react-router";
+import VersionTag from "@/components/Banner/VersionTag";
 
 export default function Sidebar() {
   return (
@@ -47,6 +48,7 @@ export default function Sidebar() {
             );
           })}
         </div>
+        <VersionTag version="1.0.0-beta" />
       </DrawerContent>
     </Drawer>
   );

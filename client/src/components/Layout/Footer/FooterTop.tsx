@@ -1,3 +1,4 @@
+import VersionTag from "@/components/Banner/VersionTag";
 import Logo from "../Logo";
 import CommonLinks from "./CommonLinks";
 
@@ -11,6 +12,7 @@ export default function FooterTop() {
           <strong className="text-primary">GenZ</strong>. Take control of your
           finances today.
         </p>
+        <VersionTag version="1.0.0-beta" />
       </div>
       <CommonLinks />
     </div>
