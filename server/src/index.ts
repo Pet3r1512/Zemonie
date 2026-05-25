@@ -17,14 +17,11 @@ const app = new Hono<{
 app.use(
   "*",
   cors({
-    origin: (origin) => {
-      const allowed = [
-        "https://www.zemonie.site",
-        "https://zemonie.site",
-        "http://localhost:5173"
-      ];
-      return allowed.includes(origin) ? origin : null;
-    },
+    origin: [
+      "https://www.zemonie.site",
+      "https://zemonie.site",
+      "http://localhost:5173"
+    ],
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization", "Cookie"],
@@ -63,10 +60,11 @@ app.use(
   }),
 );
 
-
 app.on(["POST", "GET"], "/api/auth/**", async (c) => {
-  const response = await auth.handler(c.req.raw);
+  console.log("NODE_ENV:", process.env.NODE_ENV);
+  console.log("Secrets present:", !!process.env.DATABASE_URL, !!process.env.BETTER_AUTH_SECRET);
 
+  const response = await auth.handler(c.req.raw);
   return c.newResponse(response.body, response);
 });
 

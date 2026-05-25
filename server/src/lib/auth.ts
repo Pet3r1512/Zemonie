@@ -6,7 +6,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 export const auth = betterAuth({
   baseURL: "https://api.zemonie.site",
-
+  secret: process.env.BETTER_AUTH_SECRET,
   basePath: "/api/auth",
 
   database: prismaAdapter(prisma, {
@@ -17,14 +17,11 @@ export const auth = betterAuth({
     enabled: true,
   },
 
-  trustedOrigins: isProduction
-    ? [
-      "https://www.zemonie.site",
-      "https://zemonie.site",
-    ]
-    : [
-      "http://localhost:5173",
-    ],
+  trustedOrigins: [
+    "https://www.zemonie.site",
+    "https://zemonie.site",
+    "http://localhost:5173",
+  ],
 
   session: {
     expiresIn: 60 * 60 * 24 * 7,
