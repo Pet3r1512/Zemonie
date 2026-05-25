@@ -15,13 +15,13 @@ export default function Timeline() {
         "The core product began taking shape, transforming early concepts and ideas into a real platform focused on modern financial management.",
     },
     {
-      year: "May 2026",
+      year: "April 2026",
       title: "Closed Beta Launch",
       description:
         "The first closed beta was released to selected users for testing, feedback, and product refinement.",
     },
     {
-      year: "June 2026",
+      year: "May 2026",
       title: "Open Beta Release",
       description:
         "Zemonie opened its beta access to the public, allowing more users to experience and help shape the platform.",
