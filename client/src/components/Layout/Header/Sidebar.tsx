@@ -48,7 +48,7 @@ export default function Sidebar() {
             );
           })}
         </div>
-        <VersionTag version="1.0.0-beta" />
+        <VersionTag />
       </DrawerContent>
     </Drawer>
   );

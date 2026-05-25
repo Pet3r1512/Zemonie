@@ -12,7 +12,7 @@ export default function FooterTop() {
           <strong className="text-primary">GenZ</strong>. Take control of your
           finances today.
         </p>
-        <VersionTag version="1.0.0-beta" />
+        <VersionTag />
       </div>
       <CommonLinks />
     </div>
