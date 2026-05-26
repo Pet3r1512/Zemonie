@@ -32,6 +32,9 @@ export const DefaultForm: Story = {
     const signupFormContainer = canvas.getByTestId("signup-form-container");
     expect(signupFormContainer).toBeInTheDocument();
 
+    const zemonieText = canvas.getAllByText("Zemonie");
+    expect(zemonieText[0]).toBeInTheDocument();
+
     const loginWithGoogleBtn = canvas.getByText("Login with Google");
     expect(loginWithGoogleBtn).toBeInTheDocument();
 

@@ -19,7 +19,6 @@ import SignUpEmail from "@/api/users/auth/SignUpEmail";
 import { toast } from "sonner";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
 import { useRouter } from "@tanstack/react-router";
-import Logo from "@/components/Layout/Logo";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -73,7 +72,19 @@ export default function SignUpForm({ className }: { className?: string }) {
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
-          <Logo />
+          <div className="flex items-center gap-x-2.5 cursor-default">
+            <img
+              src="/logo/zemonie-icon-light.svg"
+              alt=""
+              className="w-auto h-8"
+            />
+            <p
+              data-testid="brand-name"
+              className="font-semibold text-primary text-lg"
+            >
+              Zemonie
+            </p>
+          </div>
           <CardTitle className="text-xl lg:text-2xl text-primary-dark">
             Create An Account
           </CardTitle>

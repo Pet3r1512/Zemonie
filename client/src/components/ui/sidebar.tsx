@@ -342,7 +342,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex flex-col gap-2 py-2 px-5", className)}
       {...props}
     >
-      <Logo className="my-5" />
+      <Logo className="h-14 mt-2.5 lg:mt-0" />
     </div>
   );
 }

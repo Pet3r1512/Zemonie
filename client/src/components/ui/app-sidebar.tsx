@@ -39,7 +39,7 @@ export function AppSidebar() {
   const currentUrl = useCurrentUrl().currUrl;
   return (
     <Sidebar>
-      <SidebarHeader />
+      <SidebarHeader className="mb-5" />
       <SidebarGroupContent className="px-5 flex-1 z-50">
         <SidebarMenu className="space-y-2.5">
           {items.map((item) => (

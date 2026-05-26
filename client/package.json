@@ -13,8 +13,7 @@
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "coverage": "vitest run --coverage",
-    "build-storybook": "storybook build",
-    "deploy:staging": "vite build --mode staging && wrangler deploy --config wrangler.staging.toml"
+    "build-storybook": "storybook build"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

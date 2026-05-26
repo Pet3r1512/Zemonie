@@ -9,7 +9,7 @@ describe("Logo component test", () => {
     const img = screen.getByAltText("Zemonie Logo");
 
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute("src", "/logo/zemonie_logo.webp");
+    expect(img).toHaveAttribute("src", "/logo/zemonie-wordmark-light.svg");
     expect(img).toHaveAttribute("alt", "Zemonie Logo");
   });
 });
