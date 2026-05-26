@@ -1,8 +1,9 @@
 name: CI
 
 on:
-  pull_request:
+  push:
     branches: [staging, master]
+  pull_request:
 
 jobs:
   build:
@@ -15,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v2
         with:
           version: 10
 
@@ -24,9 +25,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
 
-      - name: Install dependencies
+      - name: Install dependencies (root workspace)
         run: pnpm install
 
+      # CLIENT
       - name: Install Playwright browsers
         run: cd client && pnpm exec playwright install
 
