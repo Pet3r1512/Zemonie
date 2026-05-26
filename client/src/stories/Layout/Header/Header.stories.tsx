@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-router";
 
 const rootRoute = createRootRoute({
-  component: () => <Header />,
+  component: () => <Header hideHeader={false} />,
 });
 
 const routeTree = rootRoute;

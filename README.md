@@ -3,10 +3,10 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="public/zemonie-icon-light.svg" alt="Logo">
+    <img src="public/zemonie_logo.webp" alt="Logo">
   <!-- </a> -->
 
-<h3 align="center">Zemonie - Money Management for genZ</h3>
+<h3 align="center">Money Management for genZ</h3>
 
 </div>
 
