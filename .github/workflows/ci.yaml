@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [staging, master]
+    branches: [master]
   pull_request:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20, 22]
+        node-version: [22]
 
     steps:
       - uses: actions/checkout@v4
