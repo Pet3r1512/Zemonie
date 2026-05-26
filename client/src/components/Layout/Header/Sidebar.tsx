@@ -34,10 +34,6 @@ export default function Sidebar() {
               </Link>
             );
           })}
-          {/* <div className="flex justify-between items-center">
-            <p>Theme</p>
-            <ThemeToggle />
-          </div> */}
         </div>
         <div className="mt-auto flex flex-col gap-y-3.5">
           {mobileAuthNavLinks.map((nav) => {
