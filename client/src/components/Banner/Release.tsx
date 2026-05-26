@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 
 const BANNER_KEY = "zemonie-beta-banner-dismissed";
 
 export function Release() {
   const [visible, setVisible] = useState(false);
+  const currentUrl = useCurrentUrl().currUrl;
 
   useEffect(() => {
     setVisible(!localStorage.getItem(BANNER_KEY));
@@ -16,6 +18,10 @@ export function Release() {
   function dismiss() {
     localStorage.setItem(BANNER_KEY, "true");
     setVisible(false);
+  }
+
+  if (currentUrl.includes("/dashboard")) {
+    return <></>;
   }
 
   return (
