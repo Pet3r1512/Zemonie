@@ -20,6 +20,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     "https://www.zemonie.site",
     "https://zemonie.site",
+    "https://staging.zemonie.site",
     "http://localhost:5173",
   ],
 

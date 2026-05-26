@@ -20,6 +20,7 @@ app.use(
     origin: [
       "https://www.zemonie.site",
       "https://zemonie.site",
+      "http://staging.zemonie.site",
       "http://localhost:5173"
     ],
     credentials: true,
