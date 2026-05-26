@@ -1,11 +1,34 @@
 "$schema" = "./node_modules/wrangler/config-schema.json"
+
 name = "zemonie-web-worker"
-# Set this to today's date
 compatibility_date = "2026-04-03"
 
 [assets]
 directory = "./dist"
 not_found_handling = "single-page-application"
 
+# =========================================
+# Production
+# =========================================
+
+routes = [
+  { pattern = "zemonie.site", custom_domain = true },
+  { pattern = "www.zemonie.site", custom_domain = true }
+]
+
 [vars]
+VITE_SERVER_URL = "https://api.zemonie.site"
+
+# =========================================
+# Testing Environment
+# =========================================
+
+[env.testing]
+name = "zemonie-web-worker-testing"
+
+routes = [
+  { pattern = "testing.zemonie.site", custom_domain = true }
+]
+
+[env.testing.vars]
 VITE_SERVER_URL = "https://api.zemonie.site"
