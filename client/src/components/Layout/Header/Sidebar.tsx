@@ -26,6 +26,7 @@ export default function Sidebar() {
       </DrawerHeader>
       <DrawerContent className="h-dvh px-5 py-7 w-2/3! max-w-sm! rounded-r-none flex flex-col gap-y-5">
         <Logo className="h-24" />
+        <Logo className="lg:h-24" />
         <div className="font-semibold text-lg flex flex-col gap-y-5">
           {pages.map((page) => {
             return (
