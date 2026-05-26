@@ -5,6 +5,13 @@
   "compatibility_date": "2025-06-14",
   "compatibility_flags": ["nodejs_compat"],
 
+  "routes": [
+    {
+      "pattern": "api.zemonie.site",
+      "custom_domain": true,
+    },
+  ],
+
   "vars": {
     "NODE_ENV": "production",
     "PORT": "9999",
