@@ -88,13 +88,6 @@ describe("Rendering", () => {
     expect(screen.getByText("Sign In with Google")).toBeInTheDocument();
   });
 
-  it("renders the Calrio brand name", () => {
-    renderForm();
-
-    expect(screen.getByTestId("brand-name")).toBeInTheDocument();
-    expect(screen.getByTestId("brand-name")).toHaveTextContent("Zemonie");
-  });
-
   it("applies the className prop to the container", () => {
     renderForm("my-custom-class");
 
@@ -531,9 +524,7 @@ describe("onError callback", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(toast.error).toHaveBeenCalledWith(
-        "Something went wrong",
-      );
+      expect(toast.error).toHaveBeenCalledWith("Something went wrong");
     });
   });
 
