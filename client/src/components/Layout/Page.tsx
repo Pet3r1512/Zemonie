@@ -8,15 +8,17 @@ export default function Page({
   className,
   pageName,
   fullScreen = false,
+  hideHeader = false,
 }: {
   children: ReactNode;
   className?: string;
   pageName?: string;
   fullScreen?: boolean;
+  hideHeader?: boolean;
 }) {
   return (
     <main className="body bg-cover bg-center min-h-screen flex flex-col">
-      <Header />
+      <Header hideHeader={hideHeader} />
 
       <section
         role="page-body"
@@ -31,7 +33,7 @@ export default function Page({
             "flex-1",
             fullScreen
               ? "w-screen px-0"
-              : "mx-auto w-full max-w-7xl px-5 lg:px-0",
+              : "mx-auto w-full max-w-7xl px-5 lg:px-0 lg:mt-4",
             className,
           )}
         >

@@ -15,7 +15,7 @@ export const Route = createFileRoute("/auth/signin")({
 
 function RouteComponent() {
   return (
-    <Page>
+    <Page hideHeader>
       <SignIn />
     </Page>
   );
