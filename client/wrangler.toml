@@ -12,4 +12,8 @@ VITE_SERVER_URL = "https://api.zemonie.site"
 
 [[routes]]
 pattern = "www.zemonie.site"
+<<<<<<< Updated upstream
 custom_domain = true
+=======
+custom_domain = true
+>>>>>>> Stashed changes
