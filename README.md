@@ -24,11 +24,23 @@ In future updates, we plan to introduce additional features such as group expens
 
 ## Built With
 
+### Frontend - Client
+
 - Vite
-- React
+- React - TypeScript
 - TailwindCSS
 - Shadcn/ui
 - Lucide Icons
+- Tanstack (Router, Query)
+- Zustand
+
+### Backend - Sever
+
+- Hono
+- TypeScript
+- tRPC
+- Prisma - PostgreSQL - NeonDB
+- Better-auth
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
