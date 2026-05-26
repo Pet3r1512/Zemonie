@@ -24,8 +24,8 @@ export default function Sidebar() {
           <DrawerTitle>Hidden Drawer Title</DrawerTitle>
         </VisuallyHidden>
       </DrawerHeader>
-      <DrawerContent className="h-dvh px-5 py-7 w-2/3! max-w-sm! rounded-r-none flex flex-col gap-y-5">
-        <Logo className="h-24" />
+      <DrawerContent className="h-dvh px-5 py-7 w-2/3! max-w-sm! rounded-r-none flex flex-col gap-y-8 lg:gap-y-5">
+        <Logo className="lg:h-24" />
         <div className="font-semibold text-lg flex flex-col gap-y-5">
           {pages.map((page) => {
             return (
@@ -34,10 +34,6 @@ export default function Sidebar() {
               </Link>
             );
           })}
-          {/* <div className="flex justify-between items-center">
-            <p>Theme</p>
-            <ThemeToggle />
-          </div> */}
         </div>
         <div className="mt-auto flex flex-col gap-y-3.5">
           {mobileAuthNavLinks.map((nav) => {
