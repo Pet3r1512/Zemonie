@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Install Playwright browsers
+        run: cd client && pnpm exec playwright install
+
       - name: Test client (gate before deploy)
         run: pnpm --dir client test
 
