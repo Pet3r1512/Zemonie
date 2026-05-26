@@ -9,3 +9,7 @@ not_found_handling = "single-page-application"
 
 [vars]
 VITE_SERVER_URL = "https://api.zemonie.site"
+
+[[routes]]
+pattern = "www.zemonie.site"
+custom_domain = true

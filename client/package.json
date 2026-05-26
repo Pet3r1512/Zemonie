@@ -14,7 +14,6 @@
     "storybook": "storybook dev -p 6006",
     "coverage": "vitest run --coverage",
     "build-storybook": "storybook build",
-    "deploy:release": "vite build && wrangler deploy --config wrangler.release.toml",
     "deploy:staging": "vite build --mode staging && wrangler deploy --config wrangler.staging.toml"
   },
   "lint-staged": {
