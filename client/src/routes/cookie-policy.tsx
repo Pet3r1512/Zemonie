@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -7,15 +8,21 @@ export const Route = createFileRoute("/cookie-policy")({
 
 function RouteComponent() {
   return (
-    <Page className="py-12">
-      <div className="max-w-3xl mx-auto px-5 lg:px-0">
-        <div className="mb-10">
-          <div className="w-16 h-1 bg-primary rounded-full mb-4" />
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
-            Cookie Policy
-          </h1>
-          <p className="text-gray-500 mt-2">Last updated: May 2026</p>
-        </div>
+    <>
+      <SEO
+        title="Cookie Policy"
+        description="Zemonie's cookie policy — we only use essential cookies for authentication. No tracking, no ads."
+        canonicalPath="/cookie-policy"
+      />
+      <Page className="py-12">
+        <div className="max-w-3xl mx-auto px-5 lg:px-0">
+          <div className="mb-10">
+            <div className="w-16 h-1 bg-primary rounded-full mb-4" />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
+              Cookie Policy
+            </h1>
+            <p className="text-gray-500 mt-2">Last updated: May 2026</p>
+          </div>
 
         <div className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10 space-y-8">
           <section>
@@ -148,5 +155,6 @@ function RouteComponent() {
         </div>
       </div>
     </Page>
+    </>
   );
 }

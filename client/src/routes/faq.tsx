@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
 import {
   Accordion,
@@ -51,33 +52,40 @@ const faqs = [
 
 function RouteComponent() {
   return (
-    <Page className="py-12">
-      <div className="max-w-3xl mx-auto px-5 lg:px-0">
-        <div className="mb-10">
-          <div className="w-16 h-1 bg-primary rounded-full mb-4" />
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-gray-500 mt-2">
-            Everything you need to know about Zemonie.
-          </p>
-        </div>
+    <>
+      <SEO
+        title="FAQ"
+        description="Frequently asked questions about Zemonie — privacy, pricing, features, and more."
+        canonicalPath="/faq"
+      />
+      <Page className="py-12">
+        <div className="max-w-3xl mx-auto px-5 lg:px-0">
+          <div className="mb-10">
+            <div className="w-16 h-1 bg-primary rounded-full mb-4" />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-gray-500 mt-2">
+              Everything you need to know about Zemonie.
+            </p>
+          </div>
 
-        <div className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10">
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-base lg:text-lg font-semibold text-left">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10">
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-base lg:text-lg font-semibold text-left">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </div>
-      </div>
-    </Page>
+      </Page>
+    </>
   );
 }

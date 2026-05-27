@@ -32,7 +32,7 @@ export default function Hero() {
           Get started
         </a>
         <a
-          href="#"
+          href="/features"
           className="text-sm/6 font-semibold text-gray-900 bg-white px-3.5 py-2.5 rounded-md"
         >
           Learn more <span aria-hidden="true">→</span>

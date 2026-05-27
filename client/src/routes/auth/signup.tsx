@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import SignUp from "@/components/Auth/SignUp";
 import Page from "@/components/Layout/Page";
 import { createFileRoute } from "@tanstack/react-router";
@@ -8,8 +9,16 @@ export const Route = createFileRoute("/auth/signup")({
 
 function RouteComponent() {
   return (
-    <Page hideHeader>
-      <SignUp />
-    </Page>
+    <>
+      <SEO
+        title="Sign Up"
+        description="Create a free Zemonie account and start tracking your finances today."
+        canonicalPath="/auth/signup"
+        noIndex
+      />
+      <Page hideHeader>
+        <SignUp />
+      </Page>
+    </>
   );
 }
