@@ -33,6 +33,7 @@ vi.mock("@tanstack/react-query", () => ({
           name: credential.name,
           password: credential.password,
           confirmPassword: credential.confirmPassword,
+          terms: true,
         };
         onSuccess?.(data);
       } catch (err) {
@@ -367,11 +368,13 @@ async function fillForm({
   name = "John Doe",
   password = "Password1",
   confirmPassword = "Password1",
+  terms = true,
 }: Partial<{
   email: string;
   name: string;
   password: string;
   confirmPassword: string;
+  terms: boolean;
 }> = {}) {
   const user = userEvent.setup();
   if (email) await user.type(screen.getByRole("email-input"), email);
@@ -379,6 +382,7 @@ async function fillForm({
   if (password) await user.type(screen.getByRole("password"), password);
   if (confirmPassword)
     await user.type(screen.getByRole("confirmPassword"), confirmPassword);
+  if (terms) await user.click(screen.getByRole("checkbox"));
   return user;
 }
 
@@ -397,6 +401,7 @@ describe("Form submission", () => {
         name: "John Doe",
         password: "Password1",
         confirmPassword: "Password1",
+        terms: true,
       });
     });
   });
@@ -429,6 +434,10 @@ describe("Form submission", () => {
 const mockNavigate = vi.fn();
 
 vi.mock("@tanstack/react-router", () => ({
+  Link: vi.fn(
+    ({ to, children, ...props }: { to: string; children: React.ReactNode }) =>
+      <a href={to} {...props}>{children}</a>,
+  ),
   useRouter: () => ({ navigate: mockNavigate }),
   createRouter: vi.fn(),
 }));
@@ -471,6 +480,7 @@ describe("onSuccess callback tests", () => {
     await user.type(screen.getByRole("name-input"), "John Doe");
     await user.type(screen.getByRole("password"), "Password1");
     await user.type(screen.getByRole("confirmPassword"), "Password1");
+    await user.click(screen.getByRole("checkbox"));
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
