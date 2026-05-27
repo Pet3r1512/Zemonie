@@ -17,6 +17,10 @@ function cleanup() {
   }
 }
 
+function getIp(c: { req: { header: (name: string) => string | undefined } }) {
+  return c.req.header("cf-connecting-ip") || c.req.header("x-forwarded-for") || "unknown"
+}
+
 export function rateLimit(opts: {
   max: number
   windowMs: number
@@ -40,3 +44,24 @@ export function rateLimit(opts: {
     return { allowed: true, remaining: opts.max - entry.attempts, retryAfter: 0 }
   }
 }
+
+class RateLimiter {
+  private limiters = new Map<string, ReturnType<typeof rateLimit>>()
+
+  add(name: string, opts: { max: number; windowMs: number }) {
+    this.limiters.set(name, rateLimit(opts))
+    return this
+  }
+
+  check(name: string, ip: string) {
+    const limiter = this.limiters.get(name)
+    if (!limiter) return { allowed: true, remaining: Infinity, retryAfter: 0 }
+    return limiter(ip)
+  }
+}
+
+export function createRateLimiter() {
+  return new RateLimiter()
+}
+
+export { getIp }
