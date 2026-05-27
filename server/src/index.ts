@@ -90,12 +90,20 @@ app.get("/api/users/me", async (c) => {
     return c.json({ message: "Unauthorized" }, 401);
   }
 
-  const dbUser = await prisma.user.findUnique({
-    where: { id: user.id },
-    select: { isSetupDone: true },
+  let preferences = await prisma.user_Preferences.findUnique({
+    where: { userId: user.id },
   });
 
-  return c.json(dbUser);
+  if (!preferences) {
+    preferences = await prisma.user_Preferences.create({
+      data: {
+        userId: user.id,
+        isSetupDone: false,
+      },
+    });
+  }
+
+  return c.json({ isSetupDone: preferences.isSetupDone });
 });
 
 app.get("/api/ping", async (c) => {

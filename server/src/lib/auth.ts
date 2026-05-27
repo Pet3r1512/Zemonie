@@ -46,16 +46,7 @@ export const auth = betterAuth({
     },
   },
 
-  user: {
-    additionalFields: {
-      isSetupDone: {
-        type: "boolean",
-        required: false,
-        defaultValue: false,
-        input: false
-      }
-    }
-  }
+
 });
 
 export default auth;
