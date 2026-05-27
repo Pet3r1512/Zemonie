@@ -83,6 +83,8 @@ model Category {
   transactions Transaction[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
+
+  @@index([userId, name, type])
 }
 
 model Transaction {
@@ -95,6 +97,9 @@ model Transaction {
   createdAt   DateTime          @default(now())
   user        User              @relation(fields: [userId], references: [id])
   category    Category?         @relation(fields: [categoryId], references: [id])
+
+  @@index([userId, createdAt])
+  @@index([userId, categoryId])
 }
 
 enum CategoryType {
