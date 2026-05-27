@@ -244,7 +244,7 @@ importers:
   server:
     dependencies:
       '@hono/node-server':
-        specifier: ^1.19.5
+        specifier: ^1.19.13
         version: 1.19.14(hono@4.12.21)
       '@hono/trpc-server':
         specifier: ^0.4.0
