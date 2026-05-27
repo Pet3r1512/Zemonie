@@ -129,7 +129,7 @@ model User_Preferences {
   theme       String            @default("light")
   isSetupDone Boolean           @default(false)
   createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  updatedAt   DateTime          @updatedAt @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
