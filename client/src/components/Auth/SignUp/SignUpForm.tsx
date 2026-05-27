@@ -18,8 +18,15 @@ import { useMutation } from "@tanstack/react-query";
 import SignUpEmail from "@/api/users/auth/SignUpEmail";
 import { toast } from "sonner";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
-import { useRouter } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import Logo from "@/components/Layout/Logo";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+} from "@/components/ui/field";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -208,6 +215,42 @@ export default function SignUpForm({ className }: { className?: string }) {
                     />
                   )}
                 </div>
+                <Field
+                  orientation="horizontal"
+                  className="rounded-lg border border-oklch(0.922 0 0) p-3 transition-colors has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:border-oklch(1 0 0 / 10%) dark:has-data-[state=checked]:bg-primary/10"
+                >
+                  <Checkbox
+                    id="terms"
+                    name="terms"
+                    className="mt-0.5 h-5 w-5 shrink-0"
+                  />
+                  <FieldContent>
+                    <FieldLabel
+                      htmlFor="terms"
+                      className="font-normal cursor-pointer"
+                    >
+                      Accept{" "}
+                      <Link
+                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        target="_blank"
+                        to={"/terms"}
+                      >
+                        terms
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        target="_blank"
+                        to={"/privacy"}
+                      >
+                        privacy policies
+                      </Link>
+                    </FieldLabel>
+                    <FieldDescription>
+                      By clicking this checkbox, you agree to the terms.
+                    </FieldDescription>
+                  </FieldContent>
+                </Field>
                 <Button
                   role="submit-btn"
                   disabled={mutation.isPending}
