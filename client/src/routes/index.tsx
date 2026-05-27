@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import Features from "@/components/Layout/Home/Features";
 import Hero from "@/components/Layout/Home/Hero";
 import Page from "@/components/Layout/Page";
@@ -9,11 +10,14 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <Page className="flex items-center justify-center min-h-screen">
-      <section className="flex flex-col gap-y-24 my-8 lg:my-0">
-        <Hero />
-        <Features />
-      </section>
-    </Page>
+    <>
+      <SEO title="Home" canonicalPath="/" />
+      <Page className="flex items-center justify-center min-h-screen">
+        <section className="flex flex-col gap-y-24 my-8 lg:my-0">
+          <Hero />
+          <Features />
+        </section>
+      </Page>
+    </>
   );
 }

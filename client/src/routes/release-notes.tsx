@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -36,15 +37,21 @@ const releases = [
 
 function RouteComponent() {
   return (
-    <Page className="py-12">
-      <div className="max-w-3xl mx-auto px-5 lg:px-0">
-        <div className="mb-10">
-          <div className="w-16 h-1 bg-primary rounded-full mb-4" />
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
-            Release Notes
-          </h1>
-          <p className="text-gray-500 mt-2">What's new in Zemonie</p>
-        </div>
+    <>
+      <SEO
+        title="Release Notes"
+        description="What's new in Zemonie — track updates, new features, and improvements."
+        canonicalPath="/release-notes"
+      />
+      <Page className="py-12">
+        <div className="max-w-3xl mx-auto px-5 lg:px-0">
+          <div className="mb-10">
+            <div className="w-16 h-1 bg-primary rounded-full mb-4" />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
+              Release Notes
+            </h1>
+            <p className="text-gray-500 mt-2">What's new in Zemonie</p>
+          </div>
 
         <div className="space-y-6">
           {releases.map((release) => (
@@ -85,5 +92,6 @@ function RouteComponent() {
         </div>
       </div>
     </Page>
+    </>
   );
 }

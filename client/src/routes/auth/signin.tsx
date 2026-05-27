@@ -1,3 +1,4 @@
+import SEO from "@/components/SEO";
 import SignIn from "@/components/Auth/SignIn";
 import Page from "@/components/Layout/Page";
 import { authClient } from "@/lib/auth-client";
@@ -15,8 +16,16 @@ export const Route = createFileRoute("/auth/signin")({
 
 function RouteComponent() {
   return (
-    <Page hideHeader>
-      <SignIn />
-    </Page>
+    <>
+      <SEO
+        title="Sign In"
+        description="Sign in to your Zemonie account to manage your finances."
+        canonicalPath="/auth/signin"
+        noIndex
+      />
+      <Page hideHeader>
+        <SignIn />
+      </Page>
+    </>
   );
 }
