@@ -74,8 +74,12 @@ app.get("/session", async (c) => {
   }
 
   return c.json({
-    user: session.user,
-    session: session.session,
+    user: {
+      id: session.user.id,
+      email: session.user.email,
+      name: session.user.name,
+    },
+    expiresAt: session.session.expiresAt,
   });
 });
 
