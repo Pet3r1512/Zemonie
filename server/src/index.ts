@@ -2,7 +2,6 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "./server/_index";
-import { env } from "./env";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma from "./lib/prisma";
 import { auth } from "./lib/auth";
@@ -30,7 +29,7 @@ app.use(
   }),
 );
 
-app.use("*", async (c, next) => {
+async function authMiddleware(c: any, next: any) {
   const session = await auth.api.getSession({ headers: c.req.raw.headers });
   if (!session) {
     c.set("user", null);
@@ -41,7 +40,7 @@ app.use("*", async (c, next) => {
   c.set("user", session.user);
   c.set("session", session.session);
   await next();
-});
+}
 
 
 app.get("/", (c) => {
@@ -64,22 +63,24 @@ app.on(["POST", "GET"], "/api/auth/**", async (c) => {
   return c.newResponse(response.body, response);
 });
 
-app.get("/session", async (c) => {
-  const session = await auth.api.getSession({
-    headers: c.req.raw.headers,
-  });
+app.use("/session", authMiddleware);
+app.use("/api/users/me", authMiddleware);
 
-  if (!session) {
+app.get("/session", async (c) => {
+  const user = c.get("user");
+  const session = c.get("session");
+
+  if (!user || !session) {
     return c.json({ message: "Invalid or expired session" }, 401);
   }
 
   return c.json({
     user: {
-      id: session.user.id,
-      email: session.user.email,
-      name: session.user.name,
+      id: user.id,
+      email: user.email,
+      name: user.name,
     },
-    expiresAt: session.session.expiresAt,
+    expiresAt: session.expiresAt,
   });
 });
 
