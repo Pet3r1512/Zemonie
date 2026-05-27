@@ -1,10 +1,8 @@
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function getIncomeGrowth(input?: { userId: string }) {
-  const encodedInput = encodeURIComponent(JSON.stringify(input ?? {}));
-
+export default async function getIncomeGrowth() {
   const response = await fetch(
-    `${SERVER_URL}/api/trpc/analytics.incomeGrowth?input=${encodedInput}`,
+    `${SERVER_URL}/api/trpc/analytics.incomeGrowth`,
     {
       method: "GET",
       credentials: "include",

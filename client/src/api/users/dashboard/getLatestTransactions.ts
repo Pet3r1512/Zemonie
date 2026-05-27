@@ -1,7 +1,7 @@
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function getLatestTransactions({ userId }: { userId: string }) {
-    const response = await fetch(`${SERVER_URL}/api/trpc/transactions.getLatestIncomeAndExpenses?input=${encodeURIComponent(JSON.stringify({ userId }))}`, {
+export default async function getLatestTransactions() {
+    const response = await fetch(`${SERVER_URL}/api/trpc/transactions.getLatestIncomeAndExpenses`, {
         method: "GET",
         credentials: "include",
         headers: {

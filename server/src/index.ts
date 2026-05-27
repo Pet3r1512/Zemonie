@@ -5,6 +5,7 @@ import { appRouter } from "./server/_index";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma from "./lib/prisma";
 import { auth } from "./lib/auth";
+import { createContext } from "./server/context";
 
 const app = new Hono<{
   Variables: {
@@ -55,6 +56,7 @@ app.use(
   trpcServer({
     endpoint: "/api/trpc",
     router: appRouter,
+    createContext,
   }),
 );
 

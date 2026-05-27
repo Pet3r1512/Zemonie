@@ -1,15 +1,15 @@
 import z from "zod";
-import { publicProcedure, router } from "./tRPC";
+import { authenticatedProcedure, publicProcedure, router } from "./tRPC";
 import { SupportedCurrency } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export const userRouter = router({
-    setup: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64),
+    setup: authenticatedProcedure.input(z.object({
         avatarId: z.string().min(1).max(64),
         currency: z.enum(SupportedCurrency)
-    })).mutation(async ({ input }) => {
-        const { userId, avatarId, currency } = input
+    })).mutation(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { avatarId, currency } = input
 
         await prisma.balance.upsert({
             where: {

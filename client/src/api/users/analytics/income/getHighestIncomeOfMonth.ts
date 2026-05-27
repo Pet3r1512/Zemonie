@@ -1,7 +1,6 @@
 import { SERVER_URL } from "@/constant/auth";
 
 export default async function getHighestIncomeOfMonth(input?: {
-  userId: string;
   month?: number;
   year?: number;
 }) {

@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
 import { ReactNode } from "react";
 import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
-import useFetchUser from "@/hooks/useFetchUser";
 
 export type OverallDataType = {
   name: string;
@@ -16,21 +15,17 @@ export type OverallDataType = {
 };
 
 export default function Overall() {
-  const userId = useFetchUser();
-
   const balanceQuery = useQuery({
-    queryKey: ["balance", userId],
-    queryFn: () => getCurrentBalance({ userId: userId! }),
-    enabled: !!userId,
+    queryKey: ["balance"],
+    queryFn: () => getCurrentBalance(),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000, // 5 mins
     gcTime: 30 * 60 * 1000, // 30 mins
   });
 
   const latestTransactionsQuery = useQuery({
-    queryKey: ["latestTransactions", userId],
-    queryFn: () => getLatestTransactions({ userId: userId! }),
-    enabled: !!userId,
+    queryKey: ["latestTransactions"],
+    queryFn: () => getLatestTransactions(),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,

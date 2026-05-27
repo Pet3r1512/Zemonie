@@ -1,7 +1,6 @@
 import { SERVER_URL } from "@/constant/auth"
 
-export default async function getTotalExpensesByMonth(credentials: {
-    userId: string,
+export default async function getTotalExpensesByMonth(credentials?: {
     month?: number,
     year?: number
 }) {

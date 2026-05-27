@@ -1,7 +1,6 @@
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function getHighestExpenseCategory(credentails: {
-    userId: string,
+export default async function getHighestExpenseCategory(credentails?: {
     month?: number,
     year?: number
 }) {

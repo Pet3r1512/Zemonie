@@ -1,14 +1,14 @@
 import prisma from "@/lib/prisma";
-import { publicProcedure, router } from "./tRPC";
+import { authenticatedProcedure, publicProcedure, router } from "./tRPC";
 import z from "zod";
 import { SupportedCurrency } from "@prisma/client";
 
 export const transactionsRouter = router({
-    getTransactions: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64),
+    getTransactions: authenticatedProcedure.input(z.object({
         page: z.number().int().positive()
-    })).query(async ({ input }) => {
-        const { userId, page } = input
+    })).query(async ({ ctx, input }) => {
+        const { page } = input
+        const userId = ctx.userId
 
         const PAGE_SIZE = 10
 
@@ -41,15 +41,15 @@ export const transactionsRouter = router({
             hasMore: page * PAGE_SIZE < totalCount
         }
     }),
-    addTransaction: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64),
+    addTransaction: authenticatedProcedure.input(z.object({
         categoryId: z.number().optional(),
         amount: z.number(),
         currency: z.enum(SupportedCurrency).optional(),
         description: z.string().min(1).max(500),
         createdAt: z.string().max(32).optional()
-    })).mutation(async ({ input }) => {
-        const { userId, categoryId, amount, currency, description, createdAt } = input
+    })).mutation(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { categoryId, amount, currency, description, createdAt } = input
 
         // get category
         const category = await prisma.category.findUnique({
@@ -95,10 +95,8 @@ export const transactionsRouter = router({
 
         return { newTransaction, newBalance: newBalance.amount }
     }),
-    getTotalIncomeByMonth: publicProcedure.input(
+    getTotalIncomeByMonth: authenticatedProcedure.input(
         z.object({
-            userId: z.string().min(1).max(64),
-
             month: z.number().min(1).max(12).default(
                 new Date().getMonth() + 1
             ),
@@ -107,8 +105,9 @@ export const transactionsRouter = router({
                 new Date().getFullYear()
             ),
         })
-    ).query(async ({ input }) => {
-        const { userId, month, year } = input;
+    ).query(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { month, year } = input;
 
         const startOfMonth = new Date(year, month - 1, 1);
 
@@ -141,10 +140,8 @@ export const transactionsRouter = router({
             totalIncome: totalIncome._sum.amount ?? 0,
         };
     }),
-    getLatestIncomeAndExpenses: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64)
-    })).query(async ({ input }) => {
-        const { userId } = input
+    getLatestIncomeAndExpenses: authenticatedProcedure.query(async ({ ctx }) => {
+        const userId = ctx.userId
 
         const latestIncome = await prisma.transaction.findMany({
             where: {

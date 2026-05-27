@@ -45,8 +45,6 @@ export const auth = betterAuth({
       path: "/",
     },
   },
-
-
 });
 
 export default auth;
