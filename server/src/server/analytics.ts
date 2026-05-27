@@ -6,7 +6,7 @@ import CalculateHighestIncome from "../lib/analytics/CalculateHighestIncome"
 export const analyticsRouter = router({
     highestIncomeOfMonth: publicProcedure.input(
         z.object({
-            userId: z.string(),
+            userId: z.string().min(1).max(64),
             month: z.number().min(1).max(12).default(
                 new Date().getMonth() + 1
             ),
@@ -63,7 +63,7 @@ export const analyticsRouter = router({
         return { highestIncome: CalculateHighestIncome(formattedIncome) }
     }),
     incomeGrowth: publicProcedure.input(z.object({
-        userId: z.string()
+        userId: z.string().min(1).max(64)
     })).query(async ({ input }) => {
         const { userId } = input
         const today = new Date();
@@ -135,7 +135,7 @@ export const analyticsRouter = router({
         return { growthRate }
     }),
     totalExpensesOfMonth: publicProcedure.input(z.object({
-        userId: z.string(),
+        userId: z.string().min(1).max(64),
         month: z.number().min(1).max(12).default(
             new Date().getMonth() + 1
         ),
@@ -176,7 +176,7 @@ export const analyticsRouter = router({
         return { totalExpensesAmount: totalExpensesAmount._sum.amount }
     }),
     highestExpenseCategory: publicProcedure.input(z.object({
-        userId: z.string(),
+        userId: z.string().min(1).max(64),
         month: z.number().min(1).max(12).default(
             new Date().getMonth() + 1
         ),

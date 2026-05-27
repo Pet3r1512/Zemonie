@@ -5,8 +5,8 @@ import z from "zod";
 export const balancesRouter = router({
     createDefaultBalance: publicProcedure.input(
         z.object({
-            userId: z.string(),
-            currency: z.enum(["AUD", "USD", "VND"]).default("AUD")
+        userId: z.string().min(1).max(64),
+        currency: z.enum(["AUD", "USD", "VND"]).default("AUD")
         })
     ).mutation(async ({ input }) => {
         const { userId, currency } = input
@@ -31,7 +31,7 @@ export const balancesRouter = router({
         }
     }),
     getCurrentBalance: publicProcedure.input(z.object({
-        userId: z.string()
+        userId: z.string().min(1).max(64)
     })).mutation(async ({ input }) => {
         const { userId } = input
 

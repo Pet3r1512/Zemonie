@@ -5,8 +5,8 @@ import prisma from "@/lib/prisma";
 
 export const userRouter = router({
     setup: publicProcedure.input(z.object({
-        userId: z.string(),
-        avatarId: z.string(),
+        userId: z.string().min(1).max(64),
+        avatarId: z.string().min(1).max(64),
         currency: z.enum(SupportedCurrency)
     })).mutation(async ({ input }) => {
         const { userId, avatarId, currency } = input
