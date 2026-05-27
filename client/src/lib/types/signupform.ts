@@ -3,4 +3,5 @@ export interface SignUpFormType {
   name: string;
   password: string;
   confirmPassword: string;
+  terms: boolean;
 }
