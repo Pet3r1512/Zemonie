@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ReleaseNotesRouteImport } from './routes/release-notes'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
@@ -39,11 +38,6 @@ const ReleaseNotesRoute = ReleaseNotesRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeaturesRoute = FeaturesRouteImport.update({
@@ -113,7 +107,6 @@ export interface FileRoutesByFullPath {
   '/cookie-policy': typeof CookiePolicyRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/release-notes': typeof ReleaseNotesRoute
   '/terms': typeof TermsRoute
@@ -131,7 +124,6 @@ export interface FileRoutesByTo {
   '/cookie-policy': typeof CookiePolicyRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/release-notes': typeof ReleaseNotesRoute
   '/terms': typeof TermsRoute
@@ -150,7 +142,6 @@ export interface FileRoutesById {
   '/cookie-policy': typeof CookiePolicyRoute
   '/faq': typeof FaqRoute
   '/features': typeof FeaturesRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/release-notes': typeof ReleaseNotesRoute
   '/terms': typeof TermsRoute
@@ -170,7 +161,6 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/faq'
     | '/features'
-    | '/pricing'
     | '/privacy'
     | '/release-notes'
     | '/terms'
@@ -188,7 +178,6 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/faq'
     | '/features'
-    | '/pricing'
     | '/privacy'
     | '/release-notes'
     | '/terms'
@@ -206,7 +195,6 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/faq'
     | '/features'
-    | '/pricing'
     | '/privacy'
     | '/release-notes'
     | '/terms'
@@ -225,7 +213,6 @@ export interface RootRouteChildren {
   CookiePolicyRoute: typeof CookiePolicyRoute
   FaqRoute: typeof FaqRoute
   FeaturesRoute: typeof FeaturesRoute
-  PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   ReleaseNotesRoute: typeof ReleaseNotesRoute
   TermsRoute: typeof TermsRoute
@@ -259,13 +246,6 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/features': {
@@ -361,7 +341,6 @@ const rootRouteChildren: RootRouteChildren = {
   CookiePolicyRoute: CookiePolicyRoute,
   FaqRoute: FaqRoute,
   FeaturesRoute: FeaturesRoute,
-  PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   ReleaseNotesRoute: ReleaseNotesRoute,
   TermsRoute: TermsRoute,
