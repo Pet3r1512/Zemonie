@@ -11,15 +11,22 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useRef, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { SignUpFormType } from "@/lib/types/signupform";
 import FormErrorMessage from "../FormErrorMessage";
 import { useMutation } from "@tanstack/react-query";
 import SignUpEmail from "@/api/users/auth/SignUpEmail";
 import { toast } from "sonner";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
-import { useRouter } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
 import Logo from "@/components/Layout/Logo";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+} from "@/components/ui/field";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -31,6 +38,7 @@ export default function SignUpForm({ className }: { className?: string }) {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors },
   } = useForm<SignUpFormType>();
 
@@ -208,6 +216,53 @@ export default function SignUpForm({ className }: { className?: string }) {
                     />
                   )}
                 </div>
+                <Field
+                  orientation="horizontal"
+                  className="rounded-lg border border-oklch(0.922 0 0) p-3 transition-colors has-data-[state=checked]:border-primary has-data-[state=checked]:bg-primary/5 dark:border-oklch(1 0 0 / 10%) dark:has-data-[state=checked]:bg-primary/10"
+                >
+                  <Controller
+                    name="terms"
+                    control={control}
+                    rules={{ required: "You must accept the terms and privacy policies" }}
+                    render={({ field }) => (
+                      <Checkbox
+                        id="terms"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="mt-0.5 h-5 w-5 shrink-0"
+                      />
+                    )}
+                  />
+                  <FieldContent>
+                    <FieldLabel
+                      htmlFor="terms"
+                      className="font-normal cursor-pointer"
+                    >
+                      Accept{" "}
+                      <Link
+                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        target="_blank"
+                        to={"/terms"}
+                      >
+                        terms
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        target="_blank"
+                        to={"/privacy"}
+                      >
+                        privacy policies
+                      </Link>
+                    </FieldLabel>
+                    <FieldDescription>
+                      By clicking this checkbox, you agree to the terms.
+                    </FieldDescription>
+                  </FieldContent>
+                </Field>
+                {errors.terms && errors.terms.message && (
+                  <FormErrorMessage message={errors.terms.message} />
+                )}
                 <Button
                   role="submit-btn"
                   disabled={mutation.isPending}
