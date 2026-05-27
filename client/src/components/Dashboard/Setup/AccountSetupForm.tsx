@@ -14,12 +14,10 @@ import { LoaderCircle } from "lucide-react";
 import AvatarPicker, { AvatarId } from "./AvatarPicker";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import useFetchUser from "@/hooks/useFetchUser";
 import accountSetup from "@/api/users/accountSetup";
 import { Currency } from "@/api/users/createBalance";
 
 export type AccountSetupFormValues = {
-  userId: string;
   avatarId: AvatarId;
   currency: Currency;
 };
@@ -51,7 +49,6 @@ export default function AccountSetupForm({
 }: {
   className?: string;
 }) {
-  const userId = useFetchUser();
   const queryClient = useQueryClient();
   const {
     register,
@@ -72,12 +69,9 @@ export default function AccountSetupForm({
   });
 
   const mutation = useMutation({
-    mutationKey: ["isSetupDone", userId],
+    mutationKey: ["isSetupDone"],
     mutationFn: (credentials: AccountSetupFormValues) =>
-      accountSetup({
-        ...credentials,
-        userId: userId || "",
-      }),
+      accountSetup(credentials),
 
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["userSetupStatus"] });

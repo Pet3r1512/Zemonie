@@ -2,7 +2,6 @@ import { ChartNoAxesCombined, Crown, MoveDown } from "lucide-react";
 import { OverallDataType } from "../Overall";
 import Data from "../Overall/Data";
 import { useQuery } from "@tanstack/react-query";
-import useFetchUser from "@/hooks/useFetchUser";
 import getHighestIncomeOfMonth from "@/api/users/analytics/income/getHighestIncomeOfMonth";
 import getIncomeGrowth from "@/api/users/analytics/income/getIncomeGrowth";
 import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
@@ -12,32 +11,26 @@ const currentMonth = now.getMonth() + 1; // 1-indexed
 const currentYear = now.getFullYear();
 
 export default function IncomeOverallContainer() {
-  const userId = useFetchUser();
-
   const totalIncomeQuery = useFetchCurrentMonthIncome({
-    userId: userId!,
     month: currentMonth,
     year: currentYear,
   });
 
   const highestIncomeOfMonth = useQuery({
-    queryKey: ["highestIncomeOfMonth", userId],
+    queryKey: ["highestIncomeOfMonth"],
     queryFn: () =>
       getHighestIncomeOfMonth({
-        userId: userId!,
         month: currentMonth,
         year: currentYear,
       }),
-    enabled: !!userId,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000, // 5 mins
     gcTime: 30 * 60 * 1000, // 30 mins
   });
 
   const incomeGrowthRate = useQuery({
-    queryKey: ["incomeRate", userId],
-    queryFn: () => getIncomeGrowth({ userId: userId! }),
-    enabled: !!userId,
+    queryKey: ["incomeRate"],
+    queryFn: () => getIncomeGrowth(),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 100,
     gcTime: 30 * 60 * 100,

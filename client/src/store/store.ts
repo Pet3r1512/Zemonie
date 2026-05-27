@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
-import { authClient } from "@/lib/auth-client";
 
 export type BalanceState = {
   balance: number;
@@ -32,12 +31,7 @@ const useBalanceStore = create<BalanceState>((set) => ({
     set({ isLoading: true });
 
     try {
-      const session = await authClient.getSession();
-
-      const userId = session?.data?.user?.id;
-      if (!userId) return;
-
-      const res = await getCurrentBalance({ userId });
+      const res = await getCurrentBalance();
 
       set({
         balance: res.balance,

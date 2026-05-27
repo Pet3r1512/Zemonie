@@ -1,7 +1,9 @@
-import { AccountSetupFormValues } from "@/components/Dashboard/Setup/AccountSetupForm";
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function accountSetup(credentials: AccountSetupFormValues) {
+export default async function accountSetup(credentials: {
+    avatarId: string;
+    currency: string;
+}) {
     const response = await fetch(`${SERVER_URL}/api/trpc/user.setup`, {
         method: "POST",
         credentials: "include",

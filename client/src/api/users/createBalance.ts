@@ -7,7 +7,6 @@ export enum Currency {
 }
 
 export default async function createBalance(credentials: {
-  userId: string;
   currency: Currency;
 }) {
   const response = await fetch(

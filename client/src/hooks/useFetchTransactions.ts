@@ -1,7 +1,6 @@
 import getTransactions from "@/api/users/transactions/getTransactions";
 import { TransactionsResponse } from "@/components/Dashboard/Transactions/TransactionsTable";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import useFetchUser from "./useFetchUser";
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 
 export type TransactionQueryOptions = "all" | "onlyIncome" | "onlyExpense"
@@ -11,8 +10,6 @@ export default function useFetchTransactions({
 }: {
   option?: TransactionQueryOptions
 }) {
-  const userId = useFetchUser();
-
   const {
     data,
     fetchNextPage,
@@ -22,7 +19,7 @@ export default function useFetchTransactions({
     isError,
     error,
   } = useInfiniteQuery<TransactionsResponse>({
-    queryKey: ["transactions", userId],
+    queryKey: ["transactions"],
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
     refetchOnWindowFocus: false,
@@ -30,7 +27,6 @@ export default function useFetchTransactions({
 
     queryFn: async ({ pageParam = 1 }) => {
       const response = await getTransactions({
-        userId,
         page: pageParam as number,
       });
 
@@ -45,8 +41,6 @@ export default function useFetchTransactions({
 
       return allPages.length + 1;
     },
-
-    enabled: !!userId,
   });
 
   const filteredData = data

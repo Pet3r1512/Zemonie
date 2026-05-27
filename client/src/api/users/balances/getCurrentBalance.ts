@@ -1,8 +1,6 @@
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function getCurrentBalance(credentials: {
-  userId: string;
-}) {
+export default async function getCurrentBalance() {
   const response = await fetch(
     `${SERVER_URL}/api/trpc/balances.getCurrentBalance`,
     {
@@ -11,7 +9,6 @@ export default async function getCurrentBalance(credentials: {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify(credentials),
     },
   );
 

@@ -19,13 +19,10 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
-import { authClient } from "@/lib/auth-client";
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import useBalanceStore from "@/store/store";
-import useFetchUser from "@/hooks/useFetchUser";
 
 export type Transaction = {
-  userId: string;
   categoryId: number;
   amount: number;
   currency: string;
@@ -37,7 +34,6 @@ export function IncomeForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const methods = useForm<Transaction>();
   const queryClient = useQueryClient();
-  const userId = useFetchUser();
 
   const { register, handleSubmit, reset } = methods;
 
@@ -60,32 +56,19 @@ export function IncomeForm() {
 
       setIsOpen(false);
       useBalanceStore.getState().markUpdated(false);
-      queryClient.invalidateQueries({ queryKey: ["totalIncome", userId] });
+      queryClient.invalidateQueries({ queryKey: ["totalIncome"] });
       queryClient.invalidateQueries({
-        queryKey: ["highestIncomeOfMonth", userId],
+        queryKey: ["highestIncomeOfMonth"],
       });
-      queryClient.invalidateQueries({ queryKey: ["incomeRate", userId] });
+      queryClient.invalidateQueries({ queryKey: ["incomeRate"] });
       queryClient.invalidateQueries({
-        queryKey: ["latestTransactions", userId],
+        queryKey: ["latestTransactions"],
       });
     },
   });
 
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
-    const session = await authClient.getSession();
-    const userId = session?.data?.user.id;
-
-    if (!userId) {
-      toast.error("User session not found");
-      return;
-    }
-
-    const defaultCredentials = {
-      userId,
-      currency: "AUD",
-    };
-
-    mutation.mutate({ ...credentials, ...defaultCredentials });
+    mutation.mutate({ ...credentials, currency: "AUD" });
 
     reset();
 

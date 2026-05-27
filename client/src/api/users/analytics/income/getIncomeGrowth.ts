@@ -1,6 +1,6 @@
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function getIncomeGrowth(input?: { userId: string }) {
+export default async function getIncomeGrowth() {
   const encodedInput = encodeURIComponent(JSON.stringify(input ?? {}));
 
   const response = await fetch(

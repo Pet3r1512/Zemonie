@@ -3,7 +3,6 @@ import { OverallDataType } from "../Overall";
 import Data from "../Overall/Data";
 import { useQuery } from "@tanstack/react-query";
 import getTotalExpensesByMonth from "@/api/users/analytics/expenses/getTotalExpensesByMonth";
-import useFetchUser from "@/hooks/useFetchUser";
 import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighestExpenseCategory";
 import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
 import calculateSaveRate from "./calculateSaveRate";
@@ -13,36 +12,30 @@ const currentMonth = now.getMonth() + 1; // 1-indexed
 const currentYear = now.getFullYear();
 
 export default function ExpensesOverallContainer() {
-  const userId = useFetchUser();
   const totalIncome = useFetchCurrentMonthIncome({
-    userId: userId!,
     month: currentMonth,
     year: currentYear,
   });
 
   const totalExpenseQuery = useQuery({
-    queryKey: ["totalIncomeQuery", userId],
+    queryKey: ["totalIncomeQuery"],
     queryFn: () =>
       getTotalExpensesByMonth({
-        userId: userId!,
         month: currentMonth,
         year: currentYear,
       }),
-    enabled: !!userId,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 
   const highestExpenseQuery = useQuery({
-    queryKey: ["highestExpense", userId],
+    queryKey: ["highestExpense"],
     queryFn: () =>
       getHighestExpenseCategory({
-        userId: userId!,
         month: currentMonth,
         year: currentYear,
       }),
-    enabled: !!userId,
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
