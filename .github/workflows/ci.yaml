@@ -24,9 +24,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
 
-      - name: Install dependencies
+      - name: Install dependencies (root workspace)
         run: pnpm install
 
+      # CLIENT
       - name: Install Playwright browsers
         run: cd client && pnpm exec playwright install
 
