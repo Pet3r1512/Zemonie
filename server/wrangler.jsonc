@@ -11,18 +11,6 @@
       "custom_domain": true,
     },
   ],
-
-  "ratelimits": [
-    {
-      "name": "ZEMONIE",
-      "namespace_id": "49e01de9e4a24616a37284dc59ee0c36",
-      "simple": {
-        "limit": 100,
-        "period": 60,
-      },
-    },
-  ],
-
   "vars": {
     "NODE_ENV": "production",
     "PORT": "9999",
