@@ -177,7 +177,8 @@ src/
 
 | Model | Key Fields |
 |---|---|
-| **User** | id, name, email, isSetupDone |
+| **User** | id, name, email |
+| **User_Preferences** | id, userId, currency, avatar, theme, isSetupDone |
 | **Session** | id, expiresAt, token, userId |
 | **Account** | id, accountId, providerId, userId |
 | **Verification** | id, identifier, value, expiresAt |
