@@ -61,9 +61,6 @@ app.use(
 );
 
 app.on(["POST", "GET"], "/api/auth/**", async (c) => {
-  console.log("NODE_ENV:", process.env.NODE_ENV);
-  console.log("Secrets present:", !!process.env.DATABASE_URL, !!process.env.BETTER_AUTH_SECRET);
-
   const response = await auth.handler(c.req.raw);
   return c.newResponse(response.body, response);
 });
