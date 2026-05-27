@@ -25,16 +25,25 @@ export const userRouter = router({
             }
         })
 
-        const user = await prisma.user.update({
+        const preferences = await prisma.user_Preferences.upsert({
             where: {
-                id: userId
+                userId
             },
-            data: {
-                image: avatarId,
+            update: {
+                currency: currency as SupportedCurrency,
+                avatar: avatarId,
+                theme: "light",
+                isSetupDone: true
+            },
+            create: {
+                userId,
+                currency: currency as SupportedCurrency,
+                avatar: avatarId,
+                theme: "light",
                 isSetupDone: true
             }
         })
 
-        return { success: true, user: user }
+        return { success: true, preferences }
     })
 })
