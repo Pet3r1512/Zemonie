@@ -3,17 +3,37 @@ import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, waitFor, within } from "@storybook/testing-library";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  createMemoryHistory,
+  createRootRoute,
+  createRouter,
+  RouterProvider,
+} from "@tanstack/react-router";
 
 const queryClient = new QueryClient();
+
+const rootRoute = createRootRoute({
+  component: () => <SignUpForm />,
+});
+
+const createMockRouter = (initialPath = "/") => {
+  const history = createMemoryHistory({
+    initialEntries: [initialPath],
+  });
+  return createRouter({ routeTree: rootRoute, history });
+};
 
 const meta: Meta<typeof SignUpForm> = {
   component: SignUpForm,
   decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>
-        <Story />
-      </QueryClientProvider>
-    ),
+    () => {
+      const router = createMockRouter("/");
+      return (
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      );
+    },
   ],
 };
 
@@ -119,6 +139,7 @@ export const InvalidEmailForm: Story = {
     await userEvent.type(confirmPasswordInp, "15122002P");
     await userEvent.tab();
 
+    await userEvent.click(canvas.getByRole("checkbox"));
     await userEvent.click(canvas.getByRole("submit-btn"));
 
     const errorMessages = await canvas.findAllByTestId("form-error-msg");
@@ -151,6 +172,7 @@ export const MissmatchPassword: Story = {
     await userEvent.type(confirmPasswordInp, "15122002");
     await userEvent.tab();
 
+    await userEvent.click(canvas.getByRole("checkbox"));
     await userEvent.click(canvas.getByRole("submit-btn"));
 
     const errorMessages = await canvas.findAllByTestId("form-error-msg");
