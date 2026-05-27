@@ -1,6 +1,7 @@
-import { betterAuth } from "better-auth";
+import { betterAuth } from "better-auth/minimal";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma";
+import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -15,6 +16,19 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
+    password: {
+      hash: async (password: string) => {
+        const salt = randomBytes(16).toString("hex");
+        const key = scryptSync(password.normalize("NFKC"), salt, 64, { N: 16384, r: 16, p: 1 });
+        return `${salt}:${key.toString("hex")}`;
+      },
+      verify: async ({ hash, password }: { hash: string; password: string }) => {
+        const [salt, key] = hash.split(":");
+        if (!salt || !key) return false;
+        const derived = scryptSync(password.normalize("NFKC"), salt, 64, { N: 16384, r: 16, p: 1 });
+        return timingSafeEqual(Buffer.from(key, "hex"), derived);
+      },
+    },
   },
 
   trustedOrigins: [
