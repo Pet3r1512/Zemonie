@@ -1,17 +1,49 @@
 import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
 import { createFileRoute } from "@tanstack/react-router";
-
 export const Route = createFileRoute("/release-notes")({
   component: RouteComponent,
 });
-
 const releases = [
+  {
+    version: "v1.0.2-beta",
+    date: "May 27, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Improved account security for a safer experience",
+      },
+      {
+        type: "feature",
+        text: "Added personalized settings and preferences",
+      },
+      {
+        type: "feature",
+        text: "Added a privacy agreement checkbox during account setup",
+      },
+      {
+        type: "update",
+        text: "Refreshed app branding and visual design",
+      },
+      {
+        type: "update",
+        text: "Improved website visibility and performance on search engines",
+      },
+      {
+        type: "fix",
+        text: "Fixed minor interface and layout issues",
+      },
+    ],
+  },
   {
     version: "v1.0.1-beta",
     date: "May 25, 2026",
     tag: "Beta",
-    changes: [{ type: "fix", text: "Authentication error handler" }],
+    changes: [
+      { type: "feature", text: "Improve user interfaces" },
+      { type: "fix", text: "Authentication error handler" },
+    ],
   },
   {
     version: "v1.0.0-beta",
@@ -35,6 +67,29 @@ const releases = [
   },
 ];
 
+const changeBadge = (type: string) => {
+  if (type === "feature") {
+    return (
+      <span className="mt-0.5 shrink-0 size-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-xs font-bold">
+        +
+      </span>
+    );
+  }
+  if (type === "update") {
+    return (
+      <span className="mt-0.5 shrink-0 size-5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs font-bold">
+        ~
+      </span>
+    );
+  }
+  // fix
+  return (
+    <span className="mt-0.5 shrink-0 size-5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-xs font-bold">
+      ✕
+    </span>
+  );
+};
+
 function RouteComponent() {
   return (
     <>
@@ -52,46 +107,36 @@ function RouteComponent() {
             </h1>
             <p className="text-gray-500 mt-2">What's new in Zemonie</p>
           </div>
-
-        <div className="space-y-6">
-          {releases.map((release) => (
-            <div
-              key={release.version}
-              className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10"
-            >
-              <div className="flex items-center gap-3 mb-1">
-                <h2 className="text-2xl lg:text-3xl font-bold text-primary">
-                  {release.version}
-                </h2>
-                <span className="rounded-full bg-primary/10 text-primary text-xs font-semibold px-3 py-1">
-                  {release.tag}
-                </span>
-              </div>
-              <p className="text-gray-500 text-sm mb-6">{release.date}</p>
-
-              <div className="space-y-3">
-                {release.changes.map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    {item.type === "feature" ? (
-                      <span className="mt-0.5 shrink-0 size-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-xs font-bold">
-                        +
+          <div className="space-y-6">
+            {releases.map((release) => (
+              <div
+                key={release.version}
+                className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10"
+              >
+                <div className="flex items-center gap-3 mb-1">
+                  <h2 className="text-2xl lg:text-3xl font-bold text-primary">
+                    {release.version}
+                  </h2>
+                  <span className="rounded-full bg-primary/10 text-primary text-xs font-semibold px-3 py-1">
+                    {release.tag}
+                  </span>
+                </div>
+                <p className="text-gray-500 text-sm mb-6">{release.date}</p>
+                <div className="space-y-3">
+                  {release.changes.map((item, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      {changeBadge(item.type)}
+                      <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        {item.text}
                       </span>
-                    ) : (
-                      <span className="mt-0.5 shrink-0 size-5 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs font-bold">
-                        ~
-                      </span>
-                    )}
-                    <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      {item.text}
-                    </span>
-                  </div>
-                ))}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </Page>
+      </Page>
     </>
   );
 }
