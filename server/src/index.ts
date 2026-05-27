@@ -6,6 +6,7 @@ import { env } from "./env";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma from "./lib/prisma";
 import { auth } from "./lib/auth";
+import { createRateLimiter, getIp } from "./lib/rate-limiter";
 
 const app = new Hono<{
   Variables: {
@@ -47,7 +48,6 @@ app.use("*", async (c, next) => {
 app.get("/", (c) => {
   return c.json({
     message: "Hono server is running",
-    env: env?.NODE_ENV,
     docs: new URL("/api/auth/reference", c.req.url).href,
   });
 });
@@ -60,15 +60,45 @@ app.use(
   }),
 );
 
-app.on(["POST", "GET"], "/api/auth/**", async (c) => {
-  console.log("NODE_ENV:", process.env.NODE_ENV);
-  console.log("Secrets present:", !!process.env.DATABASE_URL, !!process.env.BETTER_AUTH_SECRET);
+const limiter = createRateLimiter()
+  .add("auth:signin", { max: 5, windowMs: 60_000 })
+  .add("auth:signup", { max: 3, windowMs: 60_000 })
+  .add("auth:session", { max: 30, windowMs: 60_000 })
+  .add("auth:other", { max: 10, windowMs: 60_000 })
 
+function authLimitName(method: string, path: string) {
+  if (path.endsWith("/sign-in/email")) return "auth:signin"
+  if (path.endsWith("/sign-up/email")) return "auth:signup"
+  if (path.endsWith("/get-session")) return "auth:session"
+  return "auth:other"
+}
+
+app.use("/api/auth/**", async (c, next) => {
+  const ip = getIp(c)
+  const name = authLimitName(c.req.method, c.req.path)
+  const result = limiter.check(name, ip)
+  if (!result.allowed) {
+    c.res.headers.set("Retry-After", String(result.retryAfter))
+    return c.json({ message: "Too many requests. Please try again later." }, 429)
+  }
+  c.res.headers.set("X-RateLimit-Remaining", String(result.remaining))
+  await next()
+})
+
+app.on(["POST", "GET"], "/api/auth/**", async (c) => {
   const response = await auth.handler(c.req.raw);
   return c.newResponse(response.body, response);
 });
 
+const sessionLimiter = limiter.check.bind(limiter, "auth:session")
+
 app.get("/session", async (c) => {
+  const result = sessionLimiter(getIp(c))
+  if (!result.allowed) {
+    c.res.headers.set("Retry-After", String(result.retryAfter))
+    return c.json({ message: "Too many requests. Please try again later." }, 429)
+  }
+
   const session = await auth.api.getSession({
     headers: c.req.raw.headers,
   });
@@ -78,8 +108,12 @@ app.get("/session", async (c) => {
   }
 
   return c.json({
-    user: session.user,
-    session: session.session,
+    user: {
+      id: session.user.id,
+      email: session.user.email,
+      name: session.user.name,
+    },
+    expiresAt: session.session.expiresAt,
   });
 });
 

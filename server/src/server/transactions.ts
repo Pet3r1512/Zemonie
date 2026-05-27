@@ -34,8 +34,8 @@ export const transactionsRouter = router({
         })
     }),
     getTransactions: publicProcedure.input(z.object({
-        userId: z.string(),
-        page: z.number()
+        userId: z.string().min(1).max(64),
+        page: z.number().int().positive()
     })).query(async ({ input }) => {
         const { userId, page } = input
 
@@ -71,12 +71,12 @@ export const transactionsRouter = router({
         }
     }),
     addTransaction: publicProcedure.input(z.object({
-        userId: z.string(),
+        userId: z.string().min(1).max(64),
         categoryId: z.number().optional(),
         amount: z.number(),
         currency: z.enum(SupportedCurrency).optional(),
-        description: z.string(),
-        createdAt: z.string().optional()
+        description: z.string().min(1).max(500),
+        createdAt: z.string().max(32).optional()
     })).mutation(async ({ input }) => {
         const { userId, categoryId, amount, currency, description, createdAt } = input
 
@@ -126,7 +126,7 @@ export const transactionsRouter = router({
     }),
     getTotalIncomeByMonth: publicProcedure.input(
         z.object({
-            userId: z.string(),
+            userId: z.string().min(1).max(64),
 
             month: z.number().min(1).max(12).default(
                 new Date().getMonth() + 1
@@ -171,7 +171,7 @@ export const transactionsRouter = router({
         };
     }),
     getLatestIncomeAndExpenses: publicProcedure.input(z.object({
-        userId: z.string()
+        userId: z.string().min(1).max(64)
     })).query(async ({ input }) => {
         const { userId } = input
 
