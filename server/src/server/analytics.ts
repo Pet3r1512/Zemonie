@@ -1,12 +1,11 @@
 import prisma from "@/lib/prisma";
-import { publicProcedure, router } from "./tRPC";
+import { authenticatedProcedure, publicProcedure, router } from "./tRPC";
 import z from "zod";
 import CalculateHighestIncome from "../lib/analytics/CalculateHighestIncome"
 
 export const analyticsRouter = router({
-    highestIncomeOfMonth: publicProcedure.input(
+    highestIncomeOfMonth: authenticatedProcedure.input(
         z.object({
-            userId: z.string().min(1).max(64),
             month: z.number().min(1).max(12).default(
                 new Date().getMonth() + 1
             ),
@@ -15,8 +14,9 @@ export const analyticsRouter = router({
                 new Date().getFullYear()
             ),
         })
-    ).query(async ({ input }) => {
-        const { userId, month, year } = input
+    ).query(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { month, year } = input
 
         const startOfMonth = new Date(year, month - 1, 1);
 
@@ -62,10 +62,8 @@ export const analyticsRouter = router({
 
         return { highestIncome: CalculateHighestIncome(formattedIncome) }
     }),
-    incomeGrowth: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64)
-    })).query(async ({ input }) => {
-        const { userId } = input
+    incomeGrowth: authenticatedProcedure.query(async ({ ctx }) => {
+        const userId = ctx.userId
         const today = new Date();
 
         // Current month
@@ -134,8 +132,7 @@ export const analyticsRouter = router({
 
         return { growthRate }
     }),
-    totalExpensesOfMonth: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64),
+    totalExpensesOfMonth: authenticatedProcedure.input(z.object({
         month: z.number().min(1).max(12).default(
             new Date().getMonth() + 1
         ),
@@ -143,8 +140,9 @@ export const analyticsRouter = router({
         year: z.number().default(
             new Date().getFullYear()
         ),
-    })).query(async ({ input }) => {
-        const { userId, month, year } = input
+    })).query(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { month, year } = input
 
         const startOfMonth = new Date(year, month - 1, 1);
 
@@ -175,8 +173,7 @@ export const analyticsRouter = router({
 
         return { totalExpensesAmount: totalExpensesAmount._sum.amount }
     }),
-    highestExpenseCategory: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64),
+    highestExpenseCategory: authenticatedProcedure.input(z.object({
         month: z.number().min(1).max(12).default(
             new Date().getMonth() + 1
         ),
@@ -184,8 +181,9 @@ export const analyticsRouter = router({
         year: z.number().default(
             new Date().getFullYear()
         ),
-    })).query(async ({ input }) => {
-        const { userId, month, year } = input
+    })).query(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { month, year } = input
 
         const startOfMonth = new Date(year, month - 1, 1);
 

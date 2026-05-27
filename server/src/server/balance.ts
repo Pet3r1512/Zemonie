@@ -1,15 +1,15 @@
 import prisma from "@/lib/prisma";
-import { publicProcedure, router } from "./tRPC";
+import { authenticatedProcedure, publicProcedure, router } from "./tRPC";
 import z from "zod";
 
 export const balancesRouter = router({
-    createDefaultBalance: publicProcedure.input(
+    createDefaultBalance: authenticatedProcedure.input(
         z.object({
-        userId: z.string().min(1).max(64),
         currency: z.enum(["AUD", "USD", "VND"]).default("AUD")
         })
-    ).mutation(async ({ input }) => {
-        const { userId, currency } = input
+    ).mutation(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { currency } = input
 
         const defaultBalance = await prisma.balance.create({
             data: {
@@ -30,10 +30,8 @@ export const balancesRouter = router({
             message: "Default balance is created"
         }
     }),
-    getCurrentBalance: publicProcedure.input(z.object({
-        userId: z.string().min(1).max(64)
-    })).mutation(async ({ input }) => {
-        const { userId } = input
+    getCurrentBalance: authenticatedProcedure.mutation(async ({ ctx }) => {
+        const userId = ctx.userId
 
         const currentBalance = await prisma.balance.findFirst({
             where: {
