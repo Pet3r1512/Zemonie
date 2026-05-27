@@ -6,6 +6,7 @@ import { env } from "./env";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma from "./lib/prisma";
 import { auth } from "./lib/auth";
+import { rateLimit } from "./lib/rate-limiter";
 
 const app = new Hono<{
   Variables: {
@@ -58,6 +59,19 @@ app.use(
     router: appRouter,
   }),
 );
+
+const authRateLimit = rateLimit({ max: 10, windowMs: 60_000 })
+
+app.use("/api/auth/**", async (c, next) => {
+  const ip = c.req.header("cf-connecting-ip") || c.req.header("x-forwarded-for") || "unknown"
+  const result = authRateLimit(ip)
+  if (!result.allowed) {
+    c.res.headers.set("Retry-After", String(result.retryAfter))
+    return c.json({ message: "Too many requests. Please try again later." }, 429)
+  }
+  c.res.headers.set("X-RateLimit-Remaining", String(result.remaining))
+  await next()
+})
 
 app.on(["POST", "GET"], "/api/auth/**", async (c) => {
   const response = await auth.handler(c.req.raw);
