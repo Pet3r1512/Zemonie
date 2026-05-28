@@ -45,7 +45,7 @@ export const transactionsRouter = router({
         categoryId: z.number().optional(),
         amount: z.number(),
         currency: z.enum(SupportedCurrency).optional(),
-        description: z.string().min(1).max(500),
+        description: z.string().max(100).optional(),
         createdAt: z.string().max(32).optional()
     })).mutation(async ({ ctx, input }) => {
         const userId = ctx.userId
