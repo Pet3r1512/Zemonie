@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldGroup } from "@/components/ui/field";
+import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -28,7 +28,12 @@ export function ExpenseForm() {
   const methods = useForm<Transaction>();
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit, reset } = methods;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = methods;
 
   const mutation = useMutation({
     mutationKey: ["expense"],
@@ -91,9 +96,19 @@ export function ExpenseForm() {
             </DialogHeader>
             <DialogDescription className="sr-only"></DialogDescription>
             <FieldGroup className="my-8">
+              <input
+                type="hidden"
+                {...register("categoryId", {
+                  required: "Please select an expense category",
+                })}
+              />
               <Field>
                 <Label htmlFor="source">Spend On</Label>
                 <ExpenseSelect />
+                <FieldError
+                  className="text-red-500"
+                  errors={[errors.categoryId]}
+                />
               </Field>
               <Field>
                 <Label htmlFor="amount">Amount</Label>
@@ -110,6 +125,7 @@ export function ExpenseForm() {
                     },
                   })}
                 />
+                <FieldError className="text-red-500" errors={[errors.amount]} />
               </Field>
               <Field>
                 <Label htmlFor="desc">{"Description (optional)"}</Label>
