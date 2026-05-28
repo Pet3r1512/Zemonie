@@ -106,9 +106,19 @@ export function IncomeForm() {
             </DialogHeader>
             <DialogDescription className="sr-only"></DialogDescription>
             <FieldGroup className="my-8">
+              <input
+                type="hidden"
+                {...register("categoryId", {
+                  required: "Please select an income source",
+                })}
+              />
               <Field>
                 <Label htmlFor="source">Income Source</Label>
                 <IncomeSelect />
+                <FieldError
+                  className="text-red-500"
+                  errors={[errors.categoryId]}
+                />
               </Field>
               <Field>
                 <Label htmlFor="amount">Amount</Label>
