@@ -3,7 +3,7 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma";
 import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV !== "development";
 
 export const auth = betterAuth({
   baseURL: "https://api.zemonie.site",
