@@ -120,7 +120,11 @@ app.get("/api/ping", async (c) => {
 
 export default {
   async fetch(request: Request, env: Record<string, string | undefined>, ctx: ExecutionContext) {
-    if (env.DATABASE_URL) setPrismaConnectionString(env.DATABASE_URL);
+    if (env.DEV_DATABASE_URL) {
+      setPrismaConnectionString(env.DEV_DATABASE_URL);
+    } else if (env.DATABASE_URL) {
+      setPrismaConnectionString(env.DATABASE_URL);
+    }
     return app.fetch(request, env, ctx);
   },
   async scheduled(event: ScheduledEvent, env: unknown, ctx: ExecutionContext) {
