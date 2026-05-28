@@ -26,7 +26,7 @@ export type Transaction = {
   categoryId: number;
   amount: number;
   currency: string;
-  description: string;
+  description?: string;
   createdAt?: string;
 };
 
@@ -122,7 +122,7 @@ export function IncomeForm() {
                 />
               </Field>
               <Field>
-                <Label htmlFor="desc">Description</Label>
+                <Label htmlFor="desc">{"Description (optional)"}</Label>
                 <Input
                   id="desc"
                   type="text"

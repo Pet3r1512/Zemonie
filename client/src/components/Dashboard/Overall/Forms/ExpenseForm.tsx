@@ -112,7 +112,7 @@ export function ExpenseForm() {
                 />
               </Field>
               <Field>
-                <Label htmlFor="desc">Description</Label>
+                <Label htmlFor="desc">{"Description (optional)"}</Label>
                 <Input
                   id="desc"
                   type="text"
