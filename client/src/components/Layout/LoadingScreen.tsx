@@ -4,7 +4,7 @@ export default function LoadingScreen() {
     <div className="w-screen h-screen flex items-center justify-center">
       <div className="flex flex-col items-center">
         <img
-          src="/logo/zemonie-icon-light.svg"
+          src="/logo/zemonie_icon.webp"
           alt="Zemonie Icon"
           className="w-auto h-10 md:h-14 lg:h-20"
         />
