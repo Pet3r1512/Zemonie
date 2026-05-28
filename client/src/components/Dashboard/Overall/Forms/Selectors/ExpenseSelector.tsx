@@ -55,7 +55,7 @@ export default function ExpenseSelect() {
   return (
     <Select
       onValueChange={(value) => {
-        setValue("categoryId", +value);
+        setValue("categoryId", +value, { shouldValidate: true });
       }}
     >
       <SelectTrigger id="source" name="source" className="w-full">
