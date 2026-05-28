@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "./server/_index";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
-import prisma from "./lib/prisma";
+import prisma, { setPrismaConnectionString } from "./lib/prisma";
 import { auth } from "./lib/auth";
 import { createContext } from "./server/context";
 
@@ -119,7 +119,10 @@ app.get("/api/ping", async (c) => {
 });
 
 export default {
-  fetch: app.fetch,
+  async fetch(request: Request, env: Record<string, string | undefined>, ctx: ExecutionContext) {
+    if (env.DATABASE_URL) setPrismaConnectionString(env.DATABASE_URL);
+    return app.fetch(request, env, ctx);
+  },
   async scheduled(event: ScheduledEvent, env: unknown, ctx: ExecutionContext) {
     ctx.waitUntil(
       fetch("https://api.zemonie.site/api/ping")
