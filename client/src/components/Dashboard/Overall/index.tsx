@@ -60,7 +60,7 @@ export default function Overall() {
       amount: latestTransactionsQuery.data?.result.latestIncome?.amount ?? 0,
     },
     {
-      name: "Latest Expenses",
+      name: "Latest Expense",
       subtitle:
         latestTransactionsQuery.data?.result.latestExpense?.description ?? "",
       icon: (
