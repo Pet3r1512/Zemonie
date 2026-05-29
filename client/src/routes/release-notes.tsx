@@ -6,6 +6,37 @@ export const Route = createFileRoute("/release-notes")({
 });
 const releases = [
   {
+    version: "v1.0.2-beta.1",
+    date: "May 29, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Transaction forms now show helpful error messages when required information is missing.",
+      },
+      {
+        type: "feature",
+        text: "Currency values are now displayed in a clearer, easier-to-read format.",
+      },
+      {
+        type: "update",
+        text: "Improved the experience on mobile phones and smaller screens.",
+      },
+      {
+        type: "update",
+        text: "Enhanced security to better protect your account and data.",
+      },
+      {
+        type: "update",
+        text: "Faster loading times when retrieving your financial data.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue that could allow transactions to be created without a description.",
+      },
+    ],
+  },
+  {
     version: "v1.0.2-beta",
     date: "May 27, 2026",
     tag: "Beta",
