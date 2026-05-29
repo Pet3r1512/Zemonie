@@ -12,23 +12,23 @@ const releases = [
     changes: [
       {
         type: "feature",
-        text: "Transaction forms now show helpful error messages when required information is missing.",
+        text: "Transaction forms now provide clear guidance when required fields are missing.",
       },
       {
         type: "feature",
-        text: "Currency values are now displayed in a clearer, easier-to-read format.",
+        text: "Currency amounts are displayed in a cleaner and more consistent format.",
       },
       {
         type: "update",
-        text: "Improved the experience on mobile phones and smaller screens.",
+        text: "Improved usability on mobile devices and smaller screens.",
       },
       {
         type: "update",
-        text: "Enhanced security to better protect your account and data.",
+        text: "Enhanced security and reliability across the platform.",
       },
       {
         type: "update",
-        text: "Faster loading times when retrieving your financial data.",
+        text: "Faster data loading for a smoother experience.",
       },
       {
         type: "fix",
