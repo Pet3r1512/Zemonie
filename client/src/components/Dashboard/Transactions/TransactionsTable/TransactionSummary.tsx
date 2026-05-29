@@ -1,5 +1,6 @@
 import { ComponentMap } from "@/types/ComponentMap";
 import { TransactionInfo } from "./ListByDate";
+import formatCurrency from "@/helpers/formatCurrency";
 import { ArrowDown, ArrowUp } from "lucide-react";
 
 enum CategoryType {
@@ -77,7 +78,7 @@ export default function TransactionSummary({
         }`}
       >
         {currCategory?.type.toString() === "INCOME" ? "+ " : "- "}
-        {transaction.amount}
+        {formatCurrency(transaction.amount)}
       </p>
     </div>
   );
