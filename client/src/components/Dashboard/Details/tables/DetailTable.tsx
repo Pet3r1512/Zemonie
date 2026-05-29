@@ -9,6 +9,7 @@ import {
 
 import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
+import formatCurrency from "@/helpers/formatCurrency";
 import CategoryTag from "../../Category/CategoryTag";
 import { cn } from "@/lib/utils";
 
@@ -60,7 +61,7 @@ export function IncomeTable({
               </TableCell>
 
               <TableCell className="text-right font-medium text-xs sm:text-sm md:text-base whitespace-nowrap">
-                ${transaction.amount}
+                {formatCurrency(transaction.amount)}
               </TableCell>
 
               <TableCell className="text-right max-w-62.5 truncate">
