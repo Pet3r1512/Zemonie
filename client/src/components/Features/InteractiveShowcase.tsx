@@ -68,8 +68,8 @@ export default function InteractiveShowcase() {
           </div>
 
           <div className="relative cursor-default pointer-events-none">
-            <div className="aspect-square rounded-2xl bg-linear-to-br from-primary/20 to-primary/5 p-8 flex items-center justify-center">
-              <div className="w-full h-full rounded-xl bg-white dark:bg-gray-800 shadow-2xl p-6 flex flex-col">
+            <div className="rounded-2xl bg-linear-to-br from-primary/20 to-primary/5 p-8 flex items-center justify-center h-fit!">
+              <div className="w-full rounded-xl bg-white dark:bg-gray-800 shadow-2xl p-6 flex flex-col min-h-fit">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-3">
@@ -85,7 +85,7 @@ export default function InteractiveShowcase() {
                     </div>
                   </div>
                 </div>
-                <div className="grow flex items-center justify-center">
+                <div className="grow flex items-center justify-center max-h-fit">
                   <div className="relative w-48 h-48">
                     <svg className="w-full h-full transform -rotate-90">
                       <circle
