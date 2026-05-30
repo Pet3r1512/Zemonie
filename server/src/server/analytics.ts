@@ -261,7 +261,7 @@ export const analyticsRouter = router({
                 userId,
                 createdAt: {
                     gte: startOfMonth,
-                    lt: endOfMonth
+                    lte: endOfMonth
                 },
                 category: {
                     type: "EXPENSE"
