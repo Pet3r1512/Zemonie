@@ -61,7 +61,7 @@ export default function ExpenseSelect() {
       <SelectTrigger id="source" name="source" className="w-full">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="bg-white w-full">
+      <SelectContent className="bg-white w-full max-h-64">
         <SelectGroup>
           {expenseSources.map((source: SourceExpense) => {
             return (
