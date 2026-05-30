@@ -255,8 +255,7 @@ export const analyticsRouter = router({
             59
         );
 
-        const expensesSummary = await prisma.transaction.groupBy({
-            by: ["categoryId"],
+        const transactions = await prisma.transaction.findMany({
             where: {
                 userId,
                 createdAt: {
@@ -267,11 +266,25 @@ export const analyticsRouter = router({
                     type: "EXPENSE"
                 }
             },
-            _sum: {
-                amount: true
+            select: {
+                categoryId: true,
+                amount: true,
             },
         })
 
-        return { expenseCategorySummary: expensesSummary }
+        const grouped = new Map<number, number>()
+        for (const t of transactions) {
+            if (t.categoryId == null) continue
+            grouped.set(t.categoryId, Number(t.amount) + (grouped.get(t.categoryId) ?? 0))
+        }
+
+        const expenseCategorySummary = Array.from(grouped.entries()).map(
+            ([categoryId, amount]) => ({
+                categoryId,
+                _sum: { amount: String(amount) },
+            })
+        )
+
+        return { expenseCategorySummary }
     })
 })
