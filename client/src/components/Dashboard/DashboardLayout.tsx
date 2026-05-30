@@ -65,7 +65,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider className="p-5">
       <AppSidebar />
-      <main className="w-full max-w-7xl space-y-10 max-h-[95dvh] mx-auto scrollbar-gutter-stable">
+      <main className="w-full max-w-7xl space-y-10 lg:max-h-[95dvh] mx-auto scrollbar-gutter-stable">
         <div className="mb-5 space-y-2.5 lg:space-y-5">
           <SidebarTrigger />
           <p className="text-xl md:text-2xl lg:text-3xl font-bold text-primary">
