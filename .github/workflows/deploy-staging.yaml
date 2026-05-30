@@ -34,11 +34,11 @@ jobs:
 
       - name: Deploy server to staging
         run: |
-          pnpm wrangler deploy --minify --config wrangler.staging.jsonc \
-            --secret DATABASE_URL \
-            --secret BETTER_AUTH_SECRET \
-            --secret BETTER_AUTH_URL \
-            --secret TRUSTED_ORIGINS
+          printf 'DATABASE_URL=%s\n' "$DATABASE_URL" > .secrets.env
+          printf 'BETTER_AUTH_SECRET=%s\n' "$BETTER_AUTH_SECRET" >> .secrets.env
+          printf 'BETTER_AUTH_URL=%s\n' "$BETTER_AUTH_URL" >> .secrets.env
+          printf 'TRUSTED_ORIGINS=%s\n' "$TRUSTED_ORIGINS" >> .secrets.env
+          pnpm wrangler deploy --minify --config wrangler.staging.jsonc --secrets-file .secrets.env
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           DATABASE_URL: ${{ secrets.DATABASE_URL_STAGING }}

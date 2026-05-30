@@ -29,9 +29,9 @@ jobs:
 
       - name: Deploy server to production
         run: |
-          pnpm wrangler deploy --minify \
-            --secret DATABASE_URL \
-            --secret BETTER_AUTH_SECRET
+          printf 'DATABASE_URL=%s\n' "$DATABASE_URL" > .secrets.env
+          printf 'BETTER_AUTH_SECRET=%s\n' "$BETTER_AUTH_SECRET" >> .secrets.env
+          pnpm wrangler deploy --minify --secrets-file .secrets.env
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
