@@ -11,8 +11,6 @@ export default function Charts() {
     gcTime: 30 * 60 * 1000,
   });
 
-  console.log(spendingByCategoryQuery.data?.spendingByCategory);
-
   return (
     <section>
       <SpendingByCategory
