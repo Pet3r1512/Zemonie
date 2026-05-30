@@ -15,7 +15,7 @@ const features = [
     color: "from-blue-500 to-cyan-500",
     benefits: [
       "Add income & expenses",
-      "Edit or delete entries",
+      // "Edit or delete entries",
       "Transaction history",
       "Fast entry flow",
     ],
@@ -43,7 +43,7 @@ const features = [
       "Monthly summaries",
       "Income vs expense view",
       "Category breakdowns",
-      "Period comparisons",
+      // "Period comparisons",
     ],
   },
   {
@@ -53,7 +53,7 @@ const features = [
       "See your finances at a glance with clear, intuitive charts. No spreadsheets — just beautiful visuals that make sense instantly.",
     color: "from-indigo-500 to-purple-500",
     benefits: [
-      "Pie & bar charts",
+      // "Pie & bar charts",
       "Balance overview",
       "Interactive visuals",
       "At-a-glance dashboard",
