@@ -60,6 +60,9 @@ export function ExpenseForm() {
       queryClient.invalidateQueries({
         queryKey: ["latestTransactions"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["spendingByCategory"],
+      });
     },
   });
 
