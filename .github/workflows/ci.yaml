@@ -25,8 +25,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
 
-      - name: Install dependencies (root workspace)
-        run: pnpm install
+      # SERVER
+      - name: Install server dependencies
+        run: cd server && pnpm install
+
+      - name: Generate Prisma client
+        run: cd server && pnpm prisma generate
+
+      - name: Typecheck server
+        run: cd server && npx tsc --noEmit
 
       # SERVER
       - name: Generate Prisma client
@@ -36,11 +43,14 @@ jobs:
         run: npx tsc --project server/tsconfig.json --noEmit
 
       # CLIENT
+      - name: Install client dependencies
+        run: cd client && pnpm install
+
       - name: Install Playwright browsers
         run: cd client && pnpm exec playwright install
 
       - name: Test client
-        run: pnpm --dir client test
+        run: cd client && pnpm test
 
       - name: Build client
-        run: pnpm --dir client build
+        run: cd client && pnpm build

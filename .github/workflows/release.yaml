@@ -8,6 +8,9 @@ on:
 jobs:
   deploy-server:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
     steps:
       - uses: actions/checkout@v4
 
@@ -22,10 +25,11 @@ jobs:
 
       - run: pnpm install
 
+      - run: pnpm prisma generate
+
       - name: Deploy server to production
         run: |
-          pnpm --dir server prisma generate
-          pnpm --dir server wrangler deploy --minify \
+          pnpm wrangler deploy --minify \
             --secret DATABASE_URL \
             --secret BETTER_AUTH_SECRET
         env:
@@ -35,6 +39,9 @@ jobs:
 
   deploy-client:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
     steps:
       - uses: actions/checkout@v4
 
@@ -51,8 +58,8 @@ jobs:
 
       - name: Build and deploy client to production
         run: |
-          pnpm --dir client build
-          pnpm --dir client wrangler deploy --minify
+          pnpm build
+          pnpm wrangler deploy --minify
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           VITE_SERVER_URL: https://api.zemonie.site
