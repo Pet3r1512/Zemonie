@@ -33,14 +33,7 @@ jobs:
         run: cd server && pnpm prisma generate
 
       - name: Typecheck server
-        run: cd server && npx tsc --noEmit
-
-      # SERVER
-      - name: Generate Prisma client
-        run: pnpm --dir server prisma generate
-
-      - name: Typecheck server
-        run: npx tsc --project server/tsconfig.json --noEmit
+        run: cd server && pnpm exec tsc --noEmit
 
       # CLIENT
       - name: Install client dependencies
