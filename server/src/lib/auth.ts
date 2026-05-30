@@ -5,8 +5,16 @@ import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
 
 const isProduction = process.env.NODE_ENV !== "development";
 
+const betterAuthUrl = process.env.BETTER_AUTH_URL || "https://api.zemonie.site";
+const trustedOrigins = process.env.TRUSTED_ORIGINS?.split(",") || [
+  "https://www.zemonie.site",
+  "https://zemonie.site",
+  "http://localhost:5173",
+];
+const cookieDomain = process.env.COOKIE_DOMAIN || ".zemonie.site";
+
 export const auth = betterAuth({
-  baseURL: "https://api.zemonie.site",
+  baseURL: betterAuthUrl,
   secret: process.env.BETTER_AUTH_SECRET,
   basePath: "/api/auth",
 
@@ -31,11 +39,7 @@ export const auth = betterAuth({
     },
   },
 
-  trustedOrigins: [
-    "https://www.zemonie.site",
-    "https://zemonie.site",
-    "http://localhost:5173",
-  ],
+  trustedOrigins,
 
   session: {
     expiresIn: 60 * 60 * 24 * 7,
@@ -49,7 +53,7 @@ export const auth = betterAuth({
     ...(isProduction && {
       crossSubDomainCookies: {
         enabled: true,
-        domain: ".zemonie.site",
+        domain: cookieDomain,
       },
     }),
     defaultCookieAttributes: {
