@@ -86,7 +86,9 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
           <PieChart>
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={
+                <ChartTooltipContent hideLabel className="bg-white border" />
+              }
             />
             <Pie
               data={chartData}
