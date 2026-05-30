@@ -86,29 +86,23 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
             <ChartTooltip
               cursor={false}
               content={({ active, payload }) => {
-                if (!active || !payload?.length) return null;
-                const total = payload.reduce(
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (s: number, e: any) => s + (e.value ?? 0),
-                  0,
-                );
-                const firstPayload = payload[0];
-                const pct =
-                  total > 0 && firstPayload?.value
-                    ? ((Number(firstPayload.value) / total) * 100).toFixed(1)
-                    : "0.0";
+                if (!active || !payload?.length) return null
+                const entry = payload[0]
+                const pct = totalAmount > 0 && entry?.value != null
+                  ? ((Number(entry.value) / totalAmount) * 100).toFixed(1)
+                  : "0.0"
                 return (
                   <div className="rounded-lg border bg-white px-3 py-2 text-xs shadow-xl">
                     <div className="flex items-center gap-2">
                       <span
                         className="inline-block h-2.5 w-2.5 rounded-[2px]"
-                        style={{ backgroundColor: firstPayload?.payload?.fill }}
+                        style={{ backgroundColor: entry?.payload?.fill }}
                       />
-                      <span className="font-medium">{firstPayload?.name}</span>
+                      <span className="font-medium">{entry?.name}</span>
                       <span className="text-muted-foreground">{pct}%</span>
                     </div>
                   </div>
-                );
+                )
               }}
             />
             <Pie
