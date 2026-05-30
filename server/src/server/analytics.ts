@@ -234,5 +234,44 @@ export const analyticsRouter = router({
         })
 
         return { highestExpenseCategoryAmount: highestExpenseCategory[0]._sum.amount, categoryName: highestCategoryName?.name }
+    }),
+    getExpenseCategorySummary: authenticatedProcedure.input(z.object({
+        month: z.number().min(1).max(12).default(
+            new Date().getMonth() + 1
+        ),
+        year: z.number().default(new Date().getFullYear())
+    })).query(async ({ ctx, input }) => {
+        const userId = ctx.userId
+        const { month, year } = input
+
+        const startOfMonth = new Date(year, month - 1, 1);
+
+        const endOfMonth = new Date(
+            year,
+            month,
+            0,
+            23,
+            59,
+            59
+        );
+
+        const expensesSummary = await prisma.transaction.groupBy({
+            by: ["categoryId"],
+            where: {
+                userId,
+                createdAt: {
+                    gte: startOfMonth,
+                    lt: endOfMonth
+                },
+                category: {
+                    type: "EXPENSE"
+                }
+            },
+            _sum: {
+                amount: true
+            },
+        })
+
+        return { expenseCategorySummary: expensesSummary }
     })
 })

@@ -1,3 +1,4 @@
+import Charts from "@/components/Dashboard/Charts/_index";
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import Overall from "@/components/Dashboard/Overall";
 import TransactionButtons from "@/components/Dashboard/Overall/TransactionsButtons";
@@ -12,6 +13,7 @@ function RouteComponent() {
     <DashboardLayout section="Dashboard">
       <TransactionButtons />
       <Overall />
+      <Charts />
     </DashboardLayout>
   );
 }
