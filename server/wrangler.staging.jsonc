@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "zemonie-server-staging",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-06-14",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "routes": [
+    {
+      "pattern": "staging.api.zemonie.site",
+      "custom_domain": true,
+    },
+  ],
+
+  "vars": {
+    "BASE_URL": "https://staging.api.zemonie.site",
+  },
+
+  "triggers": {
+    "crons": ["*/3 * * * *"],
+  },
+}
