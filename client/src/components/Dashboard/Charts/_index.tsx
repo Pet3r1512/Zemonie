@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import SpendingByCategory from "./SpendingByCategory";
 import getSpendingByCategory from "@/api/dashboard/charts/SpendingByCategory";
+import { SpendingByCategory } from "./SpendingByCategory";
 
 export default function Charts() {
   const spendingByCategoryQuery = useQuery({
@@ -15,7 +15,9 @@ export default function Charts() {
 
   return (
     <section>
-      <SpendingByCategory />
+      <SpendingByCategory
+        data={spendingByCategoryQuery.data?.spendingByCategory}
+      />
     </section>
   );
 }
