@@ -28,6 +28,13 @@ jobs:
       - name: Install dependencies (root workspace)
         run: pnpm install
 
+      # SERVER
+      - name: Generate Prisma client
+        run: pnpm --dir server prisma generate
+
+      - name: Typecheck server
+        run: npx tsc --project server/tsconfig.json --noEmit
+
       # CLIENT
       - name: Install Playwright browsers
         run: cd client && pnpm exec playwright install
