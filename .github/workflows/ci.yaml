@@ -40,10 +40,26 @@ jobs:
         run: cd client && pnpm install
 
       - name: Install Playwright browsers
-        run: cd client && pnpm exec playwright install
+        run: cd client && pnpm exec playwright install --with-deps chromium firefox webkit
+
+      - name: Start Storybook
+        run: |
+          pnpm storybook --no-open &
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:6006 > /dev/null 2>&1; then
+              echo "Storybook ready"
+              break
+            fi
+            sleep 2
+          done
+        working-directory: client
 
       - name: Test client
-        run: cd client && pnpm test
+        run: pnpm test
+        working-directory: client
+        env:
+          STORYBOOK_URL: http://localhost:6006
 
       - name: Build client
-        run: cd client && pnpm build
+        run: pnpm build
+        working-directory: client
