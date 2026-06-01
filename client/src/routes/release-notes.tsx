@@ -6,6 +6,37 @@ export const Route = createFileRoute("/release-notes")({
 });
 const releases = [
   {
+    version: "v1.0.3-beta",
+    date: "Jun 01, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Introduced a Spending by Category chart for better insight into your spending habits. 🚀",
+      },
+      {
+        type: "feature",
+        text: "Added a scrollable category list to make selecting transaction categories easier.",
+      },
+      {
+        type: "update",
+        text: "Enhanced the Features page with clearer and more detailed feature information.",
+      },
+      {
+        type: "update",
+        text: "Improved app stability and consistency across Chrome, Safari, Firefox, and other major browsers.",
+      },
+      {
+        type: "fix",
+        text: "Corrected time-related inconsistencies to ensure data is displayed accurately.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue that could cause a different avatar to appear than the one selected during setup.",
+      },
+    ],
+  },
+  {
     version: "v1.0.2-beta.1",
     date: "May 29, 2026",
     tag: "Beta",
