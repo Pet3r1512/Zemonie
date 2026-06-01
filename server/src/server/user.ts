@@ -25,6 +25,15 @@ export const userRouter = router({
             }
         })
 
+        await prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: {
+                image: avatarId
+            }
+        })
+
         const preferences = await prisma.user_Preferences.upsert({
             where: {
                 userId
