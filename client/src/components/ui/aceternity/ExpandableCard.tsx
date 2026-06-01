@@ -120,6 +120,15 @@ export function ExpandableCard({
             >
               <div className="p-6 space-y-4">
                 <motion.h3
+                <motion.div className="flex flex-col gap-y-1.5">
+                  <div className="flex items-center gap-x-2">
+                    {categoryColorDictionary[currCategory!.id.toString()].icon}
+                    <p className="text-lg font-semibold">
+                      {currCategory?.name}
+                    </p>
+                  </div>
+                  <p>{ParseISOStringDate({ date: transaction.date })}</p>
+                </motion.div>
                   layoutId={`title-${transaction.id}-${id}`}
                   className="font-bold text-2xl text-neutral-700 dark:text-neutral-200"
                 >
