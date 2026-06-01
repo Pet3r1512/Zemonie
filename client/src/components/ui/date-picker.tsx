@@ -12,6 +12,7 @@ import { Button } from "./button";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Transaction } from "../Dashboard/Overall/Forms/IncomeForm";
+import localISOString from "@/helpers/localISOString";
 
 export function DatePicker() {
   const [date, setDate] = useState<Date>();
@@ -47,7 +48,7 @@ export function DatePicker() {
           onSelect={(d) => {
             setDate(d);
             setOpen(false);
-            setValue("createdAt", d?.toISOString());
+            setValue("createdAt", d ? localISOString(d) : undefined);
           }}
           className="w-full h-83 lg:h-75 z-100 bg-white rounded-lg pointer-events-auto"
         />
