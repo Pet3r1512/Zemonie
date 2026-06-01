@@ -22,6 +22,7 @@ import { Transaction } from "./IncomeForm";
 import ExpenseSelect from "./Selectors/ExpenseSelector";
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import useBalanceStore from "@/store/store";
+import localISOString from "@/helpers/localISOString";
 
 export function ExpenseForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -67,7 +68,11 @@ export function ExpenseForm() {
   });
 
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
-    mutation.mutate({ ...credentials, currency: "AUD" });
+    mutation.mutate({
+      ...credentials,
+      currency: "AUD",
+      createdAt: credentials.createdAt ?? localISOString(),
+    });
     reset();
 
     setIsOpen(false);

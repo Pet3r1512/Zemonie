@@ -21,6 +21,7 @@ import { toast } from "sonner";
 import { LoaderCircle } from "lucide-react";
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import useBalanceStore from "@/store/store";
+import localISOString from "@/helpers/localISOString";
 
 export type Transaction = {
   categoryId: number;
@@ -73,7 +74,11 @@ export function IncomeForm() {
   });
 
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
-    mutation.mutate({ ...credentials, currency: "AUD" });
+    mutation.mutate({
+      ...credentials,
+      currency: "AUD",
+      createdAt: credentials.createdAt ?? localISOString(),
+    });
 
     reset();
 
