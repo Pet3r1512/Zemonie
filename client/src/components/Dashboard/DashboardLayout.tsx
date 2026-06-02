@@ -10,6 +10,20 @@ import LoadingScreen from "../Layout/LoadingScreen";
 import { authClient } from "@/lib/auth-client";
 import checkUserSetup from "@/api/users/checkUserSetup";
 
+const SETUP_CACHE_KEY = "isSetupDone";
+
+function getCachedSetupStatus(): boolean {
+  return sessionStorage.getItem(SETUP_CACHE_KEY) === "true";
+}
+
+function setCachedSetupStatus(done: boolean) {
+  if (done) {
+    sessionStorage.setItem(SETUP_CACHE_KEY, "true");
+  } else {
+    sessionStorage.removeItem(SETUP_CACHE_KEY);
+  }
+}
+
 export default function DashboardLayout({
   children,
   section,
@@ -30,10 +44,18 @@ export default function DashboardLayout({
 
   const setupQuery = useQuery({
     queryKey: ["userSetupStatus"],
-    queryFn: () => checkUserSetup(),
+    queryFn: async () => {
+      const result = await checkUserSetup();
+      setCachedSetupStatus(result.isSetupDone);
+      return result;
+    },
     enabled: !!sessionQuery.data?.user.id,
-    staleTime: 0,
+    staleTime: 5 * 60 * 1000,
+    retry: 2,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10_000),
   });
+
+  const isCachedSetupDone = getCachedSetupStatus();
 
   useEffect(() => {
     if (!sessionQuery.data?.session) {
@@ -50,19 +72,15 @@ export default function DashboardLayout({
     );
   }
 
-  if (sessionQuery.isPending || setupQuery.isPending) {
+  if (sessionQuery.isPending) {
     return <LoadingScreen />;
   }
 
-  if (!setupQuery.data?.isSetupDone) {
-    return (
-      <div className="w-screen h-screen flex items-center justify-center bg-transparent absolute">
-        <AccountSetupForm />
-      </div>
-    );
+  if (setupQuery.isPending && !isCachedSetupDone) {
+    return <LoadingScreen />;
   }
 
-  return (
+  const dashboard = (
     <SidebarProvider className="p-5">
       <AppSidebar />
       <main className="w-full max-w-7xl space-y-10 lg:max-h-[95dvh] mx-auto scrollbar-gutter-stable">
@@ -78,4 +96,18 @@ export default function DashboardLayout({
       <Toaster />
     </SidebarProvider>
   );
+
+  if (isCachedSetupDone) {
+    return dashboard;
+  }
+
+  if (!setupQuery.data?.isSetupDone) {
+    return (
+      <div className="w-screen h-screen flex items-center justify-center bg-transparent absolute">
+        <AccountSetupForm />
+      </div>
+    );
+  }
+
+  return dashboard;
 }
