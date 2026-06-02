@@ -14,39 +14,39 @@ type SourceIncome = {
   id: number;
 };
 
+const incomesources: SourceIncome[] = [
+  {
+    name: "Salary",
+    id: 1,
+  },
+  {
+    name: "Bonus",
+    id: 2,
+  },
+  {
+    name: "Freelance",
+    id: 3,
+  },
+  {
+    name: "Investment",
+    id: 4,
+  },
+  {
+    name: "Retail Income",
+    id: 5,
+  },
+  {
+    name: "Gift",
+    id: 6,
+  },
+  {
+    name: "Other",
+    id: 7,
+  },
+];
+
 export default function IncomeSelect() {
   const { setValue } = useFormContext<Transaction>();
-
-  const incomesources: SourceIncome[] = [
-    {
-      name: "Salary",
-      id: 1,
-    },
-    {
-      name: "Bonus",
-      id: 2,
-    },
-    {
-      name: "Freelance",
-      id: 3,
-    },
-    {
-      name: "Investment",
-      id: 4,
-    },
-    {
-      name: "Retail Income",
-      id: 5,
-    },
-    {
-      name: "Gift",
-      id: 6,
-    },
-    {
-      name: "Other",
-      id: 7,
-    },
-  ];
 
   return (
     <Select

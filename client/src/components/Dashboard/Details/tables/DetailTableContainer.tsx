@@ -5,6 +5,12 @@ import { IncomeTable } from "./DetailTable";
 import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
 import { useCallback, useRef } from "react";
 
+const TableTileDictionary: Record<string, string> = {
+  all: "",
+  onlyIncome: "Income Sources",
+  onlyExpense: "All Expenses",
+};
+
 export default function DetailTableContainer({
   option,
 }: {
@@ -30,12 +36,6 @@ export default function DetailTableContainer({
     },
     [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage],
   );
-
-  const TableTileDictionary: Record<string, string> = {
-    all: "",
-    onlyIncome: "Income Sources",
-    onlyExpense: "All Expenses",
-  };
 
   const allTransactions: TransactionInfo[] =
     data?.pages.flatMap((page) => page.transactions) ?? [];

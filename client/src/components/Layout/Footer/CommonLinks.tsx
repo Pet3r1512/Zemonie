@@ -8,60 +8,53 @@ type CommonLinks = {
   items: CommonLinkItem[];
 };
 
+const links: CommonLinks[] = [
+  {
+    title: "Product",
+    items: [
+      {
+        name: "Features",
+        href: "/features",
+      },
+      {
+        name: "Release Notes",
+        href: "/release-notes",
+      },
+      {
+        name: "FAQ",
+        href: "/faq",
+      },
+    ],
+  },
+  {
+    title: "Company",
+    items: [
+      {
+        name: "About Us",
+        href: "/about-us",
+      },
+    ],
+  },
+  {
+    title: "Legal",
+    items: [
+      {
+        name: "Terms of Service",
+        href: "/terms",
+      },
+      {
+        name: "Privacy Policy",
+        href: "/privacy",
+      },
+      {
+        name: "Cookie Policy",
+        href: "/cookie-policy",
+      },
+    ],
+  },
+];
+
 export default function CommonLinks() {
-  const links: CommonLinks[] = [
-    {
-      title: "Product",
-      items: [
-        {
-          name: "Features",
-          href: "/features",
-        },
-        {
-          name: "Release Notes",
-          href: "/release-notes",
-        },
-        // {
-        //     name: "Pricing",
-        //     href: ""
-        // },
-        // {
-        //   name: "Testimonials",
-        //   href: "#",
-        // },
-        {
-          name: "FAQ",
-          href: "/faq",
-        },
-      ],
-    },
-    {
-      title: "Company",
-      items: [
-        {
-          name: "About Us",
-          href: "/about-us",
-        },
-      ],
-    },
-    {
-      title: "Legal",
-      items: [
-        {
-          name: "Terms of Service",
-          href: "/terms",
-        },
-        {
-          name: "Privacy Policy",
-          href: "/privacy",
-        },
-        {
-          name: "Cookie Policy",
-          href: "/cookie-policy",
-        },
-      ],
-    },
-  ];
   return (
     <section className="flex-1 flex flex-col md:flex-row md:justify-end md:gap-x-18 lg:gap-x-48 gap-y-10">
       {links.map((link) => {
