@@ -12,8 +12,8 @@ import {
   ChartContainer,
   ChartTooltip,
 } from "@/components/ui/chart";
-import categoryColorDictionary from "@/types/CategoryDict";
 import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
+import categoryColorDictionary from "@/types/CategoryDict";
 
 type ExpenseCategoryEntry = {
   _sum: { amount: string };
@@ -86,11 +86,12 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
             <ChartTooltip
               cursor={false}
               content={({ active, payload }) => {
-                if (!active || !payload?.length) return null
-                const entry = payload[0]
-                const pct = totalAmount > 0 && entry?.value != null
-                  ? ((Number(entry.value) / totalAmount) * 100).toFixed(1)
-                  : "0.0"
+                if (!active || !payload?.length) return null;
+                const entry = payload[0];
+                const pct =
+                  totalAmount > 0 && entry?.value != null
+                    ? ((Number(entry.value) / totalAmount) * 100).toFixed(1)
+                    : "0.0";
                 return (
                   <div className="rounded-lg border bg-white px-3 py-2 text-xs shadow-xl">
                     <div className="flex items-center gap-2">
@@ -102,7 +103,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                       <span className="text-muted-foreground">{pct}%</span>
                     </div>
                   </div>
-                )
+                );
               }}
             />
             <Pie

@@ -1,5 +1,5 @@
 import { Currency } from "@/api/users/createBalance";
-import TransactionSummary from "./TransactionSummary";
+import { ExpandableCard } from "@/components/ui/aceternity/ExpandableCard";
 import groupTransactions from "@/lib/groupTransactions";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
 
@@ -18,7 +18,7 @@ export default function ListByDate({
   lastElementRef,
 }: {
   transactions?: TransactionInfo[];
-  lastElementRef: (node: HTMLDivElement | null) => void;
+  lastElementRef?: (node: HTMLDivElement | null) => void;
 }) {
   const groupedByDate = groupTransactions(transactions);
 
@@ -43,7 +43,7 @@ export default function ListByDate({
           </div>
 
           {txs.map((tx) => (
-            <TransactionSummary
+            <ExpandableCard
               key={tx.id}
               transaction={tx}
               lastElementRef={tx.id === lastTxId ? lastElementRef : undefined}
