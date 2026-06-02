@@ -15,6 +15,24 @@ type CurrentCategory = {
   description: string;
 };
 
+const TransactionTypeDictionary: ComponentMap = {
+  INCOME: (
+    <div className="size-max p-2.5 rounded-full bg-green-200">
+      <ArrowUp size={20} className="text-green-900 font-extrabold" />
+    </div>
+  ),
+  EXPENSE: (
+    <div className="size-max p-2.5 rounded-full bg-red-200">
+      <ArrowDown size={20} className="text-red-800 font-extrabold" />
+    </div>
+  ),
+};
+
+const TransactionAmountTextColor: Record<string, string> = {
+  INCOME: "text-green-500",
+  EXPENSE: "text-red-500",
+};
+
 export default function TransactionSummary({
   transaction,
   lastElementRef,
@@ -22,24 +40,6 @@ export default function TransactionSummary({
   transaction: TransactionInfo;
   lastElementRef?: (node: HTMLDivElement | null) => void;
 }) {
-  const TransactionTypeDictionary: ComponentMap = {
-    INCOME: (
-      <div className="size-max p-2.5 rounded-full bg-green-200">
-        <ArrowUp size={20} className="text-green-900 font-extrabold" />
-      </div>
-    ),
-    EXPENSE: (
-      <div className="size-max p-2.5 rounded-full bg-red-200">
-        <ArrowDown size={20} className="text-red-800 font-extrabold" />
-      </div>
-    ),
-  };
-
-  const TransactionAmountTextColor: Record<string, string> = {
-    INCOME: "text-green-500",
-    EXPENSE: "text-red-500",
-  };
-
   const globalCategoriesData = sessionStorage.getItem("globalCategories");
   const globalCategories: CurrentCategory[] = globalCategoriesData
     ? JSON.parse(globalCategoriesData)

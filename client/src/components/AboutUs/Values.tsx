@@ -1,33 +1,33 @@
 import { Globe, Heart, Lightbulb, Shield } from "lucide-react";
 
-export default function Values() {
-  const values = [
-    {
-      icon: Heart,
-      title: "People First",
-      description:
-        "We build for real humans with real financial lives. Every decision starts with the question: does this genuinely help our users?",
-    },
-    {
-      icon: Shield,
-      title: "Trust by Design",
-      description:
-        "Your financial data is sensitive. We treat it that way — with transparent practices, strong security, and a strict no-selling policy.",
-    },
-    {
-      icon: Lightbulb,
-      title: "Clarity over Complexity",
-      description:
-        "Money is already complicated. Our job is to make it simpler — never to add another layer of jargon or noise.",
-    },
-    {
-      icon: Globe,
-      title: "Built for Everyone",
-      description:
-        "Financial wellness shouldn't be a luxury. We design for users at every income level, from first paycheck to retirement planning.",
-    },
-  ];
+const values = [
+  {
+    icon: Heart,
+    title: "People First",
+    description:
+      "We build for real humans with real financial lives. Every decision starts with the question: does this genuinely help our users?",
+  },
+  {
+    icon: Shield,
+    title: "Trust by Design",
+    description:
+      "Your financial data is sensitive. We treat it that way — with transparent practices, strong security, and a strict no-selling policy.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Clarity over Complexity",
+    description:
+      "Money is already complicated. Our job is to make it simpler — never to add another layer of jargon or noise.",
+  },
+  {
+    icon: Globe,
+    title: "Built for Everyone",
+    description:
+      "Financial wellness shouldn't be a luxury. We design for users at every income level, from first paycheck to retirement planning.",
+  },
+];
 
+export default function Values() {
   return (
     <section className="py-20 px-4 bg-gray-50 dark:bg-neutral-800/50">
       <div className="max-w-6xl mx-auto">

@@ -1,33 +1,33 @@
 import { cn } from "@/lib/utils";
 
-export default function Timeline() {
-  const milestones = [
-    {
-      year: "2024",
-      title: "The Beginning",
-      description:
-        "Zemonie was founded with a simple vision: make personal finance easier, smarter, and less stressful for everyone.",
-    },
-    {
-      year: "2025",
-      title: "Product Development",
-      description:
-        "The core product began taking shape, transforming early concepts and ideas into a real platform focused on modern financial management.",
-    },
-    {
-      year: "April 2026",
-      title: "Closed Beta Launch",
-      description:
-        "The first closed beta was released to selected users for testing, feedback, and product refinement.",
-    },
-    {
-      year: "May 2026",
-      title: "Open Beta Release",
-      description:
-        "Zemonie opened its beta access to the public, allowing more users to experience and help shape the platform.",
-    },
-  ];
+const milestones = [
+  {
+    year: "2024",
+    title: "The Beginning",
+    description:
+      "Zemonie was founded with a simple vision: make personal finance easier, smarter, and less stressful for everyone.",
+  },
+  {
+    year: "2025",
+    title: "Product Development",
+    description:
+      "The core product began taking shape, transforming early concepts and ideas into a real platform focused on modern financial management.",
+  },
+  {
+    year: "April 2026",
+    title: "Closed Beta Launch",
+    description:
+      "The first closed beta was released to selected users for testing, feedback, and product refinement.",
+  },
+  {
+    year: "May 2026",
+    title: "Open Beta Release",
+    description:
+      "Zemonie opened its beta access to the public, allowing more users to experience and help shape the platform.",
+  },
+];
 
+export default function Timeline() {
   return (
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto">
