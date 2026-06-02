@@ -6,7 +6,10 @@ import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { ComponentMap } from "@/types/ComponentMap";
 import formatCurrency from "@/helpers/formatCurrency";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, Tag } from "lucide-react";
+import ParseISOStringDate from "@/helpers/parseISOStringData";
+import categoryColorDictionary from "@/types/CategoryDict";
+import { cn } from "@/lib/utils";
 
 enum CategoryType {
   EXPENSE,
@@ -95,30 +98,20 @@ export function ExpandableCard({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 h-full w-full z-10"
+            className="fixed inset-0 bg-black/80 w-full h-full z-10"
           />
         )}
       </AnimatePresence>
+      {/* This is Popup card */}
       <AnimatePresence>
         {active && (
-          <div className="fixed inset-0 grid place-items-center z-100">
-            <motion.button
-              key={`button-${transaction.id}-${id}`}
-              layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.05 } }}
-              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
-              onClick={() => setActive(false)}
-            >
-              <CloseIcon />
-            </motion.button>
+          <div className="fixed inset-0 size-fit! rounded-4xl m-auto grid place-items-center z-100 cursor-default">
             <motion.div
               layoutId={`card-${transaction.id}-${id}`}
               ref={ref}
-              className="w-full max-w-125 h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              className="w-[95dvw] md:w-full h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
             >
-              <div className="p-6 space-y-4">
+              <div className="p-6 space-y-4 w-full!">
                 <motion.div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-x-2">
@@ -127,7 +120,9 @@ export function ExpandableCard({
                           .icon
                       }
                       <p className="text-lg font-semibold">
-                        {currCategory?.name}
+                        {transaction.description === ""
+                          ? "No Description"
+                          : transaction.description}
                       </p>
                     </div>
                     <p>{ParseISOStringDate({ date: transaction.date })}</p>
@@ -151,57 +146,40 @@ export function ExpandableCard({
                 </motion.div>
 
                 {/* Divider */}
-                <div className="h-[0.25px] w-full bg-gray-600"></div>
-                  layoutId={`title-${transaction.id}-${id}`}
-                  className="font-bold text-2xl text-neutral-700 dark:text-neutral-200"
-                >
-                  {transaction.description || currCategory?.name || "Transaction"}
-                </motion.h3>
+                <div className="h-0.5 w-full bg-gray-200"></div>
 
-                <motion.p
-                  layoutId={`amount-${transaction.id}-${id}`}
-                  className={`text-3xl font-semibold ${
-                    currCategory
-                      ? TransactionAmountTextColor[
-                          isIncome ? "INCOME" : "EXPENSE"
-                        ]
-                      : "text-gray-500"
-                  }`}
-                >
-                  {isIncome ? "+ " : "- "}
-                  {formatCurrency(transaction.amount)}
-                </motion.p>
-
-                {currCategory && (
-                  <p className="text-neutral-600 dark:text-neutral-400">
-                    Category: {currCategory.name}
-                  </p>
-                )}
-
-                <p className="text-neutral-500 dark:text-neutral-400">
-                  {transaction.currency}
-                </p>
-
-                <p className="text-neutral-500 dark:text-neutral-400">
-                  {new Date(transaction.date).toLocaleDateString("en-GB", {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
-
-                {transaction.description && (
-                  <p className="text-neutral-600 dark:text-neutral-300 pt-2 border-t border-gray-200">
-                    {transaction.description}
-                  </p>
-                )}
+                <motion.div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
+                  <div className="space-y-2">
+                    <p className="font-semibold">TRANSACTION ID</p>
+                    <p className="text-sm text-gray-600 font-mono">
+                      {transaction.id}
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="font-semibold">TYPE</p>
+                    <p className="text-sm text-gray-600">
+                      {currCategory?.type}
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="font-semibold">CATEGORY</p>
+                    <div
+                      className={cn(
+                        "flex items-center gap-x-1 text-xs w-fit text-white px-2 py-1 rounded-2xl cursor-default",
+                        categoryColorDictionary[currCategory!.id].color,
+                      )}
+                    >
+                      <Tag size={12} />
+                      <p>{currCategory?.name}</p>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
-
+      {/*  */}
       <div ref={innerRef}>
         <motion.div
           layoutId={`card-${transaction.id}-${id}`}
@@ -213,9 +191,7 @@ export function ExpandableCard({
             className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 lg:hover:bg-gray-200 transition-all duration-150 ease-linear"
           >
             {currCategory &&
-              TransactionTypeDictionary[
-                isIncome ? "INCOME" : "EXPENSE"
-              ]}
+              TransactionTypeDictionary[isIncome ? "INCOME" : "EXPENSE"]}
 
             <div className="space-y-0.5 lg:space-y-2 flex-1">
               <p className="font-semibold">{currCategory?.name}</p>
@@ -225,9 +201,7 @@ export function ExpandableCard({
             <p
               className={`lg:text-xl font-semibold ${
                 currCategory
-                  ? TransactionAmountTextColor[
-                      isIncome ? "INCOME" : "EXPENSE"
-                    ]
+                  ? TransactionAmountTextColor[isIncome ? "INCOME" : "EXPENSE"]
                   : "text-gray-500"
               }`}
             >
