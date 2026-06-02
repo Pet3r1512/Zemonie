@@ -119,16 +119,39 @@ export function ExpandableCard({
               className="w-full max-w-125 h-full md:h-fit md:max-h-[90%] flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
             >
               <div className="p-6 space-y-4">
-                <motion.h3
-                <motion.div className="flex flex-col gap-y-1.5">
-                  <div className="flex items-center gap-x-2">
-                    {categoryColorDictionary[currCategory!.id.toString()].icon}
-                    <p className="text-lg font-semibold">
-                      {currCategory?.name}
-                    </p>
+                <motion.div className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-x-2">
+                      {
+                        categoryColorDictionary[currCategory!.id.toString()]
+                          .icon
+                      }
+                      <p className="text-lg font-semibold">
+                        {currCategory?.name}
+                      </p>
+                    </div>
+                    <p>{ParseISOStringDate({ date: transaction.date })}</p>
                   </div>
-                  <p>{ParseISOStringDate({ date: transaction.date })}</p>
+                  <div className="flex flex-col items-end">
+                    <motion.p
+                      layoutId={`amount-${transaction.id}-${id}`}
+                      className={`text-lg md:text-xl lg:text-2xl font-bold ${
+                        currCategory
+                          ? TransactionAmountTextColor[
+                              isIncome ? "INCOME" : "EXPENSE"
+                            ]
+                          : "text-gray-500"
+                      }`}
+                    >
+                      {isIncome ? "+ " : "- "}
+                      {formatCurrency(transaction.amount)}
+                    </motion.p>
+                    <p className="font-semibold">{transaction.currency}</p>
+                  </div>
                 </motion.div>
+
+                {/* Divider */}
+                <div className="h-[0.25px] w-full bg-gray-600"></div>
                   layoutId={`title-${transaction.id}-${id}`}
                   className="font-bold text-2xl text-neutral-700 dark:text-neutral-200"
                 >
