@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import { ReactNode } from "react";
 
-export const categoryColorDictionary: Record<
+const categoryColorDictionary: Record<
   string,
   { name: string; color: string; icon: ReactNode }
 > = {
@@ -76,3 +76,5 @@ export const categoryColorDictionary: Record<
   },
   21: { name: "Other Expense", color: "bg-gray-500", icon: <MoreHorizontal /> },
 };
+
+export default categoryColorDictionary;
