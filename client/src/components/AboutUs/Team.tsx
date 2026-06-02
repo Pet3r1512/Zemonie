@@ -1,16 +1,16 @@
 import { Users } from "lucide-react";
 
-export default function Team() {
-  const team = [
-    {
-      name: "Peter Pham",
-      profileLink: "https://www.linkedin.com/in/peterpham1512/",
-      role: "Co-founder & CEO",
-      initials: "PP",
-      bio: "Software Engineer",
-    },
-  ];
+const team = [
+  {
+    name: "Peter Pham",
+    profileLink: "https://www.linkedin.com/in/peterpham1512/",
+    role: "Co-founder & CEO",
+    initials: "PP",
+    bio: "Software Engineer",
+  },
+];
 
+export default function Team() {
   return (
     <section className="py-20 px-4 bg-gray-50 dark:bg-neutral-800/50">
       <div className="max-w-6xl mx-auto">

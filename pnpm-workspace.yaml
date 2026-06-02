@@ -1,3 +1,7 @@
 packages:
   - client
   - server
+
+minimumReleaseAge: 10080
+trustPolicy:
+  no-downgrade: true
