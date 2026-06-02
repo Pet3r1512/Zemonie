@@ -8,8 +8,8 @@ import { ComponentMap } from "@/types/ComponentMap";
 import formatCurrency from "@/helpers/formatCurrency";
 import { ArrowDown, ArrowUp, Tag } from "lucide-react";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
-import categoryColorDictionary from "@/types/CategoryDict";
 import { cn } from "@/lib/utils";
+import categoryColorDictionary from "@/types/CategoryDict";
 
 enum CategoryType {
   EXPENSE,
@@ -109,7 +109,7 @@ export function ExpandableCard({
             <motion.div
               layoutId={`card-${transaction.id}-${id}`}
               ref={ref}
-              className="w-[95dvw] md:w-full h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
+              className="w-[95dvw] max-h-[50dvh]! md:w-full md:h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
             >
               <div className="p-6 space-y-4 w-full!">
                 <motion.div className="flex items-center justify-between">
