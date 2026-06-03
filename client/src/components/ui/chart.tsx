@@ -177,7 +177,7 @@ const ChartTooltipContent = React.forwardRef<
       <div
         ref={ref}
         className={cn(
-          "grid min-w-32 items-start gap-1.5 rounded-lg border border-oklch(0.922 0 0) border-oklch(0.922 0 0)/50 bg-oklch(1 0 0) px-2.5 py-1.5 text-xs shadow-xl dark:border-oklch(1 0 0 / 10%) dark:border-oklch(1 0 0 / 10%)/50 dark:bg-oklch(0.145 0 0)",
+          "grid min-w-32 items-start gap-1.5 rounded-lg border border-oklch(0.922 0 0) border-oklch(0.922 0 0)/50 bg-white px-2.5 py-1.5 text-xs shadow-xl dark:border-oklch(1 0 0 / 10%) dark:border-oklch(1 0 0 / 10%)/50 dark:bg-oklch(0.145 0 0)",
           className,
         )}
       >
@@ -207,8 +207,8 @@ const ChartTooltipContent = React.forwardRef<
                       ) : (
                         !hideIndicator && (
                           <div
-                            className={cn(
-                              "shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]",
+                              className={cn(
+                              "shrink-0 rounded-[2px] border-[var(--color-border)] bg-[var(--color-bg)]",
                               {
                                 "h-2.5 w-2.5": indicator === "dot",
                                 "w-1": indicator === "line",
