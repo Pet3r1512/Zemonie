@@ -1,9 +1,10 @@
 import useFetchTransactions, {
   TransactionQueryOptions,
 } from "@/hooks/useFetchTransactions";
-import { IncomeTable } from "./DetailTable";
+import { DetailsTable } from "./DetailTable";
 import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
 import { useCallback, useRef } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const TableTileDictionary: Record<string, string> = {
   all: "",
@@ -45,10 +46,22 @@ export default function DetailTableContainer({
       <p className="text-lg lg:text-xl font-bold shrink-0">
         {TableTileDictionary[option]}
       </p>
-      <IncomeTable
-        lastElementRef={lastElementRef}
-        transactions={allTransactions}
-      />
+      {isLoading ? (
+        <div className="space-y-3 flex-1">
+          <Skeleton className="h-10 w-full bg-gray-200" />
+          <Skeleton className="h-10 w-full bg-gray-200" />
+          <Skeleton className="h-10 w-full bg-gray-200" />
+        </div>
+      ) : allTransactions.length === 0 ? (
+        <p className="text-gray-400 italic flex-1">No transactions found.</p>
+      ) : (
+        <div className="flex-1 min-h-0">
+          <DetailsTable
+            lastElementRef={lastElementRef}
+            transactions={allTransactions}
+          />
+        </div>
+      )}
     </section>
   );
 }
