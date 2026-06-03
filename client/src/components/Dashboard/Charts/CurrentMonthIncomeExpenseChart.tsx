@@ -46,13 +46,7 @@ export function CurrentMonthIncomeExpenseChart({
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <YAxis
-              dataKey={
-                chartData[0].income > chartData[0].expenses
-                  ? "income"
-                  : "expenses"
-              }
-            />
+            <YAxis />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
