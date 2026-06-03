@@ -17,7 +17,7 @@ export default function Charts() {
   });
 
   return (
-    <section className="my-5 md:my-8 lg:my-10">
+    <section>
       <SpendingByCategory
         data={spendingByCategoryQuery.data?.spendingByCategory}
       />

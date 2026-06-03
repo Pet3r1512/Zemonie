@@ -41,8 +41,8 @@ export default function DetailTableContainer({
     data?.pages.flatMap((page) => page.transactions) ?? [];
 
   return (
-    <section className="bg-white rounded-2xl shadow-2xl p-5 h-[60dvh] overflow-auto flex flex-col gap-y-5 my-5 md:my-8 lg:my-10">
-      <p className="text-lg lg:text-xl font-bold">
+    <section className="bg-white rounded-2xl p-5 flex flex-col gap-y-5 flex-1 min-h-0">
+      <p className="text-lg lg:text-xl font-bold shrink-0">
         {TableTileDictionary[option]}
       </p>
       <IncomeTable
