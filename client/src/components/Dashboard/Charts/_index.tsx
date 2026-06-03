@@ -2,21 +2,22 @@ import { useQuery } from "@tanstack/react-query";
 import getSpendingByCategory from "@/api/dashboard/charts/SpendingByCategory";
 import { SpendingByCategory } from "./SpendingByCategory";
 
-const now = new Date()
-const currentMonth = now.getMonth() + 1
-const currentYear = now.getFullYear()
+const now = new Date();
+const currentMonth = now.getMonth() + 1;
+const currentYear = now.getFullYear();
 
 export default function Charts() {
   const spendingByCategoryQuery = useQuery({
     queryKey: ["spendingByCategory", currentMonth, currentYear],
-    queryFn: () => getSpendingByCategory({ month: currentMonth, year: currentYear }),
+    queryFn: () =>
+      getSpendingByCategory({ month: currentMonth, year: currentYear }),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 
   return (
-    <section>
+    <section className="my-5 md:my-8 lg:my-10">
       <SpendingByCategory
         data={spendingByCategoryQuery.data?.spendingByCategory}
       />
