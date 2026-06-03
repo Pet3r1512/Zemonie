@@ -42,7 +42,7 @@ export default function DetailTableContainer({
     data?.pages.flatMap((page) => page.transactions) ?? [];
 
   return (
-    <section className="bg-white rounded-2xl p-5 flex flex-col gap-y-5 flex-1 min-h-0">
+    <section className="bg-white rounded-2xl p-5 flex flex-col gap-y-5 flex-1">
       <p className="text-lg lg:text-xl font-bold shrink-0">
         {TableTileDictionary[option]}
       </p>
