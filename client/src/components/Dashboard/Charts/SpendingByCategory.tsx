@@ -33,7 +33,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
     return {
       name: dict?.name ?? `Category ${entry.categoryId}`,
       value: Number(entry._sum.amount),
-      fill: TAILWIND_TO_HEX[tailwindClass] ?? "var(--chart-1)",
+      fill: TAILWIND_TO_HEX[tailwindClass] ?? "hsl(var(--chart-1))",
       categoryId: entry.categoryId,
     };
   });
