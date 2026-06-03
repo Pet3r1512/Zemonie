@@ -35,7 +35,7 @@ export function CurrentMonthIncomeExpenseChart({
       <CardHeader>
         <CardTitle>Income vs Expenses</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pl-0 md:pl-6">
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
