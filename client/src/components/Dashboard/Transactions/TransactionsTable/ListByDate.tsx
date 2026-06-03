@@ -35,7 +35,7 @@ export default function ListByDate({
   const lastTxId = allTxs[allTxs.length - 1]?.id;
 
   return (
-    <section className="space-y-10">
+    <section className="space-y-10 flex-1 min-h-0">
       {sortedEntries.map(([date, txs]) => (
         <div key={date} className="space-y-1 lg:space-y-5">
           <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 font-bold">

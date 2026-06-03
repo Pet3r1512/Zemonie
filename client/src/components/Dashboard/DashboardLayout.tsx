@@ -84,14 +84,14 @@ export default function DashboardLayout({
     <SidebarProvider className="p-5">
       <AppSidebar />
       <main className="w-full max-w-7xl mx-auto h-[calc(100dvh-2.5rem)] overflow-hidden flex flex-col">
-        <div className="mb-5 space-y-2.5 lg:space-y-5 flex-shrink-0">
+        <div className="mb-5 space-y-2.5 lg:space-y-5 shrink-0">
           <SidebarTrigger />
           <p className="text-xl md:text-2xl lg:text-3xl font-bold text-primary">
             {section}
           </p>
           <p className="text-gray-700">{sectionDesc}</p>
         </div>
-        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-gutter-stable">
+        <div className="flex-1 min-h-0 flex flex-col gap-y-5 overflow-y-auto scrollbar-gutter-stable">
           {children}
         </div>
       </main>
