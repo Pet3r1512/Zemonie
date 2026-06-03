@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import getSpendingByCategory from "@/api/dashboard/charts/SpendingByCategory";
 import { SpendingByCategory } from "./SpendingByCategory";
 import { CurrentMonthIncomeExpenseChart } from "./CurrentMonthIncomeExpenseChart";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
+import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1;
@@ -9,6 +11,14 @@ const currentMonthShorten = now.toLocaleString("default", { month: "short" });
 const currentYear = now.getFullYear();
 
 export default function Charts() {
+  const totalIncomeQuery = useFetchCurrentMonthIncome({
+    month: currentMonth,
+    year: currentYear,
+  });
+  const totalExpensesQuery = useFetchCurrentMonthExpenses({
+    month: currentMonth,
+    year: currentYear,
+  });
   const spendingByCategoryQuery = useQuery({
     queryKey: ["spendingByCategory", currentMonth, currentYear],
     queryFn: () =>
@@ -23,9 +33,11 @@ export default function Charts() {
       <CurrentMonthIncomeExpenseChart
         chartData={[
           {
-            month: currentMonthShorten + " " + currentYear,
-            income: 1500,
-            expenses: 150,
+            month: currentMonthShorten,
+            income: totalIncomeQuery.data?.totalCurrentMonthIncome.totalIncome,
+            expenses:
+              totalExpensesQuery.data?.totalCurrentMonthExpenses
+                .totalExpensesAmount,
           },
         ]}
       />
