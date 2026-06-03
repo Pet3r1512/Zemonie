@@ -33,7 +33,7 @@ export default function Charts() {
       <CurrentMonthIncomeExpenseChart
         chartData={[
           {
-            month: currentMonthShorten,
+            month: currentMonthShorten + " " + currentYear,
             income: totalIncomeQuery.data?.totalCurrentMonthIncome.totalIncome,
             expenses:
               totalExpensesQuery.data?.totalCurrentMonthExpenses
