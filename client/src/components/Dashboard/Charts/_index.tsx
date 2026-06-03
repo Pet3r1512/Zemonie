@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import getSpendingByCategory from "@/api/dashboard/charts/SpendingByCategory";
 import { SpendingByCategory } from "./SpendingByCategory";
+import { CurrentMonthIncomeExpenseChart } from "./CurrentMonthIncomeExpenseChart";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1;
+const currentMonthShorten = now.toLocaleString("default", { month: "short" });
 const currentYear = now.getFullYear();
 
 export default function Charts() {
@@ -17,7 +19,16 @@ export default function Charts() {
   });
 
   return (
-    <section>
+    <section className="grid grid-cols-2 gap-5">
+      <CurrentMonthIncomeExpenseChart
+        chartData={[
+          {
+            month: currentMonthShorten + " " + currentYear,
+            income: 1500,
+            expenses: 150,
+          },
+        ]}
+      />
       <SpendingByCategory
         data={spendingByCategoryQuery.data?.spendingByCategory}
       />
