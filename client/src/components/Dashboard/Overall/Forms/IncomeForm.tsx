@@ -70,6 +70,9 @@ export function IncomeForm() {
       queryClient.invalidateQueries({
         queryKey: ["latestTransactions"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["totalIncome"],
+      });
     },
   });
 

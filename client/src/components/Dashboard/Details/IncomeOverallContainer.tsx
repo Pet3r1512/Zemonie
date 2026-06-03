@@ -4,7 +4,7 @@ import Data from "../Overall/Data";
 import { useQuery } from "@tanstack/react-query";
 import getHighestIncomeOfMonth from "@/api/users/analytics/income/getHighestIncomeOfMonth";
 import getIncomeGrowth from "@/api/users/analytics/income/getIncomeGrowth";
-import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed

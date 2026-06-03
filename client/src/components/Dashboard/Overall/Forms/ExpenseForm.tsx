@@ -64,6 +64,9 @@ export function ExpenseForm() {
       queryClient.invalidateQueries({
         queryKey: ["spendingByCategory"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["totalExpenses"],
+      });
     },
   });
 
