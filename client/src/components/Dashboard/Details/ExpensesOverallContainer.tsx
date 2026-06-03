@@ -4,7 +4,7 @@ import Data from "../Overall/Data";
 import { useQuery } from "@tanstack/react-query";
 import getTotalExpensesByMonth from "@/api/users/analytics/expenses/getTotalExpensesByMonth";
 import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighestExpenseCategory";
-import useFetchCurrentMonthIncome from "@/hooks/useFetchCurrentMonthIncome";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import calculateSaveRate from "./calculateSaveRate";
 
 const now = new Date();
