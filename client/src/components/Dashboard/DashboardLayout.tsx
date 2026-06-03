@@ -91,7 +91,9 @@ export default function DashboardLayout({
           </p>
           <p className="text-gray-700">{sectionDesc}</p>
         </div>
-        {children}
+        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-gutter-stable">
+          {children}
+        </div>
       </main>
       <Toaster />
     </SidebarProvider>
