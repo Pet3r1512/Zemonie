@@ -84,7 +84,7 @@ export default function DashboardLayout({
     <SidebarProvider className="p-5">
       <AppSidebar />
       <main className="w-full max-w-7xl mx-auto h-[calc(100dvh-2.5rem)] overflow-hidden flex flex-col">
-        <div className="mb-5 space-y-2.5 lg:space-y-5 flex-shrink-0">
+        <div className="mb-5 space-y-2.5 lg:space-y-5 shrink-0">
           <SidebarTrigger />
           <p className="text-xl md:text-2xl lg:text-3xl font-bold text-primary">
             {section}
