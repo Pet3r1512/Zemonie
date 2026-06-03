@@ -6,6 +6,25 @@ export const Route = createFileRoute("/release-notes")({
 });
 const releases = [
   {
+    version: "v1.0.4-beta",
+    date: "Jun 03, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Introduced an animated transaction details popup for a more polished user experience. 🚀",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where some users could be asked to complete setup again.",
+      },
+      {
+        type: "fix",
+        text: "Improved scrolling stability on the Transactions page to prevent interface shifting.",
+      },
+    ],
+  },
+  {
     version: "v1.0.3-beta",
     date: "Jun 01, 2026",
     tag: "Beta",
