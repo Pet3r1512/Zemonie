@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 
 const TABLE_TITLE_FONT_SIZE = "text-xs sm:text-sm md:text-base";
 
-export function IncomeTable({
+export function DetailsTable({
   transactions,
   lastElementRef,
 }: {
