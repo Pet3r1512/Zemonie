@@ -7,6 +7,41 @@ export const Route = createFileRoute("/release-notes")({
 });
 const releases = [
   {
+    version: "v1.0.5-beta",
+    date: "Jun 04, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Introduced a new monthly Income vs Expense chart. 🚀",
+      },
+      {
+        type: "feature",
+        text: "Supported VND currency with automatic currency formatting. 🔥",
+      },
+      {
+        type: "feature",
+        text: "Added more personalized insights to the dashboard.",
+      },
+      {
+        type: "update",
+        text: "Improved the mobile dashboard experience.",
+      },
+      {
+        type: "update",
+        text: "Enlarged the selected avatar preview during account setup.",
+      },
+      {
+        type: "fix",
+        text: "Fixed incorrect avatar display on the Profile page.",
+      },
+      {
+        type: "fix",
+        text: "Fixed profile information inconsistencies after account setup.",
+      },
+    ],
+  },
+  {
     version: "v1.0.4-beta",
     date: "Jun 03, 2026",
     tag: "Beta",
