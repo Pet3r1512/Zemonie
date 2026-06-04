@@ -17,7 +17,7 @@ export type OverallDataType = {
 };
 
 export default function Overall() {
-  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
   const balanceQuery = useQuery({
     queryKey: ["balance"],
     queryFn: () => getCurrentBalance(),
