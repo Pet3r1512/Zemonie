@@ -189,7 +189,7 @@ function RouteComponent() {
             <p className="text-gray-500 mt-2">What's new in Zemonie</p>
           </div>
           <div className="space-y-6">
-            {releases.map((release) => (
+            {releases.map((release, index) => (
               <div
                 key={release.version}
                 className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10"
@@ -201,6 +201,12 @@ function RouteComponent() {
                   <span className="rounded-full bg-primary/10 text-primary text-xs font-semibold px-3 py-1">
                     {release.tag}
                   </span>
+                  {index === 0 && (
+                    <div className="text-green-500 text-xs font-extrabold ml-auto flex items-center">
+                      <Tag size={16} />
+                      <p>Current Version</p>
+                    </div>
+                  )}
                 </div>
                 <p className="text-gray-500 text-sm mb-6">{release.date}</p>
                 <div className="space-y-3">
