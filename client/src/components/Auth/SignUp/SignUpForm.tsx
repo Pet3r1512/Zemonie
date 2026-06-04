@@ -40,7 +40,9 @@ export default function SignUpForm({ className }: { className?: string }) {
     watch,
     control,
     formState: { errors },
-  } = useForm<SignUpFormType>();
+  } = useForm<SignUpFormType>({
+    defaultValues: { terms: false },
+  });
 
   const mutation = useMutation({
     mutationKey: ["signup"],
