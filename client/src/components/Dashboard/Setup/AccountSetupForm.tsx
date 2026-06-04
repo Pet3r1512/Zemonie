@@ -168,28 +168,6 @@ export default function AccountSetupForm({
                   <SelectContent className="bg-white w-full">
                     <SelectGroup>
                       {currencyLists.map((currency) => {
-                        if (currency.code === "VND") {
-                          return (
-                            <SelectItem
-                              key={currency.code}
-                              className="lg:hover:bg-gray-200"
-                              value={currency.code}
-                              disabled
-                            >
-                              <div className="flex gap-x-2 w-full">
-                                <img
-                                  src={currency.img}
-                                  alt={currency.name}
-                                  className="rounded-full object-contain"
-                                />
-                                <p>{currency.name}</p>
-                                <div className="rounded-2xl font-semibold text-xs bg-blue-400 px-1.5 py-0.5 text-white">
-                                  Coming Soon
-                                </div>
-                              </div>
-                            </SelectItem>
-                          );
-                        }
                         return (
                           <SelectItem
                             key={currency.code}
