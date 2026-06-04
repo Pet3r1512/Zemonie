@@ -75,6 +75,7 @@ export default function AccountSetupForm({
 
     onSuccess: async () => {
       sessionStorage.setItem("isSetupDone", "true");
+      await queryClient.invalidateQueries({ queryKey: ["preferences"] });
       await queryClient.invalidateQueries({ queryKey: ["userSetupStatus"] });
     },
   });

@@ -13,7 +13,7 @@ const currentMonth = now.getMonth() + 1; // 1-indexed
 const currentYear = now.getFullYear();
 
 export default function ExpensesOverallContainer() {
-  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
   const totalIncome = useFetchCurrentMonthIncome({
     month: currentMonth,
     year: currentYear,

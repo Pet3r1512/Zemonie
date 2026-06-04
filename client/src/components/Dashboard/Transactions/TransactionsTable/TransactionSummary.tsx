@@ -41,7 +41,7 @@ export default function TransactionSummary({
   transaction: TransactionInfo;
   lastElementRef?: (node: HTMLDivElement | null) => void;
 }) {
-  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
   const globalCategoriesData = sessionStorage.getItem("globalCategories");
   const globalCategories: CurrentCategory[] = globalCategoriesData
     ? JSON.parse(globalCategoriesData)
