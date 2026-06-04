@@ -23,11 +23,13 @@ import ExpenseSelect from "./Selectors/ExpenseSelector";
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import useBalanceStore from "@/store/store";
 import localISOString from "@/helpers/localISOString";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 export function ExpenseForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const methods = useForm<Transaction>();
   const queryClient = useQueryClient();
+  const { data } = useUserPreferences();
 
   const {
     register,
@@ -73,7 +75,7 @@ export function ExpenseForm() {
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
     mutation.mutate({
       ...credentials,
-      currency: "AUD",
+      currency: data?.preferences.currency,
       createdAt: credentials.createdAt ?? localISOString(),
     });
     reset();

@@ -6,12 +6,14 @@ import getTotalExpensesByMonth from "@/api/users/analytics/expenses/getTotalExpe
 import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighestExpenseCategory";
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import calculateSaveRate from "./calculateSaveRate";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed
 const currentYear = now.getFullYear();
 
 export default function ExpensesOverallContainer() {
+  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
   const totalIncome = useFetchCurrentMonthIncome({
     month: currentMonth,
     year: currentYear,
@@ -55,6 +57,7 @@ export default function ExpensesOverallContainer() {
       amount:
         totalExpenseQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount ??
         0,
+      currency,
     },
     {
       name: "Highest Category",
@@ -67,6 +70,7 @@ export default function ExpensesOverallContainer() {
       isLoading: highestExpenseQuery.isLoading,
       isError: highestExpenseQuery.isError,
       amount: highestExpenseQuery.data?.highestExpenseCategoryAmount ?? 0,
+      currency,
     },
     {
       name: "Save Rate",
@@ -83,6 +87,7 @@ export default function ExpensesOverallContainer() {
         totalExpenseQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount ??
           0,
       ),
+      currency,
     },
   ];
   return (

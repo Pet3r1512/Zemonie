@@ -5,12 +5,14 @@ import { useQuery } from "@tanstack/react-query";
 import getHighestIncomeOfMonth from "@/api/users/analytics/income/getHighestIncomeOfMonth";
 import getIncomeGrowth from "@/api/users/analytics/income/getIncomeGrowth";
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed
 const currentYear = now.getFullYear();
 
 export default function IncomeOverallContainer() {
+  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
   const totalIncomeQuery = useFetchCurrentMonthIncome({
     month: currentMonth,
     year: currentYear,
@@ -51,6 +53,7 @@ export default function IncomeOverallContainer() {
       isLoading: totalIncomeQuery.isLoading,
       isError: totalIncomeQuery.isError,
       amount: totalIncomeQuery.data?.totalCurrentMonthIncome?.totalIncome ?? 0,
+      currency,
     },
     {
       name: "Highest Income Source",
@@ -65,6 +68,7 @@ export default function IncomeOverallContainer() {
       isLoading: highestIncomeOfMonth.isLoading,
       isError: highestIncomeOfMonth.isError,
       amount: highestTransaction?.amount ?? 0,
+      currency,
     },
     {
       name: "Income Growth",

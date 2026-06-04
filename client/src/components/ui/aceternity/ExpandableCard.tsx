@@ -5,11 +5,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { ComponentMap } from "@/types/ComponentMap";
-import formatCurrency from "@/helpers/formatCurrency";
 import { ArrowDown, ArrowUp, Tag } from "lucide-react";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
 import { cn } from "@/lib/utils";
 import categoryColorDictionary from "@/types/CategoryDict";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 enum CategoryType {
   EXPENSE,
@@ -52,6 +53,7 @@ export function ExpandableCard({
   const ref = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const id = useId();
+  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
 
   const globalCategoriesData =
     typeof window !== "undefined"
@@ -139,7 +141,7 @@ export function ExpandableCard({
                       }`}
                     >
                       {isIncome ? "+ " : "- "}
-                      {formatCurrency(transaction.amount)}
+                      {formatCurrency(transaction.amount, currency)}
                     </motion.p>
                     <p className="font-semibold">{transaction.currency}</p>
                   </div>
@@ -206,7 +208,7 @@ export function ExpandableCard({
               }`}
             >
               {isIncome ? "+ " : "- "}
-              {formatCurrency(transaction.amount)}
+              {formatCurrency(transaction.amount, currency)}
             </p>
           </div>
         </motion.div>

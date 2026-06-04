@@ -41,8 +41,10 @@ export default function Data({ data }: { data: OverallDataType }) {
                 aria-hidden={data.isLoading}
                 value={data.isLoading ? 0 : (data.amount ?? 0)}
                 format={{
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
+                  style: data.currency ? "currency" : undefined,
+                  currency: data.currency,
+                  minimumFractionDigits: data.currency === "VND" ? 0 : 2,
+                  maximumFractionDigits: data.currency === "VND" ? 0 : 2,
                 }}
               />
             </div>

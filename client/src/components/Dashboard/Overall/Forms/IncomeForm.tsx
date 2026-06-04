@@ -22,6 +22,7 @@ import { LoaderCircle } from "lucide-react";
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import useBalanceStore from "@/store/store";
 import localISOString from "@/helpers/localISOString";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 export type Transaction = {
   categoryId: number;
@@ -34,6 +35,7 @@ export type Transaction = {
 export function IncomeForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const methods = useForm<Transaction>();
+  const { data } = useUserPreferences();
   const queryClient = useQueryClient();
 
   const {
@@ -79,7 +81,7 @@ export function IncomeForm() {
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
     mutation.mutate({
       ...credentials,
-      currency: "AUD",
+      currency: data?.preferences.currency,
       createdAt: credentials.createdAt ?? localISOString(),
     });
 

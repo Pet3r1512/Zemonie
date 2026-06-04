@@ -1,7 +1,8 @@
 import { ComponentMap } from "@/types/ComponentMap";
 import { TransactionInfo } from "./ListByDate";
-import formatCurrency from "@/helpers/formatCurrency";
 import { ArrowDown, ArrowUp } from "lucide-react";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 enum CategoryType {
   EXPENSE,
@@ -40,6 +41,7 @@ export default function TransactionSummary({
   transaction: TransactionInfo;
   lastElementRef?: (node: HTMLDivElement | null) => void;
 }) {
+  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
   const globalCategoriesData = sessionStorage.getItem("globalCategories");
   const globalCategories: CurrentCategory[] = globalCategoriesData
     ? JSON.parse(globalCategoriesData)
@@ -78,7 +80,7 @@ export default function TransactionSummary({
         }`}
       >
         {currCategory?.type.toString() === "INCOME" ? "+ " : "- "}
-        {formatCurrency(transaction.amount)}
+        {formatCurrency(transaction.amount, currency)}
       </p>
     </div>
   );
