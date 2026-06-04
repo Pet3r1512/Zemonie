@@ -1,10 +1,46 @@
 import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
 import { createFileRoute } from "@tanstack/react-router";
+import { Tag } from "lucide-react";
 export const Route = createFileRoute("/release-notes")({
   component: RouteComponent,
 });
 const releases = [
+  {
+    version: "v1.0.5-beta",
+    date: "Jun 04, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Introduced a new monthly Income vs Expense chart. 🚀",
+      },
+      {
+        type: "feature",
+        text: "Supported VND currency with automatic currency formatting. 🔥",
+      },
+      {
+        type: "feature",
+        text: "Added more personalized insights to the dashboard.",
+      },
+      {
+        type: "update",
+        text: "Improved the mobile dashboard experience.",
+      },
+      {
+        type: "update",
+        text: "Enlarged the selected avatar preview during account setup.",
+      },
+      {
+        type: "fix",
+        text: "Fixed incorrect avatar display on the Profile page.",
+      },
+      {
+        type: "fix",
+        text: "Fixed profile information inconsistencies after account setup.",
+      },
+    ],
+  },
   {
     version: "v1.0.4-beta",
     date: "Jun 03, 2026",
@@ -189,7 +225,7 @@ function RouteComponent() {
             <p className="text-gray-500 mt-2">What's new in Zemonie</p>
           </div>
           <div className="space-y-6">
-            {releases.map((release) => (
+            {releases.map((release, index) => (
               <div
                 key={release.version}
                 className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10"
@@ -198,9 +234,21 @@ function RouteComponent() {
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">
                     {release.version}
                   </h2>
-                  <span className="rounded-full bg-primary/10 text-primary text-xs font-semibold px-3 py-1">
-                    {release.tag}
-                  </span>
+                  {release.tag === "Beta" ? (
+                    <span className="rounded-full bg-yellow-300 text-gray-800 text-xs font-semibold px-3 py-1">
+                      {release.tag}
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-green-500 text-white text-xs font-semibold px-3 py-1">
+                      {release.tag}
+                    </span>
+                  )}
+                  {index === 0 && (
+                    <div className="text-green-500 text-xs font-extrabold ml-auto flex items-center">
+                      <Tag size={16} />
+                      <p>Current Version</p>
+                    </div>
+                  )}
                 </div>
                 <p className="text-gray-500 text-sm mb-6">{release.date}</p>
                 <div className="space-y-3">
