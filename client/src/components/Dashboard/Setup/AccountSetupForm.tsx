@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import accountSetup from "@/api/users/accountSetup";
 import { Currency } from "@/api/users/createBalance";
+import { authClient } from "@/lib/auth-client";
 
 export type AccountSetupFormValues = {
   avatarId: AvatarId;
@@ -75,6 +76,7 @@ export default function AccountSetupForm({
 
     onSuccess: async () => {
       sessionStorage.setItem("isSetupDone", "true");
+      await authClient.$fetchFreshSession();
       await queryClient.invalidateQueries({ queryKey: ["userSetupStatus"] });
     },
   });
