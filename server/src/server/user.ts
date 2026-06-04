@@ -54,5 +54,18 @@ export const userRouter = router({
         })
 
         return { success: true, preferences }
+    }),
+    userPreferences: authenticatedProcedure.query(async ({ ctx }) => {
+        const userId = ctx.userId
+
+        const preferences = await prisma.user_Preferences.findFirst({
+            where: {
+                userId
+            }
+        })
+
+        return {
+            result: preferences
+        }
     })
 })
