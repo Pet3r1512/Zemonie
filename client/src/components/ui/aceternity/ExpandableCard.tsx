@@ -53,7 +53,7 @@ export function ExpandableCard({
   const ref = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const id = useId();
-  const currency = useUserPreferences().data?.preferences.currency;
+  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
 
   const globalCategoriesData =
     typeof window !== "undefined"

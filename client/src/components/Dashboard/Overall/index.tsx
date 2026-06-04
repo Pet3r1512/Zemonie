@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
 import { ReactNode } from "react";
 import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 export type OverallDataType = {
   name: string;
@@ -12,15 +13,17 @@ export type OverallDataType = {
   isLoading: boolean;
   isError: boolean;
   amount: number;
+  currency?: string;
 };
 
 export default function Overall() {
+  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
   const balanceQuery = useQuery({
     queryKey: ["balance"],
     queryFn: () => getCurrentBalance(),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 mins
-    gcTime: 30 * 60 * 1000, // 30 mins
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
   const latestTransactionsQuery = useQuery({
@@ -45,6 +48,7 @@ export default function Overall() {
       isLoading: balanceQuery.isLoading,
       isError: balanceQuery.isError,
       amount: currentBalance,
+      currency,
     },
     {
       name: "Latest Income",
@@ -58,6 +62,7 @@ export default function Overall() {
       isLoading: latestTransactionsQuery.isLoading,
       isError: latestTransactionsQuery.isError,
       amount: latestTransactionsQuery.data?.result.latestIncome?.amount ?? 0,
+      currency,
     },
     {
       name: "Latest Expense",
@@ -71,6 +76,7 @@ export default function Overall() {
       isLoading: latestTransactionsQuery.isLoading,
       isError: latestTransactionsQuery.isError,
       amount: latestTransactionsQuery.data?.result.latestExpense?.amount ?? 0,
+      currency,
     },
   ];
 

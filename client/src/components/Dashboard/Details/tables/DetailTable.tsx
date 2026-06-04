@@ -24,7 +24,7 @@ export function DetailsTable({
   lastElementRef: (node: HTMLTableRowElement | null) => void;
 }) {
   const lastTxId = transactions[transactions.length - 1]?.id;
-  const currency = useUserPreferences().data?.preferences.currency;
+  const currency = useUserPreferences().data?.preferences.currency ?? "AUD";
 
   return (
     <div className="w-full overflow-x-auto rounded-lg border">
