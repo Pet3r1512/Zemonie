@@ -78,7 +78,7 @@ export default function AvatarPicker({
             }}
             className={cn(
               "rounded-xl border p-2 transition-all duration-200 hover:scale-[1.02] flex flex-col items-center min-h-30",
-              selected ? "shadow-md" : "",
+              selected ? "shadow-2xl scale-110" : "",
             )}
           >
             <div className="flex items-center justify-center w-full flex-1">
