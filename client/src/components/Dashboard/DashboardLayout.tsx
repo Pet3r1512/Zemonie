@@ -9,6 +9,7 @@ import AccountSetupForm from "./Setup/AccountSetupForm";
 import LoadingScreen from "../Layout/LoadingScreen";
 import { authClient } from "@/lib/auth-client";
 import checkUserSetup from "@/api/users/checkUserSetup";
+import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 
 const SETUP_CACHE_KEY = "isSetupDone";
 
@@ -34,6 +35,7 @@ export default function DashboardLayout({
   sectionDesc?: string;
 }) {
   const navigate = useNavigate();
+  const currentUrl = useCurrentUrl().currUrl;
   const sessionQuery = authClient.useSession();
 
   const getGlobalCategoriesQuery = useQuery({
@@ -89,6 +91,11 @@ export default function DashboardLayout({
           <p className="text-xl md:text-2xl lg:text-3xl font-bold text-primary">
             {section}
           </p>
+          {currentUrl === "/dashboard" && (
+            <p className="font-semibold text-sm">
+              Welcome back, {sessionQuery.data?.user.name}
+            </p>
+          )}
           <p className="text-gray-700">{sectionDesc}</p>
         </div>
         <div className="flex-1 min-h-0 flex flex-col gap-y-5 overflow-y-auto scrollbar-gutter-stable">

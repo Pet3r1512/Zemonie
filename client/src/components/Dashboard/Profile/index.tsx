@@ -1,11 +1,16 @@
-import { Mail, Lock, User } from "lucide-react";
+import { Mail, Lock, User, CalendarPlus2 } from "lucide-react";
 import AvatarSprites from "@/components/Dashboard/Setup/AvatarSprites";
 import { authClient } from "@/lib/auth-client";
 
 const profileFields = [
-  { label: "Email", key: "email", icon: Mail },
-  { label: "Sign-in Method", key: "method", icon: Lock },
   { label: "Name", key: "name", icon: User },
+  { label: "Email", key: "email", icon: Mail },
+  {
+    label: "Joined",
+    key: "join",
+    icon: CalendarPlus2,
+  },
+  { label: "Sign-in Method", key: "method", icon: Lock },
 ];
 
 export default function ProfilePage() {
@@ -15,10 +20,11 @@ export default function ProfilePage() {
     email: session.data?.user.email ?? "",
     method: "Email and Password",
     name: session.data?.user.name ?? "",
+    join: session.data?.user.createdAt.toLocaleString().split(",")[0] ?? "",
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-2xl w-full mx-auto space-y-8">
       <div className="flex flex-col items-center gap-4">
         <div className="size-24 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center">
           <svg width={72} height={72} viewBox="0 0 100 100">
@@ -31,7 +37,7 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      <div className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl border border-gray-200 dark:border-neutral-800 divide-y divide-gray-200 dark:divide-neutral-800">
+      <div className="rounded-2xl bg-white dark:bg-neutral-950 md:shadow-2xl border border-gray-200 dark:border-neutral-800 divide-y divide-gray-100 dark:divide-neutral-800">
         {profileFields.map((field) => {
           const Icon = field.icon;
           return (
