@@ -1,6 +1,7 @@
 import { Mail, Lock, User, CalendarPlus2 } from "lucide-react";
 import AvatarSprites from "@/components/Dashboard/Setup/AvatarSprites";
 import { authClient } from "@/lib/auth-client";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 const profileFields = [
   { label: "Name", key: "name", icon: User },
@@ -15,6 +16,7 @@ const profileFields = [
 
 export default function ProfilePage() {
   const session = authClient.useSession();
+  const { data } = useUserPreferences();
 
   const fieldValues: Record<string, string> = {
     email: session.data?.user.email ?? "",
@@ -28,12 +30,12 @@ export default function ProfilePage() {
       <div className="flex flex-col items-center gap-4">
         <div className="size-24 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center">
           <svg width={72} height={72} viewBox="0 0 100 100">
-            <use href={`#avatar-${session.data?.user?.image ?? "fox"}`} />
+            <use href={`#avatar-${data?.preferences.avatar ?? "fox"}`} />
           </svg>
         </div>
         <AvatarSprites />
         <p className="text-lg font-semibold text-gray-900 dark:text-white capitalize">
-          {session.data?.user?.image ?? "fox"}
+          {data?.preferences.avatar ?? "fox"}
         </p>
       </div>
 
