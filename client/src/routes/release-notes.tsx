@@ -1,6 +1,7 @@
 import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
 import { createFileRoute } from "@tanstack/react-router";
+import { Tag } from "lucide-react";
 export const Route = createFileRoute("/release-notes")({
   component: RouteComponent,
 });
@@ -198,9 +199,15 @@ function RouteComponent() {
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">
                     {release.version}
                   </h2>
-                  <span className="rounded-full bg-primary/10 text-primary text-xs font-semibold px-3 py-1">
-                    {release.tag}
-                  </span>
+                  {release.tag === "Beta" ? (
+                    <span className="rounded-full bg-yellow-300 text-gray-800 text-xs font-semibold px-3 py-1">
+                      {release.tag}
+                    </span>
+                  ) : (
+                    <span className="rounded-full bg-green-500 text-white text-xs font-semibold px-3 py-1">
+                      {release.tag}
+                    </span>
+                  )}
                   {index === 0 && (
                     <div className="text-green-500 text-xs font-extrabold ml-auto flex items-center">
                       <Tag size={16} />
