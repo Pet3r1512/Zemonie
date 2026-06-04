@@ -9,9 +9,10 @@ import {
 
 import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
-import formatCurrency from "@/helpers/formatCurrency";
 import CategoryTag from "../../Category/CategoryTag";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 const TABLE_TITLE_FONT_SIZE = "text-xs sm:text-sm md:text-base";
 
@@ -23,6 +24,7 @@ export function DetailsTable({
   lastElementRef: (node: HTMLTableRowElement | null) => void;
 }) {
   const lastTxId = transactions[transactions.length - 1]?.id;
+  const currency = useUserPreferences().data?.preferences.currency;
 
   return (
     <div className="w-full overflow-x-auto rounded-lg border">
@@ -61,7 +63,7 @@ export function DetailsTable({
               </TableCell>
 
               <TableCell className="text-right font-medium text-xs sm:text-sm md:text-base whitespace-nowrap">
-                {formatCurrency(transaction.amount)}
+                {formatCurrency(transaction.amount, currency)}
               </TableCell>
 
               <TableCell className="text-right max-w-62.5 truncate">
