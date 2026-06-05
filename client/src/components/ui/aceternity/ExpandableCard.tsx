@@ -5,12 +5,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { ComponentMap } from "@/types/ComponentMap";
-import { ArrowDown, ArrowUp, Tag } from "lucide-react";
+import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
 import { cn } from "@/lib/utils";
 import categoryColorDictionary from "@/types/CategoryDict";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { Button } from "../button";
 
 enum CategoryType {
   EXPENSE,
