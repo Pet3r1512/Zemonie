@@ -2,6 +2,9 @@ import ListByDate, { TransactionInfo } from "./ListByDate";
 import { useCallback, useRef } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import useFetchTransactions from "@/hooks/useFetchTransactions";
+import updateTransaction from "@/api/users/transactions/updateTransaction";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export interface TransactionsTableProps {
   userId: string | undefined;
@@ -15,6 +18,21 @@ export interface TransactionsResponse {
 }
 
 export default function TransactionsTable({ userId }: TransactionsTableProps) {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (credentials: TransactionInfo) =>
+      updateTransaction({ credentials }),
+    onSuccess: () => {
+      toast.success("Transaction updated");
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["balance"] });
+      queryClient.invalidateQueries({ queryKey: ["latestTransactions"] });
+    },
+    onError: (error) => {
+      toast.error(error?.message ?? "Failed to update transaction");
+    },
+  });
   const observer = useRef<IntersectionObserver | null>(null);
 
   const {
@@ -74,10 +92,15 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
     );
   }
 
+  const handleSave = (updatedTransaction: TransactionInfo) => {
+    mutation.mutate(updatedTransaction);
+  };
+
   return (
     <ListByDate
       lastElementRef={lastElementRef}
       transactions={allTransactions}
+      onSave={handleSave}
     />
   );
 }
