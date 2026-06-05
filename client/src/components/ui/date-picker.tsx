@@ -14,8 +14,10 @@ import { useFormContext } from "react-hook-form";
 import { Transaction } from "../Dashboard/Overall/Forms/IncomeForm";
 import localISOString from "@/helpers/localISOString";
 
-export function DatePicker() {
-  const [date, setDate] = useState<Date>();
+export function DatePicker({ defaultDate }: { defaultDate?: string }) {
+  const [date, setDate] = useState<Date | undefined>(
+    defaultDate ? new Date(defaultDate) : undefined,
+  );
   const [open, setOpen] = useState(false);
 
   const { setValue } = useFormContext<Transaction>();
