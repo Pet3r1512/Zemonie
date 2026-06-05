@@ -27,6 +27,6 @@ export default async function updateTransaction({ credentials }: { credentials: 
     }
 
     return {
-        result: res.data.result
+        result: res.result
     }
 }
