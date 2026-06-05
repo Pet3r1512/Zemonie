@@ -98,10 +98,28 @@ export default function DashboardLayout({
     </SidebarProvider>
   );
 
+  if (sessionQuery.isPending) {
+    return <LoadingScreen />;
+  }
+
+  // Fast path: cached setup status avoids a flash
   if (isCachedSetupDone) {
     return dashboard;
   }
 
+  // Setup query still loading – keep showing loading screen
+  if (setupQuery.isPending) {
+    return <LoadingScreen />;
+  }
+
+  // Setup query errored – show dashboard optimistically rather
+  // than blocking the user with the setup form
+  if (setupQuery.isError) {
+    return dashboard;
+  }
+
+  // Query resolved: show setup form only when the server confirms
+  // the user hasn't completed setup yet
   if (!setupQuery.data?.isSetupDone) {
     return (
       <div className="w-screen h-screen flex items-center justify-center bg-transparent absolute">
