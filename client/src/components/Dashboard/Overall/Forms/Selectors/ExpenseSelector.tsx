@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { useFormContext } from "react-hook-form";
 import { Transaction } from "../IncomeForm";
+import { cn } from "@/lib/utils";
 
 type SourceExpense = {
   name: string;
@@ -49,19 +50,28 @@ const expenseSources: SourceExpense[] = [
   { name: "Other Expense", id: 21 },
 ];
 
-export default function ExpenseSelect() {
+export default function ExpenseSelect({
+  value,
+  contentClassName,
+}: {
+  value?: string;
+  contentClassName?: string;
+}) {
   const { setValue } = useFormContext<Transaction>();
 
   return (
     <Select
-      onValueChange={(value) => {
-        setValue("categoryId", +value, { shouldValidate: true });
+      value={value}
+      onValueChange={(newValue) => {
+        setValue("categoryId", +newValue, { shouldValidate: true });
       }}
     >
       <SelectTrigger id="source" name="source" className="w-full">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="bg-white w-full max-h-64">
+      <SelectContent
+        className={cn("bg-white w-full max-h-64", contentClassName)}
+      >
         <SelectGroup>
           {expenseSources.map((source: SourceExpense) => {
             return (

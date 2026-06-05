@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/select";
 import { useFormContext } from "react-hook-form";
 import { Transaction } from "../IncomeForm";
+import { cn } from "@/lib/utils";
 
 type SourceIncome = {
   name: string;
@@ -45,19 +46,26 @@ const incomesources: SourceIncome[] = [
   },
 ];
 
-export default function IncomeSelect() {
+export default function IncomeSelect({
+  value,
+  contentClassName,
+}: {
+  value?: string;
+  contentClassName?: string;
+}) {
   const { setValue } = useFormContext<Transaction>();
 
   return (
     <Select
-      onValueChange={(value) => {
-        setValue("categoryId", +value, { shouldValidate: true });
+      value={value}
+      onValueChange={(newValue) => {
+        setValue("categoryId", +newValue, { shouldValidate: true });
       }}
     >
       <SelectTrigger id="source" name="source" className="w-full">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="bg-white w-full">
+      <SelectContent className={cn("bg-white w-full", contentClassName)}>
         <SelectGroup>
           {incomesources.map((source: SourceIncome) => {
             return (
