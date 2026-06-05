@@ -95,7 +95,6 @@ export function ExpandableCard({
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        if (editMode) return;
         setActive(false);
       }
     }
@@ -108,10 +107,11 @@ export function ExpandableCard({
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active, editMode]);
+  }, [active]);
 
-  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => {
-    if (editMode) return;
+  useOutsideClick(ref as React.RefObject<HTMLDivElement>, (event) => {
+    const target = event.target as HTMLElement;
+    if (target.closest("[role=\"listbox\"]")) return;
     setActive(false);
   });
 
