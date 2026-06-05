@@ -115,69 +115,77 @@ export function ExpandableCard({
               ref={ref}
               className="w-[95dvw] max-h-[50dvh]! md:w-full md:h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
             >
-              <div className="p-6 space-y-4 w-full!">
-                <motion.div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-x-2">
-                      {
-                        categoryColorDictionary[currCategory!.id.toString()]
-                          .icon
-                      }
-                      <p className="text-lg font-semibold">
-                        {transaction.description === ""
-                          ? "No Description"
-                          : transaction.description}
+              {!editMode ? (
+                <div className="p-6 space-y-4 w-full!">
+                  <motion.div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-x-2">
+                        {
+                          categoryColorDictionary[currCategory!.id.toString()]
+                            .icon
+                        }
+                        <p className="text-lg font-semibold">
+                          {transaction.description === ""
+                            ? "No Description"
+                            : transaction.description}
+                        </p>
+                      </div>
+                      <p>{ParseISOStringDate({ date: transaction.date })}</p>
+                    </div>
+                    <div className="flex flex-col items-end">
+                      <motion.p
+                        layoutId={`amount-${transaction.id}-${id}`}
+                        className={`text-lg md:text-xl lg:text-2xl font-bold ${
+                          currCategory
+                            ? TransactionAmountTextColor[
+                                isIncome ? "INCOME" : "EXPENSE"
+                              ]
+                            : "text-gray-500"
+                        }`}
+                      >
+                        {isIncome ? "+ " : "- "}
+                        {formatCurrency(transaction.amount, currency)}
+                      </motion.p>
+                      <p className="font-semibold">{transaction.currency}</p>
+                    </div>
+                  </motion.div>
+
+                  {/* Divider */}
+                  <div className="h-0.5 w-full bg-gray-200"></div>
+
+                  <motion.div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
+                    <div className="space-y-2">
+                      <p className="font-semibold">TRANSACTION ID</p>
+                      <p className="text-sm text-gray-600 font-mono">
+                        {transaction.id}
                       </p>
                     </div>
-                    <p>{ParseISOStringDate({ date: transaction.date })}</p>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <motion.p
-                      layoutId={`amount-${transaction.id}-${id}`}
-                      className={`text-lg md:text-xl lg:text-2xl font-bold ${
-                        currCategory
-                          ? TransactionAmountTextColor[
-                              isIncome ? "INCOME" : "EXPENSE"
-                            ]
-                          : "text-gray-500"
-                      }`}
-                    >
-                      {isIncome ? "+ " : "- "}
-                      {formatCurrency(transaction.amount, currency)}
-                    </motion.p>
-                    <p className="font-semibold">{transaction.currency}</p>
-                  </div>
-                </motion.div>
-
-                {/* Divider */}
-                <div className="h-0.5 w-full bg-gray-200"></div>
-
-                <motion.div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
-                  <div className="space-y-2">
-                    <p className="font-semibold">TRANSACTION ID</p>
-                    <p className="text-sm text-gray-600 font-mono">
-                      {transaction.id}
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="font-semibold">TYPE</p>
-                    <p className="text-sm text-gray-600">
-                      {currCategory?.type}
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="font-semibold">CATEGORY</p>
-                    <div
-                      className={cn(
-                        "flex items-center gap-x-1 text-xs w-fit text-white px-2 py-1 rounded-2xl cursor-default",
-                        categoryColorDictionary[currCategory!.id].color,
-                      )}
-                    >
-                      <Tag size={12} />
-                      <p>{currCategory?.name}</p>
+                    <div className="space-y-2">
+                      <p className="font-semibold">TYPE</p>
+                      <p className="text-sm text-gray-600">
+                        {currCategory?.type}
+                      </p>
                     </div>
-                  </div>
-                </motion.div>
+                    <div className="space-y-2">
+                      <p className="font-semibold">CATEGORY</p>
+                      <div
+                        className={cn(
+                          "flex items-center gap-x-1 text-xs w-fit text-white px-2 py-1 rounded-2xl cursor-default",
+                          categoryColorDictionary[currCategory!.id].color,
+                        )}
+                      >
+                        <Tag size={12} />
+                        <p>{currCategory?.name}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                  {/* Divider */}
+                  <div className="h-0.5 w-full bg-gray-200"></div>
+                </div>
+              ) : (
+                <>This is edit mode</>
+              )}
+
               <div className="flex items-center justify-end gap-x-1.5 px-6 pb-6">
                 {editMode && (
                   <Button
