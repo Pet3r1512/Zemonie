@@ -74,14 +74,6 @@ export default function DashboardLayout({
     );
   }
 
-  if (sessionQuery.isPending) {
-    return <LoadingScreen />;
-  }
-
-  if (setupQuery.isPending && !isCachedSetupDone) {
-    return <LoadingScreen />;
-  }
-
   const dashboard = (
     <SidebarProvider className="p-5">
       <AppSidebar />
