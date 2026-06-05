@@ -109,9 +109,10 @@ export function ExpandableCard({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
-  useOutsideClick(ref as React.RefObject<HTMLDivElement>, (event) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  useOutsideClick(ref as React.RefObject<HTMLDivElement>, (event: any) => {
     const target = event.target as HTMLElement;
-    if (target.closest("[role=\"listbox\"]")) return;
+    if (target.closest('[role="listbox"]')) return;
     setActive(false);
   });
 
@@ -125,6 +126,7 @@ export function ExpandableCard({
         createdAt: transaction.date,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode]);
 
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
