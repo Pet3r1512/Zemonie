@@ -183,42 +183,146 @@ export function ExpandableCard({
                   <div className="h-0.5 w-full bg-gray-200"></div>
                 </div>
               ) : (
-                <>This is edit mode</>
+                <FormProvider {...methods}>
+                  <form
+                    id={`transaction-form-${transaction.id}`}
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
+                    <Dialog>
+                      <DialogHeader className="px-6 pt-6">
+                        <DialogTitle>
+                          {isIncome ? "Edit Income" : "Edit Expense"}
+                        </DialogTitle>
+                      </DialogHeader>
+
+                      <DialogDescription className="sr-only" />
+
+                      <FieldGroup className="px-6 py-6 w-2xl">
+                        <input
+                          type="hidden"
+                          {...register("categoryId", {
+                            required: "Please select a category",
+                          })}
+                        />
+
+                        <Field>
+                          <Label htmlFor="source">
+                            {isIncome ? "Income Source" : "Spend On"}
+                          </Label>
+
+                          {isIncome ? (
+                            <IncomeSelect
+                              value={transaction.categoryId?.toString()}
+                              contentClassName="z-[110]"
+                            />
+                          ) : (
+                            <ExpenseSelect
+                              value={transaction.categoryId?.toString()}
+                              contentClassName="z-[110]"
+                            />
+                          )}
+
+                          <FieldError
+                            className="text-red-500"
+                            errors={[errors.categoryId]}
+                          />
+                        </Field>
+
+                        <Field>
+                          <Label htmlFor="amount">Amount</Label>
+
+                          <Input
+                            id="amount"
+                            type="number"
+                            step="0.01"
+                            {...register("amount", {
+                              required: "Amount is required",
+                              valueAsNumber: true,
+                              min: {
+                                value: 0.01,
+                                message: "Amount must be greater than 0",
+                              },
+                            })}
+                          />
+
+                          <FieldError
+                            className="text-red-500"
+                            errors={[errors.amount]}
+                          />
+                        </Field>
+
+                        <Field>
+                          <Label htmlFor="desc">Description</Label>
+
+                          <Input
+                            id="desc"
+                            type="text"
+                            {...register("description", {
+                              maxLength: {
+                                value: 50,
+                                message: "Max length is 50 characters",
+                              },
+                            })}
+                          />
+
+                          <FieldError
+                            className="text-red-500"
+                            errors={[errors.description]}
+                          />
+                        </Field>
+
+                        <Field>
+                          <Label htmlFor="date">Date</Label>
+                          <DatePicker defaultDate={transaction.date} />
+                        </Field>
+                      </FieldGroup>
+                    </Dialog>
+                  </form>
+                </FormProvider>
               )}
 
-              <div className="flex items-center justify-end gap-x-1.5 px-6 pb-6">
-                {editMode && (
+              <div className="flex items-center justify-end gap-x-2 px-6 pb-6">
+                {editMode ? (
+                  <>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        reset({
+                          categoryId:
+                            transaction.categoryId ?? (isIncome ? 1 : 8),
+                          amount: transaction.amount,
+                          currency: transaction.currency,
+                          description: transaction.description,
+                          createdAt: transaction.date,
+                        });
+
+                        setEditMode(false);
+                      }}
+                    >
+                      Cancel
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      type="submit"
+                      form={`transaction-form-${transaction.id}`}
+                      className="bg-green-500 text-white hover:bg-green-500/80"
+                    >
+                      <CheckCheck className="size-4" />
+                      Save Changes
+                    </Button>
+                  </>
+                ) : (
                   <Button
                     size="sm"
-                    className="cursor-pointer bg-green-500 text-white hover:bg-green-500/80"
+                    onClick={() => setEditMode(true)}
+                    className="bg-primary text-white"
                   >
-                    <CheckCheck className="size-4" />
-                    Save Changes
+                    <Pencil className="size-4" />
+                    Edit
                   </Button>
                 )}
-
-                <Button
-                  size="sm"
-                  onClick={() => setEditMode((prev) => !prev)}
-                  variant={!editMode ? "outline" : undefined}
-                  className={
-                    editMode
-                      ? "cursor-pointer bg-red-500 text-white hover:bg-red-500/80"
-                      : "cursor-pointer bg-primary text-white"
-                  }
-                >
-                  {editMode ? (
-                    <>
-                      <CheckCheck className="size-4" />
-                      Cancel
-                    </>
-                  ) : (
-                    <>
-                      <Pencil className="size-4" />
-                      Edit
-                    </>
-                  )}
-                </Button>
               </div>
             </motion.div>
           </div>
