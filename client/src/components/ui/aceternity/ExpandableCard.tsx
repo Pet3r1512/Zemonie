@@ -50,6 +50,7 @@ export function ExpandableCard({
   lastElementRef?: (node: HTMLDivElement | null) => void;
 }) {
   const [active, setActive] = useState(false);
+  const [editMode, setEditMode] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const id = useId();
