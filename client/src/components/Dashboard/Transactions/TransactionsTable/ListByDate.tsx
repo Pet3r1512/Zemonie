@@ -16,9 +16,11 @@ export type TransactionInfo = {
 export default function ListByDate({
   transactions = [],
   lastElementRef,
+  onSave,
 }: {
   transactions?: TransactionInfo[];
   lastElementRef?: (node: HTMLDivElement | null) => void;
+  onSave?: (transaction: TransactionInfo) => void;
 }) {
   const groupedByDate = groupTransactions(transactions);
 
@@ -47,6 +49,7 @@ export default function ListByDate({
               key={tx.id}
               transaction={tx}
               lastElementRef={tx.id === lastTxId ? lastElementRef : undefined}
+              onSave={onSave}
             />
           ))}
         </div>
