@@ -176,6 +176,39 @@ export function ExpandableCard({
                     </div>
                   </div>
                 </motion.div>
+              <div className="flex items-center justify-end gap-x-1.5 px-6 pb-6">
+                {editMode && (
+                  <Button
+                    size="sm"
+                    className="cursor-pointer bg-green-500 text-white hover:bg-green-500/80"
+                  >
+                    <CheckCheck className="size-4" />
+                    Save Changes
+                  </Button>
+                )}
+
+                <Button
+                  size="sm"
+                  onClick={() => setEditMode((prev) => !prev)}
+                  variant={!editMode ? "outline" : undefined}
+                  className={
+                    editMode
+                      ? "cursor-pointer bg-red-500 text-white hover:bg-red-500/80"
+                      : "cursor-pointer bg-primary text-white"
+                  }
+                >
+                  {editMode ? (
+                    <>
+                      <CheckCheck className="size-4" />
+                      Cancel
+                    </>
+                  ) : (
+                    <>
+                      <Pencil className="size-4" />
+                      Edit
+                    </>
+                  )}
+                </Button>
               </div>
             </motion.div>
           </div>
