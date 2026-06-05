@@ -12,6 +12,16 @@ import categoryColorDictionary from "@/types/CategoryDict";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import { Button } from "../button";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Transaction } from "@/components/Dashboard/Overall/Forms/IncomeForm";
+import ExpenseSelect from "@/components/Dashboard/Overall/Forms/Selectors/ExpenseSelector";
+import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
+import { Label } from "../label";
+import { DatePicker } from "../date-picker";
+import { Dialog, DialogHeader } from "../dialog";
+import { FieldGroup, Field, FieldError } from "../field";
+import { Input } from "../input";
+import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
 
 enum CategoryType {
   EXPENSE,
@@ -46,9 +56,11 @@ const TransactionAmountTextColor: Record<string, string> = {
 export function ExpandableCard({
   transaction,
   lastElementRef,
+  onSave,
 }: {
   transaction: TransactionInfo;
   lastElementRef?: (node: HTMLDivElement | null) => void;
+  onSave?: (updatedTransaction: TransactionInfo) => void;
 }) {
   const [active, setActive] = useState(false);
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -56,6 +68,13 @@ export function ExpandableCard({
   const innerRef = useRef<HTMLDivElement>(null);
   const id = useId();
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
+  const methods = useForm<Transaction>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = methods;
 
   const globalCategoriesData =
     typeof window !== "undefined"
@@ -94,6 +113,31 @@ export function ExpandableCard({
     setActive(false),
   );
 
+  useEffect(() => {
+    if (editMode) {
+      reset({
+        categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
+        amount: transaction.amount,
+        currency: transaction.currency,
+        description: transaction.description,
+        createdAt: transaction.date,
+      });
+    }
+  }, [editMode]);
+
+  const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
+    onSave?.({
+      id: transaction.id,
+      userId: transaction.userId,
+      categoryId: credentials.categoryId,
+      amount: credentials.amount,
+      currency: transaction.currency,
+      date: credentials.createdAt ?? transaction.date,
+      description: credentials.description ?? "",
+    });
+    setEditMode(false);
+  };
+
   return (
     <>
       <AnimatePresence>
@@ -113,17 +157,16 @@ export function ExpandableCard({
             <motion.div
               layoutId={`card-${transaction.id}-${id}`}
               ref={ref}
-              className="w-[95dvw] max-h-[50dvh]! md:w-full md:h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
+              className="w-[95dvw] max-h-[50dvh]! md:max-w-150 lg:min-w-150 md:h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
             >
               {!editMode ? (
                 <div className="p-6 space-y-4 w-full!">
                   <motion.div className="flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-x-2">
-                        {
-                          categoryColorDictionary[currCategory!.id.toString()]
-                            .icon
-                        }
+                        {currCategory &&
+                          categoryColorDictionary[currCategory.id.toString()]
+                            ?.icon}
                         <p className="text-lg font-semibold">
                           {transaction.description === ""
                             ? "No Description"
@@ -171,11 +214,13 @@ export function ExpandableCard({
                       <div
                         className={cn(
                           "flex items-center gap-x-1 text-xs w-fit text-white px-2 py-1 rounded-2xl cursor-default",
-                          categoryColorDictionary[currCategory!.id].color,
+                          currCategory &&
+                            categoryColorDictionary[currCategory.id.toString()]
+                              ?.color,
                         )}
                       >
                         <Tag size={12} />
-                        <p>{currCategory?.name}</p>
+                        <p>{currCategory?.name ?? "Uncategorized"}</p>
                       </div>
                     </div>
                   </motion.div>
