@@ -1,3 +1,4 @@
+import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect";
 import Screenshot from "./Screenshot";
 
 export default function Hero() {
@@ -6,12 +7,12 @@ export default function Hero() {
       aria-label="hero-section"
       className="lg:mt-24 text-center max-w-6xl mx-auto space-y-10"
     >
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
-        Manage Your Finances with{" "}
-        <strong className="text-primary underline underline-offset-6">
-          Zemonie
-        </strong>
-      </h1>
+      <div className="space-y-5">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl">
+          Manage Your Finances with{" "}
+        </h1>
+        <AuroraTextEffect className="bg-transparent" text="Zemonie" />
+      </div>
       <p
         role="description"
         className="mt-8 text-md lg:text-lg font-medium text-pretty text-gray-500 sm:text-xl/8"
