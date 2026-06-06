@@ -25,10 +25,15 @@ export const Default: Story = {
 
     expect(HeroSection).toBeInTheDocument();
 
-    const HeroTitle = canvas.getByRole("heading");
+    const TitlePrimary = canvas.getByRole("heading", { level: 1 });
 
-    expect(HeroTitle).toBeInTheDocument();
-    expect(HeroTitle.textContent).toBe("Manage Your Finances with Zemonie");
+    expect(TitlePrimary).toBeInTheDocument();
+    expect(TitlePrimary.textContent).toContain("Manage Your Finances with");
+
+    const TitleAccent = canvas.getByRole("heading", { level: 2 });
+
+    expect(TitleAccent).toBeInTheDocument();
+    expect(TitleAccent.textContent).toBe("Zemonie");
 
     const HeroDesc = canvas.getByRole("description");
 
