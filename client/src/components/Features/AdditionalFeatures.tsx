@@ -12,39 +12,43 @@ import {
 const additionalFeatures = [
   {
     icon: LockIcon,
-    title: "Privacy First",
-    description: "Your data is yours. We never sell your information.",
+    title: "Your Data, Your Rules",
+    description:
+      "Your financial data stays private. No selling, no creepy tracking, no surprises.",
   },
   {
     icon: RefreshCwIcon,
-    title: "Auto-Sync",
-    description: "Real-time synchronization across all your devices.",
+    title: "Instant Sync Everywhere",
+    description:
+      "Update a transaction on one device and see it reflected everywhere in real time.",
     badge: "New" as const,
   },
   {
     icon: CalendarIcon,
-    title: "Recurring Transactions",
+    title: "Smart Recurring Tracking",
     description:
-      "Automatically track and predict recurring income and expenses.",
+      "Never forget a bill, salary, or subscription. We automatically keep tabs on recurring transactions.",
     badge: "Coming Soon" as const,
   },
   {
     icon: Users,
-    title: "Friends & Leaderboard",
+    title: "Level Up Your Money Game",
     description:
-      "Connect with friends and compete on a personalised leaderboard.",
+      "Get rewards, keep streaks, and see what your spending says about you.",
     badge: "Coming Soon" as const,
   },
   {
     icon: DownloadIcon,
-    title: "Export & Reports",
-    description: "Export your data in multiple formats for tax season.",
+    title: "Shareable Reports",
+    description:
+      "Generate clean reports and export your data whenever you need it.",
     badge: "Coming Soon" as const,
   },
   {
     icon: UsersIcon,
-    title: "Shared Budgets",
-    description: "Collaborate on budgets with family or roommates.",
+    title: "Shared Money Goals",
+    description:
+      "Manage budgets together with your partner, friends, or roommates and stay aligned on spending.",
     badge: "Coming Soon" as const,
   },
 ];
