@@ -4,7 +4,7 @@ import { AppSidebar } from "../ui/app-sidebar";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import getGlobalCategories from "@/api/categories/getGlobalCategories";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import AccountSetupForm from "./Setup/AccountSetupForm";
 import LoadingScreen from "../Layout/LoadingScreen";
 import { authClient } from "@/lib/auth-client";
@@ -94,7 +94,7 @@ export default function DashboardLayout({
           {children}
         </div>
       </main>
-      <Toaster />
+      <Toaster richColors />
     </SidebarProvider>
   );
 
