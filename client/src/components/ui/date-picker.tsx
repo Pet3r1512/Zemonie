@@ -9,7 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "./button";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Transaction } from "../Dashboard/Overall/Forms/IncomeForm";
 import localISOString from "@/helpers/localISOString";
@@ -21,6 +21,17 @@ export function DatePicker({ defaultDate }: { defaultDate?: string }) {
   const [open, setOpen] = useState(false);
 
   const { setValue } = useFormContext<Transaction>();
+
+  const contentRef = useCallback((el: HTMLDivElement | null) => {
+    if (el) {
+      const wrapper = el.closest(
+        "[data-radix-popper-content-wrapper]",
+      ) as HTMLElement | null;
+      if (wrapper) {
+        wrapper.style.position = "absolute";
+      }
+    }
+  }, []);
 
   const today = new Date();
 
@@ -38,7 +49,8 @@ export function DatePicker({ defaultDate }: { defaultDate?: string }) {
       </PopoverTrigger>
 
       <PopoverContent
-        className="h-auto w-64 p-0"
+        ref={contentRef}
+        className="h-auto w-64 p-0 z-110"
         align="start"
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
