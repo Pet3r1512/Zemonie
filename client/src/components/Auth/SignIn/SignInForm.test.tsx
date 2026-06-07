@@ -243,4 +243,11 @@ describe("Form submission", () => {
 
     expect(screen.getByRole("submit-btn")).toBeDisabled();
   });
+
+  it("shows a spinner and hides label while mutation is pending", () => {
+    buildMutation({ isPending: true });
+    renderForm();
+    expect(screen.getByTestId("spinner")).toBeInTheDocument();
+    expect(screen.queryByText("Sign In")).not.toBeInTheDocument();
+  });
 });

@@ -131,7 +131,10 @@ export default function SignInForm({ className }: { className?: string }) {
                   className="w-full bg-primary hover:bg-primary-dark"
                 >
                   {mutation.isPending ? (
-                    <LoaderCircle className="animate-spin" />
+                    <LoaderCircle
+                      data-testid="spinner"
+                      className="animate-spin"
+                    />
                   ) : (
                     <p>Sign In</p>
                   )}

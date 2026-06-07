@@ -442,6 +442,7 @@ describe("Form submission", () => {
   it("shows a spinner and hides label while mutation is pending", () => {
     buildMutation({ isPending: true });
     renderForm();
+    expect(screen.getByTestId("spinner")).toBeInTheDocument();
     expect(screen.queryByText("Create New Account")).not.toBeInTheDocument();
   });
 });
