@@ -251,3 +251,19 @@ describe("Form submission", () => {
     expect(screen.queryByText("Sign In")).not.toBeInTheDocument();
   });
 });
+
+const mockNavigate = vi.fn();
+
+vi.mock("@tanstack/react-router", () => ({
+  Link: vi.fn(
+    ({ to, children, ...props }: { to: string; children: React.ReactNode }) => (
+      <a href={to} {...props}>
+        {children}
+      </a>
+    ),
+  ),
+  useRouter: () => ({
+    navigate: mockNavigate,
+  }),
+  createRouter: vi.fn(),
+}));
