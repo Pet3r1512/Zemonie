@@ -68,6 +68,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   <Input
                     id="email"
                     type="email"
+                    role="email-input"
                     placeholder="m@example.com"
                     {...register("email", {
                       required: "Email is required",
@@ -94,6 +95,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   </div>
                   <div className="relative">
                     <Input
+                      role="password-input"
                       id="password"
                       autoComplete="off"
                       type={hidePassword ? "password" : "text"}
