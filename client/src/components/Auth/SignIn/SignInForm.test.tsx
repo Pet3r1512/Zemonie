@@ -236,4 +236,11 @@ describe("Form submission", () => {
       expect(mutateFn).not.toHaveBeenCalled();
     });
   });
+
+  it("diables submit button when mutation is pending", () => {
+    buildMutation({ isPending: true });
+    renderForm();
+
+    expect(screen.getByRole("submit-btn")).toBeDisabled();
+  });
 });
