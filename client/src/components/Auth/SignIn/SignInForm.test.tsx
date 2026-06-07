@@ -190,3 +190,18 @@ function buildMutation(
 
   return { mutateFn };
 }
+
+async function fillForm({
+  email = "test@email.com",
+  password = "Passwordvalid",
+}: Partial<{
+  email: string;
+  password: string;
+}> = {}) {
+  const user = userEvent.setup();
+
+  if (email) await user.type(screen.getByRole("email-input"), email);
+  if (password) await user.type(screen.getByRole("password-input"), password);
+
+  return user;
+}
