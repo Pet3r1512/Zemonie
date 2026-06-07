@@ -5,6 +5,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignInForm from "./SignInForm";
 import { userEvent } from "@storybook/testing-library";
+import { toast } from "sonner";
 
 vi.mock("@/api/users/auth/SignInEmail", () => ({
   default: vi.fn(),
@@ -296,6 +297,28 @@ describe("onSuccess callback tests", () => {
       expect(mockNavigate).toHaveBeenCalledWith({
         to: "/dashboard",
       });
+    });
+  });
+});
+
+describe("onError callback tests", () => {
+  it("shows a generic toast for sign in failed", async () => {
+    mockUseMutation.mockImplementation(({ onError }: any) => ({
+      mutate: () =>
+        onError({
+          code: "UNKNOWN_ERROR",
+          message: "Sign in failed",
+        }),
+      isPending: false,
+    }));
+
+    renderForm();
+
+    await fillForm();
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(toast.error).toHaveBeenCalledWith("Sign in failed");
     });
   });
 });
