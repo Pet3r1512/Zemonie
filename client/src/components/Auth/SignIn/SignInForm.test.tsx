@@ -131,4 +131,16 @@ describe("Email validation", () => {
       ).not.toBeInTheDocument();
     });
   });
+
+  it("shows error when email is invalid", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("email-input"), "thisisbademail");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.queryByText("Invalid email address")).toBeInTheDocument();
+    });
+  });
 });
