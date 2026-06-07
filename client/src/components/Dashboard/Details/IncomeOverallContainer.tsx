@@ -34,8 +34,8 @@ export default function IncomeOverallContainer() {
     queryKey: ["incomeRate"],
     queryFn: () => getIncomeGrowth(),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 100,
-    gcTime: 30 * 60 * 100,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
   const highestTransaction =
