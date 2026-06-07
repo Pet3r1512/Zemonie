@@ -7,11 +7,15 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./setupTests.ts"],
     coverage: {
-      provider: "v8",
+      provider: "istanbul",
       reporter: ["text"],
       exclude: [
         "src/stories/**",
+        "src/api/**",
         "src/components/svg/**",
+        "src/routes/**",
+        "src/types/**",
+        "src/store/**",
         "**/*.stories.tsx",
         "**/*.stories.ts",
         "**/*.test.ts",

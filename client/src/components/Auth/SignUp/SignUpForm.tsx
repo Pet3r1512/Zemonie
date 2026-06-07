@@ -150,6 +150,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       type={hidePassword ? "password" : "text"}
                       required
                       {...register("password", {
+                        required: "Password is required",
                         minLength: {
                           value: 8,
                           message:
@@ -225,7 +226,10 @@ export default function SignUpForm({ className }: { className?: string }) {
                   <Controller
                     name="terms"
                     control={control}
-                    rules={{ required: "You must accept the terms and privacy policies" }}
+                    rules={{
+                      required:
+                        "You must accept the terms and privacy policies",
+                    }}
                     render={({ field }) => (
                       <Checkbox
                         id="terms"
@@ -272,7 +276,10 @@ export default function SignUpForm({ className }: { className?: string }) {
                   className="w-full bg-primary hover:bg-primary-dark"
                 >
                   {mutation.isPending ? (
-                    <LoaderCircle className="animate-spin" />
+                    <LoaderCircle
+                      data-testid="spinner"
+                      className="animate-spin"
+                    />
                   ) : (
                     <p>Create New Account</p>
                   )}

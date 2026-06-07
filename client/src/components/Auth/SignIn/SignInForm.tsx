@@ -46,6 +46,7 @@ export default function SignInForm({ className }: { className?: string }) {
         "flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg",
         className,
       )}
+      data-testid="signin-form-container"
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
@@ -55,7 +56,7 @@ export default function SignInForm({ className }: { className?: string }) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form role="form" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               <SignInViaGoogleBtn />
               <p className="bg-card text-center text-muted-foreground relative z-10 px-2">
@@ -67,6 +68,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   <Input
                     id="email"
                     type="email"
+                    role="email-input"
                     placeholder="m@example.com"
                     {...register("email", {
                       required: "Email is required",
@@ -93,15 +95,22 @@ export default function SignInForm({ className }: { className?: string }) {
                   </div>
                   <div className="relative">
                     <Input
+                      role="password-input"
                       id="password"
                       autoComplete="off"
                       type={hidePassword ? "password" : "text"}
                       {...register("password", {
                         required: "Password is required",
+                        minLength: {
+                          value: 8,
+                          message:
+                            "Password must be at least 8 characters long",
+                        },
                       })}
                     />
                     <button
                       type="button"
+                      data-testid="password-toggle"
                       tabIndex={-1}
                       className="absolute top-1/2 right-2.5 -translate-y-1/2"
                       onClick={() => {
@@ -122,13 +131,16 @@ export default function SignInForm({ className }: { className?: string }) {
                   className="w-full bg-primary hover:bg-primary-dark"
                 >
                   {mutation.isPending ? (
-                    <LoaderCircle className="animate-spin" />
+                    <LoaderCircle
+                      data-testid="spinner"
+                      className="animate-spin"
+                    />
                   ) : (
                     <p>Sign In</p>
                   )}
                 </Button>
               </div>
-              <div className="text-center text-sm">
+              <div role="signup-nav" className="text-center text-sm">
                 Don't have an account?{" "}
                 <a
                   href="/auth/signup"
