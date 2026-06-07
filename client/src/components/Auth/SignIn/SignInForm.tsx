@@ -105,6 +105,7 @@ export default function SignInForm({ className }: { className?: string }) {
                     />
                     <button
                       type="button"
+                      data-testid="password-toggle"
                       tabIndex={-1}
                       className="absolute top-1/2 right-2.5 -translate-y-1/2"
                       onClick={() => {

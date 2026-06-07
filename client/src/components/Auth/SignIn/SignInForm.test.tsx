@@ -3,6 +3,7 @@ import { SignInFormType } from "@/lib/types/signinform";
 import { render, screen } from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignInForm from "./SignInForm";
+import { userEvent } from "@storybook/testing-library";
 
 vi.mock("@/api/users/auth/SignInEmail", () => ({
   default: vi.fn(),
@@ -93,5 +94,14 @@ describe("Password visibility toggle", () => {
       "type",
       "password",
     );
+  });
+
+  it("toggles password visibility when eye icon is clicked", async () => {
+    renderForm();
+
+    const toggle = screen.getByTestId("password-toggle");
+    await userEvent.click(toggle);
+
+    expect(screen.getByRole("password-input")).toHaveAttribute("type", "text");
   });
 });
