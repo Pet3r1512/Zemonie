@@ -75,4 +75,12 @@ describe("Rendering", () => {
 
     expect(screen.getByText("Sign In with Google")).toBeInTheDocument();
   });
+
+  it("applies custom className prop to the container", () => {
+    renderForm("this-is-custom-className");
+
+    expect(screen.getByTestId("signin-form-container")).toHaveClass(
+      "this-is-custom-className",
+    );
+  });
 });
