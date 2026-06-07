@@ -159,4 +159,19 @@ describe("Password validation", () => {
       ).toBeInTheDocument();
     });
   });
+
+  it("shows error when password is empty", async () => {
+    renderForm();
+
+    await userEvent.type(
+      screen.getByRole("email-input"),
+      "validemail@gmail.com",
+    );
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Password is required")).toBeInTheDocument();
+    });
+  });
 });

@@ -311,6 +311,21 @@ describe("Password validation", () => {
       ).not.toBeInTheDocument();
     });
   });
+
+  it("shows error when password is empty", async () => {
+    renderForm();
+
+    await userEvent.type(
+      screen.getByRole("email-input"),
+      "validemail@gmail.com",
+    );
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Password is required")).toBeInTheDocument();
+    });
+  });
 });
 
 describe("Confirm password validation", () => {
@@ -435,8 +450,11 @@ const mockNavigate = vi.fn();
 
 vi.mock("@tanstack/react-router", () => ({
   Link: vi.fn(
-    ({ to, children, ...props }: { to: string; children: React.ReactNode }) =>
-      <a href={to} {...props}>{children}</a>,
+    ({ to, children, ...props }: { to: string; children: React.ReactNode }) => (
+      <a href={to} {...props}>
+        {children}
+      </a>
+    ),
   ),
   useRouter: () => ({ navigate: mockNavigate }),
   createRouter: vi.fn(),

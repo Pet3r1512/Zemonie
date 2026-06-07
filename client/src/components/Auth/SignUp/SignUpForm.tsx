@@ -150,6 +150,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       type={hidePassword ? "password" : "text"}
                       required
                       {...register("password", {
+                        required: "Password is required",
                         minLength: {
                           value: 8,
                           message:
@@ -225,7 +226,10 @@ export default function SignUpForm({ className }: { className?: string }) {
                   <Controller
                     name="terms"
                     control={control}
-                    rules={{ required: "You must accept the terms and privacy policies" }}
+                    rules={{
+                      required:
+                        "You must accept the terms and privacy policies",
+                    }}
                     render={({ field }) => (
                       <Checkbox
                         id="terms"
