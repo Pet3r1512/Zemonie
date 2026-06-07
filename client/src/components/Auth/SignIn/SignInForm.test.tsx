@@ -1,7 +1,7 @@
 import { SignInFormType } from "@/lib/types/signinform";
-import { useMutation } from "@tanstack/react-query";
-import { render } from "@testing-library/react";
-import { vi } from "vitest";
+// import { useMutation } from "@tanstack/react-query";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import SignInForm from "./SignInForm";
 
 vi.mock("@/api/users/auth/SignInEmail", () => ({
@@ -39,3 +39,11 @@ vi.mock("../SignInViaGoogleBtn.tsx", () => ({
 function renderForm(className?: string) {
   return render(<SignInForm className={className} />);
 }
+
+describe("Rendering", () => {
+  it("renders the sign in form container", () => {
+    renderForm();
+
+    expect(screen.getByTestId("signin-form-container")).toBeInTheDocument();
+  });
+});
