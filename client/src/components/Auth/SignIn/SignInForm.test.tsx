@@ -1,7 +1,7 @@
 import { SignInFormType } from "@/lib/types/signinform";
 // import { useMutation } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, it, vi } from "vitest";
 import SignInForm from "./SignInForm";
 
 vi.mock("@/api/users/auth/SignInEmail", () => ({
@@ -52,5 +52,13 @@ describe("Rendering", () => {
 
     expect(screen.getByRole("email-input")).toBeInTheDocument();
     expect(screen.getByRole("password-input")).toBeInTheDocument();
+  });
+
+  it("renders the submit button with correct label", () => {
+    renderForm();
+
+    expect(
+      screen.getByRole("button", { name: /sign in/i }),
+    ).toBeInTheDocument();
   });
 });
