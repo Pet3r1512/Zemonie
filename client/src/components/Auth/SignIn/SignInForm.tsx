@@ -46,6 +46,7 @@ export default function SignInForm({ className }: { className?: string }) {
         "flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg",
         className,
       )}
+      data-testid="signin-form-container"
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
