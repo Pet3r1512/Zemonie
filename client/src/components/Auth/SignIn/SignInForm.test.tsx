@@ -61,4 +61,11 @@ describe("Rendering", () => {
       screen.getByRole("button", { name: /sign in/i }),
     ).toBeInTheDocument();
   });
+  it("renders the sign up navigation link", () => {
+    renderForm();
+
+    const nav = screen.getByRole("signup-nav");
+    expect(nav).toBeInTheDocument();
+    expect(nav.querySelector("a")).toHaveAttribute("href", "/auth/signup");
+  });
 });

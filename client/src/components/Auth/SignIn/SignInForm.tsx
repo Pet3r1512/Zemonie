@@ -131,7 +131,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   )}
                 </Button>
               </div>
-              <div className="text-center text-sm">
+              <div role="signup-nav" className="text-center text-sm">
                 Don't have an account?{" "}
                 <a
                   href="/auth/signup"
