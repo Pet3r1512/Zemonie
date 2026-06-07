@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignInFormType } from "@/lib/types/signinform";
 import { useMutation } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -267,3 +268,34 @@ vi.mock("@tanstack/react-router", () => ({
   }),
   createRouter: vi.fn(),
 }));
+
+describe("onSuccess callback tests", () => {
+  beforeEach(() => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it("navigates to dashboard on success", async () => {
+    mockUseMutation.mockImplementation(({ onSuccess }: any) => ({
+      mutate: () => onSuccess({}),
+      isPending: false,
+    }));
+
+    const user = userEvent.setup({ delay: null });
+    renderForm();
+
+    await user.type(screen.getByRole("email-input"), "test@email.com");
+    await user.type(screen.getByRole("password-input"), "Passwordvalid");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith({
+        to: "/dashboard",
+      });
+    });
+  });
+});
