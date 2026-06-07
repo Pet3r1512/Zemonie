@@ -46,4 +46,11 @@ describe("Rendering", () => {
 
     expect(screen.getByTestId("signin-form-container")).toBeInTheDocument();
   });
+
+  it("renders all form fields", () => {
+    renderForm();
+
+    expect(screen.getByRole("email-input")).toBeInTheDocument();
+    expect(screen.getByRole("password-input")).toBeInTheDocument();
+  });
 });
