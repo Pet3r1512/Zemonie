@@ -84,3 +84,14 @@ describe("Rendering", () => {
     );
   });
 });
+
+describe("Password visibility toggle", () => {
+  it("hides password by default", () => {
+    renderForm();
+
+    expect(screen.getByRole("password-input")).toHaveAttribute(
+      "type",
+      "password",
+    );
+  });
+});
