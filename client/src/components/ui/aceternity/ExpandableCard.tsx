@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
@@ -76,13 +76,13 @@ export function ExpandableCard({
     formState: { errors },
   } = methods;
 
-  const globalCategoriesData =
-    typeof window !== "undefined"
-      ? sessionStorage.getItem("globalCategories")
-      : null;
-  const globalCategories: CurrentCategory[] = globalCategoriesData
-    ? JSON.parse(globalCategoriesData)
-    : [];
+  const globalCategories: CurrentCategory[] = useMemo(() => {
+    const data =
+      typeof window !== "undefined"
+        ? sessionStorage.getItem("globalCategories")
+        : null;
+    return data ? JSON.parse(data) : [];
+  }, []);
 
   const currCategory: CurrentCategory | undefined = globalCategories.find(
     (c) => c.id === transaction.categoryId,

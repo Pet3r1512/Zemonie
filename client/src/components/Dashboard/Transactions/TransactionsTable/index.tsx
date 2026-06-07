@@ -25,7 +25,12 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
       updateTransaction({ credentials }),
     onSuccess: () => {
       toast.success("Transaction updated");
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["balance"] });
+      queryClient.invalidateQueries({ queryKey: ["totalIncome"] });
+      queryClient.invalidateQueries({ queryKey: ["totalExpenses"] });
+      queryClient.invalidateQueries({ queryKey: ["spendingByCategory"] });
+      queryClient.invalidateQueries({ queryKey: ["latestTransactions"] });
     },
     onError: (error) => {
       toast.error(error?.message ?? "Failed to update transaction");
