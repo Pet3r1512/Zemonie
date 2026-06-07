@@ -1,5 +1,5 @@
 import { SignInFormType } from "@/lib/types/signinform";
-// import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignInForm from "./SignInForm";
@@ -175,3 +175,18 @@ describe("Password validation", () => {
     });
   });
 });
+
+const mockUseMutation = useMutation as ReturnType<typeof vi.fn>;
+
+function buildMutation(
+  overrides: Partial<{ isPending: boolean; mutateFn: () => void }> = {},
+) {
+  const mutateFn = overrides.mutateFn ?? vi.fn();
+
+  mockUseMutation.mockImplementation(() => ({
+    mutate: mutateFn,
+    isPending: overrides.isPending ?? false,
+  }));
+
+  return { mutateFn };
+}
