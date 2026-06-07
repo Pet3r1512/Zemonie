@@ -1,6 +1,6 @@
 import { SignInFormType } from "@/lib/types/signinform";
 // import { useMutation } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignInForm from "./SignInForm";
 import { userEvent } from "@storybook/testing-library";
@@ -103,5 +103,17 @@ describe("Password visibility toggle", () => {
     await userEvent.click(toggle);
 
     expect(screen.getByRole("password-input")).toHaveAttribute("type", "text");
+  });
+});
+
+describe("Email validation", () => {
+  it("shows error when email is empty on submit", async () => {
+    renderForm();
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Email is required")).toBeInTheDocument();
+    });
   });
 });
