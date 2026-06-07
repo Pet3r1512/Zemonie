@@ -29,3 +29,7 @@ vi.mock("@tanstack/react-query", () => ({
     isPending: true,
   })),
 }));
+
+vi.mock("../SignInViaGoogleBtn.tsx", () => ({
+  default: () => <button>Sign In with Google</button>,
+}));
