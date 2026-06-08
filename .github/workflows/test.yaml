@@ -1,4 +1,4 @@
-name: CI
+name: Test
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -59,7 +59,3 @@ jobs:
         working-directory: client
         env:
           STORYBOOK_URL: http://localhost:6006
-
-      - name: Build client
-        run: pnpm build
-        working-directory: client

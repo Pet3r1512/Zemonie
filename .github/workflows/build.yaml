@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  workflow_run:
+    workflows: ["Test"]
+    types: [completed]
+    branches: [master]
+
+jobs:
+  build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install client dependencies
+        run: cd client && pnpm install
+
+      - name: Build client
+        run: pnpm build
+        working-directory: client
