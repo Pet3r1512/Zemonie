@@ -35,7 +35,7 @@ jobs:
       - name: Install client dependencies
         run: cd client && pnpm install
 
-      - uses: millionco/react-doctor@v1
+      - uses: millionco/react-doctor@v2
         with:
           directory: client
 
