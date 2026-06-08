@@ -1,6 +1,0 @@
-dist
-build
-coverage
-.wrangler
-node_modules
-client/src/routeTree.gen.ts
