@@ -1,9 +1,6 @@
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function getHighestIncomeOfMonth(input?: {
-  month?: number;
-  year?: number;
-}) {
+export default async function getHighestIncomeOfMonth(input?: { month?: number; year?: number }) {
   const encodedInput = encodeURIComponent(JSON.stringify(input ?? {}));
 
   const response = await fetch(

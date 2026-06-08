@@ -77,10 +77,7 @@ export function ExpandableCard({
   } = methods;
 
   const globalCategories: CurrentCategory[] = useMemo(() => {
-    const data =
-      typeof window !== "undefined"
-        ? sessionStorage.getItem("globalCategories")
-        : null;
+    const data = typeof window !== "undefined" ? sessionStorage.getItem("globalCategories") : null;
     return data ? JSON.parse(data) : [];
   }, []);
 
@@ -89,8 +86,7 @@ export function ExpandableCard({
   );
 
   const isIncome =
-    currCategory?.type.toString() === "INCOME" ||
-    currCategory?.type === CategoryType.INCOME;
+    currCategory?.type.toString() === "INCOME" || currCategory?.type === CategoryType.INCOME;
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -168,9 +164,7 @@ export function ExpandableCard({
                   <motion.div className="flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-x-2">
-                        {currCategory &&
-                          categoryColorDictionary[currCategory.id.toString()]
-                            ?.icon}
+                        {currCategory && categoryColorDictionary[currCategory.id.toString()]?.icon}
                         <p className="text-lg font-semibold">
                           {transaction.description === ""
                             ? "No Description"
@@ -184,9 +178,7 @@ export function ExpandableCard({
                         layoutId={`amount-${transaction.id}-${id}`}
                         className={`text-lg md:text-xl lg:text-2xl font-bold ${
                           currCategory
-                            ? TransactionAmountTextColor[
-                                isIncome ? "INCOME" : "EXPENSE"
-                              ]
+                            ? TransactionAmountTextColor[isIncome ? "INCOME" : "EXPENSE"]
                             : "text-gray-500"
                         }`}
                       >
@@ -203,15 +195,11 @@ export function ExpandableCard({
                   <motion.div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
                     <div className="space-y-2">
                       <p className="font-semibold">TRANSACTION ID</p>
-                      <p className="text-sm text-gray-600 font-mono">
-                        {transaction.id}
-                      </p>
+                      <p className="text-sm text-gray-600 font-mono">{transaction.id}</p>
                     </div>
                     <div className="space-y-2">
                       <p className="font-semibold">TYPE</p>
-                      <p className="text-sm text-gray-600">
-                        {currCategory?.type}
-                      </p>
+                      <p className="text-sm text-gray-600">{currCategory?.type}</p>
                     </div>
                     <div className="space-y-2">
                       <p className="font-semibold">CATEGORY</p>
@@ -219,8 +207,7 @@ export function ExpandableCard({
                         className={cn(
                           "flex items-center gap-x-1 text-xs w-fit text-white px-2 py-1 rounded-2xl cursor-default",
                           currCategory &&
-                            categoryColorDictionary[currCategory.id.toString()]
-                              ?.color,
+                            categoryColorDictionary[currCategory.id.toString()]?.color,
                         )}
                       >
                         <Tag size={12} />
@@ -233,15 +220,10 @@ export function ExpandableCard({
                 </div>
               ) : (
                 <FormProvider {...methods}>
-                  <form
-                    id={`transaction-form-${transaction.id}`}
-                    onSubmit={handleSubmit(onSubmit)}
-                  >
+                  <form id={`transaction-form-${transaction.id}`} onSubmit={handleSubmit(onSubmit)}>
                     <Dialog>
                       <DialogHeader className="px-6 pt-6">
-                        <DialogTitle>
-                          {isIncome ? "Edit Income" : "Edit Expense"}
-                        </DialogTitle>
+                        <DialogTitle>{isIncome ? "Edit Income" : "Edit Expense"}</DialogTitle>
                       </DialogHeader>
 
                       <DialogDescription className="sr-only" />
@@ -255,9 +237,7 @@ export function ExpandableCard({
                         />
 
                         <Field>
-                          <Label htmlFor="source">
-                            {isIncome ? "Income Source" : "Spend On"}
-                          </Label>
+                          <Label htmlFor="source">{isIncome ? "Income Source" : "Spend On"}</Label>
 
                           {isIncome ? (
                             <IncomeSelect
@@ -271,10 +251,7 @@ export function ExpandableCard({
                             />
                           )}
 
-                          <FieldError
-                            className="text-red-500"
-                            errors={[errors.categoryId]}
-                          />
+                          <FieldError className="text-red-500" errors={[errors.categoryId]} />
                         </Field>
 
                         <Field>
@@ -294,10 +271,7 @@ export function ExpandableCard({
                             })}
                           />
 
-                          <FieldError
-                            className="text-red-500"
-                            errors={[errors.amount]}
-                          />
+                          <FieldError className="text-red-500" errors={[errors.amount]} />
                         </Field>
 
                         <Field>
@@ -314,10 +288,7 @@ export function ExpandableCard({
                             })}
                           />
 
-                          <FieldError
-                            className="text-red-500"
-                            errors={[errors.description]}
-                          />
+                          <FieldError className="text-red-500" errors={[errors.description]} />
                         </Field>
 
                         <Field>
@@ -338,8 +309,7 @@ export function ExpandableCard({
                       variant="outline"
                       onClick={() => {
                         reset({
-                          categoryId:
-                            transaction.categoryId ?? (isIncome ? 1 : 8),
+                          categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
                           amount: transaction.amount,
                           currency: transaction.currency,
                           description: transaction.description,
@@ -388,8 +358,7 @@ export function ExpandableCard({
             ref={lastElementRef}
             className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 lg:hover:bg-gray-200 transition-all duration-150 ease-linear"
           >
-            {currCategory &&
-              TransactionTypeDictionary[isIncome ? "INCOME" : "EXPENSE"]}
+            {currCategory && TransactionTypeDictionary[isIncome ? "INCOME" : "EXPENSE"]}
 
             <div className="space-y-0.5 lg:space-y-2 flex-1">
               <p className="font-semibold">{currCategory?.name}</p>

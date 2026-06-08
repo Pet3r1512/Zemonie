@@ -125,10 +125,7 @@ export function IncomeForm() {
               <Field>
                 <Label htmlFor="source">Income Source</Label>
                 <IncomeSelect />
-                <FieldError
-                  className="text-red-500"
-                  errors={[errors.categoryId]}
-                />
+                <FieldError className="text-red-500" errors={[errors.categoryId]} />
               </Field>
               <Field>
                 <Label htmlFor="amount">Amount</Label>
@@ -172,11 +169,7 @@ export function IncomeForm() {
                 </Button>
               </DialogClose>
               <Button type="submit" className="bg-primary hover:bg-primary/90">
-                {mutation.isPending ? (
-                  <LoaderCircle className="animate-spin" />
-                ) : (
-                  "Add New Income"
-                )}
+                {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Income"}
               </Button>
             </DialogFooter>
           </form>

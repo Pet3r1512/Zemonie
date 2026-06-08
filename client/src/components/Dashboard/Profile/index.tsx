@@ -48,9 +48,7 @@ export default function ProfilePage() {
                 <Icon size={20} className="text-primary" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {field.label}
-                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{field.label}</p>
                 <p className="text-base font-medium text-gray-900 dark:text-white truncate">
                   {fieldValues[field.key]}
                 </p>

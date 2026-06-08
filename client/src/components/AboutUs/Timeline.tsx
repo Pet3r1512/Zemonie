@@ -32,12 +32,8 @@ export default function Timeline() {
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-secondary mb-4">
-            Our journey
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
-            From idea to impact
-          </p>
+          <h2 className="text-4xl font-bold text-secondary mb-4">Our journey</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400">From idea to impact</p>
         </div>
         <div className="relative">
           <div className="absolute left-8 inset-y-0 w-0.5 bg-linear-to-b from-primary to-secondary" />
@@ -62,17 +58,13 @@ export default function Timeline() {
                       isLast && "border-primary border-2",
                     )}
                   >
-                    <p className="mb-1 text-sm font-semibold text-primary">
-                      {milestone.year}
-                    </p>
+                    <p className="mb-1 text-sm font-semibold text-primary">{milestone.year}</p>
 
                     <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
                       {milestone.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {milestone.description}
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">{milestone.description}</p>
                   </div>
                 </div>
               );

@@ -43,9 +43,7 @@ export default function SEO({
 
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
-      {jsonLd && (
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      )}
+      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
     </Helmet>
   );
 }

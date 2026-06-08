@@ -3,11 +3,7 @@
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "./button";
 import { useCallback, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -24,9 +20,7 @@ export function DatePicker({ defaultDate }: { defaultDate?: string }) {
 
   const contentRef = useCallback((el: HTMLDivElement | null) => {
     if (el) {
-      const wrapper = el.closest(
-        "[data-radix-popper-content-wrapper]",
-      ) as HTMLElement | null;
+      const wrapper = el.closest("[data-radix-popper-content-wrapper]") as HTMLElement | null;
       if (wrapper) {
         wrapper.style.position = "absolute";
       }

@@ -66,9 +66,7 @@ export const DesktopHeader: Story = {
     await expect(canvas.getByTestId("navbar")).toBeVisible();
     await expect(canvas.getByTestId("logo-wrapper")).toBeVisible();
 
-    await expect(
-      canvas.queryByRole("button", { name: /menu/i }),
-    ).not.toBeInTheDocument();
+    await expect(canvas.queryByRole("button", { name: /menu/i })).not.toBeInTheDocument();
   },
 };
 

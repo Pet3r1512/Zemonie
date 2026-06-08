@@ -1,7 +1,7 @@
 {
   "name": "client",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host",
@@ -17,15 +17,6 @@
     "storybook": "storybook dev -p 6006",
     "coverage": "vitest run --coverage",
     "build-storybook": "storybook build"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "oxlint --fix --ignore-path ../.oxlintignore",
-      "oxfmt --no-error-on-unmatched-pattern"
-    ],
-    "*.{json,css,md}": [
-      "oxfmt --no-error-on-unmatched-pattern"
-    ]
   },
   "dependencies": {
     "@number-flow/react": "^0.6.0",
@@ -99,5 +90,14 @@
     "vite": "^8.0.0",
     "vitest": "^3.2.3",
     "wrangler": "^4.80.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "oxlint --fix --ignore-path ../.oxlintignore",
+      "oxfmt --no-error-on-unmatched-pattern"
+    ],
+    "*.{json,css,md}": [
+      "oxfmt --no-error-on-unmatched-pattern"
+    ]
   }
 }

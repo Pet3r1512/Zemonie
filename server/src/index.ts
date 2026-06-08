@@ -22,7 +22,7 @@ app.use(
       "https://zemonie.site",
       "https://staging.www.zemonie.site",
       "https://staging.zemonie.site",
-      "http://localhost:5173"
+      "http://localhost:5173",
     ],
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -44,7 +44,6 @@ async function authMiddleware(c: any, next: any) {
   c.set("session", session.session);
   await next();
 }
-
 
 app.get("/", (c) => {
   return c.json({
@@ -129,10 +128,12 @@ export default {
     }
     return app.fetch(request, env, ctx);
   },
-  async scheduled(event: ScheduledEvent, env: Record<string, string | undefined>, ctx: ExecutionContext) {
+  async scheduled(
+    event: ScheduledEvent,
+    env: Record<string, string | undefined>,
+    ctx: ExecutionContext,
+  ) {
     const baseUrl = env.BASE_URL || "https://api.zemonie.site";
-    ctx.waitUntil(
-      fetch(`${baseUrl}/api/ping`)
-    );
+    ctx.waitUntil(fetch(`${baseUrl}/api/ping`));
   },
 };

@@ -1,11 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -21,12 +15,7 @@ import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
 import { Link, useRouter } from "@tanstack/react-router";
 import Logo from "@/components/Layout/Logo";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldContent, FieldDescription, FieldLabel } from "@/components/ui/field";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -50,13 +39,9 @@ export default function SignUpForm({ className }: { className?: string }) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       if (error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
-        return toast.error(
-          "This Email Is Existed. Please Sign In or Use Another Email",
-        );
+        return toast.error("This Email Is Existed. Please Sign In or Use Another Email");
       }
-      return toast.error(
-        error.message || "Something went wrong. Please try again.",
-      );
+      return toast.error(error.message || "Something went wrong. Please try again.");
     },
     onSuccess: (res) => {
       toast.success(res.user.name + ", Everything is done!");
@@ -76,17 +61,12 @@ export default function SignUpForm({ className }: { className?: string }) {
   return (
     <div
       data-testid="signup-form-container"
-      className={cn(
-        "flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg",
-        className,
-      )}
+      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className)}
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
           <Logo />
-          <CardTitle className="text-xl lg:text-2xl text-primary-dark">
-            Create An Account
-          </CardTitle>
+          <CardTitle className="text-xl lg:text-2xl text-primary-dark">Create An Account</CardTitle>
           <CardDescription>
             Sign up to get started with <strong>Zemonie</strong>
           </CardDescription>
@@ -153,13 +133,11 @@ export default function SignUpForm({ className }: { className?: string }) {
                         required: "Password is required",
                         minLength: {
                           value: 8,
-                          message:
-                            "Password must be at least 8 characters long",
+                          message: "Password must be at least 8 characters long",
                         },
                         pattern: {
                           value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
-                          message:
-                            "Minimum 8 characters, at least one letter and one number",
+                          message: "Minimum 8 characters, at least one letter and one number",
                         },
                       })}
                     />
@@ -167,9 +145,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       tabIndex={-1}
                       data-testid="password-toggle"
                       className="absolute top-1/2 right-2.5 -translate-y-1/2"
-                      aria-label={
-                        hidePassword ? "Show password" : "Hide password"
-                      }
+                      aria-label={hidePassword ? "Show password" : "Hide password"}
                       type="button"
                       onClick={() => {
                         setHidePassword((prev) => !prev);
@@ -193,8 +169,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       required
                       {...register("confirmPassword", {
                         validate: (value) =>
-                          value === passwordRef.current ||
-                          "The passwords do not match",
+                          value === passwordRef.current || "The passwords do not match",
                       })}
                     />
 
@@ -202,9 +177,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       tabIndex={-1}
                       data-testid="confirm-password-toggle"
                       className="absolute top-1/2 right-2.5 -translate-y-1/2"
-                      aria-label={
-                        hidePassword ? "Show password" : "Hide password"
-                      }
+                      aria-label={hidePassword ? "Show password" : "Hide password"}
                       type="button"
                       onClick={() => {
                         setHideConfirmPassword((prev) => !prev);
@@ -214,9 +187,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                     </button>
                   </div>
                   {errors.confirmPassword && errors.confirmPassword.message && (
-                    <FormErrorMessage
-                      message={errors.confirmPassword.message}
-                    />
+                    <FormErrorMessage message={errors.confirmPassword.message} />
                   )}
                 </div>
                 <Field
@@ -227,8 +198,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                     name="terms"
                     control={control}
                     rules={{
-                      required:
-                        "You must accept the terms and privacy policies",
+                      required: "You must accept the terms and privacy policies",
                     }}
                     render={({ field }) => (
                       <Checkbox
@@ -240,10 +210,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                     )}
                   />
                   <FieldContent>
-                    <FieldLabel
-                      htmlFor="terms"
-                      className="font-normal cursor-pointer"
-                    >
+                    <FieldLabel htmlFor="terms" className="font-normal cursor-pointer">
                       Accept{" "}
                       <Link
                         className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
@@ -276,10 +243,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                   className="w-full bg-primary hover:bg-primary-dark"
                 >
                   {mutation.isPending ? (
-                    <LoaderCircle
-                      data-testid="spinner"
-                      className="animate-spin"
-                    />
+                    <LoaderCircle data-testid="spinner" className="animate-spin" />
                   ) : (
                     <p>Create New Account</p>
                   )}
@@ -287,10 +251,7 @@ export default function SignUpForm({ className }: { className?: string }) {
               </div>
               <div role="signin-nav" className="text-center text-sm">
                 Already have an account?{" "}
-                <a
-                  href="/auth/signin"
-                  className="underline underline-offset-4 font-semibold"
-                >
+                <a href="/auth/signin" className="underline underline-offset-4 font-semibold">
                   Sign In
                 </a>
               </div>

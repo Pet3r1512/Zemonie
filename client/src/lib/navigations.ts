@@ -43,8 +43,7 @@ const mobileAuthNavLinks: MobileAuthNav[] = [
   {
     name: "Sign Up",
     link: "/auth/signup",
-    className:
-      "bg-primary text-white px-4 py-3 rounded-2xl mt-auto text-center font-semibold",
+    className: "bg-primary text-white px-4 py-3 rounded-2xl mt-auto text-center font-semibold",
   },
 ];
 

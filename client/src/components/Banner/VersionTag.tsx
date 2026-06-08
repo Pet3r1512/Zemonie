@@ -5,9 +5,7 @@ export default function VersionTag() {
   const { data: latestTag, isPending } = useQuery({
     queryKey: ["latest-tag"],
     queryFn: async () => {
-      const response = await fetch(
-        "https://api.github.com/repos/Pet3r1512/Zemonie/tags",
-      );
+      const response = await fetch("https://api.github.com/repos/Pet3r1512/Zemonie/tags");
 
       if (!response.ok) {
         throw new Error("Failed to fetch latest tag");
@@ -26,9 +24,7 @@ export default function VersionTag() {
     <div className="flex items-center gap-x-1.5 text-gray-600 cursor-default">
       <Tag size={12} />
 
-      <p className="text-xs md:text-sm font-semibold">
-        {isPending ? "Loading..." : latestTag}
-      </p>
+      <p className="text-xs md:text-sm font-semibold">{isPending ? "Loading..." : latestTag}</p>
     </div>
   );
 }

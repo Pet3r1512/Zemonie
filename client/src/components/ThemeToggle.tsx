@@ -21,10 +21,7 @@ const ThemeToggle = () => {
           "text-yellow-500",
         )}
       >
-        <Sun
-          size={16}
-          className="absolute top-[-2.25px] left-[-0.25px] z-100"
-        />
+        <Sun size={16} className="absolute top-[-2.25px] left-[-0.25px] z-100" />
       </span>
       <span
         className={cn(
@@ -33,10 +30,7 @@ const ThemeToggle = () => {
           "text-gray-700",
         )}
       >
-        <Moon
-          size={16}
-          className="absolute top-[-2.25px] left-[-0.25px] z-100"
-        />
+        <Moon size={16} className="absolute top-[-2.25px] left-[-0.25px] z-100" />
       </span>
       <span
         className={cn(

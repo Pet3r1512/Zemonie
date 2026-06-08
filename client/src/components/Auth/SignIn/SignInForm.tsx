@@ -42,18 +42,13 @@ export default function SignInForm({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn(
-        "flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg",
-        className,
-      )}
+      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className)}
       data-testid="signin-form-container"
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
           <Logo />
-          <CardTitle className="text-xl lg:text-2xl text-primary-dark">
-            Welcome back
-          </CardTitle>
+          <CardTitle className="text-xl lg:text-2xl text-primary-dark">Welcome back</CardTitle>
         </CardHeader>
         <CardContent>
           <form role="form" onSubmit={handleSubmit(onSubmit)}>
@@ -103,8 +98,7 @@ export default function SignInForm({ className }: { className?: string }) {
                         required: "Password is required",
                         minLength: {
                           value: 8,
-                          message:
-                            "Password must be at least 8 characters long",
+                          message: "Password must be at least 8 characters long",
                         },
                       })}
                     />
@@ -131,10 +125,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   className="w-full bg-primary hover:bg-primary-dark"
                 >
                   {mutation.isPending ? (
-                    <LoaderCircle
-                      data-testid="spinner"
-                      className="animate-spin"
-                    />
+                    <LoaderCircle data-testid="spinner" className="animate-spin" />
                   ) : (
                     <p>Sign In</p>
                   )}
@@ -142,10 +133,7 @@ export default function SignInForm({ className }: { className?: string }) {
               </div>
               <div role="signup-nav" className="text-center text-sm">
                 Don't have an account?{" "}
-                <a
-                  href="/auth/signup"
-                  className="underline underline-offset-4 font-semibold"
-                >
+                <a href="/auth/signup" className="underline underline-offset-4 font-semibold">
                   Sign Up
                 </a>
               </div>

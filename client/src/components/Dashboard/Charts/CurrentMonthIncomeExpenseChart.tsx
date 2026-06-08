@@ -39,17 +39,9 @@ export function CurrentMonthIncomeExpenseChart({
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-            />
+            <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />
             <YAxis />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dashed" />} />
             <Bar dataKey="income" fill="var(--color-income)" radius={4} />
             <Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
           </BarChart>

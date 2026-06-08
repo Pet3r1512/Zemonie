@@ -26,8 +26,7 @@ const organizationSchema = {
   name: "Zemonie",
   url: SITE_URL,
   logo: `${SITE_URL}/logo/zemonie_logo.webp`,
-  description:
-    "Personal finance management tool for Gen Z. Free, privacy-first, and easy to use.",
+  description: "Personal finance management tool for Gen Z. Free, privacy-first, and easy to use.",
 };
 
 export const Route = createRootRoute({

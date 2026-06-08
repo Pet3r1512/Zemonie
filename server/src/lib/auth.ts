@@ -27,13 +27,23 @@ export const auth = betterAuth({
     password: {
       hash: async (password: string) => {
         const salt = randomBytes(16).toString("hex");
-        const key = scryptSync(password.normalize("NFKC"), salt, 64, { N: 16384, r: 16, p: 1, maxmem: 128 * 16384 * 16 * 2 });
+        const key = scryptSync(password.normalize("NFKC"), salt, 64, {
+          N: 16384,
+          r: 16,
+          p: 1,
+          maxmem: 128 * 16384 * 16 * 2,
+        });
         return `${salt}:${key.toString("hex")}`;
       },
       verify: async ({ hash, password }: { hash: string; password: string }) => {
         const [salt, key] = hash.split(":");
         if (!salt || !key) return false;
-        const derived = scryptSync(password.normalize("NFKC"), salt, 64, { N: 16384, r: 16, p: 1, maxmem: 128 * 16384 * 16 * 2 });
+        const derived = scryptSync(password.normalize("NFKC"), salt, 64, {
+          N: 16384,
+          r: 16,
+          p: 1,
+          maxmem: 128 * 16384 * 16 * 2,
+        });
         return timingSafeEqual(Buffer.from(key, "hex"), derived);
       },
     },

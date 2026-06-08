@@ -5,7 +5,7 @@ export default function useFetchSession() {
   const sessionQuery = useQuery({
     queryKey: ["session"],
     queryFn: () => {
-      const session = authClient.useSession()
+      const session = authClient.useSession();
       return session;
     },
   });

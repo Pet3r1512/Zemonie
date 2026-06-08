@@ -1,8 +1,6 @@
 import { SERVER_URL } from "@/constant/auth";
 
-export default async function getTransactions(input?: {
-  page: number;
-}) {
+export default async function getTransactions(input?: { page: number }) {
   const encodedInput = encodeURIComponent(JSON.stringify(input ?? {}));
 
   const response = await fetch(

@@ -60,9 +60,7 @@ describe("Rendering", () => {
   it("renders the submit button with correct label", () => {
     renderForm();
 
-    expect(
-      screen.getByRole("button", { name: /sign in/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
   });
 
   it("renders the sign up navigation link", () => {
@@ -82,9 +80,7 @@ describe("Rendering", () => {
   it("applies custom className prop to the container", () => {
     renderForm("this-is-custom-className");
 
-    expect(screen.getByTestId("signin-form-container")).toHaveClass(
-      "this-is-custom-className",
-    );
+    expect(screen.getByTestId("signin-form-container")).toHaveClass("this-is-custom-className");
   });
 });
 
@@ -92,10 +88,7 @@ describe("Password visibility toggle", () => {
   it("hides password by default", () => {
     renderForm();
 
-    expect(screen.getByRole("password-input")).toHaveAttribute(
-      "type",
-      "password",
-    );
+    expect(screen.getByRole("password-input")).toHaveAttribute("type", "password");
   });
 
   it("toggles password visibility when eye icon is clicked", async () => {
@@ -122,15 +115,10 @@ describe("Email validation", () => {
   it("accepts valid email address", async () => {
     renderForm();
 
-    await userEvent.type(
-      screen.getByRole("email-input"),
-      "thisisvalid@email.com",
-    );
+    await userEvent.type(screen.getByRole("email-input"), "thisisvalid@email.com");
 
     await waitFor(() => {
-      expect(
-        screen.queryByText("Invalid email address"),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
     });
   });
 
@@ -156,19 +144,14 @@ describe("Password validation", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(
-        screen.getByText("Password must be at least 8 characters long"),
-      ).toBeInTheDocument();
+      expect(screen.getByText("Password must be at least 8 characters long")).toBeInTheDocument();
     });
   });
 
   it("shows error when password is empty", async () => {
     renderForm();
 
-    await userEvent.type(
-      screen.getByRole("email-input"),
-      "validemail@gmail.com",
-    );
+    await userEvent.type(screen.getByRole("email-input"), "validemail@gmail.com");
 
     fireEvent.submit(screen.getByRole("form"));
 
@@ -180,9 +163,7 @@ describe("Password validation", () => {
 
 const mockUseMutation = useMutation as ReturnType<typeof vi.fn>;
 
-function buildMutation(
-  overrides: Partial<{ isPending: boolean; mutateFn: () => void }> = {},
-) {
+function buildMutation(overrides: Partial<{ isPending: boolean; mutateFn: () => void }> = {}) {
   const mutateFn = overrides.mutateFn ?? vi.fn();
 
   mockUseMutation.mockImplementation(() => ({
@@ -257,13 +238,11 @@ describe("Form submission", () => {
 const mockNavigate = vi.fn();
 
 vi.mock("@tanstack/react-router", () => ({
-  Link: vi.fn(
-    ({ to, children, ...props }: { to: string; children: React.ReactNode }) => (
-      <a href={to} {...props}>
-        {children}
-      </a>
-    ),
-  ),
+  Link: vi.fn(({ to, children, ...props }: { to: string; children: React.ReactNode }) => (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  )),
   useRouter: () => ({
     navigate: mockNavigate,
   }),

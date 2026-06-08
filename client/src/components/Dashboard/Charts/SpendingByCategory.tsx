@@ -1,17 +1,7 @@
 import { Label, Pie, PieChart, Sector } from "recharts";
 import type { PieSectorDataItem } from "recharts/types/polar/Pie";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-} from "@/components/ui/chart";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
 import categoryColorDictionary from "@/types/CategoryDict";
 
@@ -51,8 +41,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
   const highestIndex =
     chartData.length > 0
       ? chartData.reduce(
-          (maxIdx, entry, idx, arr) =>
-            entry.value > arr[maxIdx].value ? idx : maxIdx,
+          (maxIdx, entry, idx, arr) => (entry.value > arr[maxIdx].value ? idx : maxIdx),
           0,
         )
       : -1;
@@ -64,9 +53,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
           <CardTitle>Spending by Category</CardTitle>
         </CardHeader>
         <CardContent className="flex-1 flex items-center justify-center pb-0">
-          <p className="text-muted-foreground text-sm">
-            No expenses this month
-          </p>
+          <p className="text-muted-foreground text-sm">No expenses this month</p>
         </CardContent>
       </Card>
     );
@@ -78,10 +65,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
         <CardTitle>Spending by Category</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-62.5"
-        >
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-62.5">
           <PieChart>
             <ChartTooltip
               cursor={false}
@@ -113,10 +97,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
               innerRadius={60}
               strokeWidth={5}
               activeIndex={highestIndex}
-              activeShape={({
-                outerRadius = 0,
-                ...props
-              }: PieSectorDataItem) => (
+              activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
                 <Sector {...props} outerRadius={outerRadius + 10} />
               )}
             >
@@ -156,15 +137,9 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex flex-wrap gap-2 justify-center">
           {chartData.map((entry) => {
-            const pct =
-              totalAmount > 0
-                ? ((entry.value / totalAmount) * 100).toFixed(1)
-                : "0.0";
+            const pct = totalAmount > 0 ? ((entry.value / totalAmount) * 100).toFixed(1) : "0.0";
             return (
-              <div
-                key={entry.categoryId}
-                className="flex items-center gap-1.5 text-xs"
-              >
+              <div key={entry.categoryId} className="flex items-center gap-1.5 text-xs">
                 <span
                   className="inline-block h-3 w-3 rounded-full"
                   style={{ backgroundColor: entry.fill }}

@@ -29,10 +29,5 @@ const features: FeatureCardData[] = [
 ];
 
 export default function FeatureCards() {
-  return (
-    <HoverEffect
-      className="mt-14 lg:mt-0 md:w-md md:mx-auto lg:w-auto"
-      items={features}
-    />
-  );
+  return <HoverEffect className="mt-14 lg:mt-0 md:w-md md:mx-auto lg:w-auto" items={features} />;
 }

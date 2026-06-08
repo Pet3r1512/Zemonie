@@ -38,8 +38,7 @@ export default function IncomeOverallContainer() {
     gcTime: 30 * 60 * 1000,
   });
 
-  const highestTransaction =
-    highestIncomeOfMonth.data?.highestIncomeOfMonth?.highestIncome;
+  const highestTransaction = highestIncomeOfMonth.data?.highestIncomeOfMonth?.highestIncome;
 
   const placeholderData: OverallDataType[] = [
     {
@@ -57,9 +56,7 @@ export default function IncomeOverallContainer() {
     },
     {
       name: "Highest Income Source",
-      subtitle: highestIncomeOfMonth.isLoading
-        ? ""
-        : (highestTransaction?.category ?? "N/A"),
+      subtitle: highestIncomeOfMonth.isLoading ? "" : (highestTransaction?.category ?? "N/A"),
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100">
           <Crown className="text-yellow-600" />
