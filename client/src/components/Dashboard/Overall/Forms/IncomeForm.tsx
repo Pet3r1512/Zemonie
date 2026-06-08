@@ -99,7 +99,7 @@ export function IncomeForm() {
           e.currentTarget.blur();
         }}
       >
-        <Button className="bg-primary hover:bg-primary/90 text-white rounded-2xl text-lg h-10.5">
+        <Button className="bg-[#38b000] hover:bg-[#38b000]/80 text-white rounded-2xl text-lg h-10.5">
           + Add Income
         </Button>
       </DialogTrigger>
