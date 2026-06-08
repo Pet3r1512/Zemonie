@@ -21,6 +21,19 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install client dependencies
+        run: cd client && pnpm install
+
       - uses: millionco/react-doctor@v1
         with:
           directory: client
