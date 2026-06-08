@@ -92,7 +92,7 @@ export function ExpenseForm() {
           e.currentTarget.blur();
         }}
       >
-        <Button className="bg-white text-black border-[0.5px] border-black hover:bg-white/90 rounded-2xl text-lg h-10.5">
+        <Button className="bg-[#d62828] text-white hover:bg-[#d62828]/80 rounded-2xl text-lg h-10.5">
           + Add Expense
         </Button>
       </DialogTrigger>

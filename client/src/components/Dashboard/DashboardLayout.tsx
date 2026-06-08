@@ -60,10 +60,10 @@ export default function DashboardLayout({
   const isCachedSetupDone = getCachedSetupStatus();
 
   useEffect(() => {
-    if (!sessionQuery.data?.session) {
+    if (!sessionQuery.isPending && !sessionQuery.data?.session) {
       navigate({ to: "/auth/signin", replace: true });
     }
-  }, [navigate, sessionQuery.data]);
+  }, [navigate, sessionQuery.data, sessionQuery.isPending]);
 
   if (!getGlobalCategoriesQuery.isLoading && getGlobalCategoriesQuery.data) {
     sessionStorage.setItem(
