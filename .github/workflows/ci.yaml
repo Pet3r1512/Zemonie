@@ -53,6 +53,13 @@ jobs:
       - name: Typecheck server
         run: cd server && pnpm exec tsc --noEmit
 
+      # LINT & FORMAT
+      - name: Lint
+        run: pnpm lint
+
+      - name: Check formatting
+        run: pnpm format
+
       # CLIENT
       - name: Install client dependencies
         run: cd client && pnpm install
