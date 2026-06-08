@@ -3,10 +3,10 @@ import {
   LockIcon,
   RefreshCwIcon,
   CalendarIcon,
-  Users,
   DownloadIcon,
-  UsersIcon,
   SparklesIcon,
+  Award,
+  Target,
 } from "lucide-react";
 
 const additionalFeatures = [
@@ -27,14 +27,21 @@ const additionalFeatures = [
     icon: CalendarIcon,
     title: "Smart Recurring Tracking",
     description:
-      "Never forget a bill, salary, or subscription. We automatically keep tabs on recurring transactions.",
+      "We automatically keep bills, salary or subscriptions on recurring transactions.",
     badge: "Coming Soon" as const,
   },
   {
-    icon: Users,
+    icon: Target,
+    title: "Budget & Savings",
+    description:
+      "Set budgets, track spending, and actually keep your savings on point.",
+    badge: "Coming Soon" as const,
+  },
+  {
+    icon: Award,
     title: "Level Up Your Money Game",
     description:
-      "Get rewards, keep streaks, and see what your spending says about you.",
+      "Get rewards, earn achievements, and see what your spending says about you.",
     badge: "Coming Soon" as const,
   },
   {
@@ -42,13 +49,6 @@ const additionalFeatures = [
     title: "Shareable Reports",
     description:
       "Generate clean reports and export your data whenever you need it.",
-    badge: "Coming Soon" as const,
-  },
-  {
-    icon: UsersIcon,
-    title: "Shared Money Goals",
-    description:
-      "Manage budgets together with your partner, friends, or roommates and stay aligned on spending.",
     badge: "Coming Soon" as const,
   },
 ];

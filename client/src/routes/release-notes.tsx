@@ -7,6 +7,41 @@ export const Route = createFileRoute("/release-notes")({
 });
 const releases = [
   {
+    version: "v1.0.6-beta",
+    date: "Jun 08, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Added the ability to edit and update existing transactions with a dedicated form. 🚀",
+      },
+      {
+        type: "update",
+        text: "Improved overall dashboard performance for a smoother experience.",
+      },
+      {
+        type: "update",
+        text: "Enhanced avatar image quality for clearer and sharper visuals.",
+      },
+      {
+        type: "update",
+        text: "Refreshed landing page and features content and improved dashboard color styling for better visual consistency.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where the account setup form would incorrectly appear again after signing in.",
+      },
+      {
+        type: "fix",
+        text: "Corrected savings rate calculations when no income has been recorded yet.",
+      },
+      {
+        type: "fix",
+        text: "Fixed page reload behavior so users stay on their current page instead of being redirected to the dashboard.",
+      },
+    ],
+  },
+  {
     version: "v1.0.5-beta",
     date: "Jun 04, 2026",
     tag: "Beta",
