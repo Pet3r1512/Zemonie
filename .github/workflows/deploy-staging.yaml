@@ -1,6 +1,10 @@
 name: Deploy Staging
 
 on:
+  workflow_run:
+    workflows: ["Build"]
+    types: [completed]
+    branches: [master]
   workflow_dispatch:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -12,12 +16,17 @@ concurrency:
 
 jobs:
   deploy-server:
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: server
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || '' }}
 
       - uses: pnpm/action-setup@v2
         with:
@@ -47,12 +56,17 @@ jobs:
           TRUSTED_ORIGINS: ${{ secrets.TRUSTED_ORIGINS_STAGING }}
 
   deploy-client:
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: client
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || '' }}
 
       - uses: pnpm/action-setup@v2
         with:
