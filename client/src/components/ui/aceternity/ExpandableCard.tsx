@@ -38,12 +38,12 @@ type CurrentCategory = {
 const TransactionTypeDictionary: ComponentMap = {
   INCOME: (
     <div className="size-max p-2.5 rounded-full bg-green-200">
-      <ArrowUp size={20} className="text-green-900 font-extrabold" />
+      <ArrowDown size={20} className="text-green-900 font-extrabold" />
     </div>
   ),
   EXPENSE: (
     <div className="size-max p-2.5 rounded-full bg-red-200">
-      <ArrowDown size={20} className="text-red-800 font-extrabold" />
+      <ArrowUp size={20} className="text-red-800 font-extrabold" />
     </div>
   ),
 };
