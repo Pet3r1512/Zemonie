@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: millionco/react-doctor@main
+        with:
+          fetch-depth: 0
+      - uses: millionco/react-doctor@v1
         with:
           directory: client
