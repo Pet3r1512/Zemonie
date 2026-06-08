@@ -144,6 +144,10 @@ jobs:
       - name: Install client dependencies
         run: cd client && pnpm install
 
+      - name: Build client
+        run: pnpm build
+        working-directory: client
+
       - name: Deploy client to staging
         run: pnpm wrangler deploy --minify --config wrangler.staging.toml
         working-directory: client
