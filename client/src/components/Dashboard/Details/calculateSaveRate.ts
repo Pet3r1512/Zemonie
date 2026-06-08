@@ -1,5 +1,10 @@
-export default function calculateSaveRate(income: number, expense: number): number {
-    if (income === 0) return 0; // avoid division by zero → NaN
-    const rate = (expense / income) * 100;
-    return Number.isNaN(rate) ? 0 : rate;
+export default function calculateSaveRate(
+    income: number,
+    expense: number,
+): number | null {
+    if (Number.isNaN(income) || Number.isNaN(expense)) return null;
+    if (income === 0) {
+        return expense === 0 ? 100 : null;
+    }
+    return ((income - expense) / income) * 100;
 }
