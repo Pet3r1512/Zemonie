@@ -80,7 +80,7 @@ export default function ExpensesOverallContainer() {
           <Percent className="text-yellow-600" />
         </div>
       ),
-      isLoading: false,
+      isLoading: totalIncome.isLoading || totalExpenseQuery.isLoading,
       isError: false,
       amount: calculateSaveRate(
         totalIncome.data?.totalCurrentMonthIncome.totalIncome ?? 0,
