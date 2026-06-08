@@ -43,6 +43,11 @@ export default function ExpensesOverallContainer() {
     gcTime: 30 * 60 * 1000,
   });
 
+  const income = totalIncome.data?.totalCurrentMonthIncome.totalIncome ?? 0;
+  const expense =
+    totalExpenseQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount ?? 0;
+  const saveRate = calculateSaveRate(income, expense);
+
   const placeholderData: OverallDataType[] = [
     {
       name: "Total Expenses",
@@ -74,7 +79,10 @@ export default function ExpensesOverallContainer() {
     },
     {
       name: "Save Rate",
-      subtitle: "Expense Ratio",
+      subtitle:
+        saveRate == null || Number.isNaN(saveRate)
+          ? "No income recorded yet"
+          : "Expense Ratio",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100">
           <Percent className="text-yellow-600" />
@@ -82,11 +90,7 @@ export default function ExpensesOverallContainer() {
       ),
       isLoading: totalIncome.isLoading || totalExpenseQuery.isLoading,
       isError: false,
-      amount: calculateSaveRate(
-        totalIncome.data?.totalCurrentMonthIncome.totalIncome ?? 0,
-        totalExpenseQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount ??
-          0,
-      ),
+      amount: saveRate ?? 0,
       currency,
     },
   ];
