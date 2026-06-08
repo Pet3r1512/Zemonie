@@ -3,58 +3,44 @@ import { TransactionsResponse } from "@/components/Dashboard/Transactions/Transa
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 
-export type TransactionQueryOptions = "all" | "onlyIncome" | "onlyExpense"
+export type TransactionQueryOptions = "all" | "onlyIncome" | "onlyExpense";
 
-export default function useFetchTransactions({
-  option,
-}: {
-  option?: TransactionQueryOptions
-}) {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error,
-  } = useInfiniteQuery<TransactionsResponse>({
-    queryKey: ["transactions"],
-    staleTime: 5 * 60 * 1000,
-    gcTime: 30 * 60 * 1000,
-    refetchOnWindowFocus: false,
-    initialPageParam: 1,
+export default function useFetchTransactions({ option }: { option?: TransactionQueryOptions }) {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, error } =
+    useInfiniteQuery<TransactionsResponse>({
+      queryKey: ["transactions"],
+      staleTime: 5 * 60 * 1000,
+      gcTime: 30 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      initialPageParam: 1,
 
-    queryFn: async ({ pageParam = 1 }) => {
-      const response = await getTransactions({
-        page: pageParam as number,
-      });
+      queryFn: async ({ pageParam = 1 }) => {
+        const response = await getTransactions({
+          page: pageParam as number,
+        });
 
-      return {
-        transactions: response.transactions,
-        hasMore: response.transactions.length > 0,
-      };
-    },
+        return {
+          transactions: response.transactions,
+          hasMore: response.transactions.length > 0,
+        };
+      },
 
-    getNextPageParam: (lastPage, allPages) => {
-      if (!lastPage.transactions.hasMore) return undefined;
+      getNextPageParam: (lastPage, allPages) => {
+        if (!lastPage.transactions.hasMore) return undefined;
 
-      return allPages.length + 1;
-    },
-  });
+        return allPages.length + 1;
+      },
+    });
 
   const filteredData = data
     ? {
-      ...data,
-      pages: data.pages.map((page) => ({
-        ...page,
-        transactions: page.transactions.transactions.filter(
-          (transaction: TransactionInfo) => {
+        ...data,
+        pages: data.pages.map((page) => ({
+          ...page,
+          transactions: page.transactions.transactions.filter((transaction: TransactionInfo) => {
             if (option === "onlyIncome") {
               return (
-                transaction.categoryId &&
-                transaction.categoryId >= 1 &&
-                transaction.categoryId <= 7
+                transaction.categoryId && transaction.categoryId >= 1 && transaction.categoryId <= 7
               );
             }
 
@@ -67,10 +53,9 @@ export default function useFetchTransactions({
             }
 
             return true;
-          },
-        ),
-      })),
-    }
+          }),
+        })),
+      }
     : undefined;
 
   return {

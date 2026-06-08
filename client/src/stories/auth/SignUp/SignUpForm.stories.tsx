@@ -146,9 +146,7 @@ export const InvalidEmailForm: Story = {
 
     expect(errorMessages.length).toBe(1);
 
-    await waitFor(() =>
-      expect(canvas.getByText("Invalid email address")).toBeInTheDocument(),
-    );
+    await waitFor(() => expect(canvas.getByText("Invalid email address")).toBeInTheDocument());
   },
 };
 
@@ -179,9 +177,7 @@ export const MissmatchPassword: Story = {
     expect(errorMessages.length).toBe(1);
 
     await waitFor(() => {
-      expect(
-        canvas.getByText("The passwords do not match"),
-      ).toBeInTheDocument();
+      expect(canvas.getByText("The passwords do not match")).toBeInTheDocument();
     });
   },
 };

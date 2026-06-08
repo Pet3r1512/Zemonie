@@ -118,10 +118,7 @@ export function ExpenseForm() {
               <Field>
                 <Label htmlFor="source">Spend On</Label>
                 <ExpenseSelect />
-                <FieldError
-                  className="text-red-500"
-                  errors={[errors.categoryId]}
-                />
+                <FieldError className="text-red-500" errors={[errors.categoryId]} />
               </Field>
               <Field>
                 <Label htmlFor="amount">Amount</Label>
@@ -165,11 +162,7 @@ export function ExpenseForm() {
                 </Button>
               </DialogClose>
               <Button type="submit" className="bg-primary hover:bg-primary/90">
-                {mutation.isPending ? (
-                  <LoaderCircle className="animate-spin" />
-                ) : (
-                  "Add New Expense"
-                )}
+                {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Expense"}
               </Button>
             </DialogFooter>
           </form>

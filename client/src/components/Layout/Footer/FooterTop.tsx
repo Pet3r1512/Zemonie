@@ -8,9 +8,8 @@ export default function FooterTop() {
       <div className="flex flex-col gap-y-5 md:w-1/3 lg:w-1/4">
         <Logo />
         <p>
-          Smart money management for{" "}
-          <strong className="text-primary">GenZ</strong>. Take control of your
-          finances today.
+          Smart money management for <strong className="text-primary">GenZ</strong>. Take control of
+          your finances today.
         </p>
         <VersionTag />
       </div>

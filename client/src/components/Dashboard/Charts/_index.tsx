@@ -21,8 +21,7 @@ export default function Charts() {
   });
   const spendingByCategoryQuery = useQuery({
     queryKey: ["spendingByCategory", currentMonth, currentYear],
-    queryFn: () =>
-      getSpendingByCategory({ month: currentMonth, year: currentYear }),
+    queryFn: () => getSpendingByCategory({ month: currentMonth, year: currentYear }),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
@@ -35,15 +34,11 @@ export default function Charts() {
           {
             month: currentMonthShorten + " " + currentYear,
             income: totalIncomeQuery.data?.totalCurrentMonthIncome.totalIncome,
-            expenses:
-              totalExpensesQuery.data?.totalCurrentMonthExpenses
-                .totalExpensesAmount,
+            expenses: totalExpensesQuery.data?.totalCurrentMonthExpenses.totalExpensesAmount,
           },
         ]}
       />
-      <SpendingByCategory
-        data={spendingByCategoryQuery.data?.spendingByCategory}
-      />
+      <SpendingByCategory data={spendingByCategoryQuery.data?.spendingByCategory} />
     </section>
   );
 }

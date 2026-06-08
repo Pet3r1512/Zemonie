@@ -16,10 +16,7 @@ export const HoverEffect = ({
   return (
     <div
       role="card-hover-effect"
-      className={cn(
-        "grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[0.425rem]",
-        className,
-      )}
+      className={cn("grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[0.425rem]", className)}
     >
       {items.map((item, idx) => (
         <div
@@ -88,10 +85,7 @@ export const CardTitle = ({
 }) => {
   return (
     <h4
-      className={cn(
-        "text-primary font-bold tracking-wide mt-4 md:text-lg lg:text-xl",
-        className,
-      )}
+      className={cn("text-primary font-bold tracking-wide mt-4 md:text-lg lg:text-xl", className)}
     >
       {children}
     </h4>
@@ -105,12 +99,7 @@ export const CardDescription = ({
   children: React.ReactNode;
 }) => {
   return (
-    <p
-      className={cn(
-        "mt-8 text-zinc-800 tracking-wide leading-relaxed text-sm",
-        className,
-      )}
-    >
+    <p className={cn("mt-8 text-zinc-800 tracking-wide leading-relaxed text-sm", className)}>
       {children}
     </p>
   );

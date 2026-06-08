@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignUpFormType } from "@/lib/types/signupform";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, it, vi } from "vitest";
 import SignUpForm from "./SignUpForm";
 import { userEvent } from "@storybook/testing-library";
@@ -70,9 +64,7 @@ describe("Rendering", () => {
   it("renders the submit button with correct label", () => {
     renderForm();
 
-    expect(screen.getByRole("submit-btn")).toHaveTextContent(
-      "Create New Account",
-    );
+    expect(screen.getByRole("submit-btn")).toHaveTextContent("Create New Account");
   });
 
   it("renders the sign in navigation link", () => {
@@ -92,9 +84,7 @@ describe("Rendering", () => {
   it("applies the className prop to the container", () => {
     renderForm("my-custom-class");
 
-    expect(screen.getByTestId("signup-form-container")).toHaveClass(
-      "my-custom-class",
-    );
+    expect(screen.getByTestId("signup-form-container")).toHaveClass("my-custom-class");
   });
 });
 
@@ -116,10 +106,7 @@ describe("Password visibility toggle", () => {
   it("hides confirm password by default", () => {
     renderForm();
 
-    expect(screen.getByRole("confirmPassword")).toHaveAttribute(
-      "type",
-      "password",
-    );
+    expect(screen.getByRole("confirmPassword")).toHaveAttribute("type", "password");
   });
 
   it("toggles confirm password visibility when eye icon is clicked", async () => {
@@ -145,10 +132,7 @@ describe("Email validation", () => {
   it("shows error for invalid email format", async () => {
     renderForm();
 
-    await userEvent.type(
-      screen.getByRole("email-input"),
-      "example-of-bad-email",
-    );
+    await userEvent.type(screen.getByRole("email-input"), "example-of-bad-email");
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
@@ -159,15 +143,10 @@ describe("Email validation", () => {
   it("accepts a valid email address", async () => {
     renderForm();
 
-    await userEvent.type(
-      screen.getByRole("email-input"),
-      "exampleofgoodemail@email.com",
-    );
+    await userEvent.type(screen.getByRole("email-input"), "exampleofgoodemail@email.com");
 
     await waitFor(() => {
-      expect(
-        screen.queryByText("Invalid email address"),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Invalid email address")).not.toBeInTheDocument();
     });
   });
 });
@@ -203,9 +182,7 @@ describe("Name input validation", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(
-        screen.getByText("Please enter a valid name using letters only"),
-      ).toBeInTheDocument();
+      expect(screen.getByText("Please enter a valid name using letters only")).toBeInTheDocument();
     });
   });
 
@@ -217,9 +194,7 @@ describe("Name input validation", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(
-        screen.queryByText("Your name is required"),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Your name is required")).not.toBeInTheDocument();
       expect(screen.queryByText("Name is too short")).not.toBeInTheDocument();
       expect(
         screen.queryByText("Please enter a valid name using letters only"),
@@ -235,9 +210,7 @@ describe("Name input validation", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(
-        screen.queryByText("Your name is required"),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Your name is required")).not.toBeInTheDocument();
       expect(screen.queryByText("Name is too short")).not.toBeInTheDocument();
       expect(
         screen.queryByText("Please enter a valid name using letters only"),
@@ -255,9 +228,7 @@ describe("Password validation", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(
-        screen.getByText("Password must be at least 8 characters long"),
-      ).toBeInTheDocument();
+      expect(screen.getByText("Password must be at least 8 characters long")).toBeInTheDocument();
     });
   });
 
@@ -270,9 +241,7 @@ describe("Password validation", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(
-          "Minimum 8 characters, at least one letter and one number",
-        ),
+        screen.getByText("Minimum 8 characters, at least one letter and one number"),
       ).toBeInTheDocument();
     });
   });
@@ -286,9 +255,7 @@ describe("Password validation", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(
-          "Minimum 8 characters, at least one letter and one number",
-        ),
+        screen.getByText("Minimum 8 characters, at least one letter and one number"),
       ).toBeInTheDocument();
     });
   });
@@ -305,9 +272,7 @@ describe("Password validation", () => {
         screen.queryByText("Password must be at least 8 characters long"),
       ).not.toBeInTheDocument();
       expect(
-        screen.queryByText(
-          "Minimum 8 characters, at least one letter and one number",
-        ),
+        screen.queryByText("Minimum 8 characters, at least one letter and one number"),
       ).not.toBeInTheDocument();
     });
   });
@@ -315,10 +280,7 @@ describe("Password validation", () => {
   it("shows error when password is empty", async () => {
     renderForm();
 
-    await userEvent.type(
-      screen.getByRole("email-input"),
-      "validemail@gmail.com",
-    );
+    await userEvent.type(screen.getByRole("email-input"), "validemail@gmail.com");
 
     fireEvent.submit(screen.getByRole("form"));
 
@@ -338,9 +300,7 @@ describe("Confirm password validation", () => {
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(
-        screen.getByText("The passwords do not match"),
-      ).toBeInTheDocument();
+      expect(screen.getByText("The passwords do not match")).toBeInTheDocument();
     });
   });
 
@@ -348,26 +308,19 @@ describe("Confirm password validation", () => {
     renderForm();
 
     await userEvent.type(screen.getByRole("password"), "validpassword123");
-    await userEvent.type(
-      screen.getByRole("confirmPassword"),
-      "validpassword123",
-    );
+    await userEvent.type(screen.getByRole("confirmPassword"), "validpassword123");
 
     fireEvent.submit(screen.getByRole("form"));
 
     await waitFor(() => {
-      expect(
-        screen.queryByText("The passwords do not match"),
-      ).not.toBeInTheDocument();
+      expect(screen.queryByText("The passwords do not match")).not.toBeInTheDocument();
     });
   });
 });
 
 const mockUseMutation = useMutation as ReturnType<typeof vi.fn>;
 
-function buildMutation(
-  overrides: Partial<{ isPending: boolean; mutateFn: () => void }> = {},
-) {
+function buildMutation(overrides: Partial<{ isPending: boolean; mutateFn: () => void }> = {}) {
   const mutateFn = overrides.mutateFn ?? vi.fn();
 
   mockUseMutation.mockImplementation(() => ({
@@ -395,8 +348,7 @@ async function fillForm({
   if (email) await user.type(screen.getByRole("email-input"), email);
   if (name) await user.type(screen.getByRole("name-input"), name);
   if (password) await user.type(screen.getByRole("password"), password);
-  if (confirmPassword)
-    await user.type(screen.getByRole("confirmPassword"), confirmPassword);
+  if (confirmPassword) await user.type(screen.getByRole("confirmPassword"), confirmPassword);
   if (terms) await user.click(screen.getByRole("checkbox"));
   return user;
 }
@@ -450,13 +402,11 @@ describe("Form submission", () => {
 const mockNavigate = vi.fn();
 
 vi.mock("@tanstack/react-router", () => ({
-  Link: vi.fn(
-    ({ to, children, ...props }: { to: string; children: React.ReactNode }) => (
-      <a href={to} {...props}>
-        {children}
-      </a>
-    ),
-  ),
+  Link: vi.fn(({ to, children, ...props }: { to: string; children: React.ReactNode }) => (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  )),
   useRouter: () => ({ navigate: mockNavigate }),
   createRouter: vi.fn(),
 }));

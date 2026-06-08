@@ -35,13 +35,9 @@ export function DetailsTable({
 
             <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Source</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>
-              Amount
-            </TableHead>
+            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Amount</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>
-              Description
-            </TableHead>
+            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Description</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -57,9 +53,7 @@ export function DetailsTable({
               </TableCell>
 
               <TableCell>
-                <CategoryTag
-                  categoryId={transaction.categoryId?.toString() || "0"}
-                />
+                <CategoryTag categoryId={transaction.categoryId?.toString() || "0"} />
               </TableCell>
 
               <TableCell className="text-right font-medium text-xs sm:text-sm md:text-base whitespace-nowrap">

@@ -23,10 +23,7 @@ import {
 } from "lucide-react";
 import { ReactNode } from "react";
 
-const categoryColorDictionary: Record<
-  string,
-  { name: string; color: string; icon: ReactNode }
-> = {
+const categoryColorDictionary: Record<string, { name: string; color: string; icon: ReactNode }> = {
   // Income - spread across clearly distinct hues
   1: {
     name: "Salary",

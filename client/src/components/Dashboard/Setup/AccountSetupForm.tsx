@@ -44,11 +44,7 @@ const currencyLists: {
   },
 ];
 
-export default function AccountSetupForm({
-  className,
-}: {
-  className?: string;
-}) {
+export default function AccountSetupForm({ className }: { className?: string }) {
   const queryClient = useQueryClient();
   const {
     register,
@@ -70,8 +66,7 @@ export default function AccountSetupForm({
 
   const mutation = useMutation({
     mutationKey: ["isSetupDone"],
-    mutationFn: (credentials: AccountSetupFormValues) =>
-      accountSetup(credentials),
+    mutationFn: (credentials: AccountSetupFormValues) => accountSetup(credentials),
 
     onSuccess: async () => {
       sessionStorage.setItem("isSetupDone", "true");
@@ -80,38 +75,24 @@ export default function AccountSetupForm({
     },
   });
 
-  const onSubmit: SubmitHandler<AccountSetupFormValues> = async (
-    credentials,
-  ) => {
+  const onSubmit: SubmitHandler<AccountSetupFormValues> = async (credentials) => {
     mutation.mutate(credentials);
   };
 
   return (
     <div
       data-testid="signup-form-container"
-      className={cn(
-        "flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg",
-        className,
-      )}
+      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className)}
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
           <div className="flex items-center gap-x-2.5 cursor-default">
-            <img
-              src="/logo/zemonie-icon-light.svg"
-              alt=""
-              className="w-auto h-8"
-            />
-            <p
-              data-testid="brand-name"
-              className="font-semibold text-primary text-lg"
-            >
+            <img src="/logo/zemonie-icon-light.svg" alt="" className="w-auto h-8" />
+            <p data-testid="brand-name" className="font-semibold text-primary text-lg">
               Zemonie
             </p>
           </div>
-          <CardTitle className="text-xl lg:text-2xl text-primary-dark">
-            Account Setup
-          </CardTitle>
+          <CardTitle className="text-xl lg:text-2xl text-primary-dark">Account Setup</CardTitle>
         </CardHeader>
         <CardContent>
           <form role="form" onSubmit={handleSubmit(onSubmit)}>
@@ -240,9 +221,7 @@ export default function AccountSetupForm({
                   }}
                 />
                 {errors.avatarId && (
-                  <p className="text-sm text-red-500">
-                    {errors.avatarId.message}
-                  </p>
+                  <p className="text-sm text-red-500">{errors.avatarId.message}</p>
                 )}
               </div>
               <Button
@@ -251,11 +230,7 @@ export default function AccountSetupForm({
                 type="submit"
                 className="w-full bg-primary hover:bg-primary-dark"
               >
-                {mutation.isPending ? (
-                  <LoaderCircle className="animate-spin" />
-                ) : (
-                  <p>Done</p>
-                )}
+                {mutation.isPending ? <LoaderCircle className="animate-spin" /> : <p>Done</p>}
               </Button>
             </div>
           </form>

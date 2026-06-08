@@ -20,8 +20,6 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    expect(
-      canvas.getByAltText("Zemonie Dashboard Screenshot"),
-    ).toBeInTheDocument();
+    expect(canvas.getByAltText("Zemonie Dashboard Screenshot")).toBeInTheDocument();
   },
 };

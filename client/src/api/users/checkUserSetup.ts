@@ -16,10 +16,7 @@ export default async function checkUserSetup(): Promise<{ isSetupDone: boolean }
   });
 
   if (!res.ok) {
-    throw new SetupCheckError(
-      `Server returned ${res.status}`,
-      res.status,
-    );
+    throw new SetupCheckError(`Server returned ${res.status}`, res.status);
   }
 
   const data = await res.json();
@@ -29,4 +26,4 @@ export default async function checkUserSetup(): Promise<{ isSetupDone: boolean }
   }
 
   return data;
-};
+}

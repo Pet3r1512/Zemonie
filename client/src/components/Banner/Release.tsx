@@ -39,11 +39,7 @@ export function Release() {
           fill="#000000"
         >
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></g>
+          <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
             {" "}
             <g fill="#ff9d27">
@@ -76,28 +72,16 @@ export function Release() {
                 {" "}
               </path>{" "}
             </g>{" "}
-            <path
-              d="M18.5 38C12.3 27.6 2 31.9 2 31.9s14.7-14.7 24.6-4.8L18.5 38z"
-              fill="#3baacf"
-            >
+            <path d="M18.5 38C12.3 27.6 2 31.9 2 31.9s14.7-14.7 24.6-4.8L18.5 38z" fill="#3baacf">
               {" "}
             </path>{" "}
-            <path
-              d="M23.3 30.3l3.2-3.2C16.7 17.2 2 31.9 2 31.9s12.9-9.2 21.3-1.6"
-              fill="#428bc1"
-            >
+            <path d="M23.3 30.3l3.2-3.2C16.7 17.2 2 31.9 2 31.9s12.9-9.2 21.3-1.6" fill="#428bc1">
               {" "}
             </path>{" "}
-            <path
-              d="M26 45.5C36.4 51.7 32.1 62 32.1 62s14.7-14.7 4.8-24.6L26 45.5z"
-              fill="#3baacf"
-            >
+            <path d="M26 45.5C36.4 51.7 32.1 62 32.1 62s14.7-14.7 4.8-24.6L26 45.5z" fill="#3baacf">
               {" "}
             </path>{" "}
-            <path
-              d="M33.7 40.7l3.2-3.2c9.9 9.9-4.8 24.6-4.8 24.6s9.2-13 1.6-21.4"
-              fill="#428bc1"
-            >
+            <path d="M33.7 40.7l3.2-3.2c9.9 9.9-4.8 24.6-4.8 24.6s9.2-13 1.6-21.4" fill="#428bc1">
               {" "}
             </path>{" "}
             <path
@@ -136,16 +120,10 @@ export function Release() {
             >
               {" "}
             </path>{" "}
-            <path
-              d="M61.8 2.2S56.4 2 49.1 4.8l10.1 10.1C62 7.6 61.8 2.2 61.8 2.2"
-              fill="#c94747"
-            >
+            <path d="M61.8 2.2S56.4 2 49.1 4.8l10.1 10.1C62 7.6 61.8 2.2 61.8 2.2" fill="#c94747">
               {" "}
             </path>{" "}
-            <path
-              d="M61.8 2.2s-4.3.9-10.8 4.6l6.2 6.2c3.7-6.5 4.6-10.8 4.6-10.8"
-              fill="#f15744"
-            >
+            <path d="M61.8 2.2s-4.3.9-10.8 4.6l6.2 6.2c3.7-6.5 4.6-10.8 4.6-10.8" fill="#f15744">
               {" "}
             </path>{" "}
             <circle cx="43.5" cy="20.5" r="5" fill="#edf4f9">

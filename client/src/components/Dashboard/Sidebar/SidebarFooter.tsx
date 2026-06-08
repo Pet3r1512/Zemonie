@@ -30,16 +30,12 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
           const isActive = !isLogout && currUrl === item.url;
 
           return (
-            <div
-              key={item.title}
-              onClick={item.title === "Log Out" ? logout : () => {}}
-            >
+            <div key={item.title} onClick={item.title === "Log Out" ? logout : () => {}}>
               <SidebarMenuButton
                 asChild
                 className={cn(
                   "py-5 transition-all duration-150 ease-linear",
-                  isActive &&
-                    "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
+                  isActive && "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
                   !isActive && !isLogout && "lg:hover:bg-gray-100",
                   isLogout && "text-red-500 hover:text-red-600",
                 )}

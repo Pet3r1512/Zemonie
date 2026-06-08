@@ -266,9 +266,7 @@ function RouteComponent() {
                 className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10"
               >
                 <div className="flex items-center gap-3 mb-1">
-                  <h2 className="text-2xl lg:text-3xl font-bold text-primary">
-                    {release.version}
-                  </h2>
+                  <h2 className="text-2xl lg:text-3xl font-bold text-primary">{release.version}</h2>
                   {release.tag === "Beta" ? (
                     <span className="rounded-full bg-yellow-300 text-gray-800 text-xs font-semibold px-3 py-1">
                       {release.tag}

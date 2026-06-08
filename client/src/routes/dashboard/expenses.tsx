@@ -9,10 +9,7 @@ export const Route = createFileRoute("/dashboard/expenses")({
 
 function RouteComponent() {
   return (
-    <DashboardLayout
-      section="Expenses"
-      sectionDesc="Track and manage your spending"
-    >
+    <DashboardLayout section="Expenses" sectionDesc="Track and manage your spending">
       <ExpensesOverallContainer />
       <DetailTableContainer option="onlyExpense" />
     </DashboardLayout>

@@ -1,10 +1,4 @@
-import {
-  ArrowDownUpIcon,
-  TagIcon,
-  BarChart3Icon,
-  PieChartIcon,
-  CheckIcon,
-} from "lucide-react";
+import { ArrowDownUpIcon, TagIcon, BarChart3Icon, PieChartIcon, CheckIcon } from "lucide-react";
 
 const features = [
   {
@@ -84,9 +78,7 @@ export default function MainFeaturesGrid() {
                   {feature.title}
                 </h3>
 
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
-                  {feature.description}
-                </p>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">{feature.description}</p>
 
                 <ul className="space-y-2">
                   {feature.benefits.map((benefit, i) => (
@@ -94,10 +86,7 @@ export default function MainFeaturesGrid() {
                       key={i}
                       className="flex items-center text-sm text-gray-600 dark:text-gray-400"
                     >
-                      <CheckIcon
-                        size={16}
-                        className="text-primary mr-2 shrink-0"
-                      />
+                      <CheckIcon size={16} className="text-primary mr-2 shrink-0" />
                       {benefit}
                     </li>
                   ))}

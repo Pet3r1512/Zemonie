@@ -14,9 +14,7 @@ export default function About() {
           <div className="max-w-5xl mx-auto relative z-10 text-center">
             <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full mb-6 cursor-default">
               <Sparkles size={16} className="text-primary mr-2" />
-              <span className="text-sm font-medium text-primary">
-                Our Story
-              </span>
+              <span className="text-sm font-medium text-primary">Our Story</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               We're building the
@@ -24,9 +22,8 @@ export default function About() {
               <span className="text-primary">future of personal finance</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              <strong className="text-primary">Zemonie</strong> started with a
-              simple belief: managing money should feel empowering, not
-              overwhelming. We're here to make that real.
+              <strong className="text-primary">Zemonie</strong> started with a simple belief:
+              managing money should feel empowering, not overwhelming. We're here to make that real.
             </p>
           </div>
         </section>
@@ -44,8 +41,8 @@ export default function About() {
                 Join us on the journey
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Whether you're just starting or scaling up, we'd love to help
-                you take control of your finances.
+                Whether you're just starting or scaling up, we'd love to help you take control of
+                your finances.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link

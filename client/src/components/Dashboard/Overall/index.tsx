@@ -52,8 +52,7 @@ export default function Overall() {
     },
     {
       name: "Latest Income",
-      subtitle:
-        latestTransactionsQuery.data?.result.latestIncome?.description ?? "",
+      subtitle: latestTransactionsQuery.data?.result.latestIncome?.description ?? "",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100">
           <MoveDown className="text-green-500" />
@@ -66,8 +65,7 @@ export default function Overall() {
     },
     {
       name: "Latest Expense",
-      subtitle:
-        latestTransactionsQuery.data?.result.latestExpense?.description ?? "",
+      subtitle: latestTransactionsQuery.data?.result.latestExpense?.description ?? "",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-red-100">
           <MoveUp className="text-red-500" />

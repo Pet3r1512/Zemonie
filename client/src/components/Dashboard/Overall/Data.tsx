@@ -32,9 +32,7 @@ export default function Data({ data }: { data: OverallDataType }) {
         >
           {!isRateCard ? (
             <div className="relative">
-              {data.isLoading && (
-                <Skeleton className="absolute inset-0 w-1/2 h-7" />
-              )}
+              {data.isLoading && <Skeleton className="absolute inset-0 w-1/2 h-7" />}
 
               <NumberFlow
                 className={data.isLoading ? "invisible" : ""}
@@ -50,9 +48,7 @@ export default function Data({ data }: { data: OverallDataType }) {
             </div>
           ) : (
             <div className="relative flex items-center gap-1">
-              {data.isLoading && (
-                <Skeleton className="absolute inset-0 w-1/2 h-7" />
-              )}
+              {data.isLoading && <Skeleton className="absolute inset-0 w-1/2 h-7" />}
 
               <NumberFlow
                 className={data.isLoading ? "invisible" : ""}

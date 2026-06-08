@@ -13,42 +13,36 @@ const additionalFeatures = [
   {
     icon: LockIcon,
     title: "Your Data, Your Rules",
-    description:
-      "Your financial data stays private. No selling, no creepy tracking, no surprises.",
+    description: "Your financial data stays private. No selling, no creepy tracking, no surprises.",
   },
   {
     icon: RefreshCwIcon,
     title: "Instant Sync Everywhere",
-    description:
-      "Update a transaction on one device and see it reflected everywhere in real time.",
+    description: "Update a transaction on one device and see it reflected everywhere in real time.",
     badge: "New" as const,
   },
   {
     icon: CalendarIcon,
     title: "Smart Recurring Tracking",
-    description:
-      "We automatically keep bills, salary or subscriptions on recurring transactions.",
+    description: "We automatically keep bills, salary or subscriptions on recurring transactions.",
     badge: "Coming Soon" as const,
   },
   {
     icon: Target,
     title: "Budget & Savings",
-    description:
-      "Set budgets, track spending, and actually keep your savings on point.",
+    description: "Set budgets, track spending, and actually keep your savings on point.",
     badge: "Coming Soon" as const,
   },
   {
     icon: Award,
     title: "Level Up Your Money Game",
-    description:
-      "Get rewards, earn achievements, and see what your spending says about you.",
+    description: "Get rewards, earn achievements, and see what your spending says about you.",
     badge: "Coming Soon" as const,
   },
   {
     icon: DownloadIcon,
     title: "Shareable Reports",
-    description:
-      "Generate clean reports and export your data whenever you need it.",
+    description: "Generate clean reports and export your data whenever you need it.",
     badge: "Coming Soon" as const,
   },
 ];
@@ -60,9 +54,7 @@ export default function AdditionalFeatures() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 mb-4">
             <SparklesIcon size={16} className="text-primary" />
-            <span className="text-sm font-medium text-primary">
-              Additional Features
-            </span>
+            <span className="text-sm font-medium text-primary">Additional Features</span>
           </div>
 
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -106,9 +98,7 @@ export default function AdditionalFeatures() {
                   <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                     {feature.title}
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {feature.description}
-                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{feature.description}</p>
                 </div>
               </div>
             );

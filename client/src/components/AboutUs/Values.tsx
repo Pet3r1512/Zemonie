@@ -32,9 +32,7 @@ export default function Values() {
     <section className="py-20 px-4 bg-gray-50 dark:bg-neutral-800/50">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-secondary mb-4">
-            What we believe
-          </h2>
+          <h2 className="text-4xl font-bold text-secondary mb-4">What we believe</h2>
           <p className="text-xl text-gray-600 dark:text-gray-400">
             The principles that guide every decision we make
           </p>

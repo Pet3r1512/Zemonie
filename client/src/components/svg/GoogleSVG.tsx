@@ -8,22 +8,11 @@ export default function GoogleSVG() {
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
-        <title>Google-color</title> <desc>Created with Sketch.</desc>{" "}
-        <defs> </defs>{" "}
-        <g
-          id="Icons"
-          stroke="none"
-          strokeWidth="1"
-          fill="none"
-          fillRule="evenodd"
-        >
+        <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs>{" "}
+        <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           {" "}
           <g id="Color-" transform="translate(-401.000000, -860.000000)">
             {" "}

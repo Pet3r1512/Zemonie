@@ -19,12 +19,8 @@ export default function Team() {
             <Users size={20} className="text-primary mr-2" />
             <span className="text-sm font-medium text-primary">Our Team</span>
           </div>
-          <h2 className="text-4xl font-bold text-secondary mb-4">
-            The people behind Zemonie
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
-            A small team with a big vision
-          </p>
+          <h2 className="text-4xl font-bold text-secondary mb-4">The people behind Zemonie</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400">A small team with a big vision</p>
         </div>
         <div className="flex gpa-6 justify-center">
           {team.map((member) => (
@@ -39,12 +35,8 @@ export default function Team() {
               >
                 {member.name}
               </a>
-              <p className="text-sm text-primary mb-2 font-medium">
-                {member.role}
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                {member.bio}
-              </p>
+              <p className="text-sm text-primary mb-2 font-medium">{member.role}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">{member.bio}</p>
             </div>
           ))}
         </div>

@@ -39,20 +39,11 @@ interface AvatarPickerProps {
   className?: string;
 }
 
-export default function AvatarPicker({
-  value,
-  onChange,
-  size = 72,
-  className,
-}: AvatarPickerProps) {
+export default function AvatarPicker({ value, onChange, size = 72, className }: AvatarPickerProps) {
   const { screenSize } = useScreenSize();
 
   const avatarSize =
-    screenSize === "xs" || screenSize === "sm"
-      ? 48
-      : screenSize === "md"
-        ? 64
-        : size;
+    screenSize === "xs" || screenSize === "sm" ? 48 : screenSize === "md" ? 64 : size;
 
   return (
     <div
@@ -70,10 +61,7 @@ export default function AvatarPicker({
             type="button"
             onClick={() => onChange?.(avatar)}
             style={{
-              backgroundColor: convertHexToAlpha(
-                avatarColors[avatar],
-                selected ? 0.31 : 0.15,
-              ),
+              backgroundColor: convertHexToAlpha(avatarColors[avatar], selected ? 0.31 : 0.15),
               borderColor: selected ? avatarColors[avatar] : undefined,
             }}
             className={cn(

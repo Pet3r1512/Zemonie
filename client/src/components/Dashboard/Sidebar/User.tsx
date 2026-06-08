@@ -15,13 +15,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useLogout } from "@/hooks/useLogOut";
-import {
-  Bell,
-  CircleUser,
-  CreditCard,
-  EllipsisVertical,
-  LogOut,
-} from "lucide-react";
+import { Bell, CircleUser, CreditCard, EllipsisVertical, LogOut } from "lucide-react";
 
 export function User({
   user,
@@ -47,15 +41,11 @@ export function User({
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">
-                  {user.shortenName}
-                </AvatarFallback>
+                <AvatarFallback className="rounded-lg">{user.shortenName}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
-                </span>
+                <span className="text-muted-foreground truncate text-xs">{user.email}</span>
               </div>
               <EllipsisVertical className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -70,15 +60,11 @@ export function User({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">
-                    {user.shortenName}
-                  </AvatarFallback>
+                  <AvatarFallback className="rounded-lg">{user.shortenName}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
-                  </span>
+                  <span className="text-muted-foreground truncate text-xs">{user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

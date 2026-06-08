@@ -21,8 +21,7 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (credentials: TransactionInfo) =>
-      updateTransaction({ credentials }),
+    mutationFn: (credentials: TransactionInfo) => updateTransaction({ credentials }),
     onSuccess: () => {
       toast.success("Transaction updated");
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
@@ -38,15 +37,8 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
   });
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error,
-  } = useFetchTransactions({ option: "all" });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, error } =
+    useFetchTransactions({ option: "all" });
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -65,34 +57,23 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
     [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage],
   );
 
-  const allTransactions: TransactionInfo[] =
-    data?.pages.flatMap((page) => page.transactions) ?? [];
+  const allTransactions: TransactionInfo[] = data?.pages.flatMap((page) => page.transactions) ?? [];
 
   if (!userId) return null;
   if (isLoading)
     return (
       <div className="space-y-5">
-        <Skeleton className="text-gray-300 bg-gray-300 p-1.5 rounded-lg">
-          Loading
-        </Skeleton>
+        <Skeleton className="text-gray-300 bg-gray-300 p-1.5 rounded-lg">Loading</Skeleton>
         <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 bg-gray-300 flex items-center gap-x-5 h-20">
           Loading
         </Skeleton>
       </div>
     );
   if (isError)
-    return (
-      <div>
-        {(error as Error).message || "Failed to load transactions. Try again?"}
-      </div>
-    );
+    return <div>{(error as Error).message || "Failed to load transactions. Try again?"}</div>;
 
   if (allTransactions.length === 0) {
-    return (
-      <p className="lg:text-lg italic text-gray-400">
-        You do not have any transactions.
-      </p>
-    );
+    return <p className="lg:text-lg italic text-gray-400">You do not have any transactions.</p>;
   }
 
   const handleSave = (updatedTransaction: TransactionInfo) => {

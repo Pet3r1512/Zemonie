@@ -58,9 +58,7 @@ export default function InteractiveShowcase() {
                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       {item.title}
                     </h4>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {item.description}
-                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
                   </div>
                 </div>
               );
@@ -76,12 +74,8 @@ export default function InteractiveShowcase() {
                       <WalletIcon size={20} className="text-white" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Total Balance
-                      </p>
-                      <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                        $12,450.00
-                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Total Balance</p>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-white">$12,450.00</p>
                     </div>
                   </div>
                 </div>
@@ -111,57 +105,32 @@ export default function InteractiveShowcase() {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center flex-col">
-                      <p className="text-3xl font-bold text-gray-900 dark:text-white">
-                        75%
-                      </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Budget Used
-                      </p>
+                      <p className="text-3xl font-bold text-gray-900 dark:text-white">75%</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">Budget Used</p>
                     </div>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-4 mt-6">
                   <div className="text-center">
                     <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-2">
-                      <TrendingUpIcon
-                        size={16}
-                        className="text-green-600 dark:text-green-400"
-                      />
+                      <TrendingUpIcon size={16} className="text-green-600 dark:text-green-400" />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Income
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                      $4,250
-                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Income</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">$4,250</p>
                   </div>
                   <div className="text-center">
                     <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center mx-auto mb-2">
-                      <BarChart3Icon
-                        size={16}
-                        className="text-red-600 dark:text-red-400"
-                      />
+                      <BarChart3Icon size={16} className="text-red-600 dark:text-red-400" />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Expenses
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                      $1,970
-                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Expenses</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">$1,970</p>
                   </div>
                   <div className="text-center">
                     <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mx-auto mb-2">
-                      <TargetIcon
-                        size={16}
-                        className="text-blue-600 dark:text-blue-400"
-                      />
+                      <TargetIcon size={16} className="text-blue-600 dark:text-blue-400" />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Savings
-                    </p>
-                    <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                      $2,280
-                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Savings</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">$2,280</p>
                   </div>
                 </div>
               </div>

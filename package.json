@@ -1,11 +1,17 @@
 {
-    "name": "zemonie",
-    "private": true,
-    "scripts": {
-        "dev": "concurrently \"pnpm --dir client dev --host\" \"pnpm --dir server dev\"",
-        "test:client": "pnpm --dir client test"
-    },
-    "devDependencies": {
-        "concurrently": "^9.0.0"
-    }
+  "name": "zemonie",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --dir client dev --host\" \"pnpm --dir server dev\"",
+    "test:client": "pnpm --dir client test",
+    "lint": "oxlint . --ignore-path .oxlintignore",
+    "lint:fix": "oxlint --fix . --ignore-path .oxlintignore",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt ."
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "oxfmt": "^0.53.0",
+    "oxlint": "^1.68.0"
+  }
 }
