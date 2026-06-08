@@ -1,5 +1,5 @@
 import z from "zod";
-import { authenticatedProcedure, publicProcedure, router } from "./tRPC";
+import { authenticatedProcedure, router } from "./tRPC";
 import { SupportedCurrency } from "@prisma/client";
 import prisma from "@/lib/prisma";
 

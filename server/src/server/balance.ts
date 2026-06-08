@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { authenticatedProcedure, publicProcedure, router } from "./tRPC";
+import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
 
 export const balancesRouter = router({

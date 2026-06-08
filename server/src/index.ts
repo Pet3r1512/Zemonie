@@ -115,7 +115,7 @@ app.get("/api/ping", async (c) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
     return c.json({ ok: true, db: "warm" });
-  } catch (e) {
+  } catch {
     return c.json({ ok: true, db: "cold" }, 500);
   }
 });
