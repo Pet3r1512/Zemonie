@@ -5,7 +5,9 @@
     "correctness": "error",
     "suspicious": "warn"
   },
-  "rules": {},
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  },
   "env": {
     "builtin": true,
     "browser": true,
