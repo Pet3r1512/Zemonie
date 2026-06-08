@@ -40,10 +40,6 @@ jobs:
           directory: client
 
   test:
-    needs: [react-doctor]
-    if: |
-      always() &&
-      (needs.react-doctor.result == 'success' || needs.react-doctor.result == 'skipped')
     runs-on: ubuntu-latest
     strategy:
       matrix:
