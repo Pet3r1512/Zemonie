@@ -49,12 +49,12 @@ export default function Timeline() {
                       <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-75" />
                     )}
 
-                    <div className="relative size-5 rounded-full bg-primary shadow-lg border-4 border-white dark:border-neutral-950" />
+                    <div className="relative size-5 rounded-full bg-primary shadow-lg border-4 border-white dark:border-dark-bg" />
                   </div>
 
                   <div
                     className={cn(
-                      "rounded-2xl border border-gray-200 bg-white p-6 dark:border-neutral-700 dark:bg-neutral-800",
+                      "rounded-2xl border border-gray-200 bg-white p-6 dark:border-dark-card dark:bg-dark-card",
                       isLast && "border-primary border-2",
                     )}
                   >

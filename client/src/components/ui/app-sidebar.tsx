@@ -50,7 +50,7 @@ export function AppSidebar() {
                   "py-5 ",
                   currentUrl === item.url
                     ? "bg-primary text-white lg:hover:bg-primary lg:hover:text-white"
-                    : "lg:hover:bg-gray-100",
+                    : "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-elevated",
                 )}
               >
                 <Link from="/" to={item.url} className="text-lg font-semibold">

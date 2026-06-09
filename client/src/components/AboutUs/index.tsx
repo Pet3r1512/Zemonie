@@ -6,7 +6,7 @@ import Values from "./Values";
 
 export default function About() {
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-950">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-dark-bg">
       <main className="flex-1">
         {/* Hero */}
         <section className="relative py-24 px-4 overflow-hidden">

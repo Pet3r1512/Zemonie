@@ -82,7 +82,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                     ? ((Number(entry.value) / totalAmount) * 100).toFixed(1)
                     : "0.0";
                 return (
-                  <div className="rounded-lg border bg-white dark:bg-neutral-900 dark:border-neutral-700 px-3 py-2 text-xs shadow-xl">
+                  <div className="rounded-lg border bg-white dark:bg-dark-elevated dark:border-dark-elevated px-3 py-2 text-xs shadow-xl">
                     <div className="flex items-center gap-2">
                       <span
                         className="inline-block h-2.5 w-2.5 rounded-[2px]"

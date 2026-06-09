@@ -46,7 +46,7 @@ export function DetailsTable({
             <TableRow
               key={transaction.id}
               ref={transaction.id === lastTxId ? lastElementRef : undefined}
-              className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-neutral-800"
+              className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
             >
               <TableCell className="text-xs sm:text-sm md:text-base whitespace-nowrap">
                 {ParseISOStringDate({ date: transaction.date })}

@@ -39,7 +39,7 @@ export default function ProfilePage() {
         </p>
       </div>
 
-      <div className="rounded-2xl bg-white dark:bg-neutral-950 md:shadow-2xl border border-gray-200 dark:border-neutral-800 divide-y divide-gray-100 dark:divide-neutral-800">
+      <div className="rounded-2xl bg-white dark:bg-dark-bg md:shadow-2xl border border-gray-200 dark:border-dark-card divide-y divide-gray-100 dark:divide-dark-card">
         {profileFields.map((field) => {
           const Icon = field.icon;
           return (

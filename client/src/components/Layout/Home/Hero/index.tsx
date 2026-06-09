@@ -30,13 +30,13 @@ export default function Hero() {
         </a>
         <a
           href="/features"
-          className="text-sm/6 font-semibold text-gray-900 dark:text-white bg-white dark:bg-neutral-800 px-3.5 py-2.5 rounded-md"
+          className="text-sm/6 font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card px-3.5 py-2.5 rounded-md"
         >
           Learn more <span aria-hidden="true">→</span>
         </a>
       </div>
       <div className="relative lg:mt-24">
-        <div className="border border-gray-400 dark:border-neutral-600 rounded-md bg-white dark:bg-neutral-950 relative z-20">
+        <div className="border border-gray-400 dark:border-dark-card rounded-md bg-white dark:bg-dark-bg relative z-20">
           <Screenshot />
         </div>
         <div className="absolute -inset-1 rounded-md blur-md bg-linear-to-br from-primary via-primary/85 to-primary/60 z-10"></div>

@@ -108,11 +108,11 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                   <SelectTrigger id="source" name="source" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white dark:bg-neutral-900 w-full">
+                  <SelectContent className="bg-white dark:bg-dark-elevated w-full">
                     <SelectGroup>
                       <SelectItem
                         key="english"
-                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-neutral-800"
+                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
                         value={"english"}
                       >
                         English
@@ -147,13 +147,13 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                   <SelectTrigger id="source" name="source" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white dark:bg-neutral-900 w-full">
+                  <SelectContent className="bg-white dark:bg-dark-elevated w-full">
                     <SelectGroup>
                       {currencyLists.map((currency) => {
                         return (
                           <SelectItem
                             key={currency.code}
-                            className="lg:hover:bg-gray-200 dark:lg:hover:bg-neutral-800"
+                            className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
                             value={currency.code}
                           >
                             <div className="flex gap-x-2">
@@ -182,11 +182,11 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                   <SelectTrigger id="source" name="source" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white dark:bg-neutral-900 w-full">
+                  <SelectContent className="bg-white dark:bg-dark-elevated w-full">
                     <SelectGroup>
                       <SelectItem
                         key={"light"}
-                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-neutral-800"
+                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
                         value={"light"}
                       >
                         <div className="flex items-center gap-x-2">
@@ -196,7 +196,7 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                       </SelectItem>
                       <SelectItem
                         key={"dark"}
-                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-neutral-800"
+                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
                         value={"dark"}
                       >
                         <div className="flex items-center gap-x-2">

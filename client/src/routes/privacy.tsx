@@ -24,7 +24,7 @@ function RouteComponent() {
             <p className="text-gray-500 mt-2">Last updated: May 2026</p>
           </div>
 
-          <div className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10 space-y-8">
+          <div className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10 space-y-8">
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">
                 1. Information We Collect
@@ -60,7 +60,7 @@ function RouteComponent() {
               </div>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">
@@ -74,7 +74,7 @@ function RouteComponent() {
               </ul>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">
@@ -87,7 +87,7 @@ function RouteComponent() {
               </p>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">4. Data Sharing</h2>
@@ -98,7 +98,7 @@ function RouteComponent() {
               </p>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">5. Your Rights</h2>
@@ -125,7 +125,7 @@ function RouteComponent() {
               </p>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">6. Data Retention</h2>
@@ -136,7 +136,7 @@ function RouteComponent() {
               </p>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">
@@ -149,7 +149,7 @@ function RouteComponent() {
               </p>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">
@@ -161,7 +161,7 @@ function RouteComponent() {
               </p>
             </section>
 
-            <div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-px bg-neutral-200 dark:bg-dark-card" />
 
             <section>
               <h2 className="text-xl lg:text-2xl font-bold text-primary mb-3">9. Contact</h2>

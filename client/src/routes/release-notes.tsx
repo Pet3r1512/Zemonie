@@ -263,7 +263,7 @@ function RouteComponent() {
             {releases.map((release, index) => (
               <div
                 key={release.version}
-                className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10"
+                className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10"
               >
                 <div className="flex items-center gap-3 mb-1">
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">{release.version}</h2>

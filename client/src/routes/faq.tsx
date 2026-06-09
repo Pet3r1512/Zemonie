@@ -68,7 +68,7 @@ function RouteComponent() {
             <p className="text-gray-500 mt-2">Everything you need to know about Zemonie.</p>
           </div>
 
-          <div className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10">
+          <div className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10">
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>

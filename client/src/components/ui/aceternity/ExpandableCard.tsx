@@ -150,7 +150,7 @@ export function ExpandableCard({
             <motion.div
               layoutId={`card-${transaction.id}-${id}`}
               ref={ref}
-              className="w-[95dvw] max-h-[90dvh]! md:max-w-150 lg:min-w-150 md:h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
+              className="w-[95dvw] max-h-[90dvh]! md:max-w-150 lg:min-w-150 md:h-full lg:h-fit flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl overflow-hidden rounded-xl"
             >
               {!editMode ? (
                 <div className="p-6 space-y-4 w-full!">
@@ -183,7 +183,7 @@ export function ExpandableCard({
                   </motion.div>
 
                   {/* Divider */}
-                  <div className="h-0.5 w-full bg-gray-200 dark:bg-neutral-700"></div>
+                  <div className="h-0.5 w-full bg-gray-200 dark:bg-dark-card"></div>
 
                   <motion.div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
                     <div className="space-y-2">
@@ -213,7 +213,7 @@ export function ExpandableCard({
                     </div>
                   </motion.div>
                   {/* Divider */}
-                  <div className="h-0.5 w-full bg-gray-200 dark:bg-neutral-700"></div>
+                  <div className="h-0.5 w-full bg-gray-200 dark:bg-dark-card"></div>
                 </div>
               ) : (
                 <FormProvider {...methods}>
@@ -353,7 +353,7 @@ export function ExpandableCard({
         >
           <div
             ref={lastElementRef}
-            className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 dark:border-neutral-800 lg:hover:bg-gray-200 dark:lg:hover:bg-neutral-800 transition-all duration-150 ease-linear"
+            className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 dark:border-dark-card lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card transition-all duration-150 ease-linear"
           >
             {currCategory && TransactionTypeDictionary[isIncome ? "INCOME" : "EXPENSE"]}
 
