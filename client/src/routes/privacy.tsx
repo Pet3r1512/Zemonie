@@ -21,7 +21,7 @@ function RouteComponent() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
               Privacy Policy
             </h1>
-            <p className="text-gray-500 mt-2">Last updated: May 2026</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">Last updated: May 2026</p>
           </div>
 
           <div className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10 space-y-8">

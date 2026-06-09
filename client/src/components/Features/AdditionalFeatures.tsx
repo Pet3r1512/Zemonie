@@ -83,7 +83,9 @@ export default function AdditionalFeatures() {
                   <span
                     className={cn(
                       "absolute top-0 right-0 px-2 py-0.5 rounded-full text-xs font-semibold text-white cursor-default",
-                      feature.badge === "New" ? "bg-green-500" : "bg-blue-400",
+                      feature.badge === "New"
+                        ? "bg-green-500 dark:bg-green-600"
+                        : "bg-blue-400 dark:bg-blue-500",
                     )}
                   >
                     {feature.badge}

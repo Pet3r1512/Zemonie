@@ -65,7 +65,9 @@ function RouteComponent() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
               Frequently Asked Questions
             </h1>
-            <p className="text-gray-500 mt-2">Everything you need to know about Zemonie.</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">
+              Everything you need to know about Zemonie.
+            </p>
           </div>
 
           <div className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10">

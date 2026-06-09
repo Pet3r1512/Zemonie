@@ -72,7 +72,7 @@ const DrawerContent = React.forwardRef<
         ref={ref}
         className={cn(
           drawerContentVariants({ direction, className }),
-          "bg-white dark:bg-gray-600 border-none",
+          "bg-white dark:bg-dark-elevated border-none",
         )}
         {...props}
       >

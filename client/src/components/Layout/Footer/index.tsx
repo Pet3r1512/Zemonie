@@ -3,7 +3,7 @@ import FooterBottom from "./FooterBottom";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111827] w-screen! mt-auto text-white">
+    <footer className="bg-[#111827] dark:bg-dark-card w-screen! mt-auto text-white">
       <div className="footer-container max-w-7xl mx-auto py-10 px-5 lg:px-0 flex flex-col gap-y-12">
         <FooterTop />
         {/* Divider */}

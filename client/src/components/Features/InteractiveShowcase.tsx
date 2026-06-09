@@ -49,7 +49,7 @@ export default function InteractiveShowcase() {
               return (
                 <div
                   key={index}
-                  className="flex items-start p-6 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors duration-200"
+                  className="flex items-start p-6 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-dark-card transition-colors duration-200"
                 >
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4 shrink-0">
                     <Icon size={24} className="text-primary" />
