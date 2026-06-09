@@ -138,7 +138,8 @@ export function ExpandableCard({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 w-full h-full z-10"
+            onClick={() => setActive(false)}
+            className="fixed inset-0 bg-black/80 w-full h-full z-10 cursor-default"
           />
         )}
       </AnimatePresence>
