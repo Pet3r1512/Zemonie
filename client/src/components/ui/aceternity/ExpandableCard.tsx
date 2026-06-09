@@ -2,7 +2,6 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { ComponentMap } from "@/types/ComponentMap";
 import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
@@ -105,13 +104,6 @@ export function ExpandableCard({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  useOutsideClick(ref as React.RefObject<HTMLDivElement>, (event: any) => {
-    const target = event.target as HTMLElement;
-    if (target.closest('[role="listbox"]')) return;
-    setActive(false);
-  });
-
   useEffect(() => {
     if (editMode) {
       reset({
@@ -146,7 +138,8 @@ export function ExpandableCard({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 w-full h-full z-10"
+            onClick={() => setActive(false)}
+            className="fixed inset-0 bg-black/80 w-full h-full z-10 cursor-default"
           />
         )}
       </AnimatePresence>
@@ -336,7 +329,7 @@ export function ExpandableCard({
                   <Button
                     size="sm"
                     onClick={() => setEditMode(true)}
-                    className="bg-primary text-white"
+                    className="bg-primary/85 text-white hover:bg-primary"
                   >
                     <Pencil className="size-4" />
                     Edit

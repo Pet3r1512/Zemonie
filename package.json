@@ -7,7 +7,9 @@
     "lint": "oxlint . --ignore-path .oxlintignore",
     "lint:fix": "oxlint --fix . --ignore-path .oxlintignore",
     "format": "oxfmt --check .",
-    "format:fix": "oxfmt ."
+    "format:fix": "oxfmt .",
+    "lint-staged": "pnpm --dir client exec lint-staged",
+    "lint-prepush": "pnpm --filter client exec tsc --noEmit && oxlint . --ignore-path .oxlintignore"
   },
   "devDependencies": {
     "concurrently": "^9.0.0",

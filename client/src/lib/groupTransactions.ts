@@ -1,7 +1,7 @@
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 
 export default function groupTransactions(transactions: TransactionInfo[]) {
-  const sortedTransactions = [...transactions].sort(
+  const sortedTransactions = [...transactions].toSorted(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
 
