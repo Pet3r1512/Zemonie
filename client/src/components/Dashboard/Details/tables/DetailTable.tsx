@@ -27,7 +27,7 @@ export function DetailsTable({
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg border">
+    <div className="w-full overflow-x-auto rounded-lg border dark:border-dark-elevated">
       <Table className="min-w-150 md:min-w-full">
         <TableHeader>
           <TableRow>

@@ -63,12 +63,8 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
   if (isLoading)
     return (
       <div className="space-y-5">
-        <Skeleton className="text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card p-1.5 rounded-lg">
-          Loading
-        </Skeleton>
-        <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card flex items-center gap-x-5 h-20">
-          Loading
-        </Skeleton>
+        <Skeleton className="text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card p-1.5 rounded-lg"></Skeleton>
+        <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card flex items-center gap-x-5 h-20"></Skeleton>
       </div>
     );
   if (isError)
