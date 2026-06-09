@@ -2,7 +2,6 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { ComponentMap } from "@/types/ComponentMap";
 import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
@@ -104,13 +103,6 @@ export function ExpandableCard({
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  useOutsideClick(ref as React.RefObject<HTMLDivElement>, (event: any) => {
-    const target = event.target as HTMLElement;
-    if (target.closest('[role="listbox"]')) return;
-    setActive(false);
-  });
 
   useEffect(() => {
     if (editMode) {
