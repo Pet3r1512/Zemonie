@@ -52,7 +52,7 @@ export default function ExpensesOverallContainer() {
       name: "Total Expenses",
       subtitle: "This Month",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-red-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-red-100 dark:bg-red-900/30">
           <MoveUp className="text-red-500" />
         </div>
       ),
@@ -65,7 +65,7 @@ export default function ExpensesOverallContainer() {
       name: "Highest Category",
       subtitle: highestExpenseQuery.data?.categoryName ?? "",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-purple-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-purple-100 dark:bg-purple-900/30">
           <ChartPie className="text-purple-600" />
         </div>
       ),
@@ -79,7 +79,7 @@ export default function ExpensesOverallContainer() {
       subtitle:
         saveRate == null || Number.isNaN(saveRate) ? "No income recorded yet" : "Expense Ratio",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100 dark:bg-yellow-900/30">
           <Percent className="text-yellow-600" />
         </div>
       ),

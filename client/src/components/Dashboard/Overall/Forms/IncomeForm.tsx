@@ -107,7 +107,7 @@ export function IncomeForm() {
         onInteractOutside={() => {}}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
-        className="sm:max-w-sm bg-white pointer-events-auto"
+        className="sm:max-w-sm bg-white dark:bg-neutral-900 pointer-events-auto"
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>

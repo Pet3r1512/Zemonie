@@ -69,14 +69,16 @@ export default function ExpenseSelect({
       <SelectTrigger id="source" name="source" className="w-full">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className={cn("bg-white w-full max-h-64", contentClassName)}>
+      <SelectContent
+        className={cn("bg-white dark:bg-neutral-900 w-full max-h-64", contentClassName)}
+      >
         <SelectGroup>
           {expenseSources.map((source: SourceExpense) => {
             return (
               <SelectItem
                 key={source.id}
                 value={source.id.toString()}
-                className="lg:hover:bg-gray-200"
+                className="lg:hover:bg-gray-200 dark:lg:hover:bg-neutral-800"
               >
                 {source.name}
               </SelectItem>

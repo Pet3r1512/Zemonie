@@ -82,7 +82,7 @@ export default function DashboardLayout({
           {currentUrl === "/dashboard" && (
             <p className="font-semibold text-sm">Welcome back, {sessionQuery.data?.user.name}</p>
           )}
-          <p className="text-gray-700">{sectionDesc}</p>
+          <p className="text-gray-700 dark:text-gray-300">{sectionDesc}</p>
         </div>
         <div className="flex-1 min-h-0 flex flex-col gap-y-5 overflow-y-auto scrollbar-gutter-stable">
           {children}

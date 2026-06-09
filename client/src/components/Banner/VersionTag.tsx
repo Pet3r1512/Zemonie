@@ -21,7 +21,7 @@ export default function VersionTag() {
   });
 
   return (
-    <div className="flex items-center gap-x-1.5 text-gray-600 cursor-default">
+    <div className="flex items-center gap-x-1.5 text-gray-600 dark:text-gray-400 cursor-default">
       <Tag size={12} />
 
       <p className="text-xs md:text-sm font-semibold">{isPending ? "Loading..." : latestTag}</p>

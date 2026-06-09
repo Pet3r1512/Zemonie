@@ -41,7 +41,7 @@ export default function Overall() {
       name: "Total Balance",
       subtitle: "Current Balance",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-blue-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-blue-100 dark:bg-blue-900/30">
           <Wallet className="text-blue-500" />
         </div>
       ),
@@ -54,7 +54,7 @@ export default function Overall() {
       name: "Latest Income",
       subtitle: latestTransactionsQuery.data?.result.latestIncome?.description ?? "",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100 dark:bg-green-900/30">
           <MoveDown className="text-green-500" />
         </div>
       ),
@@ -67,7 +67,7 @@ export default function Overall() {
       name: "Latest Expense",
       subtitle: latestTransactionsQuery.data?.result.latestExpense?.description ?? "",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-red-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-red-100 dark:bg-red-900/30">
           <MoveUp className="text-red-500" />
         </div>
       ),

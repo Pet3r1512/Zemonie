@@ -36,7 +36,7 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
                 className={cn(
                   "py-5 transition-all duration-150 ease-linear",
                   isActive && "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
-                  !isActive && !isLogout && "lg:hover:bg-gray-100",
+                  !isActive && !isLogout && "lg:hover:bg-gray-100 dark:lg:hover:bg-neutral-800",
                   isLogout && "text-red-500 hover:text-red-600",
                 )}
               >

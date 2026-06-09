@@ -63,8 +63,10 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
   if (isLoading)
     return (
       <div className="space-y-5">
-        <Skeleton className="text-gray-300 bg-gray-300 p-1.5 rounded-lg">Loading</Skeleton>
-        <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 bg-gray-300 flex items-center gap-x-5 h-20">
+        <Skeleton className="text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-neutral-700 p-1.5 rounded-lg">
+          Loading
+        </Skeleton>
+        <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-neutral-700 flex items-center gap-x-5 h-20">
           Loading
         </Skeleton>
       </div>
@@ -73,7 +75,11 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
     return <div>{(error as Error).message || "Failed to load transactions. Try again?"}</div>;
 
   if (allTransactions.length === 0) {
-    return <p className="lg:text-lg italic text-gray-400">You do not have any transactions.</p>;
+    return (
+      <p className="lg:text-lg italic text-gray-400 dark:text-gray-300">
+        You do not have any transactions.
+      </p>
+    );
   }
 
   const handleSave = (updatedTransaction: TransactionInfo) => {

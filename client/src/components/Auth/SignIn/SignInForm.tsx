@@ -83,7 +83,7 @@ export default function SignInForm({ className }: { className?: string }) {
                     <a
                       href="#"
                       tabIndex={-1}
-                      className="ml-auto text-sm underline-offset-4 hover:underline"
+                      className="ml-auto text-sm underline-offset-4 hover:underline dark:text-gray-300"
                     >
                       Forgot your password?
                     </a>
