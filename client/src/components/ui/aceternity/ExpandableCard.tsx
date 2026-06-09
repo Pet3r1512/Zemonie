@@ -336,7 +336,7 @@ export function ExpandableCard({
                   <Button
                     size="sm"
                     onClick={() => setEditMode(true)}
-                    className="bg-primary text-white"
+                    className="bg-primary/85 text-white hover:bg-primary"
                   >
                     <Pencil className="size-4" />
                     Edit
