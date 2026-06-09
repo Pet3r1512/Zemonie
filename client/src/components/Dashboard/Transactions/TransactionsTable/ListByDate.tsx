@@ -28,7 +28,7 @@ export default function ListByDate({
     return <div className="text-gray-500">No transactions</div>;
   }
 
-  const sortedEntries = Object.entries(groupedByDate).sort(
+  const sortedEntries = Object.entries(groupedByDate).toSorted(
     ([a], [b]) => new Date(b).getTime() - new Date(a).getTime(),
   );
 
