@@ -1,9 +1,11 @@
+// oxlint-disable react/no-unstable-nested-components
 import { Label, Pie, PieChart, Sector } from "recharts";
 import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
 import categoryColorDictionary from "@/types/CategoryDict";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 type ExpenseCategoryEntry = {
   _sum: { amount: string };
@@ -15,6 +17,7 @@ type SpendingByCategoryProps = {
 };
 
 export function SpendingByCategory({ data }: SpendingByCategoryProps) {
+  const user_preferences = useUserPreferences();
   const summary: ExpenseCategoryEntry[] = data?.expenseCategorySummary ?? [];
 
   const chartData = summary.map((entry) => {
@@ -22,6 +25,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
     const tailwindClass = dict?.color ?? "";
     return {
       name: dict?.name ?? `Category ${entry.categoryId}`,
+      // oxlint-disable-next-line no-underscore-dangle
       value: Number(entry._sum.amount),
       fill: TAILWIND_TO_HEX[tailwindClass] ?? "hsl(var(--chart-1))",
       categoryId: entry.categoryId,
@@ -69,6 +73,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
           <PieChart>
             <ChartTooltip
               cursor={false}
+              // oxlint-disable-next-line react/no-unstable-nested-components
               content={({ active, payload }) => {
                 if (!active || !payload?.length) return null;
                 const entry = payload[0];
@@ -97,6 +102,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
               innerRadius={60}
               strokeWidth={5}
               activeIndex={highestIndex}
+              // oxlint-disable-next-line react/no-unstable-nested-components
               activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
                 <Sector {...props} outerRadius={outerRadius + 10} />
               )}
@@ -110,20 +116,21 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                         y={viewBox.cy}
                         textAnchor="middle"
                         dominantBaseline="middle"
+                        fill="currentColor"
                       >
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
+                          className="fill-[hsl(var(--foreground))] text-3xl font-bold"
                         >
                           {totalAmount.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
+                          className="fill-[hsl(var(--muted-foreground))]"
                         >
-                          Total AUD
+                          Total {user_preferences.data?.preferences.currency}
                         </tspan>
                       </text>
                     );
