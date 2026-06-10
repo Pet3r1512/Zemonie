@@ -65,14 +65,14 @@ export default function IncomeSelect({
       <SelectTrigger id="source" name="source" className="w-full">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className={cn("bg-white w-full", contentClassName)}>
+      <SelectContent className={cn("bg-white dark:bg-dark-elevated w-full", contentClassName)}>
         <SelectGroup>
           {incomesources.map((source: SourceIncome) => {
             return (
               <SelectItem
                 key={source.id}
                 value={source.id.toString()}
-                className="lg:hover:bg-gray-200"
+                className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
               >
                 {source.name}
               </SelectItem>

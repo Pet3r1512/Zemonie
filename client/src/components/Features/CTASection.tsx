@@ -15,7 +15,7 @@ export default function CTASection() {
 
           <a
             href="/auth/signup"
-            className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-lg"
+            className="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 shadow-lg"
           >
             Get Started Free
             <ArrowRightIcon size={20} className="ml-2" />

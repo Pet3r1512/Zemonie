@@ -18,13 +18,13 @@ type CurrentCategory = {
 
 const TransactionTypeDictionary: ComponentMap = {
   INCOME: (
-    <div className="size-max p-2.5 rounded-full bg-green-200">
-      <ArrowUp size={20} className="text-green-900 font-extrabold" />
+    <div className="size-max p-2.5 rounded-full bg-green-200 dark:bg-green-900/40">
+      <ArrowUp size={20} className="text-green-900 dark:text-green-300 font-extrabold" />
     </div>
   ),
   EXPENSE: (
-    <div className="size-max p-2.5 rounded-full bg-red-200">
-      <ArrowDown size={20} className="text-red-800 font-extrabold" />
+    <div className="size-max p-2.5 rounded-full bg-red-200 dark:bg-red-900/40">
+      <ArrowDown size={20} className="text-red-800 dark:text-red-300 font-extrabold" />
     </div>
   ),
 };
@@ -54,7 +54,7 @@ export default function TransactionSummary({
   return (
     <div
       ref={lastElementRef}
-      className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 lg:hover:bg-gray-200 transition-all duration-150 ease-linear"
+      className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 dark:border-dark-card lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card transition-all duration-150 ease-linear"
     >
       {currCategory &&
         TransactionTypeDictionary[

@@ -75,7 +75,7 @@ export default function Data({ data }: { data: OverallDataType }) {
         </div>
       )}
 
-      <div className="text-gray-400 lg:text-sm">
+      <div className="text-gray-400 dark:text-gray-300 lg:text-sm">
         {data.isLoading ? (
           <Skeleton className="h-4 w-24" />
         ) : data.subtitle === "" ? (

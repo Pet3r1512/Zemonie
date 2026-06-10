@@ -99,7 +99,7 @@ export function IncomeForm() {
           e.currentTarget.blur();
         }}
       >
-        <Button className="bg-[#38b000] hover:bg-[#38b000]/80 text-white rounded-2xl text-lg h-10.5">
+        <Button className="bg-[#38b000] hover:bg-[#38b000]/80 dark:bg-[#38b000]/80 dark:hover:bg-[#38b000]/90 dark:text-white text-white rounded-2xl text-lg h-10.5">
           + Add Income
         </Button>
       </DialogTrigger>
@@ -107,7 +107,7 @@ export function IncomeForm() {
         onInteractOutside={() => {}}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
-        className="sm:max-w-sm bg-white pointer-events-auto"
+        className="sm:max-w-sm bg-white dark:bg-dark-elevated pointer-events-auto"
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -164,11 +164,17 @@ export function IncomeForm() {
             </FieldGroup>
             <DialogFooter className="flex flex-row items-center justify-end gap-x-3.5">
               <DialogClose asChild>
-                <Button variant="outline" className="text-red-500">
+                <Button
+                  variant="outline"
+                  className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                >
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit" className="bg-primary hover:bg-primary/90">
+              <Button
+                type="submit"
+                className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
+              >
                 {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Income"}
               </Button>
             </DialogFooter>

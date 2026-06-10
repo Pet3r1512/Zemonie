@@ -27,7 +27,7 @@ export function DetailsTable({
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg border">
+    <div className="w-full overflow-x-auto rounded-lg border dark:border-dark-elevated">
       <Table className="min-w-150 md:min-w-full">
         <TableHeader>
           <TableRow>
@@ -46,7 +46,7 @@ export function DetailsTable({
             <TableRow
               key={transaction.id}
               ref={transaction.id === lastTxId ? lastElementRef : undefined}
-              className="transition-all duration-150 ease-linear lg:hover:bg-gray-100"
+              className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
             >
               <TableCell className="text-xs sm:text-sm md:text-base whitespace-nowrap">
                 {ParseISOStringDate({ date: transaction.date })}

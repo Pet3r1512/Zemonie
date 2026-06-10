@@ -45,7 +45,7 @@ export default function IncomeOverallContainer() {
       name: "Total Income",
       subtitle: "This Month",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100 dark:bg-green-900/30">
           <MoveDown className="text-green-500" />
         </div>
       ),
@@ -58,7 +58,7 @@ export default function IncomeOverallContainer() {
       name: "Highest Income Source",
       subtitle: highestIncomeOfMonth.isLoading ? "" : (highestTransaction?.category ?? "N/A"),
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100 dark:bg-yellow-900/30">
           <Crown className="text-yellow-600" />
         </div>
       ),
@@ -71,7 +71,7 @@ export default function IncomeOverallContainer() {
       name: "Income Growth",
       subtitle: "vs Last Month",
       icon: (
-        <div className="flex items-center justify-center rounded-full p-2.5 bg-purple-100">
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-purple-100 dark:bg-purple-900/30">
           <ChartNoAxesCombined className="text-purple-600" />
         </div>
       ),

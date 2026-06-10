@@ -92,7 +92,7 @@ export function ExpenseForm() {
           e.currentTarget.blur();
         }}
       >
-        <Button className="bg-[#d62828] text-white hover:bg-[#d62828]/80 rounded-2xl text-lg h-10.5">
+        <Button className="bg-[#d62828] text-white hover:bg-[#d62828]/80 dark:bg-[#d62828]/75 dark:hover:bg-[#d62828]/85 dark:text-white rounded-2xl text-lg h-10.5">
           + Add Expense
         </Button>
       </DialogTrigger>
@@ -100,7 +100,7 @@ export function ExpenseForm() {
         onInteractOutside={() => {}}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
-        className="sm:max-w-sm bg-white pointer-events-auto"
+        className="sm:max-w-sm bg-white dark:bg-dark-elevated pointer-events-auto"
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -157,11 +157,17 @@ export function ExpenseForm() {
             </FieldGroup>
             <DialogFooter className="flex flex-row items-center justify-end gap-x-3.5">
               <DialogClose asChild>
-                <Button variant="outline" className="text-red-500">
+                <Button
+                  variant="outline"
+                  className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                >
                   Cancel
                 </Button>
               </DialogClose>
-              <Button type="submit" className="bg-primary hover:bg-primary/90">
+              <Button
+                type="submit"
+                className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
+              >
                 {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Expense"}
               </Button>
             </DialogFooter>

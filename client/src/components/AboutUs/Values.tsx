@@ -29,7 +29,7 @@ const values = [
 
 export default function Values() {
   return (
-    <section className="py-20 px-4 bg-gray-50 dark:bg-neutral-800/50">
+    <section className="py-20 px-4 bg-gray-50 dark:bg-dark-card/50">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-secondary mb-4">What we believe</h2>
@@ -43,7 +43,7 @@ export default function Values() {
             return (
               <div
                 key={index}
-                className="p-8 rounded-2xl bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700"
+                className="p-8 rounded-2xl bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-card"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
                   <Icon size={24} className="text-primary" />

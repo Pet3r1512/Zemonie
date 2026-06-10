@@ -257,18 +257,18 @@ function RouteComponent() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
               Release Notes
             </h1>
-            <p className="text-gray-500 mt-2">What's new in Zemonie</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">What's new in Zemonie</p>
           </div>
           <div className="space-y-6">
             {releases.map((release, index) => (
               <div
                 key={release.version}
-                className="rounded-2xl bg-white dark:bg-neutral-950 shadow-2xl p-8 lg:p-10"
+                className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10"
               >
                 <div className="flex items-center gap-3 mb-1">
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">{release.version}</h2>
                   {release.tag === "Beta" ? (
-                    <span className="rounded-full bg-yellow-300 text-gray-800 text-xs font-semibold px-3 py-1">
+                    <span className="rounded-full bg-yellow-300 dark:bg-yellow-600 text-gray-800 dark:text-gray-200 text-xs font-semibold px-3 py-1">
                       {release.tag}
                     </span>
                   ) : (
@@ -283,7 +283,7 @@ function RouteComponent() {
                     </div>
                   )}
                 </div>
-                <p className="text-gray-500 text-sm mb-6">{release.date}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">{release.date}</p>
                 <div className="space-y-3">
                   {release.changes.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">

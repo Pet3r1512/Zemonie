@@ -36,13 +36,13 @@ type CurrentCategory = {
 
 const TransactionTypeDictionary: ComponentMap = {
   INCOME: (
-    <div className="size-max p-2.5 rounded-full bg-green-200">
-      <ArrowDown size={20} className="text-green-900 font-extrabold" />
+    <div className="size-max p-2.5 rounded-full bg-green-200 dark:bg-green-900/40">
+      <ArrowDown size={20} className="text-green-900 dark:text-green-300 font-extrabold" />
     </div>
   ),
   EXPENSE: (
-    <div className="size-max p-2.5 rounded-full bg-red-200">
-      <ArrowUp size={20} className="text-red-800 font-extrabold" />
+    <div className="size-max p-2.5 rounded-full bg-red-200 dark:bg-red-900/40">
+      <ArrowUp size={20} className="text-red-800 dark:text-red-300 font-extrabold" />
     </div>
   ),
 };
@@ -150,7 +150,7 @@ export function ExpandableCard({
             <motion.div
               layoutId={`card-${transaction.id}-${id}`}
               ref={ref}
-              className="w-[95dvw] max-h-[90dvh]! md:max-w-150 lg:min-w-150 md:h-full lg:h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden rounded-xl"
+              className="w-[95dvw] max-h-[90dvh]! md:max-w-150 lg:min-w-150 md:h-full lg:h-fit flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl overflow-hidden rounded-xl"
             >
               {!editMode ? (
                 <div className="p-6 space-y-4 w-full!">
@@ -183,16 +183,20 @@ export function ExpandableCard({
                   </motion.div>
 
                   {/* Divider */}
-                  <div className="h-0.5 w-full bg-gray-200"></div>
+                  <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600"></div>
 
                   <motion.div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
                     <div className="space-y-2">
                       <p className="font-semibold">TRANSACTION ID</p>
-                      <p className="text-sm text-gray-600 font-mono">{transaction.id}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 font-mono">
+                        {transaction.id}
+                      </p>
                     </div>
                     <div className="space-y-2">
                       <p className="font-semibold">TYPE</p>
-                      <p className="text-sm text-gray-600">{currCategory?.type}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {currCategory?.type}
+                      </p>
                     </div>
                     <div className="space-y-2">
                       <p className="font-semibold">CATEGORY</p>
@@ -209,7 +213,7 @@ export function ExpandableCard({
                     </div>
                   </motion.div>
                   {/* Divider */}
-                  <div className="h-0.5 w-full bg-gray-200"></div>
+                  <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600"></div>
                 </div>
               ) : (
                 <FormProvider {...methods}>
@@ -300,6 +304,7 @@ export function ExpandableCard({
                     <Button
                       size="sm"
                       variant="outline"
+                      className="dark:bg-red-400 dark:hover:bg-red-500"
                       onClick={() => {
                         reset({
                           categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
@@ -308,7 +313,6 @@ export function ExpandableCard({
                           description: transaction.description,
                           createdAt: transaction.date,
                         });
-
                         setEditMode(false);
                       }}
                     >
@@ -319,7 +323,7 @@ export function ExpandableCard({
                       size="sm"
                       type="submit"
                       form={`transaction-form-${transaction.id}`}
-                      className="bg-green-500 text-white hover:bg-green-500/80"
+                      className="bg-green-500 text-white hover:bg-green-500/80 dark:bg-green-500/80 dark:hover:bg-green-500 dark:text-white"
                     >
                       <CheckCheck className="size-4" />
                       Save Changes
@@ -349,7 +353,7 @@ export function ExpandableCard({
         >
           <div
             ref={lastElementRef}
-            className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 lg:hover:bg-gray-200 transition-all duration-150 ease-linear"
+            className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 dark:border-dark-card lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card transition-all duration-150 ease-linear"
           >
             {currCategory && TransactionTypeDictionary[isIncome ? "INCOME" : "EXPENSE"]}
 
@@ -390,7 +394,7 @@ export const CloseIcon = () => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="h-4 w-4 text-black"
+      className="h-4 w-4 text-black dark:text-white"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M18 6l-12 12" />

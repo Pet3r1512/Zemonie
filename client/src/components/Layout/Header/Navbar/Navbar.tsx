@@ -1,4 +1,4 @@
-// import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 import Sidebar from "../Sidebar";
 import { navigations } from "@/lib/navigations";
@@ -10,7 +10,9 @@ export default function Navbar() {
         data-testid="navbar"
         className="hidden md:flex items-center gap-x-7 text-md lg:text-lg font-semibold"
       >
-        {/* <ThemeToggle /> */}
+        <li>
+          <ThemeToggle />
+        </li>
         {navigations.map((nav) => {
           return (
             <li key={nav.name}>
