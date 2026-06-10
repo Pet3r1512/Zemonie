@@ -183,7 +183,7 @@ export function ExpandableCard({
                   </motion.div>
 
                   {/* Divider */}
-                  <div className="h-0.5 w-full bg-gray-200 dark:bg-dark-card"></div>
+                  <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600"></div>
 
                   <motion.div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
                     <div className="space-y-2">
@@ -213,7 +213,7 @@ export function ExpandableCard({
                     </div>
                   </motion.div>
                   {/* Divider */}
-                  <div className="h-0.5 w-full bg-gray-200 dark:bg-dark-card"></div>
+                  <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600"></div>
                 </div>
               ) : (
                 <FormProvider {...methods}>
@@ -304,6 +304,7 @@ export function ExpandableCard({
                     <Button
                       size="sm"
                       variant="outline"
+                      className="dark:bg-red-400 dark:hover:bg-red-500"
                       onClick={() => {
                         reset({
                           categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
@@ -312,7 +313,6 @@ export function ExpandableCard({
                           description: transaction.description,
                           createdAt: transaction.date,
                         });
-
                         setEditMode(false);
                       }}
                     >
@@ -323,7 +323,7 @@ export function ExpandableCard({
                       size="sm"
                       type="submit"
                       form={`transaction-form-${transaction.id}`}
-                      className="bg-green-500 text-white hover:bg-green-500/80"
+                      className="bg-green-500 text-white hover:bg-green-500/80 dark:bg-green-500/80 dark:hover:bg-green-500 dark:text-white"
                     >
                       <CheckCheck className="size-4" />
                       Save Changes
