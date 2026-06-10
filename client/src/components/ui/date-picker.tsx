@@ -58,7 +58,7 @@ export function DatePicker({ defaultDate }: { defaultDate?: string }) {
             setOpen(false);
             setValue("createdAt", d ? localISOString(d) : undefined);
           }}
-          className="w-full h-83 lg:h-75 z-100 bg-white rounded-lg pointer-events-auto"
+          className="w-full h-83 lg:h-75 z-100 bg-white dark:bg-dark-elevated rounded-lg pointer-events-auto"
         />
       </PopoverContent>
     </Popover>
