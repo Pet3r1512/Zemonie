@@ -10,9 +10,7 @@ export default function Navbar() {
         data-testid="navbar"
         className="hidden md:flex items-center gap-x-7 text-md lg:text-lg font-semibold"
       >
-        <li>
-          <ThemeToggle />
-        </li>
+        <ThemeToggle />
         {navigations.map((nav) => {
           return (
             <li key={nav.name}>
