@@ -5,6 +5,8 @@ import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
 import { ReactNode } from "react";
 import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
+import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
 
 export type OverallDataType = {
   name: string;
@@ -16,8 +18,20 @@ export type OverallDataType = {
   currency?: string;
 };
 
+const now = new Date();
+const currentMonth = now.getMonth() + 1; // 1-indexed
+const currentYear = now.getFullYear();
+
 export default function Overall() {
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
+  const totalIncome = useFetchCurrentMonthIncome({
+    month: currentMonth,
+    year: currentYear,
+  });
+  const totalExpense = useFetchCurrentMonthExpenses({
+    month: currentMonth,
+    year: currentYear,
+  });
   const balanceQuery = useQuery({
     queryKey: ["balance"],
     queryFn: () => getCurrentBalance(),
