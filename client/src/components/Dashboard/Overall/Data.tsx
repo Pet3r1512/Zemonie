@@ -9,6 +9,7 @@ const GROWTH_RATE_ICON_SIZE = 16;
 
 export default function Data({ data }: { data: OverallDataType }) {
   const isRateCard = data.name === "Income Growth" || data.name === "Save Rate";
+  const isNetSavings = data.name === "Net Savings";
 
   const rateColor = data.amount >= 0 ? "text-green-500" : "text-red-500";
 
@@ -27,7 +28,7 @@ export default function Data({ data }: { data: OverallDataType }) {
         <div
           className={cn(
             "lg:text-xl font-semibold flex items-center gap-1",
-            isRateCard && rateColor,
+            (isRateCard || isNetSavings) && rateColor,
           )}
         >
           {!isRateCard ? (
