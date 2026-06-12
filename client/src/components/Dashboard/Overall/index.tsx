@@ -1,4 +1,4 @@
-import { MoveDown, MoveUp, Wallet } from "lucide-react";
+import { MoveDown, MoveUp, TrendingUp, Wallet } from "lucide-react";
 import Data from "./Data";
 import { useQuery } from "@tanstack/react-query";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
@@ -62,6 +62,21 @@ export default function Overall() {
       isLoading: balanceQuery.isLoading,
       isError: balanceQuery.isError,
       amount: currentBalance,
+      currency,
+    },
+    {
+      name: "Net Savings",
+      subtitle: "Current Month",
+      icon: (
+        <div className="flex items-center justify-center rounded-full p-2.5 bg-yellow-100 dark:bg-yellow-900/30">
+          <TrendingUp className="text-yellow-500" />
+        </div>
+      ),
+      isLoading: totalIncome.isLoading || totalExpense.isLoading,
+      isError: totalIncome.isError || totalExpense.isError,
+      amount:
+        totalIncome.data?.totalCurrentMonthIncome.totalIncome -
+        totalExpense.data?.totalCurrentMonthExpenses.totalExpensesAmount,
       currency,
     },
     {
