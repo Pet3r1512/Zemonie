@@ -77,10 +77,6 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
               content={({ active, payload }) => {
                 if (!active || !payload?.length) return null;
                 const entry = payload[0];
-                const pct =
-                  totalAmount > 0 && entry?.value != null
-                    ? ((Number(entry.value) / totalAmount) * 100).toFixed(1)
-                    : "0.0";
                 return (
                   <div className="rounded-lg border bg-white dark:bg-dark-elevated dark:border-dark-elevated px-3 py-2 text-xs shadow-xl">
                     <div className="flex items-center gap-2">
@@ -89,7 +85,9 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                         style={{ backgroundColor: entry?.payload?.fill }}
                       />
                       <span className="font-medium">{entry?.name}</span>
-                      <span className="text-muted-foreground">{pct}%</span>
+                      <span className="text-muted-foreground">
+                        {entry?.value + ` ${sessionStorage.getItem("currency")}`}
+                      </span>
                     </div>
                   </div>
                 );

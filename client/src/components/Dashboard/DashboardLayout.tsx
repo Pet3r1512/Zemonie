@@ -10,6 +10,7 @@ import LoadingScreen from "../Layout/LoadingScreen";
 import { authClient } from "@/lib/auth-client";
 import checkUserSetup from "@/api/users/checkUserSetup";
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 const SETUP_CACHE_KEY = "isSetupDone";
 
@@ -37,6 +38,7 @@ export default function DashboardLayout({
   const navigate = useNavigate();
   const currentUrl = useCurrentUrl().currUrl;
   const sessionQuery = authClient.useSession();
+  const userPreferences = useUserPreferences();
 
   const getGlobalCategoriesQuery = useQuery({
     queryKey: ["globalCategories"],
@@ -70,6 +72,10 @@ export default function DashboardLayout({
       "globalCategories",
       JSON.stringify(getGlobalCategoriesQuery.data.globalCategories.globalCategories),
     );
+  }
+
+  if (!userPreferences.isLoading) {
+    sessionStorage.setItem("currency", userPreferences.data?.preferences.currency.toString());
   }
 
   const dashboard = (
