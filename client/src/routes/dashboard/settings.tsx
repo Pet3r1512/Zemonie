@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
+import SettingsContainer from "@/components/Dashboard/Settings";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/dashboard/settings")({
@@ -6,5 +7,9 @@ export const Route = createFileRoute("/dashboard/settings")({
 });
 
 function RouteComponent() {
-  return <DashboardLayout section="Settings">This is setting page</DashboardLayout>;
+  return (
+    <DashboardLayout section="Settings">
+      <SettingsContainer />
+    </DashboardLayout>
+  );
 }
