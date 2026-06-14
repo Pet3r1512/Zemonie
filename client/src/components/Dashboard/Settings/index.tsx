@@ -10,7 +10,7 @@ export default function SettingsContainer() {
           <UserRoundCog />
           <p className="lg:text-lg font-bold">Preferences</p>
         </div>
-        <div className="flex items-center justify-between md:max-w-2xl px-10">
+        <div className="flex items-center justify-between md:max-w-xl lg:max-w-2xl px-6 md:px-10">
           <p>Theme</p>
           <ThemeToggle />
         </div>
