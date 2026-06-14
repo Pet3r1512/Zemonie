@@ -19,6 +19,7 @@ import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardTransactionsRouteImport } from './routes/dashboard/transactions'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardIncomeRouteImport } from './routes/dashboard/income'
 import { Route as DashboardExpensesRouteImport } from './routes/dashboard/expenses'
@@ -75,6 +76,11 @@ const DashboardTransactionsRoute = DashboardTransactionsRouteImport.update({
   path: '/dashboard/transactions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/dashboard/settings',
+  path: '/dashboard/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardProfileRoute = DashboardProfileRouteImport.update({
   id: '/dashboard/profile',
   path: '/dashboard/profile',
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/expenses': typeof DashboardExpensesRoute
   '/dashboard/income': typeof DashboardIncomeRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/dashboard/expenses': typeof DashboardExpensesRoute
   '/dashboard/income': typeof DashboardIncomeRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard': typeof DashboardIndexRoute
 }
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/dashboard/expenses': typeof DashboardExpensesRoute
   '/dashboard/income': typeof DashboardIncomeRoute
   '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/dashboard/transactions': typeof DashboardTransactionsRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/dashboard/expenses'
     | '/dashboard/income'
     | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
     | '/dashboard/expenses'
     | '/dashboard/income'
     | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard'
   id:
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/dashboard/expenses'
     | '/dashboard/income'
     | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/dashboard/transactions'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
@@ -221,6 +233,7 @@ export interface RootRouteChildren {
   DashboardExpensesRoute: typeof DashboardExpensesRoute
   DashboardIncomeRoute: typeof DashboardIncomeRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
   DashboardTransactionsRoute: typeof DashboardTransactionsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
@@ -297,6 +310,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardTransactionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/dashboard/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/profile': {
       id: '/dashboard/profile'
       path: '/dashboard/profile'
@@ -349,6 +369,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardExpensesRoute: DashboardExpensesRoute,
   DashboardIncomeRoute: DashboardIncomeRoute,
   DashboardProfileRoute: DashboardProfileRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardTransactionsRoute: DashboardTransactionsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }

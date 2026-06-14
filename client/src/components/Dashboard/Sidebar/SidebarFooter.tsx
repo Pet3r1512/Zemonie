@@ -1,10 +1,16 @@
 import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { CircleUser, LogOut } from "lucide-react";
+import { CircleUser, LogOut, Settings } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { useLogout } from "@/hooks/useLogOut";
+import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 
 const items = [
+  {
+    title: "Settings",
+    url: "/dashboard/settings",
+    icon: <Settings />,
+  },
   {
     title: "Profile",
     url: "/dashboard/profile",
@@ -20,6 +26,7 @@ const items = [
 
 export default function SidebarFooter({ currUrl }: { currUrl: string }) {
   const { logout } = useLogout();
+  const currentUrl = useCurrentUrl().currUrl;
 
   return (
     <section className="px-5 pb-10">
@@ -35,9 +42,17 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
                 asChild
                 className={cn(
                   "py-5 transition-all duration-150 ease-linear",
-                  isActive && "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
-                  !isActive && !isLogout && "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card",
-                  isLogout && "text-red-500 hover:text-red-600",
+
+                  isLogout
+                    ? "text-red-500 hover:text-red-600 hover:bg-transparent"
+                    : [
+                        (currentUrl === item.url || isActive) &&
+                          "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
+
+                        currentUrl !== item.url &&
+                          !isActive &&
+                          "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card",
+                      ],
                 )}
               >
                 <Link from="/" to={item.url} className="text-lg font-semibold">
