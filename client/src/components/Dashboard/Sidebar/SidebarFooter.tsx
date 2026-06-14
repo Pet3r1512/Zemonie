@@ -1,10 +1,15 @@
 import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { CircleUser, LogOut } from "lucide-react";
+import { CircleUser, LogOut, Settings } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { useLogout } from "@/hooks/useLogOut";
 
 const items = [
+  {
+    title: "Settings",
+    url: "/dashboard/settings",
+    icon: <Settings />,
+  },
   {
     title: "Profile",
     url: "/dashboard/profile",
