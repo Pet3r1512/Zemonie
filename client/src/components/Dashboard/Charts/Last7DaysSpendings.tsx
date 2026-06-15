@@ -34,7 +34,7 @@ export default function Last7DaysSpendings() {
       <CardHeader>
         <CardTitle>Last 7 Days Spendings</CardTitle>
       </CardHeader>
-      <CardContent className="min-h-110!">
+      <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
