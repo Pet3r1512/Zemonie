@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -12,19 +12,26 @@ import {
 
 export const description = "A bar chart";
 
-type Last7DaysExpensesChartType = [
-  {
-    date: string;
-    amount: number;
-  },
-];
+type Last7DaysExpensesChartType = Array<{
+  date: string;
+  amount: number;
+}>;
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  amount: {
+    label: "Spending",
     color: "#f79d65",
   },
 } satisfies ChartConfig;
+
+function formatDate(dateStr: string) {
+  const date = new Date(dateStr + "T00:00:00");
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+}
 
 export default function Last7DaysSpendings({
   chartData,
@@ -41,14 +48,25 @@ export default function Last7DaysSpendings({
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="date"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) => {
+                const date = new Date(value + "T00:00:00");
+                return date.toLocaleDateString("en-US", {
+                  month: "numeric",
+                  day: "numeric",
+                });
+              }}
             />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8} />
+            <YAxis />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+              labelFormatter={(value) => formatDate(value)}
+            />
+            <Bar dataKey="amount" fill="var(--color-amount)" radius={8} />
           </BarChart>
         </ChartContainer>
       </CardContent>
