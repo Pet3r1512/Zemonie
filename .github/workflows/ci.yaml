@@ -122,6 +122,8 @@ jobs:
       - name: Build client
         run: pnpm build
         working-directory: client
+        env:
+          VITE_SERVER_URL: https://api.zemonie.site
 
   deploy-staging:
     needs: [build]
@@ -169,9 +171,9 @@ jobs:
       - name: Build client
         run: pnpm build
         working-directory: client
+        env:
+          VITE_SERVER_URL: https://staging.api.zemonie.site
 
       - name: Deploy client to staging
         run: pnpm wrangler deploy --minify --config wrangler.staging.toml
         working-directory: client
-        env:
-          VITE_SERVER_URL: https://staging.api.zemonie.site
