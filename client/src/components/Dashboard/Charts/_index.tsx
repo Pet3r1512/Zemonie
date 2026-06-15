@@ -4,6 +4,7 @@ import { SpendingByCategory } from "./SpendingByCategory";
 import { CurrentMonthIncomeExpenseChart } from "./CurrentMonthIncomeExpenseChart";
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
+import Last7DaysSpendings from "./Last7DaysSpendings";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1;
@@ -39,6 +40,7 @@ export default function Charts() {
         ]}
       />
       <SpendingByCategory data={spendingByCategoryQuery.data?.spendingByCategory} />
+      <Last7DaysSpendings />
     </section>
   );
 }
