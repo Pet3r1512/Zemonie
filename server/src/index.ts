@@ -111,6 +111,21 @@ app.get("/api/users/me", async (c) => {
   return c.json({ isSetupDone: preferences.isSetupDone });
 });
 
+app.notFound((c) => {
+  return c.json(
+    { error: "Not Found", message: `Route not found: ${c.req.method} ${c.req.path}` },
+    404,
+  );
+});
+
+app.onError((err, c) => {
+  console.error("Unhandled error:", err);
+  return c.json(
+    { error: "Internal Server Error", message: err.message || "Something went wrong" },
+    500,
+  );
+});
+
 app.get("/api/ping", async (c) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
