@@ -15,5 +15,5 @@ export default async function getLast7DaysExpenses() {
     throw new Error(res.error.message ?? "Unknown Error");
   }
 
-  return res.result;
+  return res.result.data;
 }
