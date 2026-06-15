@@ -252,7 +252,7 @@ export const analyticsRouter = router({
       return { expenseCategorySummary: expensesSummary };
     }),
   getLast7DaysExpense: authenticatedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.userId
+    const userId = ctx.userId;
     const now = new Date();
 
     const sevenDaysAgo = new Date();
@@ -264,43 +264,44 @@ export const analyticsRouter = router({
       where: {
         userId,
         category: {
-          type: "EXPENSE"
+          type: "EXPENSE",
         },
         createdAt: {
           gt: sevenDaysAgo,
-          lt: now
-        }
+          lte: now,
+        },
       },
       select: {
         amount: true,
-        createdAt: true
-      }
-    })
+        createdAt: true,
+      },
+    });
 
-    const spendingByLast7Days: Record<string, number> = {}
+    const spendingByLast7Days: Record<string, number> = {};
 
     // Init an empty Record with 7 days and 0 amount for each day
     for (let i = 0; i < 7; i++) {
-      const date = new Date(sevenDaysAgo)
-      date.setDate(sevenDaysAgo.getDate() + i)
+      const date = new Date(sevenDaysAgo);
+      date.setDate(sevenDaysAgo.getDate() + i);
 
-      const day = date.toISOString().split("T")[0]
+      const day = date.toISOString().split("T")[0];
 
-      spendingByLast7Days[day] = 0
+      spendingByLast7Days[day] = 0;
     }
 
     // Update with that day's total amount
     for (const transaction of last7DaysTransactions) {
-      const day = transaction.createdAt.toISOString().split("T")[0]
+      const day = transaction.createdAt.toISOString().split("T")[0];
 
-      spendingByLast7Days[day] += Number(transaction.amount)
+      spendingByLast7Days[day] += Number(transaction.amount);
     }
 
     // format result
     const result = Object.entries(spendingByLast7Days).map(([date, amount]) => ({
-      date, amount
-    }))
+      date,
+      amount,
+    }));
 
-    return result
-  })
+    return result;
+  }),
 });
