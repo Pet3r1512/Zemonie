@@ -21,6 +21,7 @@ import { Dialog, DialogHeader } from "../dialog";
 import { FieldGroup, Field, FieldError } from "../field";
 import { Input } from "../input";
 import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
+import { useQueryClient } from "@tanstack/react-query";
 
 enum CategoryType {
   EXPENSE,
@@ -74,6 +75,7 @@ export function ExpandableCard({
     reset,
     formState: { errors },
   } = methods;
+  const queryClient = useQueryClient();
 
   const globalCategories: CurrentCategory[] = useMemo(() => {
     const data = typeof window !== "undefined" ? sessionStorage.getItem("globalCategories") : null;
@@ -128,6 +130,9 @@ export function ExpandableCard({
       description: credentials.description ?? "",
     });
     setEditMode(false);
+    await queryClient.invalidateQueries({
+      queryKey: ["last7DaysExpenses"],
+    });
   };
 
   return (

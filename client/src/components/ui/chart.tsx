@@ -146,7 +146,7 @@ const ChartTooltipContent = React.forwardRef<
         return null;
       }
 
-      return <div className={cn("font-medium", labelClassName)}>{value}</div>;
+      return <div className={cn("font-medium text-black", labelClassName)}>{value}</div>;
     }, [label, labelFormatter, payload, hideLabel, labelClassName, config, labelKey]);
 
     if (!active || !payload?.length) {
@@ -216,12 +216,12 @@ const ChartTooltipContent = React.forwardRef<
                       >
                         <div className="grid gap-1.5">
                           {nestLabel ? tooltipLabel : null}
-                          <span className="text-oklch(0.556 0 0) dark:text-oklch(0.708 0 0)">
+                          <span className="text-oklch(0.556 0 0) dark:text-black">
                             {itemConfig?.label || item.name}
                           </span>
                         </div>
                         {item.value && (
-                          <span className="font-mono font-medium tabular-nums text-oklch(0.145 0 0) dark:text-oklch(0.985 0 0)">
+                          <span className="font-mono font-medium tabular-nums text-oklch(0.145 0 0) dark:text-black">
                             {item.value.toLocaleString()}
                           </span>
                         )}
