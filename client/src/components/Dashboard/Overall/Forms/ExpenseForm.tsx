@@ -69,6 +69,9 @@ export function ExpenseForm() {
       queryClient.invalidateQueries({
         queryKey: ["totalExpenses"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["last7DaysExpenses"],
+      });
     },
   });
 
