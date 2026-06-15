@@ -5,6 +5,7 @@ import { CurrentMonthIncomeExpenseChart } from "./CurrentMonthIncomeExpenseChart
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
 import Last7DaysSpendings from "./Last7DaysSpendings";
+import getLast7DaysExpenses from "@/api/users/analytics/expenses/getLast7DayExpenses";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1;
@@ -16,15 +17,25 @@ export default function Charts() {
     month: currentMonth,
     year: currentYear,
   });
+
   const totalExpensesQuery = useFetchCurrentMonthExpenses({
     month: currentMonth,
     year: currentYear,
   });
+
   const spendingByCategoryQuery = useQuery({
     queryKey: ["spendingByCategory", currentMonth, currentYear],
     queryFn: () => getSpendingByCategory({ month: currentMonth, year: currentYear }),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+  });
+
+  const spendingByLast7Days = useQuery({
+    queryKey: ["last7DaysExpenses"],
+    queryFn: () => getLast7DaysExpenses(),
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 10 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 
@@ -40,7 +51,7 @@ export default function Charts() {
         ]}
       />
       <SpendingByCategory data={spendingByCategoryQuery.data?.spendingByCategory} />
-      <Last7DaysSpendings />
+      <Last7DaysSpendings chartData={spendingByLast7Days.data.data} />
     </section>
   );
 }

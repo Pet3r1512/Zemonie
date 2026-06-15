@@ -12,13 +12,11 @@ import {
 
 export const description = "A bar chart";
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
+type Last7DaysExpensesChartType = [
+  {
+    date: string;
+    amount: number;
+  },
 ];
 
 const chartConfig = {
@@ -28,7 +26,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function Last7DaysSpendings() {
+export default function Last7DaysSpendings({
+  chartData,
+}: {
+  chartData: Last7DaysExpensesChartType;
+}) {
   return (
     <Card>
       <CardHeader>
