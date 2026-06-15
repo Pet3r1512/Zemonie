@@ -1,3 +1,4 @@
+// oxlint-disable oxc/no-async-endpoint-handlers
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
