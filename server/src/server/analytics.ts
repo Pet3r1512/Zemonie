@@ -256,7 +256,7 @@ export const analyticsRouter = router({
     const now = new Date();
 
     const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
     sevenDaysAgo.setHours(0, 0, 0, 0);
 
     // Find all expenses in last 7 days
