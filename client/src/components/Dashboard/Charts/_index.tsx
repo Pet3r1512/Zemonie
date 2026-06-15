@@ -51,7 +51,7 @@ export default function Charts() {
         ]}
       />
       <SpendingByCategory data={spendingByCategoryQuery.data?.spendingByCategory} />
-      <Last7DaysSpendings chartData={spendingByLast7Days.data.data} />
+      <Last7DaysSpendings chartData={spendingByLast7Days.data ?? []} />
     </section>
   );
 }
