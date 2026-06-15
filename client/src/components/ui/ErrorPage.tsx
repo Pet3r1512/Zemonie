@@ -3,16 +3,10 @@ import { Button } from "@/components/ui/button";
 import Page from "@/components/Layout/Page";
 
 function ErrorContent({
-  statusCode,
-  title,
-  description,
   error,
   imageURL,
   reset,
 }: {
-  statusCode: number;
-  title: string;
-  description: string;
   error?: Error | null;
   imageURL: string;
   reset?: () => void;
@@ -28,11 +22,19 @@ function ErrorContent({
           </pre>
         )}
         <div className="flex gap-3 mt-4">
-          <Button className="bg-primary hover:bg-primary/95" variant="default" asChild>
+          <Button
+            className="bg-primary dark:bg-primary dark:hover:bg-secondary/90 dark:text-white hover:bg-primary/95"
+            variant="default"
+            asChild
+          >
             <Link to="/">Go Home</Link>
           </Button>
           {reset && (
-            <Button className="bg-primary hover:bg-primary/95" variant="outline" onClick={reset}>
+            <Button
+              className="bg-primary dark:bg-primary dark:hover:bg-secondary/90 dark:text-white hover:bg-primary/95"
+              variant="outline"
+              onClick={reset}
+            >
               Try Again
             </Button>
           )}
@@ -43,25 +45,9 @@ function ErrorContent({
 }
 
 export function NotFoundPage() {
-  return (
-    <ErrorContent
-      statusCode={404}
-      title="Page not found"
-      description="The page you are looking for does not exist or has been moved."
-      imageURL="/errors/zemonie_404_error.svg"
-    />
-  );
+  return <ErrorContent imageURL="/errors/zemonie_404_error.svg" />;
 }
 
 export function ErrorPage({ error, reset }: { error?: Error | null; reset?: () => void }) {
-  return (
-    <ErrorContent
-      statusCode={500}
-      title="Something went wrong"
-      description="An unexpected error occurred. Please try again."
-      error={error}
-      imageURL="/errors/zemonie_500_error.svg"
-      reset={reset}
-    />
-  );
+  return <ErrorContent error={error} imageURL="/errors/zemonie_500_error.svg" reset={reset} />;
 }
