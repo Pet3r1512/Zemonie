@@ -21,7 +21,7 @@ import { Dialog, DialogHeader } from "../dialog";
 import { FieldGroup, Field, FieldError } from "../field";
 import { Input } from "../input";
 import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 enum CategoryType {
   EXPENSE,
