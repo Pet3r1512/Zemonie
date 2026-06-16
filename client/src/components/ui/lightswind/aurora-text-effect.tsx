@@ -33,7 +33,7 @@ export function AuroraTextEffect({
   text,
   className,
   textClassName,
-  fontSize = "clamp(2.5rem, 6vw, 5rem)",
+  fontSize = "clamp(3.15rem, 7.5vw, 6.5rem)",
   colors = {
     first: "bg-cyan-400",
     second: "bg-yellow-400",
