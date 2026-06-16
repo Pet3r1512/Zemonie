@@ -7,6 +7,49 @@ export const Route = createFileRoute("/release-notes")({
 });
 const releases = [
   {
+    version: "v1.0.7-beta",
+    date: "Jun 16, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Added a current month net savings card for a quick overview of your financial performance. 🚀",
+      },
+      {
+        type: "feature",
+        text: "Introduced a last 7 days spending bar chart to better track short-term spending habits. 🔥",
+      },
+      {
+        type: "feature",
+        text: "Added a settings page for customizing the app theme.",
+      },
+      {
+        type: "feature",
+        text: "Introduced dark mode for a more comfortable viewing experience in low light.",
+      },
+      {
+        type: "update",
+        text: "Removed unused components to improve overall application performance.",
+      },
+      {
+        type: "update",
+        text: "Updated the “Spending by Category” tooltip to show total amounts instead of percentages for clearer insights.",
+      },
+      {
+        type: "update",
+        text: "Refined homepage content to strengthen branding and improve clarity.",
+      },
+      {
+        type: "fix",
+        text: "Fixed incorrect arrow direction between overview cards and the transactions page.",
+      },
+      {
+        type: "fix",
+        text: "Prevented the edit form from closing when users close the category list.",
+      },
+    ],
+  },
+  {
     version: "v1.0.6-beta",
     date: "Jun 08, 2026",
     tag: "Beta",
