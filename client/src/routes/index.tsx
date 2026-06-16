@@ -12,11 +12,9 @@ function Index() {
   return (
     <>
       <SEO title="Home" canonicalPath="/" />
-      <Page className="flex items-center justify-center min-h-screen">
-        <section className="flex flex-col gap-y-24 my-8 lg:my-0">
-          <Hero />
-          <Features />
-        </section>
+      <Page className="flex flex-col justify-center min-h-screen pb-10 md:pb-0">
+        <Hero />
+        <Features />
       </Page>
     </>
   );

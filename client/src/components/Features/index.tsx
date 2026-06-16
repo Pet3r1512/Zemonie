@@ -6,7 +6,7 @@ import CTASection from "./CTASection";
 
 export default function Features() {
   return (
-    <div className="min-h-screen flex flex-col bg-linear-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen flex flex-col">
       <main className="grow">
         <HeroSection />
         <MainFeaturesGrid />
