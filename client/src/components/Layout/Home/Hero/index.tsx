@@ -38,7 +38,7 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        <div className="flex-1 relative w-full lg:-ml-32 z-0 transform-3d perspective-[1250px]">
+        <div className="flex-1 relative w-full lg:-ml-32 z-0 transform-3d perspective-[1250px] mt-5 md:mt-12 lg:mt-0">
           <div
             className="rounded-2xl overflow-hidden relative z-20 bg-image-light dark:bg-image-dark bg-cover brightness-95 dark:brightness-100 shadow-2xl w-auto object-cover h-40 lg:h-96"
             style={{
