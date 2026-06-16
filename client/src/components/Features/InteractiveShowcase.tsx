@@ -31,7 +31,7 @@ const showcaseItems = [
 
 export default function InteractiveShowcase() {
   return (
-    <section className="py-20 px-4 bg-white dark:bg-gray-900">
+    <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -49,7 +49,7 @@ export default function InteractiveShowcase() {
               return (
                 <div
                   key={index}
-                  className="flex items-start p-6 rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-dark-card transition-colors duration-200"
+                  className="flex items-start p-6 rounded-xl bg-gray-50 dark:bg-dark-card hover:bg-gray-100 dark:hover:bg-dark-card/50 transition-colors duration-200"
                 >
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mr-4 shrink-0">
                     <Icon size={24} className="text-primary" />
@@ -67,7 +67,7 @@ export default function InteractiveShowcase() {
 
           <div className="relative cursor-default pointer-events-none">
             <div className="rounded-2xl bg-linear-to-br from-primary/20 to-primary/5 p-8 flex items-center justify-center h-fit!">
-              <div className="w-full rounded-xl bg-white dark:bg-gray-800 shadow-2xl p-6 flex flex-col min-h-fit">
+              <div className="w-full rounded-xl bg-white dark:bg-dark-card shadow-2xl p-6 flex flex-col min-h-fit">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
                     <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center mr-3">
