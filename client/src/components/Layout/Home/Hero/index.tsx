@@ -1,11 +1,10 @@
 import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect";
-import Screenshot from "./Screenshot";
 
 export default function Hero() {
   return (
     <section aria-label="hero-section" className="lg:mt-24 max-w-6xl mx-auto px-5 lg:px-0 lg:pt-28">
       <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-5">
-        <div className="lg:w-2/5 text-center lg:text-left space-y-5 relative z-10">
+        <div className="lg:w-2/5 text-center lg:text-left space-y-5 relative z-10 backdrop-blur-[2px]">
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white sm:text-7xl">
             Manage Your Finances with{" "}
           </h1>
@@ -36,11 +35,13 @@ export default function Hero() {
             </a>
           </div>
         </div>
-        <div className="flex-1 relative w-full lg:-ml-32 z-0">
-          <div className="border border-gray-400 dark:border-dark-card rounded-md bg-white dark:bg-dark-bg relative z-20">
-            <Screenshot />
-          </div>
-          <div className="absolute -inset-1 rounded-md blur-md bg-linear-to-br from-primary via-primary/85 to-primary/60 z-10" />
+        <div className="flex-1 relative w-full lg:-ml-32 z-0 transform-3d perspective-[1250px]">
+          <div
+            className="rounded-2xl overflow-hidden relative z-20 bg-image-light dark:bg-image-dark bg-cover bg-center bg-no-repeat brightness-95 dark:brightness-100 shadow-2xl w-auto h-96"
+            style={{
+              transform: "rotateY(-25deg) rotateX(10deg) rotateZ(15deg)",
+            }}
+          />
         </div>
       </div>
     </section>
