@@ -50,7 +50,7 @@ function RouteComponent() {
                 <li>View analytics and charts based on your transaction data</li>
                 <li>Track your spending habits and financial trends</li>
               </ul>
-              <div className="mt-4 bg-primary/5 border-l-4 border-primary rounded-r-xl p-4">
+              <div className="mt-4 bg-primary/15 dark:bg-primary/10 border-l-4 border-primary rounded-r-xl p-4">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
                   Zemonie does <strong>not</strong> collect or store sensitive financial information
                   such as bank account numbers, credit card details, or phone numbers. All
