@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, cubicBezier } from "motion/react";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { ComponentMap } from "@/types/ComponentMap";
 import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
@@ -136,7 +136,7 @@ export function ExpandableCard({
 
   const transition = {
     duration: 0.25,
-    ease: [0.25, 0.1, 0.25, 1],
+    ease: cubicBezier(0.25, 0.1, 0.25, 1),
   };
 
   return (
