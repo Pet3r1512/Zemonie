@@ -111,7 +111,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                         message: "Name is too short",
                       },
                       pattern: {
-                        value: /^[A-Za-z]+(?: [A-Za-z]+)*$/,
+                        value: /^\p{L}+(?: \p{L}+)*$/u,
                         message: "Please enter a valid name using letters only",
                       },
                     })}

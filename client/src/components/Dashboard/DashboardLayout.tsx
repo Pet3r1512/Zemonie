@@ -75,7 +75,7 @@ export default function DashboardLayout({
   }
 
   if (!userPreferences.isLoading) {
-    sessionStorage.setItem("currency", userPreferences.data?.preferences.currency.toString());
+    sessionStorage.setItem("currency", userPreferences.data?.preferences?.currency?.toString());
   }
 
   const dashboard = (

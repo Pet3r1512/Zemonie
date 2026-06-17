@@ -78,7 +78,7 @@ export function ExpenseForm() {
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
     mutation.mutate({
       ...credentials,
-      currency: data?.preferences.currency,
+      currency: data?.preferences?.currency,
       createdAt: credentials.createdAt ?? localISOString(),
     });
     reset();
