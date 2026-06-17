@@ -18,7 +18,7 @@ type SourceIncome = {
   icon: ReactNode;
 };
 
-const ICON_SIZE = 16;
+export const ICON_SIZE = 16;
 
 const incomesources: SourceIncome[] = [
   {
