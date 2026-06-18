@@ -1,10 +1,10 @@
-import ListByDate, { TransactionInfo } from "./ListByDate";
-import { useCallback, useRef } from "react";
+import updateTransaction from "@/api/users/transactions/updateTransaction";
 import { Skeleton } from "@/components/ui/skeleton";
 import useFetchTransactions from "@/hooks/useFetchTransactions";
-import updateTransaction from "@/api/users/transactions/updateTransaction";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useRef } from "react";
 import { toast } from "sonner";
+import ListByDate, { TransactionInfo } from "./ListByDate";
 
 export interface TransactionsTableProps {
   userId: string | undefined;
@@ -60,15 +60,17 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
   const allTransactions: TransactionInfo[] = data?.pages.flatMap((page) => page.transactions) ?? [];
 
   if (!userId) return null;
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="space-y-5">
         <Skeleton className="text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card p-1.5 rounded-lg"></Skeleton>
         <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card flex items-center gap-x-5 h-20"></Skeleton>
       </div>
     );
-  if (isError)
+  }
+  if (isError) {
     return <div>{(error as Error).message || "Failed to load transactions. Try again?"}</div>;
+  }
 
   if (allTransactions.length === 0) {
     return (

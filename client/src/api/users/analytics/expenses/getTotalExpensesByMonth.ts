@@ -5,7 +5,9 @@ export default async function getTotalExpensesByMonth(credentials?: {
   year?: number;
 }) {
   const response = await fetch(
-    `${SERVER_URL}/api/trpc/analytics.totalExpensesOfMonth?input=${encodeURIComponent(JSON.stringify(credentials))}`,
+    `${SERVER_URL}/api/trpc/analytics.totalExpensesOfMonth?input=${encodeURIComponent(
+      JSON.stringify(credentials),
+    )}`,
     {
       method: "GET",
       credentials: "include",

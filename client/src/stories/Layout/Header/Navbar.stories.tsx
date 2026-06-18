@@ -1,7 +1,7 @@
+import Navbar from "@/components/Layout/Header/Navbar/Navbar";
+import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { within } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
-import Navbar from "@/components/Layout/Header/Navbar/Navbar";
 
 const meta: Meta<typeof Navbar> = {
   component: Navbar,

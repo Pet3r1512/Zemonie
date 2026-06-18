@@ -1,6 +1,11 @@
+import accountSetup from "@/api/users/accountSetup";
+import { Currency } from "@/api/users/createBalance";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { LoaderCircle } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { cn } from "@/lib/utils";
 import { Label } from "../../ui/label";
 import {
   Select,
@@ -10,12 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { LoaderCircle } from "lucide-react";
 import AvatarPicker, { AvatarId } from "./AvatarPicker";
-import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import accountSetup from "@/api/users/accountSetup";
-import { Currency } from "@/api/users/createBalance";
 
 export type AccountSetupFormValues = {
   avatarId: AvatarId;

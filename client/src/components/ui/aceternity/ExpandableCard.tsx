@@ -1,27 +1,29 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, cubicBezier } from "motion/react";
-import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
-import { ComponentMap } from "@/types/ComponentMap";
-import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
-import ParseISOStringDate from "@/helpers/parseISOStringData";
-import { cn } from "@/lib/utils";
-import categoryColorDictionary from "@/types/CategoryDict";
-import { formatCurrency } from "@/helpers/formatCurrency";
-import useUserPreferences from "@/hooks/users/useUserPreferences";
-import { Button } from "../button";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Transaction } from "@/components/Dashboard/Overall/Forms/IncomeForm";
 import ExpenseSelect from "@/components/Dashboard/Overall/Forms/Selectors/ExpenseSelector";
-import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
-import { Label } from "../label";
+import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
+import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import ParseISOStringDate from "@/helpers/parseISOStringData";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { cn } from "@/lib/utils";
+import categoryColorDictionary from "@/types/CategoryDict";
+import { ComponentMap } from "@/types/ComponentMap";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { useQueryClient } from "@tanstack/react-query";
+import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
+import { AnimatePresence, LazyMotion, m, easeInOut } from "motion/react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Button } from "../button";
 import { DatePicker } from "../date-picker";
 import { Dialog, DialogHeader } from "../dialog";
-import { FieldGroup, Field, FieldError } from "../field";
+import { Field, FieldError, FieldGroup } from "../field";
 import { Input } from "../input";
-import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
-import { useQueryClient } from "@tanstack/react-query";
+import { Label } from "../label";
+
+const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
 enum CategoryType {
   EXPENSE,
@@ -136,14 +138,14 @@ export function ExpandableCard({
 
   const transition = {
     duration: 0.25,
-    ease: cubicBezier(0.25, 0.1, 0.25, 1),
+    ease: easeInOut,
   };
 
   return (
-    <>
+    <LazyMotion features={loadFeatures}>
       <AnimatePresence>
         {active && (
-          <motion.div
+          <m.div
             key={`backdrop-${id}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -154,7 +156,7 @@ export function ExpandableCard({
           />
         )}
         {active && (
-          <motion.div
+          <m.div
             key={`card-${id}`}
             layoutId={`card-${transaction.id}-${id}`}
             ref={ref}
@@ -347,11 +349,11 @@ export function ExpandableCard({
                 </Button>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
-      <motion.div
+      <m.div
         layoutId={`card-${transaction.id}-${id}`}
         onClick={() => setActive(true)}
         className="cursor-pointer will-change-transform"
@@ -378,31 +380,33 @@ export function ExpandableCard({
             {formatCurrency(transaction.amount, currency)}
           </p>
         </div>
-      </motion.div>
-    </>
+      </m.div>
+    </LazyMotion>
   );
 }
 
 export const CloseIcon = () => {
   return (
-    <motion.svg
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.05 } }}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-4 w-4 text-black dark:text-white"
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <path d="M18 6l-12 12" />
-      <path d="M6 6l12 12" />
-    </motion.svg>
+    <LazyMotion features={loadFeatures}>
+      <m.svg
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { duration: 0.05 } }}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="h-4 w-4 text-black dark:text-white"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+        <path d="M18 6l-12 12" />
+        <path d="M6 6l12 12" />
+      </m.svg>
+    </LazyMotion>
   );
 };

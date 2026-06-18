@@ -1,5 +1,5 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
+import SEO from "@/components/SEO";
 import {
   Accordion,
   AccordionContent,

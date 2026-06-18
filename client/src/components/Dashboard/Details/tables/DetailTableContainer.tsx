@@ -1,8 +1,8 @@
-import useFetchTransactions, { TransactionQueryOptions } from "@/hooks/useFetchTransactions";
-import { DetailsTable } from "./DetailTable";
-import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
-import { useCallback, useRef } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import useFetchTransactions, { TransactionQueryOptions } from "@/hooks/useFetchTransactions";
+import { useCallback, useRef } from "react";
+import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
+import { DetailsTable } from "./DetailTable";
 
 const TableTileDictionary: Record<string, string> = {
   all: "",

@@ -1,3 +1,4 @@
+import VersionTag from "@/components/Banner/VersionTag";
 import {
   Drawer,
   DrawerContent,
@@ -5,12 +6,11 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { mobileAuthNavLinks, pages } from "@/lib/navigations";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import Logo from "../Logo";
-import { mobileAuthNavLinks, pages } from "@/lib/navigations";
-import { Link } from "@tanstack/react-router";
-import VersionTag from "@/components/Banner/VersionTag";
 
 export default function Sidebar() {
   return (

@@ -1,8 +1,8 @@
-import HeroSection from "./HeroSection";
-import MainFeaturesGrid from "./MainFeaturesGrid";
-import InteractiveShowcase from "./InteractiveShowcase";
 import AdditionalFeatures from "./AdditionalFeatures";
 import CTASection from "./CTASection";
+import HeroSection from "./HeroSection";
+import InteractiveShowcase from "./InteractiveShowcase";
+import MainFeaturesGrid from "./MainFeaturesGrid";
 
 export default function Features() {
   return (

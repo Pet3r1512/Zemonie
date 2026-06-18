@@ -1,9 +1,9 @@
 import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { CircleUser, LogOut, Settings } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { cn } from "@/lib/utils";
-import { useLogout } from "@/hooks/useLogOut";
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
+import { useLogout } from "@/hooks/useLogOut";
+import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
+import { CircleUser, LogOut, Settings } from "lucide-react";
 
 const items = [
   {
@@ -42,7 +42,6 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
                 asChild
                 className={cn(
                   "py-5 transition-all duration-150 ease-linear",
-
                   isLogout
                     ? "text-red-500 hover:text-red-600 hover:bg-transparent"
                     : [

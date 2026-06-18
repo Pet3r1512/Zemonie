@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { TrendingUp, Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp } from "lucide-react";
 import Team from "./Team";
 import Timeline from "./Timeline";
 import Values from "./Values";

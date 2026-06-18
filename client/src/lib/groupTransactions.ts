@@ -8,7 +8,10 @@ export default function groupTransactions(transactions: TransactionInfo[]) {
   return sortedTransactions.reduce(
     (acc, tx) => {
       const d = new Date(tx.date);
-      const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+        2,
+        "0",
+      )}-${String(d.getDate()).padStart(2, "0")}`;
 
       acc[dateKey] ??= [];
       acc[dateKey].push(tx);

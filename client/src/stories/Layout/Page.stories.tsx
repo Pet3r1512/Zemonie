@@ -2,13 +2,13 @@ import Page from "@/components/Layout/Page";
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { within } from "@storybook/testing-library";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   createMemoryHistory,
   createRootRoute,
   createRouter,
   RouterProvider,
 } from "@tanstack/react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const rootRoute = createRootRoute({
   component: () => (

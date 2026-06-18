@@ -61,7 +61,9 @@ export function AuroraTextEffect({
             fontSize,
             backgroundImage: `linear-gradient(135deg, ${colors.first}, ${colors.second}, ${colors.third}, ${colors.fourth})`,
             backgroundSize: "300% 300%",
-            animation: `aurora-shift ${(animationSpeed.first ?? 5) + (animationSpeed.second ?? 5)}s ease infinite`,
+            animation: `aurora-shift ${
+              (animationSpeed.first ?? 5) + (animationSpeed.second ?? 5)
+            }s ease infinite`,
           }}
         >
           {text}

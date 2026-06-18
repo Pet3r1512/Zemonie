@@ -1,7 +1,7 @@
-import SEO from "@/components/SEO";
 import Features from "@/components/Layout/Home/Features";
 import Hero from "@/components/Layout/Home/Hero";
 import Page from "@/components/Layout/Page";
+import SEO from "@/components/SEO";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({

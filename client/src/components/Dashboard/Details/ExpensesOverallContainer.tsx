@@ -1,12 +1,12 @@
+import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighestExpenseCategory";
+import getTotalExpensesByMonth from "@/api/users/analytics/expenses/getTotalExpensesByMonth";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { useQuery } from "@tanstack/react-query";
 import { ChartPie, MoveUp, Percent } from "lucide-react";
 import { OverallDataType } from "../Overall";
 import Data from "../Overall/Data";
-import { useQuery } from "@tanstack/react-query";
-import getTotalExpensesByMonth from "@/api/users/analytics/expenses/getTotalExpensesByMonth";
-import getHighestExpenseCategory from "@/api/users/analytics/expenses/getHighestExpenseCategory";
-import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import calculateSaveRate from "./calculateSaveRate";
-import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed

@@ -1,13 +1,13 @@
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
-import { routeTree } from "./routeTree.gen";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import LoadingScreen from "./components/Layout/LoadingScreen";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { NotFoundPage, ErrorPage } from "./components/ui/ErrorPage";
+import LoadingScreen from "./components/Layout/LoadingScreen";
+import { ErrorPage, NotFoundPage } from "./components/ui/ErrorPage";
+import { routeTree } from "./routeTree.gen";
 
 const router = createRouter({
   routeTree,

@@ -6,11 +6,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, Banknote, Landmark, Coins } from "lucide-react";
-import SidebarFooter from "../Dashboard/Sidebar/SidebarFooter";
-import { Link } from "@tanstack/react-router";
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
+import { Banknote, Coins, Landmark, LayoutDashboard } from "lucide-react";
+import SidebarFooter from "../Dashboard/Sidebar/SidebarFooter";
 
 const items = [
   {

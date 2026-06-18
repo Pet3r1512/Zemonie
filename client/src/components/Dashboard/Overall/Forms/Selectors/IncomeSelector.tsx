@@ -6,11 +6,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { Briefcase, Gift, Heart, Home, Laptop, PlusCircle, TrendingUp } from "lucide-react";
+import { ReactNode } from "react";
 import { useFormContext } from "react-hook-form";
 import { Transaction } from "../IncomeForm";
-import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
-import { Briefcase, Gift, Heart, Home, Laptop, PlusCircle, TrendingUp } from "lucide-react";
 
 type SourceIncome = {
   name: string;
