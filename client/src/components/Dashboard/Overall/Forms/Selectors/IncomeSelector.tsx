@@ -27,14 +27,14 @@ const incomesources: SourceIncome[] = [
     icon: <Briefcase size={ICON_SIZE} className="text-emerald-500" />,
   },
   {
-    name: "Bonus",
-    id: 2,
-    icon: <Gift size={ICON_SIZE} className="text-yellow-400" />,
-  },
-  {
     name: "Freelance",
     id: 3,
     icon: <Laptop size={ICON_SIZE} className="text-violet-500" />,
+  },
+  {
+    name: "Bonus",
+    id: 2,
+    icon: <Gift size={ICON_SIZE} className="text-yellow-400" />,
   },
   {
     name: "Investment",
@@ -42,14 +42,14 @@ const incomesources: SourceIncome[] = [
     icon: <TrendingUp size={ICON_SIZE} className="text-sky-500" />,
   },
   {
-    name: "Retail Income",
-    id: 5,
-    icon: <Home size={ICON_SIZE} className="text-orange-400" />,
-  },
-  {
     name: "Gift",
     id: 6,
     icon: <Heart size={ICON_SIZE} className="text-pink-400" />,
+  },
+  {
+    name: "Retail Income",
+    id: 5,
+    icon: <Home size={ICON_SIZE} className="text-orange-400" />,
   },
   {
     name: "Other",
