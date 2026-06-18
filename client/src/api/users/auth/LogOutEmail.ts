@@ -1,10 +1,10 @@
-import { authClient } from "@/lib/auth-client";
+import { authClient, } from "@/lib/auth-client";
 
 export default async function logOutEmail() {
-  const { data, error } = await authClient.signOut();
+  const { data, error, } = await authClient.signOut();
 
   if (error) {
-    throw new Error(error.message || "Sign in failed");
+    throw new Error(error.message || "Sign in failed",);
   }
 
   return data;

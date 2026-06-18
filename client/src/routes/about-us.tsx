@@ -1,11 +1,11 @@
-import SEO from "@/components/SEO";
 import About from "@/components/AboutUs";
 import Page from "@/components/Layout/Page";
-import { createFileRoute } from "@tanstack/react-router";
+import SEO from "@/components/SEO";
+import { createFileRoute, } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/about-us")({
+export const Route = createFileRoute("/about-us",)({
   component: RouteComponent,
-});
+},);
 
 function RouteComponent() {
   return (

@@ -1,10 +1,10 @@
-import ListByDate, { TransactionInfo } from "./ListByDate";
-import { useCallback, useRef } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import useFetchTransactions from "@/hooks/useFetchTransactions";
 import updateTransaction from "@/api/users/transactions/updateTransaction";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
+import { Skeleton, } from "@/components/ui/skeleton";
+import useFetchTransactions from "@/hooks/useFetchTransactions";
+import { useMutation, useQueryClient, } from "@tanstack/react-query";
+import { useCallback, useRef, } from "react";
+import { toast, } from "sonner";
+import ListByDate, { TransactionInfo, } from "./ListByDate";
 
 export interface TransactionsTableProps {
   userId: string | undefined;
@@ -17,58 +17,63 @@ export interface TransactionsResponse {
   };
 }
 
-export default function TransactionsTable({ userId }: TransactionsTableProps) {
+export default function TransactionsTable({ userId, }: TransactionsTableProps,) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (credentials: TransactionInfo) => updateTransaction({ credentials }),
+    mutationFn: (credentials: TransactionInfo,) => updateTransaction({ credentials, },),
     onSuccess: () => {
-      toast.success("Transaction updated");
-      queryClient.invalidateQueries({ queryKey: ["transactions"] });
-      queryClient.invalidateQueries({ queryKey: ["balance"] });
-      queryClient.invalidateQueries({ queryKey: ["totalIncome"] });
-      queryClient.invalidateQueries({ queryKey: ["totalExpenses"] });
-      queryClient.invalidateQueries({ queryKey: ["spendingByCategory"] });
-      queryClient.invalidateQueries({ queryKey: ["latestTransactions"] });
+      toast.success("Transaction updated",);
+      queryClient.invalidateQueries({ queryKey: ["transactions",], },);
+      queryClient.invalidateQueries({ queryKey: ["balance",], },);
+      queryClient.invalidateQueries({ queryKey: ["totalIncome",], },);
+      queryClient.invalidateQueries({ queryKey: ["totalExpenses",], },);
+      queryClient.invalidateQueries({ queryKey: ["spendingByCategory",], },);
+      queryClient.invalidateQueries({ queryKey: ["latestTransactions",], },);
     },
-    onError: (error) => {
-      toast.error(error?.message ?? "Failed to update transaction");
+    onError: (error,) => {
+      toast.error(error?.message ?? "Failed to update transaction",);
     },
-  });
-  const observer = useRef<IntersectionObserver | null>(null);
+  },);
+  const observer = useRef<IntersectionObserver | null>(null,);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, error } =
-    useFetchTransactions({ option: "all" });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, error, } =
+    useFetchTransactions({ option: "all", },);
 
   const lastElementRef = useCallback(
-    (node: HTMLDivElement | null) => {
+    (node: HTMLDivElement | null,) => {
       if (isLoading || isFetchingNextPage) return;
 
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver((entries) => {
+      observer.current = new IntersectionObserver((entries,) => {
         if (entries[0].isIntersecting && hasNextPage) {
           fetchNextPage();
         }
-      });
+      },);
 
-      if (node) observer.current.observe(node);
+      if (node) observer.current.observe(node,);
     },
-    [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage],
+    [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage,],
   );
 
-  const allTransactions: TransactionInfo[] = data?.pages.flatMap((page) => page.transactions) ?? [];
+  const allTransactions: TransactionInfo[] = data?.pages.flatMap((page,) => page.transactions)
+    ?? [];
 
   if (!userId) return null;
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="space-y-5">
-        <Skeleton className="text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card p-1.5 rounded-lg"></Skeleton>
-        <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card flex items-center gap-x-5 h-20"></Skeleton>
+        <Skeleton className="text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card p-1.5 rounded-lg">
+        </Skeleton>
+        <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card flex items-center gap-x-5 h-20">
+        </Skeleton>
       </div>
     );
-  if (isError)
+  }
+  if (isError) {
     return <div>{(error as Error).message || "Failed to load transactions. Try again?"}</div>;
+  }
 
   if (allTransactions.length === 0) {
     return (
@@ -78,8 +83,8 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
     );
   }
 
-  const handleSave = (updatedTransaction: TransactionInfo) => {
-    mutation.mutate(updatedTransaction);
+  const handleSave = (updatedTransaction: TransactionInfo,) => {
+    mutation.mutate(updatedTransaction,);
   };
 
   return (

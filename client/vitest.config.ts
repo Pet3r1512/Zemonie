@@ -1,14 +1,14 @@
 import path from "path";
-import { defineConfig, coverageConfigDefaults } from "vitest/config";
+import { coverageConfigDefaults, defineConfig, } from "vitest/config";
 
 export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: ["./setupTests.ts"],
+    setupFiles: ["./setupTests.ts",],
     coverage: {
       provider: "istanbul",
-      reporter: ["text"],
+      reporter: ["text",],
       exclude: [
         "src/stories/**",
         "src/api/**",
@@ -34,7 +34,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@": path.resolve(__dirname, "src",),
     },
   },
-});
+},);

@@ -1,23 +1,23 @@
-import { defineConfig } from "vite";
-import path from "path";
+import { cloudflare, } from "@cloudflare/vite-plugin";
+import { tanstackRouter, } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
-import { cloudflare } from "@cloudflare/vite-plugin";
+import path from "path";
+import { defineConfig, } from "vite";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, },) => {
   const isTest = mode === "test";
 
   return {
     plugins: [
       tanstackRouter({
         routesDirectory: "src/routes",
-      }),
+      },),
       react(),
       !isTest && cloudflare(),
-    ].filter(Boolean),
+    ].filter(Boolean,),
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
+        "@": path.resolve(__dirname, "./src",),
       },
     },
     server: {
@@ -26,4 +26,4 @@ export default defineConfig(({ mode }) => {
       },
     },
   };
-});
+},);

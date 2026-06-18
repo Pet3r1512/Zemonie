@@ -1,13 +1,13 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, } from "recharts";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, } from "@/components/ui/card";
 import {
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
 } from "@/components/ui/chart";
 
 export const description = "A bar chart";
@@ -24,20 +24,20 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function formatDate(dateStr: string) {
-  const date = new Date(dateStr + "T00:00:00");
+function formatDate(dateStr: string,) {
+  const date = new Date(dateStr + "T00:00:00",);
   return date.toLocaleDateString("en-US", {
     weekday: "short",
     month: "short",
     day: "numeric",
-  });
+  },);
 }
 
 export default function Last7DaysSpendings({
   chartData,
 }: {
   chartData: Last7DaysExpensesChartType;
-}) {
+},) {
   return (
     <Card>
       <CardHeader>
@@ -52,19 +52,19 @@ export default function Last7DaysSpendings({
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => {
-                const date = new Date(value + "T00:00:00");
+              tickFormatter={(value,) => {
+                const date = new Date(value + "T00:00:00",);
                 return date.toLocaleDateString("en-US", {
                   month: "numeric",
                   day: "numeric",
-                });
+                },);
               }}
             />
             <YAxis />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
-              labelFormatter={(value) => formatDate(value)}
+              labelFormatter={(value,) => formatDate(value,)}
             />
             <Bar dataKey="amount" fill="var(--color-amount)" radius={8} />
           </BarChart>

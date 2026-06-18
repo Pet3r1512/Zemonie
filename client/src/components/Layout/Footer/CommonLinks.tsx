@@ -57,12 +57,12 @@ const links: CommonLinks[] = [
 export default function CommonLinks() {
   return (
     <section className="flex-1 flex flex-col md:flex-row md:justify-end md:gap-x-18 lg:gap-x-48 gap-y-10">
-      {links.map((link) => {
+      {links.map((link,) => {
         return (
           <div key={link.title} className="flex flex-col gap-y-4">
             <p className="font-bold text-lg cursor-default pointer-events-none">{link.title}</p>
             <div className="flex flex-col gap-y-2">
-              {link.items.map((item) => {
+              {link.items.map((item,) => {
                 return (
                   <a
                     key={item.name}
@@ -72,11 +72,11 @@ export default function CommonLinks() {
                     {item.name}
                   </a>
                 );
-              })}
+              },)}
             </div>
           </div>
         );
-      })}
+      },)}
     </section>
   );
 }

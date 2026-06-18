@@ -1,3 +1,4 @@
+import VersionTag from "@/components/Banner/VersionTag";
 import {
   Drawer,
   DrawerContent,
@@ -5,12 +6,11 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Menu } from "lucide-react";
+import { mobileAuthNavLinks, pages, } from "@/lib/navigations";
+import { VisuallyHidden, } from "@radix-ui/react-visually-hidden";
+import { Link, } from "@tanstack/react-router";
+import { Menu, } from "lucide-react";
 import Logo from "../Logo";
-import { mobileAuthNavLinks, pages } from "@/lib/navigations";
-import { Link } from "@tanstack/react-router";
-import VersionTag from "@/components/Banner/VersionTag";
 
 export default function Sidebar() {
   return (
@@ -27,22 +27,22 @@ export default function Sidebar() {
       <DrawerContent className="h-dvh px-5 py-7 w-2/3! max-w-sm! rounded-r-none flex flex-col gap-y-8 lg:gap-y-5">
         <Logo className="lg:h-24" />
         <div className="font-semibold text-lg flex flex-col gap-y-5">
-          {pages.map((page) => {
+          {pages.map((page,) => {
             return (
               <Link key={page.name} to={page.link}>
                 {page.name}
               </Link>
             );
-          })}
+          },)}
         </div>
         <div className="mt-auto flex flex-col gap-y-3.5">
-          {mobileAuthNavLinks.map((nav) => {
+          {mobileAuthNavLinks.map((nav,) => {
             return (
               <a key={nav.name} href={nav.link} className={nav.className}>
                 {nav.name}
               </a>
             );
-          })}
+          },)}
         </div>
         <VersionTag />
       </DrawerContent>

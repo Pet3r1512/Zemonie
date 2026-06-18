@@ -1,9 +1,9 @@
-import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { CircleUser, LogOut, Settings } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { cn } from "@/lib/utils";
-import { useLogout } from "@/hooks/useLogOut";
-import { useCurrentUrl } from "@/hooks/useCurrentUrl";
+import { SidebarMenuButton, } from "@/components/ui/sidebar";
+import { useCurrentUrl, } from "@/hooks/useCurrentUrl";
+import { useLogout, } from "@/hooks/useLogOut";
+import { cn, } from "@/lib/utils";
+import { Link, } from "@tanstack/react-router";
+import { CircleUser, LogOut, Settings, } from "lucide-react";
 
 const items = [
   {
@@ -24,14 +24,14 @@ const items = [
   },
 ];
 
-export default function SidebarFooter({ currUrl }: { currUrl: string }) {
-  const { logout } = useLogout();
+export default function SidebarFooter({ currUrl, }: { currUrl: string; },) {
+  const { logout, } = useLogout();
   const currentUrl = useCurrentUrl().currUrl;
 
   return (
     <section className="px-5 pb-10">
       <div className="space-y-2.5">
-        {items.map((item) => {
+        {items.map((item,) => {
           const isLogout = item?.type === "action";
 
           const isActive = !isLogout && currUrl === item.url;
@@ -42,17 +42,16 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
                 asChild
                 className={cn(
                   "py-5 transition-all duration-150 ease-linear",
-
                   isLogout
                     ? "text-red-500 hover:text-red-600 hover:bg-transparent"
                     : [
-                        (currentUrl === item.url || isActive) &&
-                          "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
+                      (currentUrl === item.url || isActive)
+                      && "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
 
-                        currentUrl !== item.url &&
-                          !isActive &&
-                          "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card",
-                      ],
+                      currentUrl !== item.url
+                      && !isActive
+                      && "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card",
+                    ],
                 )}
               >
                 <Link from="/" to={item.url} className="text-lg font-semibold">
@@ -62,7 +61,7 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
               </SidebarMenuButton>
             </div>
           );
-        })}
+        },)}
       </div>
     </section>
   );

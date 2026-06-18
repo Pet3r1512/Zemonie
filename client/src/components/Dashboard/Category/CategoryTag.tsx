@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
+import { cn, } from "@/lib/utils";
 import categoryColorDictionary from "@/types/CategoryDict";
 
-export default function CategoryTag({ categoryId }: { categoryId: string }) {
+export default function CategoryTag({ categoryId, }: { categoryId: string; },) {
   return (
     <p
       className={cn(

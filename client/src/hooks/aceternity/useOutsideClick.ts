@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, } from "react";
 
 export const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,
@@ -6,27 +6,27 @@ export const useOutsideClick = (
   callback: Function,
   ignoreSelectors?: string[],
 ) => {
-  const callbackRef = useRef(callback);
+  const callbackRef = useRef(callback,);
   callbackRef.current = callback;
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const listener = (event: any) => {
-      if (!ref.current || ref.current.contains(event.target)) {
+    const listener = (event: any,) => {
+      if (!ref.current || ref.current.contains(event.target,)) {
         return;
       }
-      if (ignoreSelectors?.some((sel) => event.target.closest(sel))) {
+      if (ignoreSelectors?.some((sel,) => event.target.closest(sel,))) {
         return;
       }
-      callbackRef.current(event);
+      callbackRef.current(event,);
     };
 
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    document.addEventListener("mousedown", listener,);
+    document.addEventListener("touchstart", listener,);
 
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener("mousedown", listener,);
+      document.removeEventListener("touchstart", listener,);
     };
-  }, [ref, ignoreSelectors]);
+  }, [ref, ignoreSelectors,],);
 };

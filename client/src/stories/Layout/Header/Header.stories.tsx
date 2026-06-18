@@ -1,7 +1,7 @@
 import Header from "@/components/Layout/Header";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { within, screen } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
+import { expect, } from "@storybook/jest";
+import { Meta, StoryObj, } from "@storybook/react-vite";
+import { screen, within, } from "@storybook/testing-library";
 import {
   createMemoryHistory,
   createRootRoute,
@@ -11,19 +11,19 @@ import {
 
 const rootRoute = createRootRoute({
   component: () => <Header hideHeader={false} />,
-});
+},);
 
 const routeTree = rootRoute;
 
-const createMockRouter = (initialPath = "/") => {
+const createMockRouter = (initialPath = "/",) => {
   const history = createMemoryHistory({
-    initialEntries: [initialPath],
-  });
+    initialEntries: [initialPath,],
+  },);
 
   return createRouter({
     routeTree,
     history,
-  });
+  },);
 };
 
 const meta: Meta<typeof Header> = {
@@ -35,8 +35,8 @@ const meta: Meta<typeof Header> = {
     },
   },
   decorators: [
-    (_, { parameters }) => {
-      const router = createMockRouter(parameters.initialPath || "/");
+    (_, { parameters, },) => {
+      const router = createMockRouter(parameters.initialPath || "/",);
       // Render RouterProvider only, Story will be rendered by the router
       return <RouterProvider router={router} />;
     },
@@ -48,25 +48,25 @@ export default meta;
 type Story = StoryObj<typeof Header>;
 
 export const Default: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvasElement, },) => {
+    const canvas = within(canvasElement,);
 
-    const logoWrapper = canvas.getByTestId("logo-wrapper");
-    const navbar = canvas.getByTestId("navbar");
+    const logoWrapper = canvas.getByTestId("logo-wrapper",);
+    const navbar = canvas.getByTestId("navbar",);
 
-    await expect(logoWrapper).toBeInTheDocument();
-    await expect(navbar).toBeInTheDocument();
+    await expect(logoWrapper,).toBeInTheDocument();
+    await expect(navbar,).toBeInTheDocument();
   },
 };
 
 export const DesktopHeader: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvasElement, },) => {
+    const canvas = within(canvasElement,);
 
-    await expect(canvas.getByTestId("navbar")).toBeVisible();
-    await expect(canvas.getByTestId("logo-wrapper")).toBeVisible();
+    await expect(canvas.getByTestId("navbar",),).toBeVisible();
+    await expect(canvas.getByTestId("logo-wrapper",),).toBeVisible();
 
-    await expect(canvas.queryByRole("button", { name: /menu/i })).not.toBeInTheDocument();
+    await expect(canvas.queryByRole("button", { name: /menu/i, },),).not.toBeInTheDocument();
   },
 };
 
@@ -77,12 +77,12 @@ export const MobileHeader: Story = {
       isRotated: false,
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvasElement, },) => {
+    const canvas = within(canvasElement,);
 
-    await expect(canvas.getByTestId("logo-wrapper")).toBeVisible();
-    await expect(canvas.getByTestId("navbar")).not.toBeVisible();
+    await expect(canvas.getByTestId("logo-wrapper",),).toBeVisible();
+    await expect(canvas.getByTestId("navbar",),).not.toBeVisible();
 
-    await expect(screen.queryByRole("button")).toBeVisible();
+    await expect(screen.queryByRole("button",),).toBeVisible();
   },
 };

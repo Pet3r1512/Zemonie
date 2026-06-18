@@ -1,7 +1,7 @@
-import { Release } from "@/components/Banner/Release";
-import SEO, { SITE_URL } from "@/components/SEO";
-import { warmupDb } from "@/lib/ping";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { Release, } from "@/components/Banner/Release";
+import SEO, { SITE_URL, } from "@/components/SEO";
+import { warmupDb, } from "@/lib/ping";
+import { createRootRoute, Outlet, } from "@tanstack/react-router";
 
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -38,10 +38,10 @@ export const Route = createRootRoute({
       <SEO
         title="Finance Assistant for Gen Z"
         canonicalPath="/"
-        jsonLd={[websiteSchema, organizationSchema] as unknown as Record<string, unknown>}
+        jsonLd={[websiteSchema, organizationSchema,] as unknown as Record<string, unknown>}
       />
       <Release />
       <Outlet />
     </>
   ),
-});
+},);

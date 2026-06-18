@@ -11,7 +11,7 @@ export default function GoogleSVG() {
       <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
-        <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs>{" "}
+        <title>Google-color</title> <desc>Created with Sketch.</desc> <defs></defs>{" "}
         <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           {" "}
           <g id="Color-" transform="translate(-401.000000, -860.000000)">
@@ -45,10 +45,14 @@ export default function GoogleSVG() {
                 fill="#4285F4"
               >
                 {" "}
-              </path>{" "}
-            </g>{" "}
-          </g>{" "}
-        </g>{" "}
+              </path>
+              {" "}
+            </g>
+            {" "}
+          </g>
+          {" "}
+        </g>
+        {" "}
       </g>
     </svg>
   );

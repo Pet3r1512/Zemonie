@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, } from "lucide-react";
 
 export default function CTASection() {
   return (

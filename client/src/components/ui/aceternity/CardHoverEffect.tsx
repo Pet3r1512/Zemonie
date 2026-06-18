@@ -1,8 +1,8 @@
-import { FeatureCardData } from "@/components/Layout/Home/Features/FeatureCards";
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { FeatureCardData, } from "@/components/Layout/Home/Features/FeatureCards";
+import { cn, } from "@/lib/utils";
+import { AnimatePresence, motion, } from "motion/react";
 
-import { useState } from "react";
+import { useState, } from "react";
 
 export const HoverEffect = ({
   items,
@@ -10,35 +10,35 @@ export const HoverEffect = ({
 }: {
   items: FeatureCardData[];
   className?: string;
-}) => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+},) => {
+  const [hoveredIndex, setHoveredIndex,] = useState<number | null>(null,);
 
   return (
     <div
       role="card-hover-effect"
-      className={cn("grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[0.425rem]", className)}
+      className={cn("grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[0.425rem]", className,)}
     >
-      {items.map((item, idx) => (
+      {items.map((item, idx,) => (
         <div
           data-testid={item.title}
           key={item?.title}
           className="relative group block p-2 h-full w-full"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
+          onMouseEnter={() => setHoveredIndex(idx,)}
+          onMouseLeave={() => setHoveredIndex(null,)}
         >
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
                 className="absolute inset-0 h-full w-full bg-primary dark:bg-dark-elevated block rounded-3xl"
                 layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 0, }}
                 animate={{
                   opacity: 1,
-                  transition: { duration: 0.15 },
+                  transition: { duration: 0.15, },
                 }}
                 exit={{
                   opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
+                  transition: { duration: 0.15, delay: 0.2, },
                 }}
               />
             )}
@@ -62,7 +62,7 @@ export const Card = ({
 }: {
   className?: string;
   children: React.ReactNode;
-}) => {
+},) => {
   return (
     <div
       className={cn(
@@ -82,10 +82,10 @@ export const CardTitle = ({
 }: {
   className?: string;
   children: React.ReactNode;
-}) => {
+},) => {
   return (
     <h4
-      className={cn("text-primary font-bold tracking-wide mt-4 md:text-lg lg:text-xl", className)}
+      className={cn("text-primary font-bold tracking-wide mt-4 md:text-lg lg:text-xl", className,)}
     >
       {children}
     </h4>
@@ -97,7 +97,7 @@ export const CardDescription = ({
 }: {
   className?: string;
   children: React.ReactNode;
-}) => {
+},) => {
   return (
     <p
       className={cn(

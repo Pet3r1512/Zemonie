@@ -1,4 +1,4 @@
-import { Users } from "lucide-react";
+import { Users, } from "lucide-react";
 
 const team = [
   {
@@ -23,7 +23,7 @@ export default function Team() {
           <p className="text-xl text-gray-600 dark:text-gray-400">A small team with a big vision</p>
         </div>
         <div className="flex gpa-6 justify-center">
-          {team.map((member) => (
+          {team.map((member,) => (
             <div key={member.name} className="text-center">
               <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center text-white text-2xl font-bold shadow-lg">
                 {member.initials}

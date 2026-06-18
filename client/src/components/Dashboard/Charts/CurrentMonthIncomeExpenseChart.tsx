@@ -1,20 +1,20 @@
 "use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, } from "recharts";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, } from "@/components/ui/card";
 import {
+  type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  type ChartConfig,
 } from "@/components/ui/chart";
 
 export const description = "A multiple bar chart";
 
 const chartConfig = {
-  income: { label: "Income", color: "#38b000" },
-  expenses: { label: "Expenses", color: "#ef233c" },
+  income: { label: "Income", color: "#38b000", },
+  expenses: { label: "Expenses", color: "#ef233c", },
 } satisfies ChartConfig;
 
 export function CurrentMonthIncomeExpenseChart({
@@ -25,7 +25,7 @@ export function CurrentMonthIncomeExpenseChart({
     income: number;
     expenses: number;
   }>;
-}) {
+},) {
   if (!chartData || chartData.length === 0) {
     return null;
   }

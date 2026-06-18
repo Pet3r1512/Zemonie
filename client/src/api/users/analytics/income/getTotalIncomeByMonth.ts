@@ -1,13 +1,15 @@
-import { SERVER_URL } from "@/constant/auth";
+import { SERVER_URL, } from "@/constant/auth";
 
 export default async function getTotalIncomeByMonth(credentials?: {
   month?: number;
   year?: number;
-}) {
+},) {
   const response = await fetch(
-    `${SERVER_URL}/api/trpc/transactions.getTotalIncomeByMonth?input=${encodeURIComponent(
-      JSON.stringify(credentials),
-    )}`,
+    `${SERVER_URL}/api/trpc/transactions.getTotalIncomeByMonth?input=${
+      encodeURIComponent(
+        JSON.stringify(credentials,),
+      )
+    }`,
     {
       method: "GET",
       credentials: "include",
@@ -20,7 +22,7 @@ export default async function getTotalIncomeByMonth(credentials?: {
   const res = await response.json();
 
   if (!response.ok) {
-    throw new Error(res.error?.message ?? "Unknown Error");
+    throw new Error(res.error?.message ?? "Unknown Error",);
   }
 
   return {

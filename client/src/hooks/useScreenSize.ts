@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
 
 type ScreenSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 
@@ -17,30 +17,30 @@ function getScreenSize(): ScreenSize {
 }
 
 export default function useScreenSize() {
-  const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize);
+  const [screenSize, setScreenSize,] = useState<ScreenSize>(getScreenSize,);
 
   useEffect(() => {
     let rafId: number;
 
     const handleResize = () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(rafId,);
       rafId = requestAnimationFrame(() => {
-        setScreenSize(getScreenSize());
-      });
+        setScreenSize(getScreenSize(),);
+      },);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize,);
 
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(rafId,);
+      window.removeEventListener("resize", handleResize,);
     };
-  }, []);
+  }, [],);
 
   return {
     screenSize,
     isMobile: screenSize === "xs" || screenSize === "sm",
     isTablet: screenSize === "md",
-    isDesktop: ["lg", "xl", "2xl"].includes(screenSize),
+    isDesktop: ["lg", "xl", "2xl",].includes(screenSize,),
   };
 }

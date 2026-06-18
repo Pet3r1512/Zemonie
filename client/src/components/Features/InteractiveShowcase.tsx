@@ -1,11 +1,11 @@
 import {
-  LineChartIcon,
-  ZapIcon,
-  DollarSignIcon,
-  WalletIcon,
-  TrendingUpIcon,
   BarChart3Icon,
+  DollarSignIcon,
+  LineChartIcon,
   TargetIcon,
+  TrendingUpIcon,
+  WalletIcon,
+  ZapIcon,
 } from "lucide-react";
 
 const showcaseItems = [
@@ -44,7 +44,7 @@ export default function InteractiveShowcase() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            {showcaseItems.map((item, index) => {
+            {showcaseItems.map((item, index,) => {
               const Icon = item.icon;
               return (
                 <div
@@ -62,7 +62,7 @@ export default function InteractiveShowcase() {
                   </div>
                 </div>
               );
-            })}
+            },)}
           </div>
 
           <div className="relative cursor-default pointer-events-none">

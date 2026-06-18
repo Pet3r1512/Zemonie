@@ -1,5 +1,5 @@
-import { IncomeForm } from "./Forms/IncomeForm";
-import { ExpenseForm } from "./Forms/ExpenseForm";
+import { ExpenseForm, } from "./Forms/ExpenseForm";
+import { IncomeForm, } from "./Forms/IncomeForm";
 
 export default function TransactionButtons() {
   return (

@@ -1,4 +1,4 @@
-import { SERVER_URL } from "@/constant/auth";
+import { SERVER_URL, } from "@/constant/auth";
 
 export enum Currency {
   AUD = "AUD",
@@ -6,19 +6,19 @@ export enum Currency {
   VND = "VND",
 }
 
-export default async function createBalance(credentials: { currency: Currency }) {
+export default async function createBalance(credentials: { currency: Currency; },) {
   const response = await fetch(`${SERVER_URL}/api/trpc/balances.createDefaultBalance`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(credentials),
-  });
+    body: JSON.stringify(credentials,),
+  },);
 
   if (!response.ok) {
     const res = await response.json();
-    throw new Error(res.error.message || "Unknown Error");
+    throw new Error(res.error.message || "Unknown Error",);
   }
 
   return {

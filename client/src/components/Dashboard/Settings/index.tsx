@@ -1,6 +1,6 @@
 import ThemeToggle from "@/components/ThemeToggle";
-import { Card } from "@/components/ui/card";
-import { UserRoundCog } from "lucide-react";
+import { Card, } from "@/components/ui/card";
+import { UserRoundCog, } from "lucide-react";
 
 export default function SettingsContainer() {
   return (

@@ -1,15 +1,15 @@
-import { defineWorkspace } from "vitest/config";
-import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import { storybookTest, } from "@storybook/addon-vitest/vitest-plugin";
+import { defineWorkspace, } from "vitest/config";
 
 const storybookUrl = process.env.STORYBOOK_URL;
 
 const storybookPlugin = storybookUrl
-  ? storybookTest({ storybookUrl })
-  : storybookTest({ storybookScript: "pnpm storybook --no-open" });
+  ? storybookTest({ storybookUrl, },)
+  : storybookTest({ storybookScript: "pnpm storybook --no-open", },);
 
-const browserTest = (name: string) => ({
+const browserTest = (name: string,) => ({
   extends: "./vite.config.ts",
-  plugins: [storybookPlugin],
+  plugins: [storybookPlugin,],
   test: {
     name: `storybook-${name}`,
     browser: {
@@ -18,13 +18,13 @@ const browserTest = (name: string) => ({
       name,
       provider: "playwright",
     },
-    setupFiles: ["./.storybook/vitest.setup.ts"],
+    setupFiles: ["./.storybook/vitest.setup.ts",],
   },
 });
 
 export default defineWorkspace([
   "./vitest.config.ts",
-  browserTest("chromium"),
-  browserTest("firefox"),
-  browserTest("webkit"),
-]);
+  browserTest("chromium",),
+  browserTest("firefox",),
+  browserTest("webkit",),
+],);

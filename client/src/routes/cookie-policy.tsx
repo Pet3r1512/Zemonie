@@ -1,10 +1,10 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
-import { createFileRoute } from "@tanstack/react-router";
+import SEO from "@/components/SEO";
+import { createFileRoute, } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/cookie-policy")({
+export const Route = createFileRoute("/cookie-policy",)({
   component: RouteComponent,
-});
+},);
 
 function RouteComponent() {
   return (

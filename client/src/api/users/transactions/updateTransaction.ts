@@ -1,7 +1,9 @@
-import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
-import { SERVER_URL } from "@/constant/auth";
+import { TransactionInfo, } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
+import { SERVER_URL, } from "@/constant/auth";
 
-export default async function updateTransaction({ credentials }: { credentials: TransactionInfo }) {
+export default async function updateTransaction(
+  { credentials, }: { credentials: TransactionInfo; },
+) {
   const body = {
     transactionId: credentials.id,
     categoryId: credentials.categoryId,
@@ -17,13 +19,13 @@ export default async function updateTransaction({ credentials }: { credentials: 
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(body),
-  });
+    body: JSON.stringify(body,),
+  },);
 
   const res = await response.json();
 
   if (!response.ok) {
-    throw new Error(res.error?.message ?? "Unknown Error");
+    throw new Error(res.error?.message ?? "Unknown Error",);
   }
 
   return {

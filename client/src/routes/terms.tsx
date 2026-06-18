@@ -1,10 +1,10 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
-import { createFileRoute } from "@tanstack/react-router";
+import SEO from "@/components/SEO";
+import { createFileRoute, } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/terms")({
+export const Route = createFileRoute("/terms",)({
   component: RouteComponent,
-});
+},);
 
 function RouteComponent() {
   return (
@@ -52,10 +52,10 @@ function RouteComponent() {
               </ul>
               <div className="mt-4 bg-primary/15 dark:bg-primary/10 border-l-4 border-primary rounded-r-xl p-4">
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-                  Zemonie does <strong>not</strong> collect or store sensitive financial information
-                  such as bank account numbers, credit card details, or phone numbers. All
-                  transaction data is entered manually by you and used solely for analysis and
-                  visualization.
+                  Zemonie does <strong>not</strong>{" "}
+                  collect or store sensitive financial information such as bank account numbers,
+                  credit card details, or phone numbers. All transaction data is entered manually by
+                  you and used solely for analysis and visualization.
                 </p>
               </div>
             </section>

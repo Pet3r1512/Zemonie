@@ -1,12 +1,12 @@
-import { MoveDown, MoveUp, TrendingUp, Wallet } from "lucide-react";
-import Data from "./Data";
-import { useQuery } from "@tanstack/react-query";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
-import { ReactNode } from "react";
 import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
-import useUserPreferences from "@/hooks/users/useUserPreferences";
-import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { useQuery, } from "@tanstack/react-query";
+import { MoveDown, MoveUp, TrendingUp, Wallet, } from "lucide-react";
+import { ReactNode, } from "react";
+import Data from "./Data";
 
 export type OverallDataType = {
   name: string;
@@ -27,26 +27,26 @@ export default function Overall() {
   const totalIncome = useFetchCurrentMonthIncome({
     month: currentMonth,
     year: currentYear,
-  });
+  },);
   const totalExpense = useFetchCurrentMonthExpenses({
     month: currentMonth,
     year: currentYear,
-  });
+  },);
   const balanceQuery = useQuery({
-    queryKey: ["balance"],
+    queryKey: ["balance",],
     queryFn: () => getCurrentBalance(),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
-  });
+  },);
 
   const latestTransactionsQuery = useQuery({
-    queryKey: ["latestTransactions"],
+    queryKey: ["latestTransactions",],
     queryFn: () => getLatestTransactions(),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
-  });
+  },);
 
   const currentBalance = balanceQuery.data?.balance.balance ?? 0;
 
@@ -74,9 +74,8 @@ export default function Overall() {
       ),
       isLoading: totalIncome.isLoading || totalExpense.isLoading,
       isError: totalIncome.isError || totalExpense.isError,
-      amount:
-        totalIncome.data?.totalCurrentMonthIncome.totalIncome -
-        totalExpense.data?.totalCurrentMonthExpenses.totalExpensesAmount,
+      amount: totalIncome.data?.totalCurrentMonthIncome.totalIncome
+        - totalExpense.data?.totalCurrentMonthExpenses.totalExpensesAmount,
       currency,
     },
     {
@@ -109,9 +108,7 @@ export default function Overall() {
 
   return (
     <section className="flex flex-col lg:flex-row items-center gap-y-5 lg:gap-x-5 max-w-7xl">
-      {data.map((item) => (
-        <Data key={item.name} data={item} />
-      ))}
+      {data.map((item,) => <Data key={item.name} data={item} />)}
     </section>
   );
 }

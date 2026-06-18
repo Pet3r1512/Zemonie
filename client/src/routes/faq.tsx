@@ -1,16 +1,16 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
+import SEO from "@/components/SEO";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/faq")({
+export const Route = createFileRoute("/faq",)({
   component: RouteComponent,
-});
+},);
 
 const faqs = [
   {
@@ -72,7 +72,7 @@ function RouteComponent() {
 
           <div className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-8 lg:p-10">
             <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
+              {faqs.map((faq, index,) => (
                 <AccordionItem key={index} value={`item-${index}`}>
                   <AccordionTrigger className="text-base lg:text-lg font-semibold text-left">
                     {faq.question}

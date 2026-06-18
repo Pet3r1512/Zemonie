@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, } from "@/lib/utils";
 
 export interface AuroraTextEffectProps {
   text: string;
@@ -39,7 +39,7 @@ export function AuroraTextEffect({
     third: 3,
     fourth: 13,
   },
-}: AuroraTextEffectProps) {
+}: AuroraTextEffectProps,) {
   const keyframes = `
     @keyframes aurora-shift {
       0% { background-position: 0% 50%; }
@@ -49,7 +49,7 @@ export function AuroraTextEffect({
   `;
 
   return (
-    <div className={cn(className)}>
+    <div className={cn(className,)}>
       <style>{keyframes}</style>
       <div className="text-center">
         <h2
@@ -59,9 +59,12 @@ export function AuroraTextEffect({
           )}
           style={{
             fontSize,
-            backgroundImage: `linear-gradient(135deg, ${colors.first}, ${colors.second}, ${colors.third}, ${colors.fourth})`,
+            backgroundImage:
+              `linear-gradient(135deg, ${colors.first}, ${colors.second}, ${colors.third}, ${colors.fourth})`,
             backgroundSize: "300% 300%",
-            animation: `aurora-shift ${(animationSpeed.first ?? 5) + (animationSpeed.second ?? 5)}s ease infinite`,
+            animation: `aurora-shift ${
+              (animationSpeed.first ?? 5) + (animationSpeed.second ?? 5)
+            }s ease infinite`,
           }}
         >
           {text}

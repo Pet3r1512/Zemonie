@@ -1,28 +1,28 @@
-import { ReactNode, useEffect } from "react";
-import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
-import { AppSidebar } from "../ui/app-sidebar";
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
 import getGlobalCategories from "@/api/categories/getGlobalCategories";
-import { Toaster } from "@/components/ui/sonner";
-import AccountSetupForm from "./Setup/AccountSetupForm";
-import LoadingScreen from "../Layout/LoadingScreen";
-import { authClient } from "@/lib/auth-client";
 import checkUserSetup from "@/api/users/checkUserSetup";
-import { useCurrentUrl } from "@/hooks/useCurrentUrl";
+import { Toaster, } from "@/components/ui/sonner";
+import { useCurrentUrl, } from "@/hooks/useCurrentUrl";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { authClient, } from "@/lib/auth-client";
+import { useQuery, } from "@tanstack/react-query";
+import { useNavigate, } from "@tanstack/react-router";
+import { ReactNode, useEffect, } from "react";
+import LoadingScreen from "../Layout/LoadingScreen";
+import { AppSidebar, } from "../ui/app-sidebar";
+import { SidebarProvider, SidebarTrigger, } from "../ui/sidebar";
+import AccountSetupForm from "./Setup/AccountSetupForm";
 
 const SETUP_CACHE_KEY = "isSetupDone";
 
 function getCachedSetupStatus(): boolean {
-  return sessionStorage.getItem(SETUP_CACHE_KEY) === "true";
+  return sessionStorage.getItem(SETUP_CACHE_KEY,) === "true";
 }
 
-function setCachedSetupStatus(done: boolean) {
+function setCachedSetupStatus(done: boolean,) {
   if (done) {
-    sessionStorage.setItem(SETUP_CACHE_KEY, "true");
+    sessionStorage.setItem(SETUP_CACHE_KEY, "true",);
   } else {
-    sessionStorage.removeItem(SETUP_CACHE_KEY);
+    sessionStorage.removeItem(SETUP_CACHE_KEY,);
   }
 }
 
@@ -34,48 +34,48 @@ export default function DashboardLayout({
   children: ReactNode;
   section?: string;
   sectionDesc?: string;
-}) {
+},) {
   const navigate = useNavigate();
   const currentUrl = useCurrentUrl().currUrl;
   const sessionQuery = authClient.useSession();
   const userPreferences = useUserPreferences();
 
   const getGlobalCategoriesQuery = useQuery({
-    queryKey: ["globalCategories"],
+    queryKey: ["globalCategories",],
     queryFn: () => getGlobalCategories(),
-    enabled: !sessionStorage.getItem("globalCategories"),
-  });
+    enabled: !sessionStorage.getItem("globalCategories",),
+  },);
 
   const setupQuery = useQuery({
-    queryKey: ["userSetupStatus"],
+    queryKey: ["userSetupStatus",],
     queryFn: async () => {
       const result = await checkUserSetup();
-      setCachedSetupStatus(result.isSetupDone);
+      setCachedSetupStatus(result.isSetupDone,);
       return result;
     },
     enabled: !!sessionQuery.data?.user.id,
     staleTime: 5 * 60 * 1000,
     retry: 2,
-    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10_000),
-  });
+    retryDelay: (attempt,) => Math.min(1000 * 2 ** attempt, 10_000,),
+  },);
 
   const isCachedSetupDone = getCachedSetupStatus();
 
   useEffect(() => {
     if (!sessionQuery.isPending && !sessionQuery.data?.session) {
-      navigate({ to: "/auth/signin", replace: true });
+      navigate({ to: "/auth/signin", replace: true, },);
     }
-  }, [navigate, sessionQuery.data, sessionQuery.isPending]);
+  }, [navigate, sessionQuery.data, sessionQuery.isPending,],);
 
   if (!getGlobalCategoriesQuery.isLoading && getGlobalCategoriesQuery.data) {
     sessionStorage.setItem(
       "globalCategories",
-      JSON.stringify(getGlobalCategoriesQuery.data.globalCategories.globalCategories),
+      JSON.stringify(getGlobalCategoriesQuery.data.globalCategories.globalCategories,),
     );
   }
 
   if (!userPreferences.isLoading) {
-    sessionStorage.setItem("currency", userPreferences.data?.preferences?.currency?.toString());
+    sessionStorage.setItem("currency", userPreferences.data?.preferences?.currency?.toString(),);
   }
 
   const dashboard = (

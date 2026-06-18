@@ -1,11 +1,11 @@
-import { cn } from "@/lib/utils";
+import { cn, } from "@/lib/utils";
 import {
-  LockIcon,
-  RefreshCwIcon,
+  Award,
   CalendarIcon,
   DownloadIcon,
+  LockIcon,
+  RefreshCwIcon,
   SparklesIcon,
-  Award,
   Target,
 } from "lucide-react";
 
@@ -67,7 +67,7 @@ export default function AdditionalFeatures() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {additionalFeatures.map((feature, index) => {
+          {additionalFeatures.map((feature, index,) => {
             const Icon = feature.icon;
 
             return (
@@ -75,8 +75,8 @@ export default function AdditionalFeatures() {
                 key={index}
                 className={cn(
                   "relative flex items-start p-6 rounded-xl bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-card/80 hover:border-primary transition-colors duration-200",
-                  feature.badge === "Coming Soon" &&
-                    "opacity-75 cursor-default pointer-events-none",
+                  feature.badge === "Coming Soon"
+                    && "opacity-75 cursor-default pointer-events-none",
                 )}
               >
                 {feature.badge && (
@@ -104,7 +104,7 @@ export default function AdditionalFeatures() {
                 </div>
               </div>
             );
-          })}
+          },)}
         </div>
       </div>
     </section>

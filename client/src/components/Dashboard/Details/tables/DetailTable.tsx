@@ -7,12 +7,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
+import { formatCurrency, } from "@/helpers/formatCurrency";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
-import CategoryTag from "../../Category/CategoryTag";
-import { cn } from "@/lib/utils";
-import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { cn, } from "@/lib/utils";
+import CategoryTag from "../../Category/CategoryTag";
+import { TransactionInfo, } from "../../Transactions/TransactionsTable/ListByDate";
 
 const TABLE_TITLE_FONT_SIZE = "text-xs sm:text-sm md:text-base";
 
@@ -21,8 +21,8 @@ export function DetailsTable({
   lastElementRef,
 }: {
   transactions: TransactionInfo[];
-  lastElementRef: (node: HTMLTableRowElement | null) => void;
-}) {
+  lastElementRef: (node: HTMLTableRowElement | null,) => void;
+},) {
   const lastTxId = transactions[transactions.length - 1]?.id;
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
 
@@ -31,25 +31,25 @@ export function DetailsTable({
       <Table className="min-w-150 md:min-w-full">
         <TableHeader>
           <TableRow>
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Date</TableHead>
+            <TableHead className={cn(TABLE_TITLE_FONT_SIZE,)}>Date</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Source</TableHead>
+            <TableHead className={cn(TABLE_TITLE_FONT_SIZE,)}>Source</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Amount</TableHead>
+            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right",)}>Amount</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Description</TableHead>
+            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right",)}>Description</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
-          {transactions.map((transaction) => (
+          {transactions.map((transaction,) => (
             <TableRow
               key={transaction.id}
               ref={transaction.id === lastTxId ? lastElementRef : undefined}
               className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
             >
               <TableCell className="text-xs sm:text-sm md:text-base whitespace-nowrap">
-                {ParseISOStringDate({ date: transaction.date })}
+                {ParseISOStringDate({ date: transaction.date, },)}
               </TableCell>
 
               <TableCell>
@@ -57,7 +57,7 @@ export function DetailsTable({
               </TableCell>
 
               <TableCell className="text-right font-medium text-xs sm:text-sm md:text-base whitespace-nowrap">
-                {formatCurrency(transaction.amount, currency)}
+                {formatCurrency(transaction.amount, currency,)}
               </TableCell>
 
               <TableCell className="text-right max-w-62.5 truncate">

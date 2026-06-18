@@ -1,10 +1,10 @@
 // oxlint-disable react/no-unstable-nested-components no-shadow
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, } from "lucide-react";
 import * as React from "react";
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
+import { DayButton, DayPicker, getDefaultClassNames, } from "react-day-picker";
 
-import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants, } from "@/components/ui/button";
+import { cn, } from "@/lib/utils";
 
 function Calendar({
   className,
@@ -17,7 +17,7 @@ function Calendar({
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>["variant"];
-}) {
+},) {
   const defaultClassNames = getDefaultClassNames();
 
   return (
@@ -31,24 +31,24 @@ function Calendar({
       )}
       captionLayout={captionLayout}
       formatters={{
-        formatMonthDropdown: (date) => date.toLocaleString("default", { month: "short" }),
+        formatMonthDropdown: (date,) => date.toLocaleString("default", { month: "short", },),
         ...formatters,
       }}
       classNames={{
-        root: cn("w-fit", defaultClassNames.root),
-        months: cn("relative flex flex-col gap-4 md:flex-row", defaultClassNames.months),
-        month: cn("flex w-full flex-col gap-4", defaultClassNames.month),
+        root: cn("w-fit", defaultClassNames.root,),
+        months: cn("relative flex flex-col gap-4 md:flex-row", defaultClassNames.months,),
+        month: cn("flex w-full flex-col gap-4", defaultClassNames.month,),
         nav: cn(
           "absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1",
           defaultClassNames.nav,
         ),
         button_previous: cn(
-          buttonVariants({ variant: buttonVariant }),
+          buttonVariants({ variant: buttonVariant, },),
           "h-[--cell-size] w-[--cell-size] select-none p-0 aria-disabled:opacity-50",
           defaultClassNames.button_previous,
         ),
         button_next: cn(
-          buttonVariants({ variant: buttonVariant }),
+          buttonVariants({ variant: buttonVariant, },),
           "h-[--cell-size] w-[--cell-size] select-none p-0 aria-disabled:opacity-50",
           defaultClassNames.button_next,
         ),
@@ -76,13 +76,16 @@ function Calendar({
           defaultClassNames.caption_label,
         ),
         table: "w-full border-collapse",
-        weekdays: cn("flex", defaultClassNames.weekdays),
+        weekdays: cn("flex", defaultClassNames.weekdays,),
         weekday: cn(
           "text-oklch(0.556 0 0) flex-1 select-none rounded-md text-[0.8rem] font-normal dark:text-oklch(0.708 0 0)",
           defaultClassNames.weekday,
         ),
-        week: cn("mt-2 flex w-full", defaultClassNames.week),
-        week_number_header: cn("w-[--cell-size] select-none", defaultClassNames.week_number_header),
+        week: cn("mt-2 flex w-full", defaultClassNames.week,),
+        week_number_header: cn(
+          "w-[--cell-size] select-none",
+          defaultClassNames.week_number_header,
+        ),
         week_number: cn(
           "text-oklch(0.556 0 0) select-none text-[0.8rem] dark:text-oklch(0.708 0 0)",
           defaultClassNames.week_number,
@@ -95,7 +98,7 @@ function Calendar({
           "bg-oklch(0.97 0 0) rounded-l-md dark:bg-oklch(0.269 0 0)",
           defaultClassNames.range_start,
         ),
-        range_middle: cn("rounded-none", defaultClassNames.range_middle),
+        range_middle: cn("rounded-none", defaultClassNames.range_middle,),
         range_end: cn(
           "bg-oklch(0.97 0 0) rounded-r-md dark:bg-oklch(0.269 0 0)",
           defaultClassNames.range_end,
@@ -112,24 +115,24 @@ function Calendar({
           "text-oklch(0.556 0 0) opacity-50 dark:text-oklch(0.708 0 0)",
           defaultClassNames.disabled,
         ),
-        hidden: cn("invisible", defaultClassNames.hidden),
+        hidden: cn("invisible", defaultClassNames.hidden,),
         ...classNames,
       }}
       components={{
-        Root: ({ className, rootRef, ...props }) => (
-          <div data-slot="calendar" ref={rootRef} className={cn(className)} {...props} />
+        Root: ({ className, rootRef, ...props },) => (
+          <div data-slot="calendar" ref={rootRef} className={cn(className,)} {...props} />
         ),
-        Chevron: ({ className, orientation, ...props }) => {
+        Chevron: ({ className, orientation, ...props },) => {
           if (orientation === "left") {
-            return <ChevronLeftIcon className={cn("size-4", className)} {...props} />;
+            return <ChevronLeftIcon className={cn("size-4", className,)} {...props} />;
           }
           if (orientation === "right") {
-            return <ChevronRightIcon className={cn("size-4", className)} {...props} />;
+            return <ChevronRightIcon className={cn("size-4", className,)} {...props} />;
           }
-          return <ChevronDownIcon className={cn("size-4", className)} {...props} />;
+          return <ChevronDownIcon className={cn("size-4", className,)} {...props} />;
         },
         DayButton: CalendarDayButton,
-        WeekNumber: ({ children, ...props }) => (
+        WeekNumber: ({ children, ...props },) => (
           <td {...props}>
             <div className="flex size-[--cell-size] items-center justify-center text-center">
               {children}
@@ -149,14 +152,14 @@ function CalendarDayButton({
   modifiers,
   // onClick,
   ...props
-}: React.ComponentProps<typeof DayButton>) {
+}: React.ComponentProps<typeof DayButton>,) {
   const defaultClassNames = getDefaultClassNames();
 
-  const ref = React.useRef<HTMLButtonElement>(null);
+  const ref = React.useRef<HTMLButtonElement>(null,);
 
   React.useEffect(() => {
     if (modifiers.focused) ref.current?.focus();
-  }, [modifiers.focused]);
+  }, [modifiers.focused,],);
 
   return (
     <Button
@@ -164,21 +167,21 @@ function CalendarDayButton({
       type="button"
       variant="ghost"
       size="icon"
-      // onClick={onClick}
-      {...props}
-      data-day={day.date.toLocaleDateString()}
-      data-selected-single={
-        modifiers.selected &&
-        !modifiers.range_start &&
-        !modifiers.range_end &&
-        !modifiers.range_middle
+      {
+        // onClick={onClick}
+        ...props
       }
+      data-day={day.date.toLocaleDateString()}
+      data-selected-single={modifiers.selected
+        && !modifiers.range_start
+        && !modifiers.range_end
+        && !modifiers.range_middle}
       data-range-start={modifiers.range_start}
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        modifiers.today &&
-          "bg-primary/80 text-white lg:hover:bg-primary/95 dark:bg-gray-700 dark:text-white",
+        modifiers.today
+          && "bg-primary/80 text-white lg:hover:bg-primary/95 dark:bg-gray-700 dark:text-white",
         "data-[selected-single=true]:bg-oklch(0.205 0 0) data-[selected-single=true]:text-oklch(0.985 0 0) data-[range-middle=true]:bg-oklch(0.97 0 0) data-[range-middle=true]:text-oklch(0.205 0 0) data-[range-start=true]:bg-oklch(0.205 0 0) data-[range-start=true]:text-oklch(0.985 0 0) data-[range-end=true]:bg-oklch(0.205 0 0) data-[range-end=true]:text-oklch(0.985 0 0) group-data-[focused=true]/day:border-oklch(0.708 0 0) group-data-[focused=true]/day:ring-oklch(0.708 0 0)/50 flex aspect-square h-auto w-full min-w-[--cell-size] flex-col gap-1 font-normal leading-none data-[range-end=true]:rounded-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] [&>span]:text-xs [&>span]:opacity-70 dark:data-[selected-single=true]:bg-oklch(0.922 0 0) dark:data-[selected-single=true]:text-oklch(0.205 0 0) dark:data-[range-middle=true]:bg-oklch(0.269 0 0) dark:data-[range-middle=true]:text-oklch(0.985 0 0) dark:data-[range-start=true]:bg-oklch(0.922 0 0) dark:data-[range-start=true]:text-oklch(0.205 0 0) dark:data-[range-end=true]:bg-oklch(0.922 0 0) dark:data-[range-end=true]:text-oklch(0.205 0 0) dark:group-data-[focused=true]/day:border-oklch(0.556 0 0) dark:group-data-[focused=true]/day:ring-oklch(0.556 0 0)/50",
         defaultClassNames.day,
         className,
@@ -187,4 +190,4 @@ function CalendarDayButton({
   );
 }
 
-export { Calendar, CalendarDayButton };
+export { Calendar, CalendarDayButton, };

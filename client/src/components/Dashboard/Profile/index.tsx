@@ -1,28 +1,28 @@
-import { Mail, Lock, User, CalendarPlus2 } from "lucide-react";
 import AvatarSprites from "@/components/Dashboard/Setup/AvatarSprites";
-import { authClient } from "@/lib/auth-client";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { authClient, } from "@/lib/auth-client";
+import { CalendarPlus2, Lock, Mail, User, } from "lucide-react";
 
 const profileFields = [
-  { label: "Name", key: "name", icon: User },
-  { label: "Email", key: "email", icon: Mail },
+  { label: "Name", key: "name", icon: User, },
+  { label: "Email", key: "email", icon: Mail, },
   {
     label: "Joined",
     key: "join",
     icon: CalendarPlus2,
   },
-  { label: "Sign-in Method", key: "method", icon: Lock },
+  { label: "Sign-in Method", key: "method", icon: Lock, },
 ];
 
 export default function ProfilePage() {
   const session = authClient.useSession();
-  const { data } = useUserPreferences();
+  const { data, } = useUserPreferences();
 
   const fieldValues: Record<string, string> = {
     email: session.data?.user.email ?? "",
     method: "Email and Password",
     name: session.data?.user.name ?? "",
-    join: session.data?.user.createdAt.toLocaleString().split(",")[0] ?? "",
+    join: session.data?.user.createdAt.toLocaleString().split(",",)[0] ?? "",
   };
 
   return (
@@ -40,7 +40,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="rounded-2xl bg-white dark:bg-dark-bg md:shadow-2xl border border-gray-200 dark:border-dark-card divide-y divide-gray-100 dark:divide-dark-card">
-        {profileFields.map((field) => {
+        {profileFields.map((field,) => {
           const Icon = field.icon;
           return (
             <div key={field.key} className="flex items-center gap-4 px-6 py-5">
@@ -55,7 +55,7 @@ export default function ProfilePage() {
               </div>
             </div>
           );
-        })}
+        },)}
       </div>
     </div>
   );

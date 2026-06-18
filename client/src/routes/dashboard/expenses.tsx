@@ -1,11 +1,11 @@
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import ExpensesOverallContainer from "@/components/Dashboard/Details/ExpensesOverallContainer";
 import DetailTableContainer from "@/components/Dashboard/Details/tables/DetailTableContainer";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/dashboard/expenses")({
+export const Route = createFileRoute("/dashboard/expenses",)({
   component: RouteComponent,
-});
+},);
 
 function RouteComponent() {
   return (

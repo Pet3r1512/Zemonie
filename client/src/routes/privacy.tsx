@@ -1,10 +1,10 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
-import { createFileRoute } from "@tanstack/react-router";
+import SEO from "@/components/SEO";
+import { createFileRoute, } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/privacy")({
+export const Route = createFileRoute("/privacy",)({
   component: RouteComponent,
-});
+},);
 
 function RouteComponent() {
   return (
@@ -34,16 +34,17 @@ function RouteComponent() {
               </p>
               <ul className="list-disc pl-6 space-y-1.5 text-gray-700 dark:text-gray-300">
                 <li>
-                  <strong>Account Information:</strong> Your name, email address, and avatar
-                  selection when you create an account
+                  <strong>Account Information:</strong>{" "}
+                  Your name, email address, and avatar selection when you create an account
                 </li>
                 <li>
-                  <strong>Transaction Data:</strong> Income and expense records you voluntarily
-                  enter, including amounts, categories, descriptions, and dates
+                  <strong>Transaction Data:</strong>{" "}
+                  Income and expense records you voluntarily enter, including amounts, categories,
+                  descriptions, and dates
                 </li>
                 <li>
-                  <strong>Session Data:</strong> Authentication session tokens managed by
-                  Better-Auth to keep you logged in
+                  <strong>Session Data:</strong>{" "}
+                  Authentication session tokens managed by Better-Auth to keep you logged in
                 </li>
               </ul>
               <div className="mt-4 bg-red-50 dark:bg-red-950/20 border-l-4 border-red-500 rounded-r-xl p-4">

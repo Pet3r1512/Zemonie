@@ -1,4 +1,4 @@
-import { Atom } from "react-loading-indicators";
+import { Atom, } from "react-loading-indicators";
 
 export default function LoadingScreen() {
   return (

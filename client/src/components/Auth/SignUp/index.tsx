@@ -1,4 +1,4 @@
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster, } from "@/components/ui/sonner";
 import SignUpForm from "./SignUpForm";
 
 export default function SignUp() {

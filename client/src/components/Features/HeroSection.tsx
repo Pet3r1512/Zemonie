@@ -1,4 +1,4 @@
-import { SparklesIcon } from "lucide-react";
+import { SparklesIcon, } from "lucide-react";
 
 export default function HeroSection() {
   return (

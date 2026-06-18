@@ -6,11 +6,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useFormContext } from "react-hook-form";
-import { Transaction } from "../IncomeForm";
-import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
-import { Briefcase, Gift, Heart, Home, Laptop, PlusCircle, TrendingUp } from "lucide-react";
+import { cn, } from "@/lib/utils";
+import { Briefcase, Gift, Heart, Home, Laptop, PlusCircle, TrendingUp, } from "lucide-react";
+import { ReactNode, } from "react";
+import { useFormContext, } from "react-hook-form";
+import { Transaction, } from "../IncomeForm";
 
 type SourceIncome = {
   name: string;
@@ -64,22 +64,22 @@ export default function IncomeSelect({
 }: {
   value?: string;
   contentClassName?: string;
-}) {
-  const { setValue } = useFormContext<Transaction>();
+},) {
+  const { setValue, } = useFormContext<Transaction>();
 
   return (
     <Select
       value={value}
-      onValueChange={(newValue) => {
-        setValue("categoryId", +newValue, { shouldValidate: true });
+      onValueChange={(newValue,) => {
+        setValue("categoryId", +newValue, { shouldValidate: true, },);
       }}
     >
       <SelectTrigger id="source" name="source" className="w-full">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className={cn("bg-white dark:bg-dark-elevated w-full", contentClassName)}>
+      <SelectContent className={cn("bg-white dark:bg-dark-elevated w-full", contentClassName,)}>
         <SelectGroup>
-          {incomesources.map((source: SourceIncome) => {
+          {incomesources.map((source: SourceIncome,) => {
             return (
               <SelectItem
                 key={source.id}
@@ -92,7 +92,7 @@ export default function IncomeSelect({
                 </div>
               </SelectItem>
             );
-          })}
+          },)}
         </SelectGroup>
       </SelectContent>
     </Select>

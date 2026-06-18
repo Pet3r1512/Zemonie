@@ -1,4 +1,4 @@
-import { Globe, Heart, Lightbulb, Shield } from "lucide-react";
+import { Globe, Heart, Lightbulb, Shield, } from "lucide-react";
 
 const values = [
   {
@@ -38,7 +38,7 @@ export default function Values() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {values.map((value, index) => {
+          {values.map((value, index,) => {
             const Icon = value.icon;
             return (
               <div
@@ -56,7 +56,7 @@ export default function Values() {
                 </p>
               </div>
             );
-          })}
+          },)}
         </div>
       </div>
     </section>

@@ -1,38 +1,38 @@
 // oxlint-disable react/no-unstable-nested-components
-import { Label, Pie, PieChart, Sector } from "recharts";
-import type { PieSectorDataItem } from "recharts/types/polar/Pie";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
-import categoryColorDictionary from "@/types/CategoryDict";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
+import { ChartConfig, ChartContainer, ChartTooltip, } from "@/components/ui/chart";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import categoryColorDictionary from "@/types/CategoryDict";
+import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
+import { Label, Pie, PieChart, Sector, } from "recharts";
+import type { PieSectorDataItem, } from "recharts/types/polar/Pie";
 
 type ExpenseCategoryEntry = {
-  _sum: { amount: string };
+  _sum: { amount: string; };
   categoryId: number;
 };
 
 type SpendingByCategoryProps = {
-  data: { expenseCategorySummary: ExpenseCategoryEntry[] } | undefined;
+  data: { expenseCategorySummary: ExpenseCategoryEntry[]; } | undefined;
 };
 
-export function SpendingByCategory({ data }: SpendingByCategoryProps) {
+export function SpendingByCategory({ data, }: SpendingByCategoryProps,) {
   const user_preferences = useUserPreferences();
   const summary: ExpenseCategoryEntry[] = data?.expenseCategorySummary ?? [];
 
-  const chartData = summary.map((entry) => {
-    const dict = categoryColorDictionary[String(entry.categoryId)];
+  const chartData = summary.map((entry,) => {
+    const dict = categoryColorDictionary[String(entry.categoryId,)];
     const tailwindClass = dict?.color ?? "";
     return {
       name: dict?.name ?? `Category ${entry.categoryId}`,
       // oxlint-disable-next-line no-underscore-dangle
-      value: Number(entry._sum.amount),
+      value: Number(entry._sum.amount,),
       fill: TAILWIND_TO_HEX[tailwindClass] ?? "hsl(var(--chart-1))",
       categoryId: entry.categoryId,
     };
-  });
+  },);
 
-  const totalAmount = chartData.reduce((sum, entry) => sum + entry.value, 0);
+  const totalAmount = chartData.reduce((sum, entry,) => sum + entry.value, 0,);
 
   const chartConfig: ChartConfig = {};
   for (const item of chartData) {
@@ -42,13 +42,12 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
     };
   }
 
-  const highestIndex =
-    chartData.length > 0
-      ? chartData.reduce(
-          (maxIdx, entry, idx, arr) => (entry.value > arr[maxIdx].value ? idx : maxIdx),
-          0,
-        )
-      : -1;
+  const highestIndex = chartData.length > 0
+    ? chartData.reduce(
+      (maxIdx, entry, idx, arr,) => (entry.value > arr[maxIdx].value ? idx : maxIdx),
+      0,
+    )
+    : -1;
 
   if (summary.length === 0) {
     return (
@@ -74,7 +73,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
             <ChartTooltip
               cursor={false}
               // oxlint-disable-next-line react/no-unstable-nested-components
-              content={({ active, payload }) => {
+              content={({ active, payload, },) => {
                 if (!active || !payload?.length) return null;
                 const entry = payload[0];
                 return (
@@ -82,11 +81,11 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                     <div className="flex items-center gap-2">
                       <span
                         className="inline-block h-2.5 w-2.5 rounded-[2px]"
-                        style={{ backgroundColor: entry?.payload?.fill }}
+                        style={{ backgroundColor: entry?.payload?.fill, }}
                       />
                       <span className="font-medium">{entry?.name}</span>
                       <span className="text-muted-foreground">
-                        {entry?.value + ` ${sessionStorage.getItem("currency")}`}
+                        {entry?.value + ` ${sessionStorage.getItem("currency",)}`}
                       </span>
                     </div>
                   </div>
@@ -101,12 +100,12 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
               strokeWidth={5}
               activeIndex={highestIndex}
               // oxlint-disable-next-line react/no-unstable-nested-components
-              activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
+              activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem,) => (
                 <Sector {...props} outerRadius={outerRadius + 10} />
               )}
             >
               <Label
-                content={({ viewBox }) => {
+                content={({ viewBox, },) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
                       <text
@@ -141,19 +140,19 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex flex-wrap gap-2 justify-center">
-          {chartData.map((entry) => {
-            const pct = totalAmount > 0 ? ((entry.value / totalAmount) * 100).toFixed(1) : "0.0";
+          {chartData.map((entry,) => {
+            const pct = totalAmount > 0 ? ((entry.value / totalAmount) * 100).toFixed(1,) : "0.0";
             return (
               <div key={entry.categoryId} className="flex items-center gap-1.5 text-xs">
                 <span
                   className="inline-block h-3 w-3 rounded-full"
-                  style={{ backgroundColor: entry.fill }}
+                  style={{ backgroundColor: entry.fill, }}
                 />
                 <span className="font-medium">{entry.name}</span>
                 <span className="text-muted-foreground">{pct}%</span>
               </div>
             );
-          })}
+          },)}
         </div>
       </CardFooter>
     </Card>

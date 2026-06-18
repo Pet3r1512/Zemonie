@@ -1,4 +1,4 @@
-import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect";
+import { AuroraTextEffect, } from "@/components/ui/lightswind/aurora-text-effect";
 
 export default function Hero() {
   return (
@@ -16,9 +16,9 @@ export default function Hero() {
             role="description"
             className="text-md lg:text-lg font-medium text-pretty text-gray-500 dark:text-gray-300 sm:text-xl/8"
           >
-            Zemonie is the <span className="text-primary">all-in-one</span> money management tool
-            that helps you track your income, label your expenses, and visualize your financial
-            data. Get started today and achieve your financial goals.
+            Zemonie is the <span className="text-primary">all-in-one</span>{" "}
+            money management tool that helps you track your income, label your expenses, and
+            visualize your financial data. Get started today and achieve your financial goals.
           </p>
           <div
             role="action-buttons"

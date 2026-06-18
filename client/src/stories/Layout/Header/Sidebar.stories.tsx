@@ -1,14 +1,14 @@
 import Sidebar from "@/components/Layout/Header/Sidebar";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { userEvent, within, screen } from "@storybook/testing-library";
-import { expect } from "@storybook/jest";
-import { createRouter, RouterProvider, createRootRoute } from "@tanstack/react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { expect, } from "@storybook/jest";
+import { Meta, StoryObj, } from "@storybook/react-vite";
+import { screen, userEvent, within, } from "@storybook/testing-library";
+import { QueryClient, QueryClientProvider, } from "@tanstack/react-query";
+import { createRootRoute, createRouter, RouterProvider, } from "@tanstack/react-router";
 
 const rootRoute = createRootRoute({
   component: () => <Sidebar />,
-});
-const router = createRouter({ routeTree: rootRoute });
+},);
+const router = createRouter({ routeTree: rootRoute, },);
 const queryClient = new QueryClient();
 
 const meta: Meta<typeof Sidebar> = {
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof Sidebar>;
 
 export const DesktopSidebar: Story = {
   play: async () => {
-    await expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    await expect(screen.queryByRole("button",),).not.toBeInTheDocument();
   },
 };
 
@@ -45,17 +45,17 @@ export const MobileSidebar: Story = {
       isRotated: false,
     },
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvasElement, },) => {
+    const canvas = within(canvasElement,);
 
-    const MenuIcon = canvas.getByRole("button");
+    const MenuIcon = canvas.getByRole("button",);
 
-    await expect(MenuIcon).toBeInTheDocument();
+    await expect(MenuIcon,).toBeInTheDocument();
 
-    await userEvent.click(MenuIcon);
+    await userEvent.click(MenuIcon,);
 
-    const bodyCanvas = within(document.body);
+    const bodyCanvas = within(document.body,);
 
-    await expect(bodyCanvas.getByRole("dialog")).toBeInTheDocument();
+    await expect(bodyCanvas.getByRole("dialog",),).toBeInTheDocument();
   },
 };

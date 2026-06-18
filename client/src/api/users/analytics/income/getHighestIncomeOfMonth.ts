@@ -1,7 +1,7 @@
-import { SERVER_URL } from "@/constant/auth";
+import { SERVER_URL, } from "@/constant/auth";
 
-export default async function getHighestIncomeOfMonth(input?: { month?: number; year?: number }) {
-  const encodedInput = encodeURIComponent(JSON.stringify(input ?? {}));
+export default async function getHighestIncomeOfMonth(input?: { month?: number; year?: number; },) {
+  const encodedInput = encodeURIComponent(JSON.stringify(input ?? {},),);
 
   const response = await fetch(
     `${SERVER_URL}/api/trpc/analytics.highestIncomeOfMonth?input=${encodedInput}`,
@@ -17,7 +17,7 @@ export default async function getHighestIncomeOfMonth(input?: { month?: number; 
   const res = await response.json();
 
   if (!response.ok) {
-    throw new Error(res.error?.message ?? "Unknown Error");
+    throw new Error(res.error?.message ?? "Unknown Error",);
   }
 
   return {

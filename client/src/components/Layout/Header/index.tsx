@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
+import { cn, } from "@/lib/utils";
 import Logo from "../Logo";
 import Navbar from "./Navbar/NavbarContainer";
 import PagesNav from "./PagesNav";
 
-export default function Header({ hideHeader }: { hideHeader: boolean }) {
+export default function Header({ hideHeader, }: { hideHeader: boolean; },) {
   return (
     <header
       role="header"

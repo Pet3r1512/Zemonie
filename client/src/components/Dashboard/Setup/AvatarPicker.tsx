@@ -1,7 +1,7 @@
 // AvatarPicker.tsx
 import convertHexToAlpha from "@/helpers/convertHexToAlpha";
 import useScreenSize from "@/hooks/useScreenSize";
-import { cn } from "@/lib/utils";
+import { cn, } from "@/lib/utils";
 import AvatarSprite from "./AvatarSprites";
 
 const avatars = [
@@ -34,16 +34,21 @@ export type AvatarId = (typeof avatars)[number];
 
 interface AvatarPickerProps {
   value?: AvatarId;
-  onChange?: (avatar: AvatarId) => void;
+  onChange?: (avatar: AvatarId,) => void;
   size?: number;
   className?: string;
 }
 
-export default function AvatarPicker({ value, onChange, size = 72, className }: AvatarPickerProps) {
-  const { screenSize } = useScreenSize();
+export default function AvatarPicker(
+  { value, onChange, size = 72, className, }: AvatarPickerProps,
+) {
+  const { screenSize, } = useScreenSize();
 
-  const avatarSize =
-    screenSize === "xs" || screenSize === "sm" ? 48 : screenSize === "md" ? 64 : size;
+  const avatarSize = screenSize === "xs" || screenSize === "sm"
+    ? 48
+    : screenSize === "md"
+    ? 64
+    : size;
 
   return (
     <div
@@ -52,16 +57,16 @@ export default function AvatarPicker({ value, onChange, size = 72, className }: 
         className,
       )}
     >
-      {avatars.map((avatar) => {
+      {avatars.map((avatar,) => {
         const selected = value === avatar;
 
         return (
           <button
             key={avatar}
             type="button"
-            onClick={() => onChange?.(avatar)}
+            onClick={() => onChange?.(avatar,)}
             style={{
-              backgroundColor: convertHexToAlpha(avatarColors[avatar], selected ? 0.31 : 0.15),
+              backgroundColor: convertHexToAlpha(avatarColors[avatar], selected ? 0.31 : 0.15,),
               borderColor: selected ? avatarColors[avatar] : undefined,
             }}
             className={cn(
@@ -83,7 +88,7 @@ export default function AvatarPicker({ value, onChange, size = 72, className }: 
             <p className="mt-1 text-xs font-medium capitalize">{avatar}</p>
           </button>
         );
-      })}
+      },)}
 
       <AvatarSprite />
     </div>

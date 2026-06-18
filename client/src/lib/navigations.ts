@@ -47,4 +47,4 @@ const mobileAuthNavLinks: MobileAuthNav[] = [
   },
 ];
 
-export { navigations, mobileAuthNavLinks, pages };
+export { mobileAuthNavLinks, navigations, pages, };

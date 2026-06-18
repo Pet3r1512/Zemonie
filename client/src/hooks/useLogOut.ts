@@ -1,6 +1,6 @@
 import logOutEmail from "@/api/users/auth/LogOutEmail";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "@tanstack/react-router";
+import { useQueryClient, } from "@tanstack/react-query";
+import { useRouter, } from "@tanstack/react-router";
 
 export function useLogout() {
   const queryClient = useQueryClient();
@@ -10,13 +10,13 @@ export function useLogout() {
     try {
       await logOutEmail();
     } catch (err) {
-      console.error("Logout API failed:", err);
+      console.error("Logout API failed:", err,);
     } finally {
-      queryClient.removeQueries({ queryKey: ["auth", "session"] });
+      queryClient.removeQueries({ queryKey: ["auth", "session",], },);
 
-      router.navigate({ to: "/auth/signin" });
+      router.navigate({ to: "/auth/signin", },);
     }
   };
 
-  return { logout };
+  return { logout, };
 }

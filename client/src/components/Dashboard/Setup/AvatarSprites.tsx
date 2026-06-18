@@ -1,6 +1,6 @@
 export default function AvatarSprite() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none" }}>
+    <svg xmlns="http://www.w3.org/2000/svg" style={{ display: "none", }}>
       {/* 1. Sunny Fox */}
       <symbol id="avatar-fox" viewBox="0 0 100 100">
         {/* bg */}

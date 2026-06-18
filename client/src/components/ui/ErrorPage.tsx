@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
 import Page from "@/components/Layout/Page";
+import { Button, } from "@/components/ui/button";
+import { Link, } from "@tanstack/react-router";
 
 function ErrorContent({
   error,
@@ -10,7 +10,7 @@ function ErrorContent({
   error?: Error | null;
   imageURL: string;
   reset?: () => void;
-}) {
+},) {
   return (
     <Page className="flex items-center justify-center">
       <div className="flex flex-col items-center text-center gap-4 max-w-2xl py-20">
@@ -48,6 +48,6 @@ export function NotFoundPage() {
   return <ErrorContent imageURL="/errors/zemonie_404_error.svg" />;
 }
 
-export function ErrorPage({ error, reset }: { error?: Error | null; reset?: () => void }) {
+export function ErrorPage({ error, reset, }: { error?: Error | null; reset?: () => void; },) {
   return <ErrorContent error={error} imageURL="/errors/zemonie_500_error.svg" reset={reset} />;
 }

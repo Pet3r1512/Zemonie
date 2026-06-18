@@ -1,5 +1,5 @@
-import { create } from "zustand";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
+import { create, } from "zustand";
 
 export type BalanceState = {
   balance: number;
@@ -7,28 +7,28 @@ export type BalanceState = {
   isLoading: boolean;
 
   fetchBalance: () => Promise<void>;
-  updateBalance: (value: number) => void;
-  markUpdated: (value: boolean) => void;
+  updateBalance: (value: number,) => void;
+  markUpdated: (value: boolean,) => void;
 };
 
-const useBalanceStore = create<BalanceState>((set) => ({
+const useBalanceStore = create<BalanceState>((set,) => ({
   balance: 0,
   isUpdated: false,
   isLoading: false,
 
-  updateBalance: (value) =>
+  updateBalance: (value,) =>
     set(() => ({
       balance: value,
       isUpdated: true,
     })),
 
-  markUpdated: (value) =>
+  markUpdated: (value,) =>
     set(() => ({
       isUpdated: value,
     })),
 
   fetchBalance: async () => {
-    set({ isLoading: true });
+    set({ isLoading: true, },);
 
     try {
       const res = await getCurrentBalance();
@@ -36,9 +36,9 @@ const useBalanceStore = create<BalanceState>((set) => ({
       set({
         balance: res.balance,
         isUpdated: false,
-      });
+      },);
     } finally {
-      set({ isLoading: false });
+      set({ isLoading: false, },);
     }
   },
 }));

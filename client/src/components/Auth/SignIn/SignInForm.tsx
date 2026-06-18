@@ -1,48 +1,48 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { SignInFormType } from "@/lib/types/signinform";
-import { cn } from "@/lib/utils";
-import { Label } from "@radix-ui/react-label";
-import { Eye, EyeOff, LoaderCircle } from "lucide-react";
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import FormErrorMessage from "../FormErrorMessage";
-import { useMutation } from "@tanstack/react-query";
 import SignInEmail from "@/api/users/auth/SignInEmail";
-import { toast } from "sonner";
-import { useRouter } from "@tanstack/react-router";
-import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
 import Logo from "@/components/Layout/Logo";
+import { Button, } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle, } from "@/components/ui/card";
+import { Input, } from "@/components/ui/input";
+import { SignInFormType, } from "@/lib/types/signinform";
+import { cn, } from "@/lib/utils";
+import { Label, } from "@radix-ui/react-label";
+import { useMutation, } from "@tanstack/react-query";
+import { useRouter, } from "@tanstack/react-router";
+import { Eye, EyeOff, LoaderCircle, } from "lucide-react";
+import { useState, } from "react";
+import { SubmitHandler, useForm, } from "react-hook-form";
+import { toast, } from "sonner";
+import FormErrorMessage from "../FormErrorMessage";
+import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
 
-export default function SignInForm({ className }: { className?: string }) {
-  const [hidePassword, setHidePassword] = useState<boolean>(true);
+export default function SignInForm({ className, }: { className?: string; },) {
+  const [hidePassword, setHidePassword,] = useState<boolean>(true,);
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, },
   } = useForm<SignInFormType>();
 
   const mutation = useMutation({
-    mutationKey: ["signin"],
+    mutationKey: ["signin",],
     mutationFn: SignInEmail,
-    onError: (error) => {
-      toast.error(error?.message || "Sign in failed");
+    onError: (error,) => {
+      toast.error(error?.message || "Sign in failed",);
     },
     onSuccess: async () => {
-      router.navigate({ to: "/dashboard" });
+      router.navigate({ to: "/dashboard", },);
     },
-  });
+  },);
 
-  const onSubmit: SubmitHandler<SignInFormType> = async (credentials) => {
-    mutation.mutate(credentials);
+  const onSubmit: SubmitHandler<SignInFormType> = async (credentials,) => {
+    mutation.mutate(credentials,);
   };
 
   return (
     <div
-      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className)}
+      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className,)}
       data-testid="signin-form-container"
     >
       <Card className="dark:bg-black/50 shadow-2xl">
@@ -51,7 +51,7 @@ export default function SignInForm({ className }: { className?: string }) {
           <CardTitle className="text-xl lg:text-2xl text-primary-dark">Welcome back</CardTitle>
         </CardHeader>
         <CardContent>
-          <form role="form" onSubmit={handleSubmit(onSubmit)}>
+          <form role="form" onSubmit={handleSubmit(onSubmit,)}>
             <div className="grid gap-6">
               <SignInViaGoogleBtn />
               <p className="bg-card text-center text-muted-foreground relative z-10 px-2">
@@ -71,7 +71,7 @@ export default function SignInForm({ className }: { className?: string }) {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                         message: "Invalid email address",
                       },
-                    })}
+                    },)}
                   />
                   {errors.email && errors.email.message && (
                     <FormErrorMessage message={errors.email.message} />
@@ -100,7 +100,7 @@ export default function SignInForm({ className }: { className?: string }) {
                           value: 8,
                           message: "Password must be at least 8 characters long",
                         },
-                      })}
+                      },)}
                     />
                     <button
                       type="button"
@@ -108,7 +108,7 @@ export default function SignInForm({ className }: { className?: string }) {
                       tabIndex={-1}
                       className="absolute top-1/2 right-2.5 -translate-y-1/2"
                       onClick={() => {
-                        setHidePassword((prev) => !prev);
+                        setHidePassword((prev,) => !prev);
                       }}
                     >
                       {hidePassword ? <Eye /> : <EyeOff />}
@@ -124,11 +124,9 @@ export default function SignInForm({ className }: { className?: string }) {
                   type="submit"
                   className="w-full bg-primary hover:bg-primary-dark"
                 >
-                  {mutation.isPending ? (
-                    <LoaderCircle data-testid="spinner" className="animate-spin" />
-                  ) : (
-                    <p>Sign In</p>
-                  )}
+                  {mutation.isPending
+                    ? <LoaderCircle data-testid="spinner" className="animate-spin" />
+                    : <p>Sign In</p>}
                 </Button>
               </div>
               <div role="signup-nav" className="text-center text-sm">

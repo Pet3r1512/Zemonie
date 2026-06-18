@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
-import { TrendingUp, Sparkles, ArrowRight } from "lucide-react";
+import { Link, } from "@tanstack/react-router";
+import { ArrowRight, Sparkles, TrendingUp, } from "lucide-react";
 import Team from "./Team";
 import Timeline from "./Timeline";
 import Values from "./Values";
@@ -22,8 +22,9 @@ export default function About() {
               <span className="text-primary">future of personal finance</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              <strong className="text-primary">Zemonie</strong> started with a simple belief:
-              managing money should feel empowering, not overwhelming. We're here to make that real.
+              <strong className="text-primary">Zemonie</strong>{" "}
+              started with a simple belief: managing money should feel empowering, not overwhelming.
+              We're here to make that real.
             </p>
           </div>
         </section>

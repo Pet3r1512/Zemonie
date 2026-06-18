@@ -1,26 +1,26 @@
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { useCurrentUrl } from "@/hooks/useCurrentUrl";
+import { useCurrentUrl, } from "@/hooks/useCurrentUrl";
+import { Link, } from "@tanstack/react-router";
+import { X, } from "lucide-react";
+import { useEffect, useState, } from "react";
 
 const BANNER_KEY = "zemonie-beta-banner-dismissed";
 
 export function Release() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible,] = useState(false,);
   const currentUrl = useCurrentUrl().currUrl;
 
   useEffect(() => {
-    setVisible(!localStorage.getItem(BANNER_KEY));
-  }, []);
+    setVisible(!localStorage.getItem(BANNER_KEY,),);
+  }, [],);
 
   if (!visible) return null;
 
   function dismiss() {
-    localStorage.setItem(BANNER_KEY, "true");
-    setVisible(false);
+    localStorage.setItem(BANNER_KEY, "true",);
+    setVisible(false,);
   }
 
-  if (currentUrl.includes("/dashboard")) {
+  if (currentUrl.includes("/dashboard",)) {
     return <></>;
   }
 
@@ -49,7 +49,8 @@ export function Release() {
               </path>{" "}
               <path d="M18.5 52.8c1.6-4.2 2.1-4.7-.2-6c-2.3-1.3-2.3-.4-3.8 3.8c-1.2 3.1.2 5.9.2 5.9s2.7-.5 3.8-3.7">
                 {" "}
-              </path>{" "}
+              </path>
+              {" "}
             </g>{" "}
             <path
               d="M16.2 48.9c.9-2.3.9-2.8 2.1-2.1c1.3.7 1 1 .1 3.3c-.6 1.7-2.1 2.1-2.1 2.1s-.7-1.5-.1-3.3"
@@ -70,7 +71,8 @@ export function Release() {
               </path>{" "}
               <path d="M13.9 47.6c2.2-2.2 2.4-2.8 3.8-1.4s.8 1.6-1.4 3.8c-1.7 1.7-3.8 1.3-3.8 1.3s-.2-2 1.4-3.7">
                 {" "}
-              </path>{" "}
+              </path>
+              {" "}
             </g>{" "}
             <path d="M18.5 38C12.3 27.6 2 31.9 2 31.9s14.7-14.7 24.6-4.8L18.5 38z" fill="#3baacf">
               {" "}
@@ -154,8 +156,10 @@ export function Release() {
               </circle>{" "}
               <circle cx="57.7" cy="15.7" r=".8">
                 {" "}
-              </circle>{" "}
-            </g>{" "}
+              </circle>
+              {" "}
+            </g>
+            {" "}
           </g>
         </svg>
         <Link

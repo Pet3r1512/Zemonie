@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/ui/date-picker";
+import createNewTransaction from "@/api/users/transactions/createNewTransaction";
+import { Button, } from "@/components/ui/button";
+import { DatePicker, } from "@/components/ui/date-picker";
 import {
   Dialog,
   DialogClose,
@@ -10,80 +11,79 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldError, FieldGroup } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { LoaderCircle } from "lucide-react";
-import { Transaction } from "./IncomeForm";
-import ExpenseSelect from "./Selectors/ExpenseSelector";
-import createNewTransaction from "@/api/users/transactions/createNewTransaction";
-import useBalanceStore from "@/store/store";
+import { Field, FieldError, FieldGroup, } from "@/components/ui/field";
+import { Input, } from "@/components/ui/input";
+import { Label, } from "@/components/ui/label";
 import localISOString from "@/helpers/localISOString";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import useBalanceStore from "@/store/store";
+import { useMutation, useQueryClient, } from "@tanstack/react-query";
+import { LoaderCircle, } from "lucide-react";
+import { useState, } from "react";
+import { FormProvider, SubmitHandler, useForm, } from "react-hook-form";
+import { toast, } from "sonner";
+import { Transaction, } from "./IncomeForm";
+import ExpenseSelect from "./Selectors/ExpenseSelector";
 
 export function ExpenseForm() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen,] = useState<boolean>(false,);
   const methods = useForm<Transaction>();
   const queryClient = useQueryClient();
-  const { data } = useUserPreferences();
+  const { data, } = useUserPreferences();
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, },
   } = methods;
 
   const mutation = useMutation({
-    mutationKey: ["expense"],
+    mutationKey: ["expense",],
     mutationFn: createNewTransaction,
-    onError: (error) => {
-      console.error(error?.message);
+    onError: (error,) => {
+      console.error(error?.message,);
     },
     onSuccess: async () => {
-      toast.success("Add New Expense Successfully");
+      toast.success("Add New Expense Successfully",);
       await queryClient.invalidateQueries({
-        queryKey: ["transactions"],
-      });
+        queryKey: ["transactions",],
+      },);
 
       await queryClient.invalidateQueries({
-        queryKey: ["balance"],
-      });
-      useBalanceStore.getState().markUpdated(false);
+        queryKey: ["balance",],
+      },);
+      useBalanceStore.getState().markUpdated(false,);
       queryClient.invalidateQueries({
-        queryKey: ["totalIncomeQuery"],
-      });
+        queryKey: ["totalIncomeQuery",],
+      },);
       queryClient.invalidateQueries({
-        queryKey: ["highestExpense"],
-      });
+        queryKey: ["highestExpense",],
+      },);
       queryClient.invalidateQueries({
-        queryKey: ["latestTransactions"],
-      });
+        queryKey: ["latestTransactions",],
+      },);
       queryClient.invalidateQueries({
-        queryKey: ["spendingByCategory"],
-      });
+        queryKey: ["spendingByCategory",],
+      },);
       queryClient.invalidateQueries({
-        queryKey: ["totalExpenses"],
-      });
+        queryKey: ["totalExpenses",],
+      },);
       queryClient.invalidateQueries({
-        queryKey: ["last7DaysExpenses"],
-      });
+        queryKey: ["last7DaysExpenses",],
+      },);
     },
-  });
+  },);
 
-  const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
+  const onSubmit: SubmitHandler<Transaction> = async (credentials,) => {
     mutation.mutate({
       ...credentials,
       currency: data?.preferences?.currency,
       createdAt: credentials.createdAt ?? localISOString(),
-    });
+    },);
     reset();
 
-    setIsOpen(false);
+    setIsOpen(false,);
   };
 
   return (
@@ -91,7 +91,7 @@ export function ExpenseForm() {
       <DialogTrigger
         asChild
         autoFocus={isOpen}
-        onClick={(e) => {
+        onClick={(e,) => {
           e.currentTarget.blur();
         }}
       >
@@ -101,12 +101,12 @@ export function ExpenseForm() {
       </DialogTrigger>
       <DialogContent
         onInteractOutside={() => {}}
-        onOpenAutoFocus={(e) => e.preventDefault()}
-        onCloseAutoFocus={(e) => e.preventDefault()}
+        onOpenAutoFocus={(e,) => e.preventDefault()}
+        onCloseAutoFocus={(e,) => e.preventDefault()}
         className="sm:max-w-sm bg-white dark:bg-dark-elevated pointer-events-auto"
       >
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit,)}>
             <DialogHeader>
               <DialogTitle>Add Expense</DialogTitle>
             </DialogHeader>
@@ -116,12 +116,12 @@ export function ExpenseForm() {
                 type="hidden"
                 {...register("categoryId", {
                   required: "Please select an expense category",
-                })}
+                },)}
               />
               <Field>
                 <Label htmlFor="source">Spend On</Label>
                 <ExpenseSelect />
-                <FieldError className="text-red-500" errors={[errors.categoryId]} />
+                <FieldError className="text-red-500" errors={[errors.categoryId,]} />
               </Field>
               <Field>
                 <Label htmlFor="amount">Amount</Label>
@@ -136,9 +136,9 @@ export function ExpenseForm() {
                       value: 0.01,
                       message: "Amount must be greater than 0",
                     },
-                  })}
+                  },)}
                 />
-                <FieldError className="text-red-500" errors={[errors.amount]} />
+                <FieldError className="text-red-500" errors={[errors.amount,]} />
               </Field>
               <Field>
                 <Label htmlFor="desc">{"Description (optional)"}</Label>
@@ -150,7 +150,7 @@ export function ExpenseForm() {
                       value: 50,
                       message: "Max length is 50 characters",
                     },
-                  })}
+                  },)}
                 />
               </Field>
               <Field>

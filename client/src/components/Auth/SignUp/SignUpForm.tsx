@@ -1,25 +1,25 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { Eye, EyeOff, LoaderCircle } from "lucide-react";
-import { useRef, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { SignUpFormType } from "@/lib/types/signupform";
-import FormErrorMessage from "../FormErrorMessage";
-import { useMutation } from "@tanstack/react-query";
 import SignUpEmail from "@/api/users/auth/SignUpEmail";
-import { toast } from "sonner";
-import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
-import { Link, useRouter } from "@tanstack/react-router";
 import Logo from "@/components/Layout/Logo";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Field, FieldContent, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { Button, } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, } from "@/components/ui/card";
+import { Checkbox, } from "@/components/ui/checkbox";
+import { Field, FieldContent, FieldDescription, FieldLabel, } from "@/components/ui/field";
+import { Input, } from "@/components/ui/input";
+import { Label, } from "@/components/ui/label";
+import { SignUpFormType, } from "@/lib/types/signupform";
+import { cn, } from "@/lib/utils";
+import { useMutation, } from "@tanstack/react-query";
+import { Link, useRouter, } from "@tanstack/react-router";
+import { Eye, EyeOff, LoaderCircle, } from "lucide-react";
+import { useRef, useState, } from "react";
+import { Controller, SubmitHandler, useForm, } from "react-hook-form";
+import { toast, } from "sonner";
+import FormErrorMessage from "../FormErrorMessage";
+import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
 
-export default function SignUpForm({ className }: { className?: string }) {
-  const [hidePassword, setHidePassword] = useState<boolean>(true);
-  const [hideConfirmPassword, setHideConfirmPassword] = useState<boolean>(true);
+export default function SignUpForm({ className, }: { className?: string; },) {
+  const [hidePassword, setHidePassword,] = useState<boolean>(true,);
+  const [hideConfirmPassword, setHideConfirmPassword,] = useState<boolean>(true,);
 
   const router = useRouter();
 
@@ -28,40 +28,40 @@ export default function SignUpForm({ className }: { className?: string }) {
     handleSubmit,
     watch,
     control,
-    formState: { errors },
+    formState: { errors, },
   } = useForm<SignUpFormType>({
-    defaultValues: { terms: false },
-  });
+    defaultValues: { terms: false, },
+  },);
 
   const mutation = useMutation({
-    mutationKey: ["signup"],
+    mutationKey: ["signup",],
     mutationFn: SignUpEmail,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
+    onError: (error: any,) => {
       if (error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
-        return toast.error("This Email Is Existed. Please Sign In or Use Another Email");
+        return toast.error("This Email Is Existed. Please Sign In or Use Another Email",);
       }
-      return toast.error(error.message || "Something went wrong. Please try again.");
+      return toast.error(error.message || "Something went wrong. Please try again.",);
     },
-    onSuccess: (res) => {
-      toast.success(res.user.name + ", Everything is done!");
+    onSuccess: (res,) => {
+      toast.success(res.user.name + ", Everything is done!",);
       return setTimeout(() => {
-        router.navigate({ to: "/dashboard" });
-      }, 1250);
+        router.navigate({ to: "/dashboard", },);
+      }, 1250,);
     },
-  });
+  },);
 
-  const passwordRef = useRef({});
-  passwordRef.current = watch("password", "");
+  const passwordRef = useRef({},);
+  passwordRef.current = watch("password", "",);
 
-  const onSubmit: SubmitHandler<SignUpFormType> = (credential) => {
-    mutation.mutate(credential);
+  const onSubmit: SubmitHandler<SignUpFormType> = (credential,) => {
+    mutation.mutate(credential,);
   };
 
   return (
     <div
       data-testid="signup-form-container"
-      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className)}
+      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className,)}
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
@@ -73,7 +73,7 @@ export default function SignUpForm({ className }: { className?: string }) {
         </CardHeader>
         <CardContent>
           <SignInViaGoogleBtn />
-          <form role="form" onSubmit={handleSubmit(onSubmit)}>
+          <form role="form" onSubmit={handleSubmit(onSubmit,)}>
             <div className="grid gap-6">
               <p className="bg-card text-center text-muted-foreground relative z-10 px-2 mt-8">
                 Or continue with
@@ -90,7 +90,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                         message: "Invalid email address",
                       },
-                    })}
+                    },)}
                     placeholder="example@email.com"
                   />
                   {errors.email && errors.email.message && (
@@ -114,7 +114,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                         value: /^\p{L}+(?: \p{L}+)*$/u,
                         message: "Please enter a valid name using letters only",
                       },
-                    })}
+                    },)}
                   />
                   {errors.name && errors.name.message && (
                     <FormErrorMessage message={errors.name.message} />
@@ -139,7 +139,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                           value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
                           message: "Minimum 8 characters, at least one letter and one number",
                         },
-                      })}
+                      },)}
                     />
                     <button
                       tabIndex={-1}
@@ -148,7 +148,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       aria-label={hidePassword ? "Show password" : "Hide password"}
                       type="button"
                       onClick={() => {
-                        setHidePassword((prev) => !prev);
+                        setHidePassword((prev,) => !prev);
                       }}
                     >
                       {hidePassword ? <Eye /> : <EyeOff />}
@@ -168,9 +168,9 @@ export default function SignUpForm({ className }: { className?: string }) {
                       type={hideConfirmPassword ? "password" : "text"}
                       required
                       {...register("confirmPassword", {
-                        validate: (value) =>
+                        validate: (value,) =>
                           value === passwordRef.current || "The passwords do not match",
-                      })}
+                      },)}
                     />
 
                     <button
@@ -180,7 +180,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       aria-label={hidePassword ? "Show password" : "Hide password"}
                       type="button"
                       onClick={() => {
-                        setHideConfirmPassword((prev) => !prev);
+                        setHideConfirmPassword((prev,) => !prev);
                       }}
                     >
                       {hideConfirmPassword ? <Eye /> : <EyeOff />}
@@ -200,7 +200,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                     rules={{
                       required: "You must accept the terms and privacy policies",
                     }}
-                    render={({ field }) => (
+                    render={({ field, },) => (
                       <Checkbox
                         id="terms"
                         checked={field.value}
@@ -242,11 +242,9 @@ export default function SignUpForm({ className }: { className?: string }) {
                   type="submit"
                   className="w-full bg-primary hover:bg-primary-dark"
                 >
-                  {mutation.isPending ? (
-                    <LoaderCircle data-testid="spinner" className="animate-spin" />
-                  ) : (
-                    <p>Create New Account</p>
-                  )}
+                  {mutation.isPending
+                    ? <LoaderCircle data-testid="spinner" className="animate-spin" />
+                    : <p>Create New Account</p>}
                 </Button>
               </div>
               <div role="signin-nav" className="text-center text-sm">

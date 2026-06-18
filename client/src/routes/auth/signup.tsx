@@ -1,11 +1,11 @@
-import SEO from "@/components/SEO";
 import SignUp from "@/components/Auth/SignUp";
 import Page from "@/components/Layout/Page";
-import { createFileRoute } from "@tanstack/react-router";
+import SEO from "@/components/SEO";
+import { createFileRoute, } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/auth/signup")({
+export const Route = createFileRoute("/auth/signup",)({
   component: RouteComponent,
-});
+},);
 
 function RouteComponent() {
   return (

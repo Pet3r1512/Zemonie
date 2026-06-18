@@ -1,9 +1,9 @@
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "../hooks/useTheme";
-import { cn } from "../lib/utils";
+import { Moon, Sun, } from "lucide-react";
+import { useTheme, } from "../hooks/useTheme";
+import { cn, } from "../lib/utils";
 
 const ThemeToggle = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, } = useTheme();
 
   return (
     <label className="relative inline-block w-fit">
@@ -37,13 +37,15 @@ const ThemeToggle = () => {
           "block w-10 h-6 rounded-full transition-colors duration-200",
           theme === "dark" ? "bg-gray-300" : "bg-gray-700",
         )}
-      ></span>
+      >
+      </span>
       <span
         className={cn(
           "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200",
           theme === "dark" ? "translate-x-4" : "",
         )}
-      ></span>
+      >
+      </span>
     </label>
   );
 };

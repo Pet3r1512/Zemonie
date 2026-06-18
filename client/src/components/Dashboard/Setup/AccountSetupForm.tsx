@@ -1,7 +1,12 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { cn } from "@/lib/utils";
-import { Label } from "../../ui/label";
+import accountSetup from "@/api/users/accountSetup";
+import { Currency, } from "@/api/users/createBalance";
+import { Button, } from "@/components/ui/button";
+import { cn, } from "@/lib/utils";
+import { useMutation, useQueryClient, } from "@tanstack/react-query";
+import { LoaderCircle, } from "lucide-react";
+import { SubmitHandler, useForm, } from "react-hook-form";
+import { Card, CardContent, CardHeader, CardTitle, } from "../../ui/card";
+import { Label, } from "../../ui/label";
 import {
   Select,
   SelectContent,
@@ -10,12 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../ui/select";
-import { LoaderCircle } from "lucide-react";
-import AvatarPicker, { AvatarId } from "./AvatarPicker";
-import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import accountSetup from "@/api/users/accountSetup";
-import { Currency } from "@/api/users/createBalance";
+import AvatarPicker, { AvatarId, } from "./AvatarPicker";
 
 export type AccountSetupFormValues = {
   avatarId: AvatarId;
@@ -30,59 +30,62 @@ const currencyLists: {
   {
     code: "AUD",
     name: "Australia Dollar - AUD",
-    img: "https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/au.png",
+    img:
+      "https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/au.png",
   },
   {
     code: "USD",
     name: "US Dollar - USD",
-    img: "https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/us.png",
+    img:
+      "https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/us.png",
   },
   {
     code: "VND",
     name: "Vietname Dong - VND",
-    img: "https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/vn.png",
+    img:
+      "https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/vn.png",
   },
 ];
 
-export default function AccountSetupForm({ className }: { className?: string }) {
+export default function AccountSetupForm({ className, }: { className?: string; },) {
   const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, },
   } = useForm<AccountSetupFormValues>({
     defaultValues: {
       currency: Currency["AUD"],
       avatarId: "fox",
     },
-  });
+  },);
 
-  register("currency");
+  register("currency",);
   register("avatarId", {
     required: "Please choose an avatar",
-  });
+  },);
 
   const mutation = useMutation({
-    mutationKey: ["isSetupDone"],
-    mutationFn: (credentials: AccountSetupFormValues) => accountSetup(credentials),
+    mutationKey: ["isSetupDone",],
+    mutationFn: (credentials: AccountSetupFormValues,) => accountSetup(credentials,),
 
     onSuccess: async () => {
-      sessionStorage.setItem("isSetupDone", "true");
-      await queryClient.invalidateQueries({ queryKey: ["preferences"] });
-      await queryClient.invalidateQueries({ queryKey: ["userSetupStatus"] });
+      sessionStorage.setItem("isSetupDone", "true",);
+      await queryClient.invalidateQueries({ queryKey: ["preferences",], },);
+      await queryClient.invalidateQueries({ queryKey: ["userSetupStatus",], },);
     },
-  });
+  },);
 
-  const onSubmit: SubmitHandler<AccountSetupFormValues> = async (credentials) => {
-    mutation.mutate(credentials);
+  const onSubmit: SubmitHandler<AccountSetupFormValues> = async (credentials,) => {
+    mutation.mutate(credentials,);
   };
 
   return (
     <div
       data-testid="signup-form-container"
-      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className)}
+      className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className,)}
     >
       <Card className="dark:bg-black/50 shadow-2xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
@@ -95,9 +98,10 @@ export default function AccountSetupForm({ className }: { className?: string }) 
           <CardTitle className="text-xl lg:text-2xl text-primary-dark">Account Setup</CardTitle>
         </CardHeader>
         <CardContent>
-          <form role="form" onSubmit={handleSubmit(onSubmit)}>
+          <form role="form" onSubmit={handleSubmit(onSubmit,)}>
             <div className="grid gap-6">
-              {/* <div className="grid gap-3">
+              {
+                /* <div className="grid gap-3">
                 <Label htmlFor="language">Language</Label>
                 <Select
                   onValueChange={() => {
@@ -131,16 +135,17 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-              </div> */}
+              </div> */
+              }
               <div className="grid gap-3">
                 <Label htmlFor="currency">Currency</Label>
                 <Select
-                  onValueChange={(value) => {
+                  onValueChange={(value,) => {
                     setValue("currency", value as Currency, {
                       shouldDirty: true,
                       shouldTouch: true,
                       shouldValidate: true,
-                    });
+                    },);
                   }}
                   defaultValue="AUD"
                 >
@@ -149,7 +154,7 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                   </SelectTrigger>
                   <SelectContent className="bg-white dark:bg-dark-elevated w-full">
                     <SelectGroup>
-                      {currencyLists.map((currency) => {
+                      {currencyLists.map((currency,) => {
                         return (
                           <SelectItem
                             key={currency.code}
@@ -166,12 +171,13 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                             </div>
                           </SelectItem>
                         );
-                      })}
+                      },)}
                     </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
-              {/* <div className="grid gap-3">
+              {
+                /* <div className="grid gap-3">
                 <Label htmlFor="currency">Theme</Label>
                 <Select
                   onValueChange={() => {
@@ -207,17 +213,18 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-              </div> */}
+              </div> */
+              }
               <div className="grid gap-3">
                 <Label htmlFor="avatarId">Avatar</Label>
                 <AvatarPicker
-                  value={watch("avatarId")}
-                  onChange={(avatar) => {
+                  value={watch("avatarId",)}
+                  onChange={(avatar,) => {
                     setValue("avatarId", avatar, {
                       shouldDirty: true,
                       shouldTouch: true,
                       shouldValidate: true,
-                    });
+                    },);
                   }}
                 />
                 {errors.avatarId && (

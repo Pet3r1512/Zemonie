@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet, } from "react-helmet-async";
 
 const SITE_URL = "https://www.zemonie.site";
 const DEFAULT_DESC =
@@ -19,7 +19,7 @@ export default function SEO({
   ogImage?: string;
   noIndex?: boolean;
   jsonLd?: Record<string, unknown>;
-}) {
+},) {
   const fullTitle = `${title} | Zemonie`;
   const url = canonicalPath ? `${SITE_URL}${canonicalPath}` : SITE_URL;
 
@@ -43,9 +43,9 @@ export default function SEO({
 
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
-      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd,)}</script>}
     </Helmet>
   );
 }
 
-export { SITE_URL, DEFAULT_DESC, DEFAULT_OG_IMAGE };
+export { DEFAULT_DESC, DEFAULT_OG_IMAGE, SITE_URL, };

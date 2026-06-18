@@ -1,4 +1,4 @@
-import { ArrowDownUpIcon, TagIcon, BarChart3Icon, PieChartIcon, CheckIcon } from "lucide-react";
+import { ArrowDownUpIcon, BarChart3Icon, CheckIcon, PieChartIcon, TagIcon, } from "lucide-react";
 
 const features = [
   {
@@ -60,7 +60,7 @@ export default function MainFeaturesGrid() {
     <section className="py-20 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {features.map((feature, index) => {
+          {features.map((feature, index,) => {
             const Icon = feature.icon;
 
             return (
@@ -81,7 +81,7 @@ export default function MainFeaturesGrid() {
                 <p className="text-gray-600 dark:text-gray-400 mb-6">{feature.description}</p>
 
                 <ul className="space-y-2">
-                  {feature.benefits.map((benefit, i) => (
+                  {feature.benefits.map((benefit, i,) => (
                     <li
                       key={i}
                       className="flex items-center text-sm text-gray-600 dark:text-gray-400"
@@ -95,7 +95,7 @@ export default function MainFeaturesGrid() {
                 <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
             );
-          })}
+          },)}
         </div>
       </div>
     </section>

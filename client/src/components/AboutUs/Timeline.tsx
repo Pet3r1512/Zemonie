@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, } from "@/lib/utils";
 
 const milestones = [
   {
@@ -39,7 +39,7 @@ export default function Timeline() {
           <div className="absolute left-8 inset-y-0 w-0.5 bg-linear-to-b from-primary to-secondary" />
 
           <div className="space-y-10">
-            {milestones.map((milestone, index) => {
+            {milestones.map((milestone, index,) => {
               const isLast = index === milestones.length - 1;
 
               return (
@@ -68,7 +68,7 @@ export default function Timeline() {
                   </div>
                 </div>
               );
-            })}
+            },)}
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
-import { createFileRoute } from "@tanstack/react-router";
-import { Tag } from "lucide-react";
-export const Route = createFileRoute("/release-notes")({
+import SEO from "@/components/SEO";
+import { createFileRoute, } from "@tanstack/react-router";
+import { Tag, } from "lucide-react";
+export const Route = createFileRoute("/release-notes",)({
   component: RouteComponent,
-});
+},);
 const releases = [
   {
     version: "v1.0.7-beta",
@@ -13,11 +13,13 @@ const releases = [
     changes: [
       {
         type: "feature",
-        text: "Added a current month net savings card for a quick overview of your financial performance. 🚀",
+        text:
+          "Added a current month net savings card for a quick overview of your financial performance. 🚀",
       },
       {
         type: "feature",
-        text: "Introduced a last 7 days spending bar chart to better track short-term spending habits. 🔥",
+        text:
+          "Introduced a last 7 days spending bar chart to better track short-term spending habits. 🔥",
       },
       {
         type: "feature",
@@ -33,7 +35,8 @@ const releases = [
       },
       {
         type: "update",
-        text: "Updated the “Spending by Category” tooltip to show total amounts instead of percentages for clearer insights.",
+        text:
+          "Updated the “Spending by Category” tooltip to show total amounts instead of percentages for clearer insights.",
       },
       {
         type: "update",
@@ -56,7 +59,8 @@ const releases = [
     changes: [
       {
         type: "feature",
-        text: "Added the ability to edit and update existing transactions with a dedicated form. 🚀",
+        text:
+          "Added the ability to edit and update existing transactions with a dedicated form. 🚀",
       },
       {
         type: "update",
@@ -68,11 +72,13 @@ const releases = [
       },
       {
         type: "update",
-        text: "Refreshed landing page and features content and improved dashboard color styling for better visual consistency.",
+        text:
+          "Refreshed landing page and features content and improved dashboard color styling for better visual consistency.",
       },
       {
         type: "fix",
-        text: "Fixed an issue where the account setup form would incorrectly appear again after signing in.",
+        text:
+          "Fixed an issue where the account setup form would incorrectly appear again after signing in.",
       },
       {
         type: "fix",
@@ -80,7 +86,8 @@ const releases = [
       },
       {
         type: "fix",
-        text: "Fixed page reload behavior so users stay on their current page instead of being redirected to the dashboard.",
+        text:
+          "Fixed page reload behavior so users stay on their current page instead of being redirected to the dashboard.",
       },
     ],
   },
@@ -126,7 +133,8 @@ const releases = [
     changes: [
       {
         type: "feature",
-        text: "Introduced an animated transaction details popup for a more polished user experience. 🚀",
+        text:
+          "Introduced an animated transaction details popup for a more polished user experience. 🚀",
       },
       {
         type: "fix",
@@ -134,7 +142,8 @@ const releases = [
       },
       {
         type: "fix",
-        text: "Improved scrolling stability on the Transactions page to prevent interface shifting.",
+        text:
+          "Improved scrolling stability on the Transactions page to prevent interface shifting.",
       },
     ],
   },
@@ -145,7 +154,8 @@ const releases = [
     changes: [
       {
         type: "feature",
-        text: "Introduced a Spending by Category chart for better insight into your spending habits. 🚀",
+        text:
+          "Introduced a Spending by Category chart for better insight into your spending habits. 🚀",
       },
       {
         type: "feature",
@@ -157,7 +167,8 @@ const releases = [
       },
       {
         type: "update",
-        text: "Improved app stability and consistency across Chrome, Safari, Firefox, and other major browsers.",
+        text:
+          "Improved app stability and consistency across Chrome, Safari, Firefox, and other major browsers.",
       },
       {
         type: "fix",
@@ -165,7 +176,8 @@ const releases = [
       },
       {
         type: "fix",
-        text: "Fixed an issue that could cause a different avatar to appear than the one selected during setup.",
+        text:
+          "Fixed an issue that could cause a different avatar to appear than the one selected during setup.",
       },
     ],
   },
@@ -236,8 +248,8 @@ const releases = [
     date: "May 25, 2026",
     tag: "Beta",
     changes: [
-      { type: "feature", text: "Improve user interfaces" },
-      { type: "fix", text: "Authentication error handler" },
+      { type: "feature", text: "Improve user interfaces", },
+      { type: "fix", text: "Authentication error handler", },
     ],
   },
   {
@@ -245,24 +257,24 @@ const releases = [
     date: "May 25, 2026",
     tag: "Beta",
     changes: [
-      { type: "feature", text: "Track income and expenses with ease" },
+      { type: "feature", text: "Track income and expenses with ease", },
       {
         type: "feature",
         text: "Interactive dashboard with real-time analytics",
       },
-      { type: "feature", text: "Currency supported: AUD and USD" },
-      { type: "feature", text: "Category-based transaction management" },
-      { type: "feature", text: "User authentication with email and password" },
+      { type: "feature", text: "Currency supported: AUD and USD", },
+      { type: "feature", text: "Category-based transaction management", },
+      { type: "feature", text: "User authentication with email and password", },
       {
         type: "feature",
         text: "Responsive design — works on desktop and mobile",
       },
-      { type: "feature", text: "Account setup wizard with avatar picker" },
+      { type: "feature", text: "Account setup wizard with avatar picker", },
     ],
   },
 ];
 
-const changeBadge = (type: string) => {
+const changeBadge = (type: string,) => {
   if (type === "feature") {
     return (
       <span className="mt-0.5 shrink-0 size-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center text-xs font-bold">
@@ -303,22 +315,24 @@ function RouteComponent() {
             <p className="text-gray-500 dark:text-gray-400 mt-2">What's new in Zemonie</p>
           </div>
           <div className="space-y-6">
-            {releases.map((release, index) => (
+            {releases.map((release, index,) => (
               <div
                 key={release.version}
                 className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-8 lg:p-10"
               >
                 <div className="flex items-center gap-3 mb-1">
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">{release.version}</h2>
-                  {release.tag === "Beta" ? (
-                    <span className="rounded-full bg-yellow-300 dark:bg-yellow-600 text-gray-800 dark:text-gray-200 text-xs font-semibold px-3 py-1">
-                      {release.tag}
-                    </span>
-                  ) : (
-                    <span className="rounded-full bg-green-500 text-white text-xs font-semibold px-3 py-1">
-                      {release.tag}
-                    </span>
-                  )}
+                  {release.tag === "Beta"
+                    ? (
+                      <span className="rounded-full bg-yellow-300 dark:bg-yellow-600 text-gray-800 dark:text-gray-200 text-xs font-semibold px-3 py-1">
+                        {release.tag}
+                      </span>
+                    )
+                    : (
+                      <span className="rounded-full bg-green-500 text-white text-xs font-semibold px-3 py-1">
+                        {release.tag}
+                      </span>
+                    )}
                   {index === 0 && (
                     <div className="text-green-500 text-xs font-extrabold ml-auto flex items-center">
                       <Tag size={16} />
@@ -328,9 +342,9 @@ function RouteComponent() {
                 </div>
                 <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">{release.date}</p>
                 <div className="space-y-3">
-                  {release.changes.map((item, i) => (
+                  {release.changes.map((item, i,) => (
                     <div key={i} className="flex items-start gap-3">
-                      {changeBadge(item.type)}
+                      {changeBadge(item.type,)}
                       <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
                         {item.text}
                       </span>

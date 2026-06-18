@@ -1,11 +1,11 @@
-import { ChartNoAxesCombined, Crown, MoveDown } from "lucide-react";
-import { OverallDataType } from "../Overall";
-import Data from "../Overall/Data";
-import { useQuery } from "@tanstack/react-query";
 import getHighestIncomeOfMonth from "@/api/users/analytics/income/getHighestIncomeOfMonth";
 import getIncomeGrowth from "@/api/users/analytics/income/getIncomeGrowth";
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { useQuery, } from "@tanstack/react-query";
+import { ChartNoAxesCombined, Crown, MoveDown, } from "lucide-react";
+import { OverallDataType, } from "../Overall";
+import Data from "../Overall/Data";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed
@@ -16,27 +16,27 @@ export default function IncomeOverallContainer() {
   const totalIncomeQuery = useFetchCurrentMonthIncome({
     month: currentMonth,
     year: currentYear,
-  });
+  },);
 
   const highestIncomeOfMonth = useQuery({
-    queryKey: ["highestIncomeOfMonth"],
+    queryKey: ["highestIncomeOfMonth",],
     queryFn: () =>
       getHighestIncomeOfMonth({
         month: currentMonth,
         year: currentYear,
-      }),
+      },),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000, // 5 mins
     gcTime: 30 * 60 * 1000, // 30 mins
-  });
+  },);
 
   const incomeGrowthRate = useQuery({
-    queryKey: ["incomeRate"],
+    queryKey: ["incomeRate",],
     queryFn: () => getIncomeGrowth(),
     refetchOnWindowFocus: false,
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
-  });
+  },);
 
   const highestTransaction = highestIncomeOfMonth.data?.highestIncomeOfMonth?.highestIncome;
 
@@ -83,9 +83,9 @@ export default function IncomeOverallContainer() {
 
   return (
     <section className="flex flex-col md:flex-row items-stretch gap-y-5 md:gap-x-5 max-w-7xl">
-      {placeholderData.map((data) => {
+      {placeholderData.map((data,) => {
         return <Data key={data.name} data={data} />;
-      })}
+      },)}
     </section>
   );
 }

@@ -6,11 +6,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { LayoutDashboard, Banknote, Landmark, Coins } from "lucide-react";
+import { useCurrentUrl, } from "@/hooks/useCurrentUrl";
+import { cn, } from "@/lib/utils";
+import { Link, } from "@tanstack/react-router";
+import { Banknote, Coins, Landmark, LayoutDashboard, } from "lucide-react";
 import SidebarFooter from "../Dashboard/Sidebar/SidebarFooter";
-import { Link } from "@tanstack/react-router";
-import { useCurrentUrl } from "@/hooks/useCurrentUrl";
-import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -42,7 +42,7 @@ export function AppSidebar() {
       <SidebarHeader />
       <SidebarGroupContent className="px-5 flex-1 z-50">
         <SidebarMenu className="space-y-2.5">
-          {items.map((item) => (
+          {items.map((item,) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
