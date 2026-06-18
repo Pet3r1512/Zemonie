@@ -76,7 +76,7 @@ const expenseSources: SourceExpense[] = [
     icon: <HeartPulse size={ICON_SIZE} className="text-pink-500" />,
   },
   {
-    name: "Savings & Investments",
+    name: "Investments",
     id: 20,
     icon: <PiggyBank size={ICON_SIZE} className="text-emerald-600" />,
   },
