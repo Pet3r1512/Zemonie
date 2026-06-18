@@ -13,7 +13,7 @@ import { ComponentMap } from "@/types/ComponentMap";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
-import { AnimatePresence, LazyMotion, m } from "motion/react";
+import { AnimatePresence, LazyMotion, m, easeInOut } from "motion/react";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../button";
@@ -138,7 +138,7 @@ export function ExpandableCard({
 
   const transition = {
     duration: 0.25,
-    ease: [0.25, 0.1, 0.25, 1],
+    ease: easeInOut,
   };
 
   return (
