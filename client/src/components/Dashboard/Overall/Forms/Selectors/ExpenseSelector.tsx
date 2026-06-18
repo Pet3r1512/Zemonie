@@ -51,24 +51,19 @@ const expenseSources: SourceExpense[] = [
     icon: <Car size={ICON_SIZE} className="text-amber-500" />,
   },
   {
-    name: "Housing",
-    id: 11,
-    icon: <Building2 size={ICON_SIZE} className="text-yellow-500" />,
-  },
-  {
     name: "Bills",
     id: 12,
     icon: <FileText size={ICON_SIZE} className="text-rose-500" />,
   },
   {
-    name: "Study / Education",
-    id: 13,
-    icon: <BookOpen size={ICON_SIZE} className="text-purple-500" />,
+    name: "Housing",
+    id: 11,
+    icon: <Building2 size={ICON_SIZE} className="text-yellow-500" />,
   },
   {
-    name: "Health",
-    id: 14,
-    icon: <HeartPulse size={ICON_SIZE} className="text-pink-500" />,
+    name: "Shopping",
+    id: 16,
+    icon: <ShoppingBag size={ICON_SIZE} className="text-violet-500" />,
   },
   {
     name: "Entertainment",
@@ -76,9 +71,19 @@ const expenseSources: SourceExpense[] = [
     icon: <Tv2 size={ICON_SIZE} className="text-fuchsia-500" />,
   },
   {
-    name: "Shopping",
-    id: 16,
-    icon: <ShoppingBag size={ICON_SIZE} className="text-violet-500" />,
+    name: "Health",
+    id: 14,
+    icon: <HeartPulse size={ICON_SIZE} className="text-pink-500" />,
+  },
+  {
+    name: "Savings & Investments",
+    id: 20,
+    icon: <PiggyBank size={ICON_SIZE} className="text-emerald-600" />,
+  },
+  {
+    name: "Study / Education",
+    id: 13,
+    icon: <BookOpen size={ICON_SIZE} className="text-purple-500" />,
   },
   {
     name: "Travel",
@@ -94,11 +99,6 @@ const expenseSources: SourceExpense[] = [
     name: "Taxes",
     id: 19,
     icon: <Receipt size={ICON_SIZE} className="text-stone-500" />,
-  },
-  {
-    name: "Savings & Investments",
-    id: 20,
-    icon: <PiggyBank size={ICON_SIZE} className="text-emerald-600" />,
   },
   {
     name: "Other Expense",
