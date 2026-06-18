@@ -6,7 +6,9 @@ export default async function getSpendingByCategory(credentials?: {
 },) {
   const response = await fetch(
     `${SERVER_URL}/api/trpc/analytics.getExpenseCategorySummary?input=${
-      encodeURIComponent(JSON.stringify(credentials,),)
+      encodeURIComponent(
+        JSON.stringify(credentials,),
+      )
     }`,
     {
       method: "GET",

@@ -6,7 +6,9 @@ export default async function getHighestExpenseCategory(credentails?: {
 },) {
   const response = await fetch(
     `${SERVER_URL}/api/trpc/analytics.highestExpenseCategory?input=${
-      encodeURIComponent(JSON.stringify(credentails,),)
+      encodeURIComponent(
+        JSON.stringify(credentails,),
+      )
     }`,
     {
       method: "GET",

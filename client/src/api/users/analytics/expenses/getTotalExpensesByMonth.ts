@@ -6,7 +6,9 @@ export default async function getTotalExpensesByMonth(credentials?: {
 },) {
   const response = await fetch(
     `${SERVER_URL}/api/trpc/analytics.totalExpensesOfMonth?input=${
-      encodeURIComponent(JSON.stringify(credentials,),)
+      encodeURIComponent(
+        JSON.stringify(credentials,),
+      )
     }`,
     {
       method: "GET",

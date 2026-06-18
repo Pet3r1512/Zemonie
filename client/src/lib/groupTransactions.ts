@@ -9,7 +9,9 @@ export default function groupTransactions(transactions: TransactionInfo[],) {
     (acc, tx,) => {
       const d = new Date(tx.date,);
       const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1,).padStart(2, "0",)}-${
-        String(d.getDate(),).padStart(2, "0",)
+        String(
+          d.getDate(),
+        ).padStart(2, "0",)
       }`;
 
       acc[dateKey] ??= [];
