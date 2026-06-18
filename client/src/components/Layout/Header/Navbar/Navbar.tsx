@@ -1,7 +1,7 @@
 import ThemeToggle from "@/components/ThemeToggle";
+import { navigations } from "@/lib/navigations";
 import { cn } from "@/lib/utils";
 import Sidebar from "../Sidebar";
-import { navigations } from "@/lib/navigations";
 
 export default function Navbar() {
   return (

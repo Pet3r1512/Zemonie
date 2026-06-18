@@ -1,4 +1,4 @@
-import { ArrowDownUpIcon, TagIcon, BarChart3Icon, PieChartIcon, CheckIcon } from "lucide-react";
+import { ArrowDownUpIcon, BarChart3Icon, CheckIcon, PieChartIcon, TagIcon } from "lucide-react";
 
 const features = [
   {

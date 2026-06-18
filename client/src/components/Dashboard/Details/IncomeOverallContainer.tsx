@@ -1,11 +1,11 @@
-import { ChartNoAxesCombined, Crown, MoveDown } from "lucide-react";
-import { OverallDataType } from "../Overall";
-import Data from "../Overall/Data";
-import { useQuery } from "@tanstack/react-query";
 import getHighestIncomeOfMonth from "@/api/users/analytics/income/getHighestIncomeOfMonth";
 import getIncomeGrowth from "@/api/users/analytics/income/getIncomeGrowth";
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { useQuery } from "@tanstack/react-query";
+import { ChartNoAxesCombined, Crown, MoveDown } from "lucide-react";
+import { OverallDataType } from "../Overall";
+import Data from "../Overall/Data";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1; // 1-indexed

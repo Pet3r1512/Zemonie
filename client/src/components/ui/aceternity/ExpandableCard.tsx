@@ -1,27 +1,27 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, cubicBezier } from "motion/react";
-import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
-import { ComponentMap } from "@/types/ComponentMap";
-import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
-import ParseISOStringDate from "@/helpers/parseISOStringData";
-import { cn } from "@/lib/utils";
-import categoryColorDictionary from "@/types/CategoryDict";
-import { formatCurrency } from "@/helpers/formatCurrency";
-import useUserPreferences from "@/hooks/users/useUserPreferences";
-import { Button } from "../button";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Transaction } from "@/components/Dashboard/Overall/Forms/IncomeForm";
 import ExpenseSelect from "@/components/Dashboard/Overall/Forms/Selectors/ExpenseSelector";
-import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
-import { Label } from "../label";
+import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
+import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import ParseISOStringDate from "@/helpers/parseISOStringData";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { cn } from "@/lib/utils";
+import categoryColorDictionary from "@/types/CategoryDict";
+import { ComponentMap } from "@/types/ComponentMap";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { useQueryClient } from "@tanstack/react-query";
+import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
+import { AnimatePresence, cubicBezier, motion } from "motion/react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Button } from "../button";
 import { DatePicker } from "../date-picker";
 import { Dialog, DialogHeader } from "../dialog";
-import { FieldGroup, Field, FieldError } from "../field";
+import { Field, FieldError, FieldGroup } from "../field";
 import { Input } from "../input";
-import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
-import { useQueryClient } from "@tanstack/react-query";
+import { Label } from "../label";
 
 enum CategoryType {
   EXPENSE,

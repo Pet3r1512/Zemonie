@@ -1,7 +1,7 @@
-import { Mail, Lock, User, CalendarPlus2 } from "lucide-react";
 import AvatarSprites from "@/components/Dashboard/Setup/AvatarSprites";
-import { authClient } from "@/lib/auth-client";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { authClient } from "@/lib/auth-client";
+import { CalendarPlus2, Lock, Mail, User } from "lucide-react";
 
 const profileFields = [
   { label: "Name", key: "name", icon: User },

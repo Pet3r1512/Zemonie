@@ -1,10 +1,10 @@
 // oxlint-disable react/no-unstable-nested-components no-shadow
-import * as React from "react";
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import * as React from "react";
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
 
-import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 function Calendar({
   className,
@@ -164,8 +164,10 @@ function CalendarDayButton({
       type="button"
       variant="ghost"
       size="icon"
-      // onClick={onClick}
-      {...props}
+      {
+        // onClick={onClick}
+        ...props
+      }
       data-day={day.date.toLocaleDateString()}
       data-selected-single={
         modifiers.selected &&

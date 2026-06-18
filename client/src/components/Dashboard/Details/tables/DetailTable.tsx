@@ -7,12 +7,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
-import ParseISOStringDate from "@/helpers/parseISOStringData";
-import CategoryTag from "../../Category/CategoryTag";
-import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/helpers/formatCurrency";
+import ParseISOStringDate from "@/helpers/parseISOStringData";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { cn } from "@/lib/utils";
+import CategoryTag from "../../Category/CategoryTag";
+import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
 
 const TABLE_TITLE_FONT_SIZE = "text-xs sm:text-sm md:text-base";
 

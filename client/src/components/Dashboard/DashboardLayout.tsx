@@ -1,16 +1,16 @@
-import { ReactNode, useEffect } from "react";
-import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
-import { AppSidebar } from "../ui/app-sidebar";
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
 import getGlobalCategories from "@/api/categories/getGlobalCategories";
-import { Toaster } from "@/components/ui/sonner";
-import AccountSetupForm from "./Setup/AccountSetupForm";
-import LoadingScreen from "../Layout/LoadingScreen";
-import { authClient } from "@/lib/auth-client";
 import checkUserSetup from "@/api/users/checkUserSetup";
+import { Toaster } from "@/components/ui/sonner";
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { authClient } from "@/lib/auth-client";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import { ReactNode, useEffect } from "react";
+import LoadingScreen from "../Layout/LoadingScreen";
+import { AppSidebar } from "../ui/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
+import AccountSetupForm from "./Setup/AccountSetupForm";
 
 const SETUP_CACHE_KEY = "isSetupDone";
 

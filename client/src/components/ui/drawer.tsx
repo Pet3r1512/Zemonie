@@ -1,8 +1,8 @@
 "use client";
 
+import { cva } from "class-variance-authority";
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
-import { cva } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
@@ -120,13 +120,13 @@ DrawerDescription.displayName = DrawerPrimitive.Description.displayName;
 
 export {
   Drawer,
-  DrawerPortal,
-  DrawerOverlay,
-  DrawerTrigger,
   DrawerClose,
   DrawerContent,
-  DrawerHeader,
-  DrawerFooter,
-  DrawerTitle,
   DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger,
 };

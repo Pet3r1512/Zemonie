@@ -1,21 +1,21 @@
+import SignUpEmail from "@/api/users/auth/SignUpEmail";
+import Logo from "@/components/Layout/Logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Field, FieldContent, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SignUpFormType } from "@/lib/types/signupform";
 import { cn } from "@/lib/utils";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useRef, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { SignUpFormType } from "@/lib/types/signupform";
-import FormErrorMessage from "../FormErrorMessage";
-import { useMutation } from "@tanstack/react-query";
-import SignUpEmail from "@/api/users/auth/SignUpEmail";
 import { toast } from "sonner";
+import FormErrorMessage from "../FormErrorMessage";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
-import { Link, useRouter } from "@tanstack/react-router";
-import Logo from "@/components/Layout/Logo";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Field, FieldContent, FieldDescription, FieldLabel } from "@/components/ui/field";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);

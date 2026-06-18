@@ -1,11 +1,11 @@
 // oxlint-disable react/no-unstable-nested-components
-import { Label, Pie, PieChart, Sector } from "recharts";
-import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
-import categoryColorDictionary from "@/types/CategoryDict";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import categoryColorDictionary from "@/types/CategoryDict";
+import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
+import { Label, Pie, PieChart, Sector } from "recharts";
+import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 
 type ExpenseCategoryEntry = {
   _sum: { amount: string };

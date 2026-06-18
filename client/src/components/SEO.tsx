@@ -48,4 +48,4 @@ export default function SEO({
   );
 }
 
-export { SITE_URL, DEFAULT_DESC, DEFAULT_OG_IMAGE };
+export { DEFAULT_DESC, DEFAULT_OG_IMAGE, SITE_URL };

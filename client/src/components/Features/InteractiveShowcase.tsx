@@ -1,11 +1,11 @@
 import {
-  LineChartIcon,
-  ZapIcon,
-  DollarSignIcon,
-  WalletIcon,
-  TrendingUpIcon,
   BarChart3Icon,
+  DollarSignIcon,
+  LineChartIcon,
   TargetIcon,
+  TrendingUpIcon,
+  WalletIcon,
+  ZapIcon,
 } from "lucide-react";
 
 const showcaseItems = [
