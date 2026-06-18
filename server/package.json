@@ -23,7 +23,7 @@
     "dotenv": "^17.2.3",
     "dotenv-expand": "^12.0.2",
     "hono": "^4.7.11",
-    "ws": "^8.18.3",
+    "ws": "^8.21.0",
     "zod": "^4.0.5"
   },
   "devDependencies": {
