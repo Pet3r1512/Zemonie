@@ -1,3 +1,4 @@
+import BudgetOverall from "@/components/Dashboard/Budgets/BudgetOverall";
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -11,7 +12,7 @@ function RouteComponent() {
       section="Budget Management"
       sectionDesc="Track and manage your spending limits by category"
     >
-      This is budget page
+      <BudgetOverall />
     </DashboardLayout>
   );
 }
