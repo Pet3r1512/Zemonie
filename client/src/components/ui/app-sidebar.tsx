@@ -20,7 +20,7 @@ export type DashboardSidebarItem = {
     url: string;
     icon: ReactNode;
   }[];
-};
+}[];
 
 const items = [
   {
