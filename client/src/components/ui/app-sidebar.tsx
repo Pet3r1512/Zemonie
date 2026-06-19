@@ -79,7 +79,7 @@ export function AppSidebar() {
               <SidebarGroupLabel className="text-secondary font-bold">
                 {group.groupLabel}
               </SidebarGroupLabel>
-              <SidebarMenu className="space-y-2.5">
+              <SidebarMenu className="md:space-y-2.5">
                 {group.groupItems.map((item) => {
                   return (
                     <SidebarMenuItem key={item.title}>
