@@ -47,4 +47,11 @@ export default function BudgetOverall() {
       currency,
     },
   ];
+  return (
+    <section className="flex flex-col md:flex-row items-stretch gap-y-5 md:gap-x-5 max-w-7xl">
+      {budgetOverallData.map((data) => {
+        return <Data key={data.name} data={data} />;
+      })}
+    </section>
+  );
 }
