@@ -72,14 +72,14 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader />
-      <SidebarGroupContent className="px-5 flex-1 z-50 space-y-2 md:space-y-3.5 lg:space-y-5">
+      <SidebarGroupContent className="flex-1 z-50 md:px-5 md:space-y-3.5 lg:space-y-5">
         {sidebarItems.map((group) => {
           return (
             <SidebarGroup key={group.groupLabel}>
               <SidebarGroupLabel className="text-secondary font-bold">
                 {group.groupLabel}
               </SidebarGroupLabel>
-              <SidebarMenu className="space-y-2.5">
+              <SidebarMenu className="md:space-y-2.5">
                 {group.groupItems.map((item) => {
                   return (
                     <SidebarMenuItem key={item.title}>
