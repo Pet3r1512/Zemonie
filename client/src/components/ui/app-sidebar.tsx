@@ -11,6 +11,16 @@ import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
 import { Banknote, Coins, Landmark, LayoutDashboard } from "lucide-react";
 import SidebarFooter from "../Dashboard/Sidebar/SidebarFooter";
+import { ReactNode } from "react";
+
+export type DashboardSidebarItem = {
+  groupLabel: string;
+  groupItems: {
+    title: string;
+    url: string;
+    icon: ReactNode;
+  }[];
+};
 
 const items = [
   {
