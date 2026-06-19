@@ -4,7 +4,8 @@ import { Crosshair, HandCoins, TrendingUp } from "lucide-react";
 import Data from "../Overall/Data";
 
 export default function BudgetOverall() {
-  return <></>;
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
+
   const budgetOverallData: OverallDataType[] = [
     {
       name: "Total Budget",
