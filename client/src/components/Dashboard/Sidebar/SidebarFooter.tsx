@@ -44,14 +44,9 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
                   "py-5 transition-all duration-150 ease-linear",
                   isLogout
                     ? "text-red-500 hover:text-red-600 hover:bg-transparent"
-                    : [
-                        (currentUrl === item.url || isActive) &&
-                          "bg-primary text-white lg:hover:bg-primary lg:hover:text-white",
-
-                        currentUrl !== item.url &&
-                          !isActive &&
-                          "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card",
-                      ],
+                    : currentUrl === item.url || isActive
+                      ? "bg-primary text-white lg:hover:bg-primary lg:hover:text-white"
+                      : "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-elevated",
                 )}
               >
                 <Link from="/" to={item.url} className="text-lg font-semibold">
