@@ -77,6 +77,7 @@ export function BudgetForm() {
                 <Input
                   id="desc"
                   type="text"
+                  placeholder="e.g. Shopping for 1 month"
                   {...register("budgetName", {
                     maxLength: {
                       value: 50,
