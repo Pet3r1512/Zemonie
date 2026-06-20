@@ -106,13 +106,11 @@ const TooltipLabel = React.memo(
   }: {
     hideLabel: boolean;
     label: React.ReactNode;
-    labelFormatter:
-      | ((label: any, payload: RechartsPrimitive.Payload<any, any>[]) => React.ReactNode)
-      | undefined;
+    labelFormatter: ((label: any, payload: any[]) => React.ReactNode) | undefined;
     labelClassName?: string;
     labelKey?: string;
     config: ChartConfig;
-    payload: RechartsPrimitive.Payload[];
+    payload: any[];
   }) => {
     if (hideLabel || !payload?.length) {
       return null;
