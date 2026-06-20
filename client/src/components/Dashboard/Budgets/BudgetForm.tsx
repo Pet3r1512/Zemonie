@@ -31,14 +31,15 @@ type BudgetFormData = {
   isRepeatBudget: boolean;
 };
 
+const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
+
 function getMonthDateRange() {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();
   const start = new Date(year, month, 1);
   const end = new Date(year, month + 1, 0);
-  const formatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
-  return `${formatter.format(start)} to ${formatter.format(end)}`;
+  return `${monthFormatter.format(start)} to ${monthFormatter.format(end)}`;
 }
 
 export function BudgetForm() {
