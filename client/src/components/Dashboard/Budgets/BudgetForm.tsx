@@ -130,12 +130,12 @@ export function BudgetForm() {
                 </div>
                 <FieldError className="text-red-500" errors={[errors.amount]} />
               </Field>
-              <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-4 py-3 text-sm text-orange-800 dark:text-orange-300">
+              <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
                 This budget runs for the current calendar month — {monthRange}
               </div>
               <Field
                 orientation="horizontal"
-                className="rounded-lg border border-neutral-200 dark:border-dark-card px-4 py-3"
+                className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
               >
                 <FieldContent>
                   <FieldLabel htmlFor="isRepeatBudget">Repeat every month</FieldLabel>
@@ -157,9 +157,9 @@ export function BudgetForm() {
                 />
               </Field>
             </FieldGroup>
-            <DialogFooter className="flex flex-col gap-2">
+            <DialogFooter className="flex flex-row justify-end items-center gap-x-2">
               <DialogClose asChild>
-                <Button variant="outline" className="text-neutral-600 dark:text-neutral-400">
+                <Button variant="secondary" className="text-neutral-600 dark:text-neutral-300">
                   Cancel
                 </Button>
               </DialogClose>
@@ -167,7 +167,7 @@ export function BudgetForm() {
                 type="submit"
                 className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
               >
-                Create budget
+                Create
               </Button>
             </DialogFooter>
           </form>
