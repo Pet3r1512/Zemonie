@@ -74,7 +74,7 @@ export default function IncomeSelect({
         setValue("categoryId", +newValue, { shouldValidate: true });
       }}
     >
-      <SelectTrigger id="source" name="source" className="w-full">
+      <SelectTrigger id="source" name="source" className="w-full h-9 py-1">
         <SelectValue />
       </SelectTrigger>
       <SelectContent className={cn("bg-white dark:bg-dark-elevated w-full", contentClassName)}>
