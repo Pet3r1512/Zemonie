@@ -145,6 +145,7 @@ export function BudgetForm() {
                 <Controller
                   name="isRepeatBudget"
                   control={methods.control}
+                  defaultValue={false}
                   render={({ field }) => (
                     <Switch
                       id="isRepeatBudget"
