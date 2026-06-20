@@ -92,7 +92,7 @@ export function BudgetForm() {
                 <FieldError className="text-red-500" errors={[errors.categoryId]} />
               </Field>
               <Field className="mb-2">
-                <Label htmlFor="desc">Budget name</Label>
+                <Label htmlFor="desc">{"Budget name (optional)"}</Label>
                 <Input
                   id="desc"
                   type="text"
@@ -106,7 +106,7 @@ export function BudgetForm() {
                 />
               </Field>
               <Field>
-                <Label htmlFor="amount">Amount</Label>
+                <Label htmlFor="amount">Max Spend</Label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400 text-sm font-medium pointer-events-none select-none">
                     $
