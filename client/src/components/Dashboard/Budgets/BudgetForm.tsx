@@ -68,7 +68,7 @@ export function BudgetForm() {
                 })}
               />
               <Field>
-                <Label htmlFor="source">Spend On</Label>
+                <Label htmlFor="source">For Category</Label>
                 <ExpenseSelect />
                 <FieldError className="text-red-500" errors={[errors.categoryId]} />
               </Field>
@@ -87,7 +87,7 @@ export function BudgetForm() {
                 />
               </Field>
               <Field>
-                <Label htmlFor="amount">Amount</Label>
+                <Label htmlFor="amount">Max Spend</Label>
                 <Input
                   id="amount"
                   type="number"
