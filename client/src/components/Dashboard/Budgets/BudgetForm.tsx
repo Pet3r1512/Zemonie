@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogClose,
@@ -9,13 +8,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldError, FieldGroup } from "@/components/ui/field";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import ExpenseSelect from "../Overall/Forms/Selectors/ExpenseSelector";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm, Controller } from "react-hook-form";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useMemo } from "react";
+import { Switch } from "@/components/ui/switch";
 
 type BudgetFormData = {
   categoryId: string;
@@ -35,7 +42,11 @@ function getMonthDateRange() {
 }
 
 export function BudgetForm() {
-  const methods = useForm<BudgetFormData>();
+  const methods = useForm<BudgetFormData>({
+    defaultValues: {
+      isRepeatBudget: false,
+    },
+  });
   const {
     register,
     handleSubmit,
@@ -121,17 +132,28 @@ export function BudgetForm() {
               <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-4 py-3 text-sm text-orange-800 dark:text-orange-300">
                 This budget runs for the current calendar month — {monthRange}
               </div>
-              <label className="flex items-start gap-3 cursor-pointer group">
-                <Checkbox {...register("isRepeatBudget")} className="mt-0.5" />
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
-                    Repeat every month
-                  </span>
-                  <span className="text-xs text-neutral-500 dark:text-neutral-400">
+              <Field
+                orientation="horizontal"
+                className="rounded-lg border border-neutral-200 dark:border-dark-card px-4 py-3"
+              >
+                <FieldContent>
+                  <FieldLabel htmlFor="isRepeatBudget">Repeat every month</FieldLabel>
+                  <FieldDescription>
                     Automatically creates next month&apos;s budget
-                  </span>
-                </div>
-              </label>
+                  </FieldDescription>
+                </FieldContent>
+                <Controller
+                  name="isRepeatBudget"
+                  control={methods.control}
+                  render={({ field }) => (
+                    <Switch
+                      id="isRepeatBudget"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  )}
+                />
+              </Field>
             </FieldGroup>
             <DialogFooter className="flex flex-col gap-2">
               <DialogClose asChild>
