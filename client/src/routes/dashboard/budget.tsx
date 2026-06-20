@@ -1,4 +1,4 @@
-import BudgetForm from "@/components/Dashboard/Budgets/BudgetForm";
+import { BudgetForm } from "@/components/Dashboard/Budgets/BudgetForm";
 import BudgetOverall from "@/components/Dashboard/Budgets/BudgetOverall";
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import { createFileRoute } from "@tanstack/react-router";
@@ -13,7 +13,9 @@ function RouteComponent() {
       section="Budget Management"
       sectionDesc="Track and manage your spending limits by category"
     >
-      <BudgetForm />
+      <div className="flex items-center gap-x-5 lg:justify-end">
+        <BudgetForm />
+      </div>
       <BudgetOverall />
     </DashboardLayout>
   );
