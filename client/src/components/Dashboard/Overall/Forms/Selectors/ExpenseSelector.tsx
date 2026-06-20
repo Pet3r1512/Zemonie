@@ -123,7 +123,7 @@ export default function ExpenseSelect({
         setValue("categoryId", +newValue, { shouldValidate: true });
       }}
     >
-      <SelectTrigger id="source" name="source" className="w-full">
+      <SelectTrigger id="source" name="source" className="w-full h-9">
         <SelectValue />
       </SelectTrigger>
       <SelectContent
