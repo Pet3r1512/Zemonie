@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -24,10 +23,7 @@ export function BudgetForm() {
         </DialogTrigger>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re done.
-            </DialogDescription>
+            <DialogTitle>Create new budget</DialogTitle>
           </DialogHeader>
           <FieldGroup>
             <Field>
