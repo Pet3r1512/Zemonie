@@ -2,20 +2,31 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
-import { Repeat, ShoppingBag } from "lucide-react";
+import { Repeat } from "lucide-react";
 import { BudgetResponseType } from ".";
+import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
+import categoryColorDictionary from "@/types/CategoryDict";
 
 export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
-  //   const [progress, setProgress] = useState<number>(80);
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
+  const currentCategory = categoryColorDictionary[budget.categoryId];
+
   return (
-    <Card className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:brightness-110 transition-all duration-150 ease-linear">
+    <Card className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:scale-101 transition-all duration-150 ease-linear">
       <div className="flex items-center justify-between">
         <div>
           <article className="flex items-center gap-x-1.5">
-            <ShoppingBag className="text-violet-500" />
-            <p className="text-lg font-bold text-black dark:text-white">{budget.categoryId}</p>
+            {currentCategory.icon}
+            <p className={"text-lg font-bold"}>{currentCategory.name}</p>
           </article>
-          <p className="text-gray-700 dark:text-gray-500">{budget.endDate}</p>
+          <p className="text-gray-700 dark:text-gray-500">
+            End Date:{" "}
+            <span className="text-white/80 font-semibold">
+              {new Date(budget.endDate).toLocaleDateString()}
+            </span>
+          </p>
         </div>
         {budget.isRecurring && (
           <Badge
@@ -31,13 +42,27 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
         <p></p>
         <Field className="w-full">
           <FieldLabel htmlFor="progress-upload">
-            <span>{"$1200 spent"}</span>
-            <span className="ms-auto">{budget.amount}</span>
+            <span>{formatCurrency(budget.spentAmount, currency)} spent</span>
+            <span className="ms-auto">{formatCurrency(budget.amount, currency)}</span>
           </FieldLabel>
-          <Progress value={66} id="progress-upload" className="bg-primary w-full" />
+          <Progress
+            value={CalculateBudgetProgress({ total: budget.amount, spent: budget.spentAmount })}
+            id="progress-upload"
+            className="w-full"
+          />
           <FieldLabel htmlFor="progress-upload">
-            <span>{66}%</span>
-            <span className="ms-auto text-green-500 dark:text-green-400">{"$300 remaining"}</span>
+            <span>
+              {CalculateBudgetProgress({ total: budget.amount, spent: budget.spentAmount })}%
+            </span>
+            {budget.spentAmount > budget.amount ? (
+              <span className="ms-auto text-red-500 dark:text-red-400">
+                {formatCurrency(budget.spentAmount - budget.amount, currency)} over budget
+              </span>
+            ) : (
+              <span className="ms-auto text-green-500 dark:text-green-400">
+                {formatCurrency(budget.amount - budget.spentAmount, currency)} remaining
+              </span>
+            )}
           </FieldLabel>
         </Field>
       </div>

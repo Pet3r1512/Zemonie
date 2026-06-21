@@ -72,6 +72,9 @@ export function ExpenseForm() {
       queryClient.invalidateQueries({
         queryKey: ["last7DaysExpenses"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["budget"],
+      });
     },
   });
 

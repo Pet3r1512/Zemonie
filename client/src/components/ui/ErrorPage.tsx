@@ -31,7 +31,7 @@ function ErrorContent({
           </Button>
           {reset && (
             <Button
-              className="bg-primary dark:bg-primary dark:hover:bg-secondary/90 dark:text-white hover:bg-primary/95"
+              className="bg-primary dark:bg-primary dark:hover:bg-secondary/90 text-white dark:text-white hover:bg-primary/95"
               variant="outline"
               onClick={reset}
             >

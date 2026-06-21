@@ -23,7 +23,7 @@ import { FormProvider, SubmitHandler, useForm, Controller } from "react-hook-for
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useMemo, useState } from "react";
 import { Switch } from "@/components/ui/switch";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import createBudget from "@/api/dashboard/budget/createBudget";
 import { toast } from "sonner";
 
@@ -47,6 +47,7 @@ function getMonthDateRange() {
 
 export function BudgetForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const queryClient = useQueryClient();
   const methods = useForm<BudgetFormData>({
     defaultValues: {
       isRecurring: false,
@@ -67,6 +68,9 @@ export function BudgetForm() {
     },
     onSuccess: () => {
       toast.success("New Budget Added!!!");
+      queryClient.invalidateQueries({
+        queryKey: ["budgets"],
+      });
     },
   });
 

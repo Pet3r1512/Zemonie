@@ -45,16 +45,32 @@ export const budgetRouter = router({
     }),
   getBudgets: authenticatedProcedure.query(async ({ ctx }) => {
     const userId = ctx.userId;
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
     const budgets = await prisma.budget.findMany({
-      where: {
-        userId,
-      },
-      omit: {
-        userId: true,
-      },
+      where: { userId },
     });
 
-    return { budgets };
+    const categoryTotals = await prisma.transaction.groupBy({
+      by: ["categoryId"],
+      where: {
+        userId,
+        createdAt: { gte: startOfMonth, lte: endOfMonth },
+      },
+      _sum: { amount: true },
+    });
+
+    // oxlint-disable-next-line no-underscore-dangle
+    const totalMap = new Map(categoryTotals.map((t) => [t.categoryId, Number(t._sum.amount ?? 0)]));
+
+    const result = budgets.map((budget) => ({
+      ...budget,
+      amount: Number(budget.amount),
+      spentAmount: totalMap.get(budget.categoryId) ?? 0,
+    }));
+
+    return { budgets: result };
   }),
 });
