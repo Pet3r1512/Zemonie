@@ -25,7 +25,7 @@ import { useMemo } from "react";
 import { Switch } from "@/components/ui/switch";
 
 type BudgetFormData = {
-  categoryId: string;
+  categoryId: number;
   budgetName?: string;
   amount: number;
   isRepeatBudget: boolean;
