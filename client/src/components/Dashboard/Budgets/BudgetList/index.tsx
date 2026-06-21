@@ -14,7 +14,7 @@ enum BudgetDuration {
 
 export type BudgetResponseType = {
   id: string;
-  amount: string;
+  amount: number;
   spentAmount: number;
   categoryId: number;
   createdAt: string;
