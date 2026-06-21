@@ -46,6 +46,7 @@ function getMonthDateRange() {
 }
 
 export function BudgetForm() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const methods = useForm<BudgetFormData>({
     defaultValues: {
       isRecurring: false,
@@ -68,6 +69,7 @@ export function BudgetForm() {
       toast.success("New Budget Added!!!");
     },
   });
+
   const monthRange = useMemo(() => getMonthDateRange(), []);
 
   const onSubmit: SubmitHandler<BudgetFormData> = async (credentials) => {
@@ -75,10 +77,11 @@ export function BudgetForm() {
       credentials,
     });
     reset();
+    setIsOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger
         asChild
         onClick={(e) => {
