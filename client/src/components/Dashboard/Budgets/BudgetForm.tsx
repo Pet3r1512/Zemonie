@@ -28,7 +28,7 @@ type BudgetFormData = {
   categoryId: number;
   budgetName?: string;
   amount: number;
-  isRepeatBudget: boolean;
+  isRecurring: boolean;
 };
 
 const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
@@ -45,7 +45,7 @@ function getMonthDateRange() {
 export function BudgetForm() {
   const methods = useForm<BudgetFormData>({
     defaultValues: {
-      isRepeatBudget: false,
+      isRecurring: false,
     },
   });
   const {
@@ -138,18 +138,18 @@ export function BudgetForm() {
                 className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
               >
                 <FieldContent>
-                  <FieldLabel htmlFor="isRepeatBudget">Repeat every month</FieldLabel>
+                  <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>
                   <FieldDescription>
                     Automatically creates next month&apos;s budget
                   </FieldDescription>
                 </FieldContent>
                 <Controller
-                  name="isRepeatBudget"
+                  name="isRecurring"
                   control={methods.control}
                   defaultValue={false}
                   render={({ field }) => (
                     <Switch
-                      id="isRepeatBudget"
+                      id="isRecurring"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />
