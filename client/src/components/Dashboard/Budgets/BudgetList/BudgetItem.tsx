@@ -48,7 +48,7 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
           <Progress
             value={CalculateBudgetProgress({ total: budget.amount, spent: budget.spentAmount })}
             id="progress-upload"
-            className="bg-primary w-full"
+            className="w-full"
           />
           <FieldLabel htmlFor="progress-upload">
             <span>
