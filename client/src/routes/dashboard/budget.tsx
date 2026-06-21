@@ -1,4 +1,5 @@
 import { BudgetForm } from "@/components/Dashboard/Budgets/BudgetForm";
+import BudgetListContainer from "@/components/Dashboard/Budgets/BudgetList";
 import BudgetOverall from "@/components/Dashboard/Budgets/BudgetOverall";
 import DashboardLayout from "@/components/Dashboard/DashboardLayout";
 import { createFileRoute } from "@tanstack/react-router";
@@ -17,6 +18,7 @@ function RouteComponent() {
         <BudgetForm />
       </div>
       <BudgetOverall />
+      <BudgetListContainer />
     </DashboardLayout>
   );
 }
