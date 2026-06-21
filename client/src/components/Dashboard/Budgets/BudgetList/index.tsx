@@ -28,7 +28,7 @@ export type BudgetResponseType = {
 };
 
 export default function BudgetListContainer() {
-  const getBudgetsQuery = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["budgets"],
     queryFn: getBudgets,
   });
@@ -36,8 +36,8 @@ export default function BudgetListContainer() {
   return (
     <section className="bg-white dark:bg-dark-card rounded-2xl p-5 flex flex-col gap-y-5 flex-1">
       <p className="text-lg lg:text-xl font-bold shrink-0">Budget By Category</p>
-      {!getBudgetsQuery.isLoading ? (
-        getBudgetsQuery.data?.budgets.budgets.map((budget: BudgetResponseType) => {
+      {!isLoading ? (
+        data?.budgets.budgets.map((budget: BudgetResponseType) => {
           return <BudgetItem key={budget.id} budget={budget} />;
         })
       ) : (
