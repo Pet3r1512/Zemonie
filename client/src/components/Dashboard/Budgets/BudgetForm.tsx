@@ -21,10 +21,13 @@ import { Label } from "@/components/ui/label";
 import ExpenseSelect from "../Overall/Forms/Selectors/ExpenseSelector";
 import { FormProvider, SubmitHandler, useForm, Controller } from "react-hook-form";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Switch } from "@/components/ui/switch";
+import { useMutation } from "@tanstack/react-query";
+import createBudget from "@/api/dashboard/budget/createBudget";
+import { toast } from "sonner";
 
-type BudgetFormData = {
+export type BudgetFormData = {
   categoryId: number;
   budgetName?: string;
   amount: number;
@@ -55,10 +58,22 @@ export function BudgetForm() {
     formState: { errors },
   } = methods;
 
+  const addBudgetMutation = useMutation({
+    mutationKey: ["addBudget"],
+    mutationFn: createBudget,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("New Budget Added!!!");
+    },
+  });
   const monthRange = useMemo(() => getMonthDateRange(), []);
 
   const onSubmit: SubmitHandler<BudgetFormData> = async (credentials) => {
-    console.log(credentials);
+    addBudgetMutation.mutate({
+      credentials,
+    });
     reset();
   };
 
