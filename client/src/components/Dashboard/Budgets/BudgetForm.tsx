@@ -21,14 +21,17 @@ import { Label } from "@/components/ui/label";
 import ExpenseSelect from "../Overall/Forms/Selectors/ExpenseSelector";
 import { FormProvider, SubmitHandler, useForm, Controller } from "react-hook-form";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Switch } from "@/components/ui/switch";
+import { useMutation } from "@tanstack/react-query";
+import createBudget from "@/api/dashboard/budget/createBudget";
+import { toast } from "sonner";
 
-type BudgetFormData = {
-  categoryId: string;
+export type BudgetFormData = {
+  categoryId: number;
   budgetName?: string;
   amount: number;
-  isRepeatBudget: boolean;
+  isRecurring: boolean;
 };
 
 const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
@@ -43,9 +46,10 @@ function getMonthDateRange() {
 }
 
 export function BudgetForm() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const methods = useForm<BudgetFormData>({
     defaultValues: {
-      isRepeatBudget: false,
+      isRecurring: false,
     },
   });
   const {
@@ -55,15 +59,29 @@ export function BudgetForm() {
     formState: { errors },
   } = methods;
 
+  const addBudgetMutation = useMutation({
+    mutationKey: ["addBudget"],
+    mutationFn: createBudget,
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      toast.success("New Budget Added!!!");
+    },
+  });
+
   const monthRange = useMemo(() => getMonthDateRange(), []);
 
   const onSubmit: SubmitHandler<BudgetFormData> = async (credentials) => {
-    console.log(credentials);
+    addBudgetMutation.mutate({
+      credentials,
+    });
     reset();
+    setIsOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger
         asChild
         onClick={(e) => {
@@ -138,18 +156,18 @@ export function BudgetForm() {
                 className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
               >
                 <FieldContent>
-                  <FieldLabel htmlFor="isRepeatBudget">Repeat every month</FieldLabel>
+                  <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>
                   <FieldDescription>
                     Automatically creates next month&apos;s budget
                   </FieldDescription>
                 </FieldContent>
                 <Controller
-                  name="isRepeatBudget"
+                  name="isRecurring"
                   control={methods.control}
                   defaultValue={false}
                   render={({ field }) => (
                     <Switch
-                      id="isRepeatBudget"
+                      id="isRecurring"
                       checked={field.value}
                       onCheckedChange={field.onChange}
                     />

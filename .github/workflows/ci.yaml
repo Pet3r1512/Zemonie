@@ -149,6 +149,11 @@ jobs:
       - name: Generate Prisma client
         run: cd server && pnpm prisma generate
 
+      - name: Run Prisma migrations (staging)
+        run: cd server && pnpm prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_STAGING }}
+
       - name: Deploy server to staging
         run: |
           export CLOUDFLARE_API_TOKEN

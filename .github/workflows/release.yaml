@@ -27,6 +27,11 @@ jobs:
 
       - run: pnpm prisma generate
 
+      - name: Run Prisma migrations (production)
+        run: pnpm prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: Deploy server to production
         run: |
           printf 'DATABASE_URL=%s\n' "$DATABASE_URL" > .secrets.env
