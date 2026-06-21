@@ -1,18 +1,28 @@
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
-import { ShoppingBag } from "lucide-react";
+import { Repeat, ShoppingBag } from "lucide-react";
 
 export default function BudgetItem() {
   //   const [progress, setProgress] = useState<number>(80);
   return (
     <Card className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:brightness-110 transition-all duration-150 ease-linear">
-      <div>
-        <article className="flex items-center gap-x-1.5">
-          <ShoppingBag className="text-violet-500" />
-          <p className="text-lg font-bold text-black dark:text-white">Shopping</p>
-        </article>
-        <p className="text-gray-700 dark:text-gray-500">June 2026</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <article className="flex items-center gap-x-1.5">
+            <ShoppingBag className="text-violet-500" />
+            <p className="text-lg font-bold text-black dark:text-white">Shopping</p>
+          </article>
+          <p className="text-gray-700 dark:text-gray-500">June 2026</p>
+        </div>
+        <Badge
+          variant={"outline"}
+          className="text-green-500 dark:text-green-400 space-x-1 border-green-500 dark:border-green-400"
+        >
+          <Repeat size={16} />
+          <p>Recurred</p>
+        </Badge>
       </div>
       <div className="w-full">
         <p></p>
