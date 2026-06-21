@@ -6,7 +6,7 @@ import { ShoppingBag } from "lucide-react";
 export default function BudgetItem() {
   //   const [progress, setProgress] = useState<number>(80);
   return (
-    <Card className="p-5 shadow-md dark:shadow-dark-bg lg:hover:brightness-110 transition-all duration-150 ease-linear">
+    <Card className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:brightness-110 transition-all duration-150 ease-linear">
       <div>
         <article className="flex items-center gap-x-1.5">
           <ShoppingBag className="text-violet-500" />
