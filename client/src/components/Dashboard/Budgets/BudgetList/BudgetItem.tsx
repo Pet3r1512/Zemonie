@@ -21,7 +21,12 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
             {currentCategory.icon}
             <p className="text-lg font-bold text-black dark:text-white">{currentCategory.name}</p>
           </article>
-          <p className="text-gray-700 dark:text-gray-500">{budget.endDate}</p>
+          <p className="text-gray-700 dark:text-gray-500">
+            End Date:{" "}
+            <span className="text-white/80 font-semibold">
+              {new Date(budget.endDate).toLocaleDateString()}
+            </span>
+          </p>
         </div>
         {budget.isRecurring && (
           <Badge
