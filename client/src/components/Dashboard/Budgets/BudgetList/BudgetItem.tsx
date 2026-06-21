@@ -19,7 +19,7 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
         <div>
           <article className="flex items-center gap-x-1.5">
             {currentCategory.icon}
-            <p className="text-lg font-bold text-black dark:text-white">{currentCategory.name}</p>
+            <p className={"text-lg font-bold"}>{currentCategory.name}</p>
           </article>
           <p className="text-gray-700 dark:text-gray-500">
             End Date:{" "}
