@@ -21,6 +21,7 @@ model User {
   sessions        Session[]
   categories      Category[]
   balances        Balance[]
+  budgets Budget[]
   userPreferences User_Preferences[]
 
   @@map("user")
@@ -81,6 +82,7 @@ model Category {
   description  String?
   user         User?         @relation(fields: [userId], references: [id])
   transactions Transaction[]
+  budgets Budget[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
@@ -132,4 +134,40 @@ model User_Preferences {
   updatedAt   DateTime          @updatedAt @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum BudgetDuration {
+  WEEK_1
+  WEEK_2
+  MONTH_1
+  MONTH_3
+  MONTH_6
+  MONTH_12
+}
+
+model Budget {
+  id String @id @default(cuid())
+  userId String
+  categoryId Int?
+  name String?
+  amount Decimal @db.Decimal(10, 2)
+  duration BudgetDuration @default(MONTH_1)
+  isRecurring Boolean @default(false)
+  isRollOver Boolean @default(false)
+  startDate DateTime
+  endDate DateTime
+
+  parentBudgetId String?
+  parentBudget Budget? @relation("BudgetRecurrence", fields: [parentBudgetId], references: [id])
+  childBudget Budget[] @relation("BudgetRecurrence")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id])
+
+  @@index([userId])
+  @@index([userId, categoryId])
+  @@index([isRecurring, endDate])
 }
