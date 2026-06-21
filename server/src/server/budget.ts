@@ -43,4 +43,18 @@ export const budgetRouter = router({
 
       return { budget: newBudget };
     }),
+  getBudgets: authenticatedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.userId;
+
+    const budgets = await prisma.budget.findMany({
+      where: {
+        userId,
+      },
+      omit: {
+        userId: true,
+      },
+    });
+
+    return { budgets };
+  }),
 });
