@@ -62,6 +62,7 @@ export const budgetRouter = router({
       _sum: { amount: true },
     });
 
+    // oxlint-disable-next-line no-underscore-dangle
     const totalMap = new Map(categoryTotals.map((t) => [t.categoryId, Number(t._sum.amount ?? 0)]));
 
     const result = budgets.map((budget) => ({
