@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section
       aria-label="hero-section"
-      className="lg:mt-24 max-w-6xl mx-auto px-5 pb-32 lg:px-0 lg:pt-28"
+      className="lg:mt-24 max-w-6xl mx-auto px-5 pb-32 lg:px-0 lg:pt-28 relative"
     >
       <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-5">
         <div className="lg:w-2/5 text-center lg:text-left space-y-5 relative z-10 backdrop-blur-[2px]">

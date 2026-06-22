@@ -57,6 +57,7 @@
     "sonner": "^2.0.6",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.184.0",
     "vaul": "^1.1.1",
     "zustand": "^5.0.14"
   },
@@ -79,6 +80,7 @@
     "@types/node": "^20.17.6",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.184.1",
     "@vitejs/plugin-react": "^4.3.3",
     "@vitest/browser": "3.2.3",
     "@vitest/coverage-istanbul": "^3.2.6",
