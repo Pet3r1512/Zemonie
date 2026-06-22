@@ -24,7 +24,7 @@ function Index() {
           parallax: true,
           animationSpeed: 1,
           mixBlendMode: "normal",
-          linesGradient: ["#ff7900", "#d9d9d9", "#f79d65"],
+          linesGradient: ["#ff7900", "#6f6f6f", "#6f6f6f"],
         } as any)}
       />
       <Page className="flex flex-col justify-center min-h-screen pb-10 md:pb-0">
