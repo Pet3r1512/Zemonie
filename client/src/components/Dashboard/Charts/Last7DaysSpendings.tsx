@@ -44,8 +44,13 @@ export default function Last7DaysSpendings({
         <CardTitle>Last 7 Days Spendings</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+        <ChartContainer className="w-full!" config={chartConfig}>
+          <BarChart
+            className="w-full"
+            accessibilityLayer
+            data={chartData}
+            margin={{ left: 0, right: 20, top: 5, bottom: 5 }}
+          >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="date"
@@ -60,7 +65,7 @@ export default function Last7DaysSpendings({
                 });
               }}
             />
-            <YAxis />
+            <YAxis width={45} />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
