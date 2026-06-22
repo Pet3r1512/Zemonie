@@ -15,13 +15,13 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
 
   return (
     <Card className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:scale-101 transition-all duration-150 ease-linear">
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1.5">
+        <div className="space-y-1.5">
           <article className="flex items-center gap-x-1.5">
             {currentCategory.icon}
-            <p className={"text-lg font-bold"}>{currentCategory.name}</p>
+            <p className={"text-md md:text-lg font-bold"}>{currentCategory.name}</p>
           </article>
-          <p className="text-gray-700 dark:text-gray-500">
+          <p className="text-xs md:text-sm text-gray-700 dark:text-gray-500">
             End Date:{" "}
             <span className="text-white/80 font-semibold">
               {new Date(budget.endDate).toLocaleDateString()}
@@ -31,10 +31,10 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
         {budget.isRecurring && (
           <Badge
             variant={"outline"}
-            className="text-green-500 dark:text-green-400 space-x-1 border-green-500 dark:border-green-400"
+            className="text-green-500 dark:text-green-400 space-x-1 border-green-500 dark:border-green-400 w-fit"
           >
             <Repeat size={16} />
-            <p>Recurred</p>
+            <p className="text-xs md:text-sm">Recurred</p>
           </Badge>
         )}
       </div>
