@@ -11,7 +11,7 @@ import {
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { Banknote, Coins, Crosshair, Landmark, LayoutDashboard } from "lucide-react";
+import { ArrowDown, ArrowUp, Banknote, Crosshair, LayoutDashboard } from "lucide-react";
 import SidebarFooter from "../Dashboard/Sidebar/SidebarFooter";
 import { ReactNode } from "react";
 
@@ -47,12 +47,12 @@ const sidebarItems: DashboardSidebarItem = [
       {
         title: "Income",
         url: "/dashboard/income",
-        icon: <Landmark />,
+        icon: <ArrowDown />,
       },
       {
         title: "Expenses",
         url: "/dashboard/expenses",
-        icon: <Coins />,
+        icon: <ArrowUp />,
       },
     ],
   },
