@@ -27,46 +27,48 @@ export function DetailsTable({
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg border dark:border-dark-elevated">
-      <Table className="min-w-150 md:min-w-full">
-        <TableHeader>
-          <TableRow>
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Date</TableHead>
+    <div className="w-full overflow-hidden rounded-lg border dark:border-dark-elevated">
+      <div className="overflow-auto max-h-[500px]">
+        <Table className="min-w-150 md:min-w-full">
+          <TableHeader>
+            <TableRow>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Date</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Source</TableHead>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Source</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Amount</TableHead>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Amount</TableHead>
 
-            <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Description</TableHead>
-          </TableRow>
-        </TableHeader>
-
-        <TableBody>
-          {transactions.map((transaction) => (
-            <TableRow
-              key={transaction.id}
-              ref={transaction.id === lastTxId ? lastElementRef : undefined}
-              className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
-            >
-              <TableCell className="text-xs sm:text-sm md:text-base whitespace-nowrap">
-                {ParseISOStringDate({ date: transaction.date })}
-              </TableCell>
-
-              <TableCell>
-                <CategoryTag categoryId={transaction.categoryId?.toString() || "0"} />
-              </TableCell>
-
-              <TableCell className="text-right font-medium text-xs sm:text-sm md:text-base whitespace-nowrap">
-                {formatCurrency(transaction.amount, currency)}
-              </TableCell>
-
-              <TableCell className="text-right max-w-62.5 truncate">
-                {transaction.description}
-              </TableCell>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Description</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+
+          <TableBody>
+            {transactions.map((transaction) => (
+              <TableRow
+                key={transaction.id}
+                ref={transaction.id === lastTxId ? lastElementRef : undefined}
+                className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
+              >
+                <TableCell className="text-xs sm:text-sm md:text-base whitespace-nowrap">
+                  {ParseISOStringDate({ date: transaction.date })}
+                </TableCell>
+
+                <TableCell>
+                  <CategoryTag categoryId={transaction.categoryId?.toString() || "0"} />
+                </TableCell>
+
+                <TableCell className="text-right font-medium text-xs sm:text-sm md:text-base whitespace-nowrap">
+                  {formatCurrency(transaction.amount, currency)}
+                </TableCell>
+
+                <TableCell className="text-right max-w-62.5 truncate">
+                  {transaction.description}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }
