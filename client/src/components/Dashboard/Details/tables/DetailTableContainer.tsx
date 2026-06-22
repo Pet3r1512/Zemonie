@@ -38,7 +38,7 @@ export default function DetailTableContainer({ option }: { option: TransactionQu
   return (
     <section className="bg-white dark:bg-dark-card rounded-2xl p-5 flex flex-col gap-y-5 flex-1">
       <p className="text-lg lg:text-xl font-bold shrink-0">{TableTileDictionary[option]}</p>
-      {isLoading ? (
+      {isLoading || isFetchingNextPage ? (
         <div className="space-y-3 flex-1">
           <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
           <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
