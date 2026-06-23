@@ -1,5 +1,3 @@
-import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect";
-
 export default function Hero() {
   return (
     <section
@@ -8,8 +6,7 @@ export default function Hero() {
     >
       <div className="flex flex-col items-center text-center gap-6 relative z-10">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-2xl">
-          Manage Your Finances with{" "}
-          <AuroraTextEffect className="bg-transparent inline-block" text="Zemonie" />
+          Manage Your Finances with <span className="text-primary">Zemonie</span>
         </h1>
 
         <p
