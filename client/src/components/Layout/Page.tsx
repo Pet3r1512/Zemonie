@@ -19,7 +19,6 @@ export default function Page({
   return (
     <main className="body bg-cover bg-center min-h-screen flex flex-col">
       <Header hideHeader={hideHeader} />
-
       <section
         role="page-body"
         className={cn(

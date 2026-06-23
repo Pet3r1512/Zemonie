@@ -1,49 +1,54 @@
-import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect";
-
 export default function Hero() {
   return (
     <section
       aria-label="hero-section"
-      className="lg:mt-24 max-w-6xl mx-auto px-5 pb-32 lg:px-0 lg:pt-28 relative"
+      className="max-w-6xl mx-auto px-5 pt-20 pb-0 lg:px-0 lg:pt-28 relative overflow-hidden"
     >
-      <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-5">
-        <div className="lg:w-2/5 text-center lg:text-left space-y-5 relative z-10 backdrop-blur-[2px]">
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white sm:text-7xl">
-            Manage Your Finances with{" "}
-          </h1>
-          <AuroraTextEffect className="bg-transparent lg:w-fit" text="Zemonie" />
-          <p
-            role="description"
-            className="text-md lg:text-lg font-medium text-pretty text-gray-500 dark:text-gray-300 sm:text-xl/8"
+      <div className="flex flex-col items-center text-center gap-6 relative z-10">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-2xl">
+          Manage Your Finances with <span className="text-primary">Zemonie</span>
+        </h1>
+
+        <p
+          role="description"
+          className="text-base lg:text-lg font-medium text-pretty text-black dark:text-white max-w-xl"
+        >
+          Zemonie is the <span className="text-primary">all-in-one</span> money management tool that
+          helps you track your income, label your expenses, and visualize your financial data. Get
+          started today and achieve your financial goals.
+        </p>
+
+        <div role="cta-buttons-group" className="flex items-center gap-x-4">
+          <a
+            href="/auth/signin"
+            className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
           >
-            Zemonie is the <span className="text-primary">all-in-one</span> money management tool
-            that helps you track your income, label your expenses, and visualize your financial
-            data. Get started today and achieve your financial goals.
-          </p>
-          <div
-            role="action-buttons"
-            className="flex items-center gap-x-6 justify-center lg:justify-start"
+            Get started
+          </a>
+          <a
+            href="/features"
+            className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
           >
-            <a
-              href="/auth/signin"
-              className="rounded-md bg-primary/95 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            >
-              Get started
-            </a>
-            <a
-              href="/features"
-              className="text-sm/6 font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card px-3.5 py-2.5 rounded-md"
-            >
-              Learn more <span aria-hidden="true">→</span>
-            </a>
-          </div>
+            Learn more <span aria-hidden="true">→</span>
+          </a>
         </div>
-        <div className="flex-1 relative w-full lg:-ml-32 z-0 transform-3d perspective-[1250px] mt-5 md:mt-12 lg:mt-0">
-          <div
-            className="rounded-2xl overflow-hidden relative z-20 bg-image-light dark:bg-image-dark bg-cover brightness-95 dark:brightness-100 shadow-2xl w-auto object-cover h-40 md:h-96"
-            style={{
-              transform: "rotateY(-25deg) rotateX(10deg) rotateZ(15deg)",
-            }}
+      </div>
+
+      <div className="relative z-0 mt-14 mx-auto w-full max-w-5xl">
+        <div className="absolute rounded bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white dark:from-dark-bg to-transparent z-10 pointer-events-none" />
+
+        <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 brightness-[0.97] dark:brightness-100">
+          <img
+            src="/screenshots/Dashboard-light.webp"
+            className="w-full h-auto block dark:hidden"
+            alt="Zemonie dashboard screenshot"
+            onError={(e) => (e.currentTarget.style.display = "none")}
+          />
+          <img
+            src="/screenshots/Dashboard-dark.webp"
+            className="w-full h-auto hidden dark:block"
+            alt="Zemonie dashboard screenshot"
+            onError={(e) => (e.currentTarget.style.display = "none")}
           />
         </div>
       </div>
