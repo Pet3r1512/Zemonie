@@ -35,18 +35,20 @@ export default function Hero() {
       </div>
 
       <div className="relative z-0 mt-14 mx-auto w-full max-w-5xl">
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white dark:from-dark-bg to-transparent z-10 pointer-events-none rounded-b-2xl" />
+        <div className="absolute rounded bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white dark:from-dark-bg to-transparent z-10 pointer-events-none" />
 
         <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 brightness-[0.97] dark:brightness-100">
           <img
             src="/screenshots/Dashboard-light.webp"
             className="w-full h-auto block dark:hidden"
             alt="Zemonie dashboard screenshot"
+            onError={(e) => (e.currentTarget.style.display = "none")}
           />
           <img
             src="/screenshots/Dashboard-dark.webp"
             className="w-full h-auto hidden dark:block"
             alt="Zemonie dashboard screenshot"
+            onError={(e) => (e.currentTarget.style.display = "none")}
           />
         </div>
       </div>
