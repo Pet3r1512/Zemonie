@@ -3,6 +3,7 @@ import Hero from "@/components/Layout/Home/Hero";
 import Page from "@/components/Layout/Page";
 import SEO from "@/components/SEO";
 import FloatingLines from "@/components/ui/reactbits/floating-lines";
+import { useTheme } from "@/hooks/useTheme";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -10,6 +11,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
     <>
       <SEO title="Home" canonicalPath="/" />
@@ -23,7 +27,8 @@ function Index() {
           interactive: true,
           parallax: true,
           animationSpeed: 1,
-          mixBlendMode: "normal",
+          isDark: isDark,
+          mixBlendMode: isDark ? "screen" : "multiply",
           linesGradient: ["#ff7900", "#6f6f6f", "#6f6f6f"],
         } as any)}
       />

@@ -11,7 +11,7 @@ export default function Hero() {
 
         <p
           role="description"
-          className="text-base lg:text-lg font-medium text-pretty text-white max-w-xl"
+          className="text-base lg:text-lg font-medium text-pretty text-black dark:text-white max-w-xl"
         >
           Zemonie is the <span className="text-primary">all-in-one</span> money management tool that
           helps you track your income, label your expenses, and visualize your financial data. Get
