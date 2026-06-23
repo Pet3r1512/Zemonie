@@ -18,7 +18,7 @@ export default function Hero() {
           started today and achieve your financial goals.
         </p>
 
-        <div role="action-buttons" className="flex items-center gap-x-4">
+        <div role="cta-buttons-group" className="flex items-center gap-x-4">
           <a
             href="/auth/signin"
             className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"

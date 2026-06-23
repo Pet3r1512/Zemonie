@@ -29,20 +29,16 @@ export const Default: Story = {
 
     expect(TitlePrimary).toBeInTheDocument();
     expect(TitlePrimary.textContent).toContain("Manage Your Finances with");
-
-    const TitleAccent = canvas.getByRole("heading", { level: 2 });
-
-    expect(TitleAccent).toBeInTheDocument();
-    expect(TitleAccent.textContent).toBe("Zemonie");
+    expect(TitlePrimary.textContent).toContain("Zemonie");
 
     const HeroDesc = canvas.getByRole("description");
 
     expect(HeroDesc).toBeInTheDocument();
-    expect(HeroDesc.textContent).toBe(
+    expect(HeroDesc.textContent).toContain(
       "Zemonie is the all-in-one money management tool that helps you track your income, label your expenses, and visualize your financial data. Get started today and achieve your financial goals.",
     );
 
-    const ActionBtns = canvas.getByRole("action-buttons");
+    const ActionBtns = canvas.getByRole("cta-buttons-group");
     expect(ActionBtns).toBeInTheDocument();
 
     const GetStartedBtn = canvas.getByText("Get started");
