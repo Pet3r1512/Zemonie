@@ -156,6 +156,10 @@ export default {
       setPrismaConnectionString(env.DATABASE_URL);
     }
 
-    ctx.waitUntil(processRecurringBudgets());
+    if (event.cron === "0 0 * * *") {
+      ctx.waitUntil(processRecurringBudgets());
+    } else {
+      ctx.waitUntil(prisma.$queryRaw`SELECT 1`.then(() => {}).catch(() => {}));
+    }
   },
 };
