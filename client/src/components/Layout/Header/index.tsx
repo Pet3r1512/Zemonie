@@ -1,22 +1,58 @@
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 import Logo from "../Logo";
 import Navbar from "./Navbar/NavbarContainer";
 import PagesNav from "./PagesNav";
 
 export default function Header({ hideHeader }: { hideHeader: boolean }) {
+  const [scrolled, setScrolled] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.scrollY > 50;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    if (hideHeader) return;
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hideHeader]);
+
+  if (hideHeader) return null;
+
   return (
     <header
       role="header"
       className={cn(
-        hideHeader ? "hidden" : "flex",
-        "fixed top-0 left-0 right-0 z-50 w-full justify-between items-center max-w-7xl mx-auto px-5 lg:px-0 py-4",
+        "fixed top-0 left-0 right-0 z-50 flex justify-center px-5 lg:px-0 transition-all duration-150 ease-linear",
+        scrolled && "py-4",
       )}
     >
-      <div className="isolate flex w-full justify-between items-center px-6 py-3 bg-white/10 backdrop-blur-lg rounded-full shadow-lg ring-1 ring-black/5">
+      <motion.div
+        initial={{
+          width: scrolled ? "80%" : "100%",
+          maxWidth: scrolled ? "80rem" : "100%",
+        }}
+        animate={{
+          width: scrolled ? "80%" : "100%",
+          maxWidth: scrolled ? "80rem" : "100%",
+        }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className={cn(
+          "flex justify-between items-center px-6 py-3 bg-white/10 backdrop-blur-lg shadow-lg ring-1 ring-black/5",
+          !scrolled ? "" : "rounded-full",
+        )}
+      >
         <Logo />
         <PagesNav />
         <Navbar />
-      </div>
+      </motion.div>
     </header>
   );
 }
