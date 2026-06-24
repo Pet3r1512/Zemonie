@@ -21,7 +21,6 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hideHeader]);
 
