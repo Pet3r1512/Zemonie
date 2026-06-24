@@ -6,6 +6,7 @@ import { appRouter } from "./server/_index";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma, { setPrismaConnectionString } from "./lib/prisma";
 import { auth } from "./lib/auth";
+import { processRecurringBudgets } from "./lib/processRecurringBudgets";
 import { createContext } from "./server/context";
 
 const app = new Hono<{
@@ -149,7 +150,12 @@ export default {
     env: Record<string, string | undefined>,
     ctx: ExecutionContext,
   ) {
-    const baseUrl = env.BASE_URL || "https://api.zemonie.site";
-    ctx.waitUntil(fetch(`${baseUrl}/api/ping`));
+    if (env.DEV_DATABASE_URL) {
+      setPrismaConnectionString(env.DEV_DATABASE_URL);
+    } else if (env.DATABASE_URL) {
+      setPrismaConnectionString(env.DATABASE_URL);
+    }
+
+    ctx.waitUntil(processRecurringBudgets());
   },
 };
