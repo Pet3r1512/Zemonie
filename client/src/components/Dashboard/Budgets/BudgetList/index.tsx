@@ -32,6 +32,9 @@ export default function BudgetListContainer() {
   const { data, isLoading } = useQuery({
     queryKey: ["budgets"],
     queryFn: getBudgets,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
   if (isLoading) {
