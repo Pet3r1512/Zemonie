@@ -6,7 +6,12 @@ import Navbar from "./Navbar/NavbarContainer";
 import PagesNav from "./PagesNav";
 
 export default function Header({ hideHeader }: { hideHeader: boolean }) {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.scrollY > 50;
+    }
+    return false;
+  });
 
   useEffect(() => {
     if (hideHeader) return;
@@ -31,6 +36,10 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
       )}
     >
       <motion.div
+        initial={{
+          width: scrolled ? "80%" : "100%",
+          maxWidth: scrolled ? "80rem" : "100%",
+        }}
         animate={{
           width: scrolled ? "80%" : "100%",
           maxWidth: scrolled ? "80rem" : "100%",
