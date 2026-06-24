@@ -88,7 +88,7 @@ const TopStickyBar = ({
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     // Call once on mount to set initial state based on current scroll
     handleScroll();
 

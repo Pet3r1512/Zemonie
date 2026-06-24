@@ -20,7 +20,7 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
       setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, [hideHeader]);
