@@ -3,15 +3,17 @@ or read our installation document. (go to lightswind.com/components/Installation
 npm i lightswind@latest*/
 
 import { cn } from "@/lib/utils";
-import { Easing, motion } from "motion/react";
-import { useState, useEffect } from "react"; // Import useState and useEffect
+import { Easing, LazyMotion, m } from "motion/react";
+import { useEffect, useState } from "react";
+
+const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
 interface TopStickyBarProps {
   /**
    * Controls the visibility of the bar. True to show, false to hide.
    * This prop is ignored if `showOnScroll` is true.
    */
-  show?: boolean; // Make optional as it might be controlled internally
+  show?: boolean;
   /**
    * If true, the bar's visibility will be controlled by scroll position.
    * If false or undefined, the `show` prop controls visibility.
@@ -60,7 +62,7 @@ interface TopStickyBarProps {
 }
 
 const TopStickyBar = ({
-  show: externalShow = false, // Renamed to avoid conflict with internal state
+  show = false,
   showOnScroll = false,
   scrollThreshold = 200,
   children,
@@ -71,48 +73,40 @@ const TopStickyBar = ({
   visibleY = 0,
   hiddenY = -50,
 }: TopStickyBarProps) => {
-  const [internalShow, setInternalShow] = useState(externalShow); // Initialize with externalShow
+  const [scrollVisible, setScrollVisible] = useState(false);
 
-  // Effect to manage scroll-based visibility
   useEffect(() => {
-    if (!showOnScroll) {
-      setInternalShow(externalShow); // If not scroll-controlled, use external prop
-      return;
-    }
+    if (!showOnScroll) return;
 
     const handleScroll = () => {
-      if (window.scrollY > scrollThreshold) {
-        setInternalShow(true);
-      } else {
-        setInternalShow(false);
-      }
+      setScrollVisible(window.scrollY > scrollThreshold);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Call once on mount to set initial state based on current scroll
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [showOnScroll, scrollThreshold, externalShow]); // Re-run if these props change
+  }, [showOnScroll, scrollThreshold]);
 
-  // Determine the final `show` value
-  const finalShow = showOnScroll ? internalShow : externalShow;
+  const finalShow = showOnScroll ? scrollVisible : show;
 
   return (
-    <motion.div
-      initial={{ y: initialY, opacity: 0 }}
-      animate={{
-        y: finalShow ? visibleY : hiddenY,
-        opacity: finalShow ? 1 : 0,
-      }}
-      transition={{ duration, ease }}
-      className={cn(
-        "fixed top-0 left-0 w-full z-60 bg-gray-800 text-white py-1 text-sm text-center shadow-md",
-        className,
-      )}
-    >
-      {children}
-    </motion.div>
+    <LazyMotion features={loadFeatures}>
+      <m.div
+        initial={{ y: initialY, opacity: 0 }}
+        animate={{
+          y: finalShow ? visibleY : hiddenY,
+          opacity: finalShow ? 1 : 0,
+        }}
+        transition={{ duration, ease }}
+        className={cn(
+          "fixed top-0 left-0 w-full z-60 bg-gray-800 text-white py-1 text-sm text-center shadow-md",
+          className,
+        )}
+      >
+        {children}
+      </m.div>
+    </LazyMotion>
   );
 };
 
