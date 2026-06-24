@@ -41,6 +41,17 @@ export const budgetRouter = router({
         },
       });
 
+      if (isRecurring) {
+        const scheduledAt = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0, 0);
+        await prisma.pendingBudget.create({
+          data: {
+            userId,
+            budgetId: newBudget.id,
+            scheduledAt,
+          },
+        });
+      }
+
       return { budget: newBudget };
     }),
   getBudgets: authenticatedProcedure.query(async ({ ctx }) => {

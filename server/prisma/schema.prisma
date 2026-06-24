@@ -22,6 +22,7 @@ model User {
   categories      Category[]
   balances        Balance[]
   budgets Budget[]
+  pendingBudgets PendingBudget[]
   userPreferences User_Preferences[]
 
   @@map("user")
@@ -151,6 +152,7 @@ model Budget {
   categoryId Int?
   name String?
   amount Decimal @db.Decimal(10, 2)
+  currency SupportedCurrency @default(AUD)
   duration BudgetDuration @default(MONTH_1)
   isRecurring Boolean @default(false)
   isRollOver Boolean @default(false)
@@ -161,6 +163,8 @@ model Budget {
   parentBudget Budget? @relation("BudgetRecurrence", fields: [parentBudgetId], references: [id])
   childBudget Budget[] @relation("BudgetRecurrence")
 
+  pendingBudgets PendingBudget[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -170,4 +174,30 @@ model Budget {
   @@index([userId])
   @@index([userId, categoryId])
   @@index([isRecurring, endDate])
+}
+
+enum PendingJobStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model PendingBudget {
+  id String @id @default(cuid())
+  userId String
+  budgetId String
+
+  status PendingJobStatus @default(PENDING)
+
+  scheduledAt DateTime
+  processedAt DateTime?
+  failedAt DateTime?
+  failReason String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  budget Budget @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+
+  @@index([status, scheduledAt])
+  @@index([userId])
 }
