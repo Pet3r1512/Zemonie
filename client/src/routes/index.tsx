@@ -31,7 +31,7 @@ function Index() {
           mouseRadius={0.35}
         />
       </div>
-      <Page className="flex flex-col justify-center min-h-screen pb-10 md:pb-0">
+      <Page className="flex flex-col justify-center gap-y-24 md:gap-y-0 min-h-screen pb-10 md:pb-0">
         <Hero />
         <Features />
       </Page>
