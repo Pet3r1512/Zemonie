@@ -91,7 +91,7 @@ export function AppSidebar() {
                           "py-5 ",
                           currentUrl === item.url
                             ? "bg-primary text-white lg:hover:bg-primary lg:hover:text-white"
-                            : "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-elevated",
+                            : "lg:hover:bg-gray-200 dark:lg:hover:bg-dark-elevated",
                         )}
                       >
                         <Link
