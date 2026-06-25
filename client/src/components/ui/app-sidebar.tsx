@@ -88,10 +88,10 @@ export function AppSidebar() {
                       <SidebarMenuButton
                         asChild
                         className={cn(
-                          "py-5 ",
+                          "py-5 font-semibold rounded-xl transition-all duration-150 ease-linear",
                           currentUrl === item.url
                             ? "bg-primary text-white lg:hover:bg-primary lg:hover:text-white"
-                            : "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-elevated",
+                            : "lg:hover:bg-gray-200 dark:lg:hover:bg-dark-elevated",
                         )}
                       >
                         <Link

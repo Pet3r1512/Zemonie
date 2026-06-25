@@ -20,7 +20,7 @@ type Last7DaysExpensesChartType = Array<{
 const chartConfig = {
   amount: {
     label: "Spending",
-    color: "#f79d65",
+    color: "#ff7900",
   },
 } satisfies ChartConfig;
 
