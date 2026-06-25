@@ -313,7 +313,7 @@ export function ExpandableCard({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="dark:bg-red-400 dark:hover:bg-red-500"
+                    className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
                     onClick={() => {
                       reset({
                         categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),

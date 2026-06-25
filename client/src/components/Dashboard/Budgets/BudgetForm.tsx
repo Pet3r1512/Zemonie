@@ -181,7 +181,10 @@ export function BudgetForm() {
             </FieldGroup>
             <DialogFooter className="flex flex-row justify-end items-center gap-x-2">
               <DialogClose asChild>
-                <Button variant="secondary" className="text-neutral-600 dark:text-neutral-300">
+                <Button
+                  variant="outline"
+                  className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                >
                   Cancel
                 </Button>
               </DialogClose>
