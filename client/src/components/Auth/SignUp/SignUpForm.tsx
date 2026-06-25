@@ -211,17 +211,17 @@ export default function SignUpForm({ className }: { className?: string }) {
                   />
                   <FieldContent>
                     <FieldLabel htmlFor="terms" className="font-normal cursor-pointer">
-                      Accept{" "}
+                      Accept
                       <Link
-                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        className="underline font-semibold underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
                         target="_blank"
                         to={"/terms"}
                       >
                         terms
-                      </Link>{" "}
-                      and{" "}
+                      </Link>
+                      and
                       <Link
-                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        className="underline font-semibold underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
                         target="_blank"
                         to={"/privacy"}
                       >
@@ -240,7 +240,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                   role="submit-btn"
                   disabled={mutation.isPending}
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary-dark"
+                  className="w-full bg-primary hover:bg-primary-dark dark:bg-primary dark:hover:bg-primary-dark transition-all duration-150 ease-linear dark:text-white"
                 >
                   {mutation.isPending ? (
                     <LoaderCircle data-testid="spinner" className="animate-spin" />

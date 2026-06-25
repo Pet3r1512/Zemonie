@@ -122,7 +122,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   role="submit-btn"
                   disabled={mutation.isPending}
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary-dark"
+                  className="w-full bg-primary hover:bg-primary-dark dark:bg-primary dark:hover:bg-primary-dark transition-all duration-150 ease-linear dark:text-white"
                 >
                   {mutation.isPending ? (
                     <LoaderCircle data-testid="spinner" className="animate-spin" />
