@@ -22,7 +22,7 @@ export default function Page({
       <section
         role="page-body"
         className={cn(
-          "flex-1 flex flex-col pt-20",
+          "flex-1 flex flex-col pt-20 md:pt-24",
           !fullScreen && "mx-auto w-full max-w-360",
           pageName,
         )}

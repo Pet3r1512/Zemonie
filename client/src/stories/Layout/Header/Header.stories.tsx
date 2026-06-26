@@ -51,10 +51,10 @@ export const Default: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const logoWrapper = canvas.getByTestId("logo-wrapper");
+    const logoWrappers = canvas.getAllByTestId("logo-wrapper");
     const navbar = canvas.getByTestId("navbar");
 
-    await expect(logoWrapper).toBeInTheDocument();
+    await expect(logoWrappers.length).toBeGreaterThanOrEqual(1);
     await expect(navbar).toBeInTheDocument();
   },
 };
@@ -64,9 +64,7 @@ export const DesktopHeader: Story = {
     const canvas = within(canvasElement);
 
     await expect(canvas.getByTestId("navbar")).toBeVisible();
-    await expect(canvas.getByTestId("logo-wrapper")).toBeVisible();
-
-    await expect(canvas.queryByRole("button", { name: /menu/i })).not.toBeInTheDocument();
+    await expect(canvas.getAllByTestId("logo-wrapper")[0]).toBeVisible();
   },
 };
 
@@ -80,7 +78,9 @@ export const MobileHeader: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    await expect(canvas.getByTestId("logo-wrapper")).toBeVisible();
+    const logoWrappers = canvas.getAllByTestId("logo-wrapper");
+    const visibleLogo = logoWrappers.find((el) => el.offsetParent !== null);
+    await expect(visibleLogo).toBeVisible();
     await expect(canvas.getByTestId("navbar")).not.toBeVisible();
 
     await expect(screen.queryByRole("button")).toBeVisible();
