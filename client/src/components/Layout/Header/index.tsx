@@ -46,7 +46,7 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
       <header
         role="header"
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 justify-center px-5 lg:px-0 transition-all duration-150 ease-linear lg:block hidden",
+          "fixed top-0 left-0 right-0 z-50 hidden lg:flex justify-center px-5 lg:px-0 transition-all duration-150 ease-linear",
           scrolled && "py-4",
         )}
       >
