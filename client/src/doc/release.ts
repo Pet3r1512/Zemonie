@@ -1,5 +1,40 @@
 const releases = [
   {
+    version: "v1.0.9-beta",
+    date: "Jun 26, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Added automatic recurring budget updates to keep recurring budgets to next months.",
+      },
+      {
+        type: "update",
+        text: "Enhanced the homepage's hero section with a dynamic animated background.",
+      },
+      {
+        type: "update",
+        text: "Redesigned the header with a cleaner and more elegant appearance.",
+      },
+      {
+        type: "update",
+        text: "Refined text, colors, and spacing across the website for a more consistent user experience.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where income could appear as unavailable while transactions were still loading.",
+      },
+      {
+        type: "fix",
+        text: "Corrected spacing on the Last 7 Days Spending chart for mobile devices.",
+      },
+      {
+        type: "fix",
+        text: "Restored the missing theme toggle in the mobile sidebar.",
+      },
+    ],
+  },
+  {
     version: "v1.0.8-beta",
     date: "Jun 21, 2026",
     tag: "Beta",
