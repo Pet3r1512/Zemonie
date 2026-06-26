@@ -505,7 +505,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           style={{ WebkitBackdropFilter: "blur(10px)" }}
           aria-hidden={!open}
         >
-          <div className="sm-panel-inner flex-1 flex flex-col gap-5">
+          <div className="sm-panel-inner flex-1 flex flex-col">
             <ul
               className="sm-panel-list list-none m-0 p-0 flex flex-col gap-2"
               data-numbering={displayItemNumbering || undefined}
@@ -517,7 +517,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     key={it.label + idx}
                   >
                     <a
-                      className="sm-panel-item relative font-semibold text-[3.25rem]! cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]"
+                      className="sm-panel-item relative font-semibold cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]"
                       href={it.link}
                       aria-label={it.ariaLabel}
                       data-index={idx + 1}
@@ -543,10 +543,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             </ul>
 
             {displaySocials && socialItems && socialItems.length > 0 && (
-              <div
-                className="sm-socials mt-auto pt-8 flex flex-col gap-3"
-                aria-label="Social links"
-              >
+              <div className="sm-socials pt-8 flex flex-col gap-3" aria-label="Social links">
                 <h3 className="sm-socials-title m-0 text-base font-medium text-(--sm-accent,#ff0000)">
                   Socials
                 </h3>
@@ -566,8 +563,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 </ul>
               </div>
             )}
+
+            <div className="mt-auto pt-8">
+              <ThemeToggle />
+            </div>
           </div>
-          <ThemeToggle />
         </aside>
       </div>
 
@@ -614,6 +614,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 @media (max-width: 1024px) and (min-width: 768px) { .sm-scope .staggered-menu-panel { width: 50dvw; left: 0; right: 0; } .sm-scope .sm-prelayers { width: 50dvw; } }
 @media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
 @media (max-width: 640px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
+@media (max-width: 640px) {
+  .sm-scope .staggered-menu-panel { padding: 5em 1.5em 1.5em 1.5em; overflow-y: hidden; }
+  .sm-scope .sm-panel-item { font-size: 2.5rem; }
+  .sm-scope .sm-panel-list { gap: 0.25rem; }
+}
 .dark .sm-scope .staggered-menu-panel { background: #030712; }
 .dark .sm-scope .sm-panel-item { color: #fff; }
 .dark .sm-scope .sm-panel-item:hover { color: var(--sm-accent, #ff7900); }
