@@ -563,8 +563,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 </ul>
               </div>
             )}
-
-            <div className="mt-auto pt-8">
+            <div className="ml-auto mt-auto">
               <ThemeToggle />
             </div>
           </div>
