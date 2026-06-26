@@ -1,6 +1,5 @@
 import { useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import Sidebar from "../Sidebar";
 import Navbar from "./Navbar";
 
 export default function NavbarContainer() {
@@ -8,13 +7,13 @@ export default function NavbarContainer() {
   const router = useRouter();
 
   useEffect(() => {
-    if (router.latestLocation.href.includes("auth")) {
+    if (router.state.location.href.includes("auth")) {
       setIncludeNavbar(false);
     }
-  }, [router.latestLocation]);
+  }, [router.state.location]);
 
   if (!includeNavbar) {
-    return <Sidebar></Sidebar>;
+    return null;
   }
 
   return <Navbar />;
