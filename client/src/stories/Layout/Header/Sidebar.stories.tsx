@@ -54,8 +54,6 @@ export const MobileSidebar: Story = {
 
     await userEvent.click(MenuIcon);
 
-    const bodyCanvas = within(document.body);
-
-    await expect(bodyCanvas.getByRole("dialog")).toBeInTheDocument();
+    await expect(canvas.getByRole("complementary")).toBeInTheDocument();
   },
 };
