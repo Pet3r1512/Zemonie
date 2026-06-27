@@ -1,5 +1,5 @@
-import { create } from "zustand";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
+import { create } from "zustand";
 
 export type BalanceState = {
   balance: number;

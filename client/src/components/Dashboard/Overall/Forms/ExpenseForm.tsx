@@ -1,3 +1,4 @@
+import createNewTransaction from "@/api/users/transactions/createNewTransaction";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import {
@@ -13,17 +14,16 @@ import {
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { LoaderCircle } from "lucide-react";
-import { Transaction } from "./IncomeForm";
-import ExpenseSelect from "./Selectors/ExpenseSelector";
-import createNewTransaction from "@/api/users/transactions/createNewTransaction";
-import useBalanceStore from "@/store/store";
 import localISOString from "@/helpers/localISOString";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import useBalanceStore from "@/store/store";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { LoaderCircle } from "lucide-react";
+import { useState } from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Transaction } from "./IncomeForm";
+import ExpenseSelect from "./Selectors/ExpenseSelector";
 
 export function ExpenseForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -72,13 +72,16 @@ export function ExpenseForm() {
       queryClient.invalidateQueries({
         queryKey: ["last7DaysExpenses"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["budget"],
+      });
     },
   });
 
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
     mutation.mutate({
       ...credentials,
-      currency: data?.preferences.currency,
+      currency: data?.preferences?.currency,
       createdAt: credentials.createdAt ?? localISOString(),
     });
     reset();

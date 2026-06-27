@@ -1,9 +1,9 @@
 import Sidebar from "@/components/Layout/Header/Sidebar";
-import { Meta, StoryObj } from "@storybook/react-vite";
-import { userEvent, within, screen } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
-import { createRouter, RouterProvider, createRootRoute } from "@tanstack/react-router";
+import { Meta, StoryObj } from "@storybook/react-vite";
+import { screen, userEvent, within } from "@storybook/testing-library";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createRootRoute, createRouter, RouterProvider } from "@tanstack/react-router";
 
 const rootRoute = createRootRoute({
   component: () => <Sidebar />,
@@ -54,8 +54,6 @@ export const MobileSidebar: Story = {
 
     await userEvent.click(MenuIcon);
 
-    const bodyCanvas = within(document.body);
-
-    await expect(bodyCanvas.getByRole("dialog")).toBeInTheDocument();
+    await expect(canvas.getByRole("complementary")).toBeInTheDocument();
   },
 };

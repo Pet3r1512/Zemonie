@@ -1,6 +1,6 @@
-import SEO from "@/components/SEO";
 import SignUp from "@/components/Auth/SignUp";
 import Page from "@/components/Layout/Page";
+import SEO from "@/components/SEO";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/auth/signup")({

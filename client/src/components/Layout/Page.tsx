@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { cn } from "../../lib/utils";
-import Header from "./Header";
 import Footer from "./Footer";
+import Header from "./Header";
 
 export default function Page({
   children,
@@ -19,10 +19,13 @@ export default function Page({
   return (
     <main className="body bg-cover bg-center min-h-screen flex flex-col">
       <Header hideHeader={hideHeader} />
-
       <section
         role="page-body"
-        className={cn("flex-1 flex flex-col", !fullScreen && "mx-auto w-full max-w-360", pageName)}
+        className={cn(
+          "flex-1 flex flex-col pt-20 md:pt-24",
+          !fullScreen && "mx-auto w-full max-w-360",
+          pageName,
+        )}
       >
         <div
           className={cn(

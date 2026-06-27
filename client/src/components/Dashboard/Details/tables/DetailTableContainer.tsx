@@ -1,8 +1,8 @@
-import useFetchTransactions, { TransactionQueryOptions } from "@/hooks/useFetchTransactions";
-import { DetailsTable } from "./DetailTable";
-import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
-import { useCallback, useRef } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import useFetchTransactions, { TransactionQueryOptions } from "@/hooks/useFetchTransactions";
+import { useCallback, useRef } from "react";
+import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
+import { DetailsTable } from "./DetailTable";
 
 const TableTileDictionary: Record<string, string> = {
   all: "",
@@ -36,9 +36,9 @@ export default function DetailTableContainer({ option }: { option: TransactionQu
   const allTransactions: TransactionInfo[] = data?.pages.flatMap((page) => page.transactions) ?? [];
 
   return (
-    <section className="bg-white dark:bg-dark-bg rounded-2xl p-5 flex flex-col gap-y-5 flex-1">
+    <section className="bg-white dark:bg-dark-card rounded-2xl p-5 flex flex-col gap-y-5 flex-1 overflow-hidden min-h-0">
       <p className="text-lg lg:text-xl font-bold shrink-0">{TableTileDictionary[option]}</p>
-      {isLoading ? (
+      {isLoading || isFetchingNextPage ? (
         <div className="space-y-3 flex-1">
           <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
           <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />

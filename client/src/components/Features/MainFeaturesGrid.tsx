@@ -1,4 +1,4 @@
-import { ArrowDownUpIcon, TagIcon, BarChart3Icon, PieChartIcon, CheckIcon } from "lucide-react";
+import { ArrowDownUpIcon, BarChart3Icon, CheckIcon, PieChartIcon, TagIcon } from "lucide-react";
 
 const features = [
   {
@@ -66,7 +66,7 @@ export default function MainFeaturesGrid() {
             return (
               <div
                 key={index}
-                className="group relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+                className="group relative bg-white dark:bg-dark-card rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-black"
               >
                 <div
                   className={`w-14 h-14 rounded-xl bg-linear-to-br ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}

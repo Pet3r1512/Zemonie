@@ -23,6 +23,7 @@ import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settin
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardIncomeRouteImport } from './routes/dashboard/income'
 import { Route as DashboardExpensesRouteImport } from './routes/dashboard/expenses'
+import { Route as DashboardBudgetRouteImport } from './routes/dashboard/budget'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
 
@@ -96,6 +97,11 @@ const DashboardExpensesRoute = DashboardExpensesRouteImport.update({
   path: '/dashboard/expenses',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardBudgetRoute = DashboardBudgetRouteImport.update({
+  id: '/dashboard/budget',
+  path: '/dashboard/budget',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/auth/signup',
   path: '/auth/signup',
@@ -118,6 +124,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/dashboard/budget': typeof DashboardBudgetRoute
   '/dashboard/expenses': typeof DashboardExpensesRoute
   '/dashboard/income': typeof DashboardIncomeRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/dashboard/budget': typeof DashboardBudgetRoute
   '/dashboard/expenses': typeof DashboardExpensesRoute
   '/dashboard/income': typeof DashboardIncomeRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -155,6 +163,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/dashboard/budget': typeof DashboardBudgetRoute
   '/dashboard/expenses': typeof DashboardExpensesRoute
   '/dashboard/income': typeof DashboardIncomeRoute
   '/dashboard/profile': typeof DashboardProfileRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/auth/signin'
     | '/auth/signup'
+    | '/dashboard/budget'
     | '/dashboard/expenses'
     | '/dashboard/income'
     | '/dashboard/profile'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/auth/signin'
     | '/auth/signup'
+    | '/dashboard/budget'
     | '/dashboard/expenses'
     | '/dashboard/income'
     | '/dashboard/profile'
@@ -211,6 +222,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/auth/signin'
     | '/auth/signup'
+    | '/dashboard/budget'
     | '/dashboard/expenses'
     | '/dashboard/income'
     | '/dashboard/profile'
@@ -230,6 +242,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
+  DashboardBudgetRoute: typeof DashboardBudgetRoute
   DashboardExpensesRoute: typeof DashboardExpensesRoute
   DashboardIncomeRoute: typeof DashboardIncomeRoute
   DashboardProfileRoute: typeof DashboardProfileRoute
@@ -338,6 +351,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardExpensesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/budget': {
+      id: '/dashboard/budget'
+      path: '/dashboard/budget'
+      fullPath: '/dashboard/budget'
+      preLoaderRoute: typeof DashboardBudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/signup': {
       id: '/auth/signup'
       path: '/auth/signup'
@@ -366,6 +386,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
+  DashboardBudgetRoute: DashboardBudgetRoute,
   DashboardExpensesRoute: DashboardExpensesRoute,
   DashboardIncomeRoute: DashboardIncomeRoute,
   DashboardProfileRoute: DashboardProfileRoute,

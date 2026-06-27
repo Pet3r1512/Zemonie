@@ -1,12 +1,12 @@
-import { MoveDown, MoveUp, TrendingUp, Wallet } from "lucide-react";
-import Data from "./Data";
-import { useQuery } from "@tanstack/react-query";
 import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
-import { ReactNode } from "react";
 import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
-import useUserPreferences from "@/hooks/users/useUserPreferences";
-import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
+import { useQuery } from "@tanstack/react-query";
+import { MoveDown, MoveUp, TrendingUp, Wallet } from "lucide-react";
+import { ReactNode } from "react";
+import Data from "./Data";
 
 export type OverallDataType = {
   name: string;

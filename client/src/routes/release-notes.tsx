@@ -1,223 +1,11 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
+import SEO from "@/components/SEO";
+import releases from "@/doc/release";
 import { createFileRoute } from "@tanstack/react-router";
 import { Tag } from "lucide-react";
 export const Route = createFileRoute("/release-notes")({
   component: RouteComponent,
 });
-const releases = [
-  {
-    version: "v1.0.6-beta",
-    date: "Jun 08, 2026",
-    tag: "Beta",
-    changes: [
-      {
-        type: "feature",
-        text: "Added the ability to edit and update existing transactions with a dedicated form. 🚀",
-      },
-      {
-        type: "update",
-        text: "Improved overall dashboard performance for a smoother experience.",
-      },
-      {
-        type: "update",
-        text: "Enhanced avatar image quality for clearer and sharper visuals.",
-      },
-      {
-        type: "update",
-        text: "Refreshed landing page and features content and improved dashboard color styling for better visual consistency.",
-      },
-      {
-        type: "fix",
-        text: "Fixed an issue where the account setup form would incorrectly appear again after signing in.",
-      },
-      {
-        type: "fix",
-        text: "Corrected savings rate calculations when no income has been recorded yet.",
-      },
-      {
-        type: "fix",
-        text: "Fixed page reload behavior so users stay on their current page instead of being redirected to the dashboard.",
-      },
-    ],
-  },
-  {
-    version: "v1.0.5-beta",
-    date: "Jun 04, 2026",
-    tag: "Beta",
-    changes: [
-      {
-        type: "feature",
-        text: "Introduced a new monthly Income vs Expense chart. 🚀",
-      },
-      {
-        type: "feature",
-        text: "Supported VND currency with automatic currency formatting. 🔥",
-      },
-      {
-        type: "feature",
-        text: "Added more personalized insights to the dashboard.",
-      },
-      {
-        type: "update",
-        text: "Improved the mobile dashboard experience.",
-      },
-      {
-        type: "update",
-        text: "Enlarged the selected avatar preview during account setup.",
-      },
-      {
-        type: "fix",
-        text: "Fixed incorrect avatar display on the Profile page.",
-      },
-      {
-        type: "fix",
-        text: "Fixed profile information inconsistencies after account setup.",
-      },
-    ],
-  },
-  {
-    version: "v1.0.4-beta",
-    date: "Jun 03, 2026",
-    tag: "Beta",
-    changes: [
-      {
-        type: "feature",
-        text: "Introduced an animated transaction details popup for a more polished user experience. 🚀",
-      },
-      {
-        type: "fix",
-        text: "Fixed an issue where some users could be asked to complete setup again.",
-      },
-      {
-        type: "fix",
-        text: "Improved scrolling stability on the Transactions page to prevent interface shifting.",
-      },
-    ],
-  },
-  {
-    version: "v1.0.3-beta",
-    date: "Jun 01, 2026",
-    tag: "Beta",
-    changes: [
-      {
-        type: "feature",
-        text: "Introduced a Spending by Category chart for better insight into your spending habits. 🚀",
-      },
-      {
-        type: "feature",
-        text: "Added a scrollable category list to make selecting transaction categories easier.",
-      },
-      {
-        type: "update",
-        text: "Enhanced the Features page with clearer and more detailed feature information.",
-      },
-      {
-        type: "update",
-        text: "Improved app stability and consistency across Chrome, Safari, Firefox, and other major browsers.",
-      },
-      {
-        type: "fix",
-        text: "Corrected time-related inconsistencies to ensure data is displayed accurately.",
-      },
-      {
-        type: "fix",
-        text: "Fixed an issue that could cause a different avatar to appear than the one selected during setup.",
-      },
-    ],
-  },
-  {
-    version: "v1.0.2-beta.1",
-    date: "May 29, 2026",
-    tag: "Beta",
-    changes: [
-      {
-        type: "feature",
-        text: "Transaction forms now provide clear guidance when required fields are missing.",
-      },
-      {
-        type: "feature",
-        text: "Currency amounts are displayed in a cleaner and more consistent format.",
-      },
-      {
-        type: "update",
-        text: "Improved usability on mobile devices and smaller screens.",
-      },
-      {
-        type: "update",
-        text: "Enhanced security and reliability across the platform.",
-      },
-      {
-        type: "update",
-        text: "Faster data loading for a smoother experience.",
-      },
-      {
-        type: "fix",
-        text: "Fixed an issue that could allow transactions to be created without a description.",
-      },
-    ],
-  },
-  {
-    version: "v1.0.2-beta",
-    date: "May 27, 2026",
-    tag: "Beta",
-    changes: [
-      {
-        type: "feature",
-        text: "Improved account security for a safer experience",
-      },
-      {
-        type: "feature",
-        text: "Added personalized settings and preferences",
-      },
-      {
-        type: "feature",
-        text: "Added a privacy agreement checkbox during account setup",
-      },
-      {
-        type: "update",
-        text: "Refreshed app branding and visual design",
-      },
-      {
-        type: "update",
-        text: "Improved website visibility and performance on search engines",
-      },
-      {
-        type: "fix",
-        text: "Fixed minor interface and layout issues",
-      },
-    ],
-  },
-  {
-    version: "v1.0.1-beta",
-    date: "May 25, 2026",
-    tag: "Beta",
-    changes: [
-      { type: "feature", text: "Improve user interfaces" },
-      { type: "fix", text: "Authentication error handler" },
-    ],
-  },
-  {
-    version: "v1.0.0-beta",
-    date: "May 25, 2026",
-    tag: "Beta",
-    changes: [
-      { type: "feature", text: "Track income and expenses with ease" },
-      {
-        type: "feature",
-        text: "Interactive dashboard with real-time analytics",
-      },
-      { type: "feature", text: "Currency supported: AUD and USD" },
-      { type: "feature", text: "Category-based transaction management" },
-      { type: "feature", text: "User authentication with email and password" },
-      {
-        type: "feature",
-        text: "Responsive design — works on desktop and mobile",
-      },
-      { type: "feature", text: "Account setup wizard with avatar picker" },
-    ],
-  },
-];
 
 const changeBadge = (type: string) => {
   if (type === "feature") {
@@ -234,7 +22,6 @@ const changeBadge = (type: string) => {
       </span>
     );
   }
-  // fix
   return (
     <span className="mt-0.5 shrink-0 size-5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-xs font-bold">
       ✕
@@ -263,7 +50,7 @@ function RouteComponent() {
             {releases.map((release, index) => (
               <div
                 key={release.version}
-                className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10"
+                className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-8 lg:p-10"
               >
                 <div className="flex items-center gap-3 mb-1">
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">{release.version}</h2>

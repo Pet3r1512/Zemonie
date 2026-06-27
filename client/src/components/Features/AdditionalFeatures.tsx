@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 import {
-  LockIcon,
-  RefreshCwIcon,
+  Award,
   CalendarIcon,
   DownloadIcon,
+  LockIcon,
+  RefreshCwIcon,
   SparklesIcon,
-  Award,
   Target,
 } from "lucide-react";
 
@@ -74,7 +74,7 @@ export default function AdditionalFeatures() {
               <div
                 key={index}
                 className={cn(
-                  "relative flex items-start p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-primary transition-colors duration-200",
+                  "relative flex items-start p-6 rounded-xl bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-card/80 hover:border-primary transition-colors duration-200",
                   feature.badge === "Coming Soon" &&
                     "opacity-75 cursor-default pointer-events-none",
                 )}

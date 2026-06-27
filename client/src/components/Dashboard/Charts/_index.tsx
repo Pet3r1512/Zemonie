@@ -1,11 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
 import getSpendingByCategory from "@/api/dashboard/charts/SpendingByCategory";
-import { SpendingByCategory } from "./SpendingByCategory";
-import { CurrentMonthIncomeExpenseChart } from "./CurrentMonthIncomeExpenseChart";
-import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
-import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
-import Last7DaysSpendings from "./Last7DaysSpendings";
 import getLast7DaysExpenses from "@/api/users/analytics/expenses/getLast7DayExpenses";
+import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
+import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
+import { useQuery } from "@tanstack/react-query";
+import { CurrentMonthIncomeExpenseChart } from "./CurrentMonthIncomeExpenseChart";
+import Last7DaysSpendings from "./Last7DaysSpendings";
+import { SpendingByCategory } from "./SpendingByCategory";
 
 const now = new Date();
 const currentMonth = now.getMonth() + 1;

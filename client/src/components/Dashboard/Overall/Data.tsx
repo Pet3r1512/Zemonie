@@ -1,9 +1,9 @@
 import { Card } from "@/components/ui/card";
-import { OverallDataType } from ".";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CircleAlert, TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import NumberFlow from "@number-flow/react";
+import { CircleAlert, TrendingDown, TrendingUp } from "lucide-react";
+import { OverallDataType } from ".";
 
 const GROWTH_RATE_ICON_SIZE = 16;
 

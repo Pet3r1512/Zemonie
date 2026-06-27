@@ -23,7 +23,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@v4
         with:
           version: 10
 
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@v4
         with:
           version: 10
 
@@ -107,7 +107,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@v4
         with:
           version: 10
 
@@ -122,6 +122,8 @@ jobs:
       - name: Build client
         run: pnpm build
         working-directory: client
+        env:
+          VITE_SERVER_URL: https://api.zemonie.site
 
   deploy-staging:
     needs: [build]
@@ -131,7 +133,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/action-setup@v4
         with:
           version: 10
 
@@ -146,6 +148,11 @@ jobs:
 
       - name: Generate Prisma client
         run: cd server && pnpm prisma generate
+
+      - name: Run Prisma migrations (staging)
+        run: cd server && pnpm prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_STAGING }}
 
       - name: Deploy server to staging
         run: |
@@ -169,9 +176,9 @@ jobs:
       - name: Build client
         run: pnpm build
         working-directory: client
+        env:
+          VITE_SERVER_URL: https://staging.api.zemonie.site
 
       - name: Deploy client to staging
         run: pnpm wrangler deploy --minify --config wrangler.staging.toml
         working-directory: client
-        env:
-          VITE_SERVER_URL: https://staging.api.zemonie.site

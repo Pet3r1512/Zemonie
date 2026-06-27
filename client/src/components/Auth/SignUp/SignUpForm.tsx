@@ -1,21 +1,21 @@
+import SignUpEmail from "@/api/users/auth/SignUpEmail";
+import Logo from "@/components/Layout/Logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Field, FieldContent, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SignUpFormType } from "@/lib/types/signupform";
 import { cn } from "@/lib/utils";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useRef, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { SignUpFormType } from "@/lib/types/signupform";
-import FormErrorMessage from "../FormErrorMessage";
-import { useMutation } from "@tanstack/react-query";
-import SignUpEmail from "@/api/users/auth/SignUpEmail";
 import { toast } from "sonner";
+import FormErrorMessage from "../FormErrorMessage";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
-import { Link, useRouter } from "@tanstack/react-router";
-import Logo from "@/components/Layout/Logo";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Field, FieldContent, FieldDescription, FieldLabel } from "@/components/ui/field";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -111,7 +111,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                         message: "Name is too short",
                       },
                       pattern: {
-                        value: /^[A-Za-z]+(?: [A-Za-z]+)*$/,
+                        value: /^\p{L}+(?: \p{L}+)*$/u,
                         message: "Please enter a valid name using letters only",
                       },
                     })}
@@ -211,17 +211,17 @@ export default function SignUpForm({ className }: { className?: string }) {
                   />
                   <FieldContent>
                     <FieldLabel htmlFor="terms" className="font-normal cursor-pointer">
-                      Accept{" "}
+                      Accept
                       <Link
-                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        className="underline font-semibold underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
                         target="_blank"
                         to={"/terms"}
                       >
                         terms
-                      </Link>{" "}
-                      and{" "}
+                      </Link>
+                      and
                       <Link
-                        className="underline underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
+                        className="underline font-semibold underline-offset-1 lg:hover:text-secondary transition-all duratio-150 ease-linear"
                         target="_blank"
                         to={"/privacy"}
                       >
@@ -240,7 +240,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                   role="submit-btn"
                   disabled={mutation.isPending}
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary-dark"
+                  className="w-full bg-primary hover:bg-primary-dark dark:bg-primary dark:hover:bg-primary-dark transition-all duration-150 ease-linear dark:text-white"
                 >
                   {mutation.isPending ? (
                     <LoaderCircle data-testid="spinner" className="animate-spin" />

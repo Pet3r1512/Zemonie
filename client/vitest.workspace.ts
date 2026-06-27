@@ -1,5 +1,5 @@
-import { defineWorkspace } from "vitest/config";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
+import { defineWorkspace } from "vitest/config";
 
 const storybookUrl = process.env.STORYBOOK_URL;
 

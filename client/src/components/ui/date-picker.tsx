@@ -1,14 +1,14 @@
 "use client";
 
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "./button";
-import { useCallback, useState } from "react";
+import localISOString from "@/helpers/localISOString";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Transaction } from "../Dashboard/Overall/Forms/IncomeForm";
-import localISOString from "@/helpers/localISOString";
+import { Button } from "./button";
 
 export function DatePicker({ defaultDate }: { defaultDate?: string }) {
   const [date, setDate] = useState<Date | undefined>(
@@ -18,15 +18,6 @@ export function DatePicker({ defaultDate }: { defaultDate?: string }) {
 
   const { setValue } = useFormContext<Transaction>();
 
-  const contentRef = useCallback((el: HTMLDivElement | null) => {
-    if (el) {
-      const wrapper = el.closest("[data-radix-popper-content-wrapper]") as HTMLElement | null;
-      if (wrapper) {
-        wrapper.style.position = "absolute";
-      }
-    }
-  }, []);
-
   const today = new Date();
 
   return (
@@ -35,7 +26,7 @@ export function DatePicker({ defaultDate }: { defaultDate?: string }) {
         <Button
           type="button"
           variant="outline"
-          className="w-64 justify-start text-left font-normal pointer-events-auto"
+          className="w-64 justify-start text-left font-normal pointer-events-auto bg-transparent border-neutral-200 dark:bg-dark-card/30 dark:border-dark-card h-9 px-3 py-1 text-base md:text-sm"
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : format(today, "PPP")}
@@ -43,7 +34,6 @@ export function DatePicker({ defaultDate }: { defaultDate?: string }) {
       </PopoverTrigger>
 
       <PopoverContent
-        ref={contentRef}
         className="h-auto w-64 p-0 z-110"
         align="start"
         onOpenAutoFocus={(e) => e.preventDefault()}

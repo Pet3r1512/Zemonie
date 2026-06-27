@@ -1,7 +1,7 @@
 import { Currency } from "@/api/users/createBalance";
 import { ExpandableCard } from "@/components/ui/aceternity/ExpandableCard";
-import groupTransactions from "@/lib/groupTransactions";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
+import groupTransactions from "@/lib/groupTransactions";
 
 export type TransactionInfo = {
   id: string;

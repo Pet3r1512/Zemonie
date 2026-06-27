@@ -1,5 +1,5 @@
-import SEO from "@/components/SEO";
 import Page from "@/components/Layout/Page";
+import SEO from "@/components/SEO";
 import {
   Accordion,
   AccordionContent,
@@ -70,7 +70,7 @@ function RouteComponent() {
             </p>
           </div>
 
-          <div className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10">
+          <div className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-8 lg:p-10">
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>

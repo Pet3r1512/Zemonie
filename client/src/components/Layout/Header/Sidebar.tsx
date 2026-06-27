@@ -1,51 +1,35 @@
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Menu } from "lucide-react";
-import Logo from "../Logo";
+import { StaggeredMenu } from "@/components/ui/reactbits/staggered-menu";
 import { mobileAuthNavLinks, pages } from "@/lib/navigations";
-import { Link } from "@tanstack/react-router";
-import VersionTag from "@/components/Banner/VersionTag";
 
 export default function Sidebar() {
+  const menuItems = [
+    ...pages.map((page) => ({
+      label: page.name,
+      ariaLabel: `Go to ${page.name}`,
+      link: page.link,
+    })),
+    ...mobileAuthNavLinks.map((nav) => ({
+      label: nav.name,
+      ariaLabel: nav.name,
+      link: nav.link,
+    })),
+  ];
+
   return (
-    <Drawer direction="right">
-      <DrawerTrigger className="md:hidden">
-        <Menu />
-      </DrawerTrigger>
-      <DrawerHeader className="hidden">
-        <VisuallyHidden className="hidden" asChild>
-          {/* Don't care about this =)) */}
-          <DrawerTitle>Hidden Drawer Title</DrawerTitle>
-        </VisuallyHidden>
-      </DrawerHeader>
-      <DrawerContent className="h-dvh px-5 py-7 w-2/3! max-w-sm! rounded-r-none flex flex-col gap-y-8 lg:gap-y-5">
-        <Logo className="lg:h-24" />
-        <div className="font-semibold text-lg flex flex-col gap-y-5">
-          {pages.map((page) => {
-            return (
-              <Link key={page.name} to={page.link}>
-                {page.name}
-              </Link>
-            );
-          })}
-        </div>
-        <div className="mt-auto flex flex-col gap-y-3.5">
-          {mobileAuthNavLinks.map((nav) => {
-            return (
-              <a key={nav.name} href={nav.link} className={nav.className}>
-                {nav.name}
-              </a>
-            );
-          })}
-        </div>
-        <VersionTag />
-      </DrawerContent>
-    </Drawer>
+    <div className="md:hidden">
+      <StaggeredMenu
+        position="right"
+        items={menuItems}
+        displaySocials={false}
+        displayItemNumbering={true}
+        menuButtonColor="#111"
+        openMenuButtonColor="#fff"
+        changeMenuColorOnOpen={true}
+        colors={["#181C23", "#222833"]}
+        accentColor="#ff7900"
+        isFixed={false}
+        closeOnClickAway={true}
+      />
+    </div>
   );
 }

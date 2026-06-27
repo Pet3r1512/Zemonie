@@ -1,5 +1,5 @@
 {
-  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.defaultFormatter": "dprint.dprint",
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
   "editor.codeActionsOnSave": {

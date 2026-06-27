@@ -1,45 +1,56 @@
-import { AuroraTextEffect } from "@/components/ui/lightswind/aurora-text-effect";
-import Screenshot from "./Screenshot";
-
 export default function Hero() {
   return (
     <section
       aria-label="hero-section"
-      className="lg:mt-24 text-center max-w-6xl mx-auto space-y-10"
+      className="max-w-6xl mx-auto px-5 pt-20 pb-0 lg:px-0 lg:pt-28 relative overflow-hidden"
     >
-      <div className="space-y-5">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white sm:text-7xl">
-          Manage Your Finances with{" "}
+      <div className="flex flex-col items-center text-center gap-6 relative z-10">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-2xl">
+          Manage Your Finances with <span className="text-primary">Zemonie</span>
         </h1>
-        <AuroraTextEffect className="bg-transparent" text="Zemonie" />
-      </div>
-      <p
-        role="description"
-        className="mt-8 text-md lg:text-lg font-medium text-pretty text-gray-500 dark:text-gray-300 sm:text-xl/8"
-      >
-        Zemonie is the <span className="text-primary">all-in-one</span> money management tool that
-        helps you track your income, label your expenses, and visualize your financial data. Get
-        started today and achieve your financial goals.
-      </p>
-      <div role="action-buttons" className="mt-10 flex items-center justify-center gap-x-6">
-        <a
-          href="/auth/signin"
-          className="rounded-md bg-primary/95 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+
+        <p
+          role="description"
+          className="text-base lg:text-lg font-medium text-pretty text-black dark:text-white max-w-xl"
         >
-          Get started
-        </a>
-        <a
-          href="/features"
-          className="text-sm/6 font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card px-3.5 py-2.5 rounded-md"
-        >
-          Learn more <span aria-hidden="true">→</span>
-        </a>
-      </div>
-      <div className="relative lg:mt-24">
-        <div className="border border-gray-400 dark:border-dark-card rounded-md bg-white dark:bg-dark-bg relative z-20">
-          <Screenshot />
+          Zemonie is the <span className="text-primary">all-in-one</span> money management tool that
+          helps you track your income, label your expenses, and visualize your financial data. Get
+          started today and achieve your financial goals.
+        </p>
+
+        <div role="cta-buttons-group" className="flex items-center gap-x-4">
+          <a
+            href="/auth/signin"
+            className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
+          >
+            Get started
+          </a>
+          <a
+            href="/features"
+            className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
+          >
+            Learn more <span aria-hidden="true">→</span>
+          </a>
         </div>
-        <div className="absolute -inset-1 rounded-md blur-md bg-linear-to-br from-primary via-primary/85 to-primary/60 z-10"></div>
+      </div>
+
+      <div className="relative z-0 mt-14 mx-auto w-full max-w-5xl">
+        <div className="absolute rounded bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white dark:from-dark-bg to-transparent z-10 pointer-events-none" />
+
+        <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-900/10 dark:ring-white/10 brightness-[0.97] dark:brightness-100">
+          <img
+            src="/screenshots/Dashboard-light.webp"
+            className="w-full h-auto block dark:hidden"
+            alt="Zemonie dashboard screenshot"
+            onError={(e) => (e.currentTarget.style.display = "none")}
+          />
+          <img
+            src="/screenshots/Dashboard-dark.webp"
+            className="w-full h-auto hidden dark:block"
+            alt="Zemonie dashboard screenshot"
+            onError={(e) => (e.currentTarget.style.display = "none")}
+          />
+        </div>
       </div>
     </section>
   );

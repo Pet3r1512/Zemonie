@@ -1,6 +1,6 @@
-import SEO from "@/components/SEO";
 import SignIn from "@/components/Auth/SignIn";
 import Page from "@/components/Layout/Page";
+import SEO from "@/components/SEO";
 import { authClient } from "@/lib/auth-client";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 

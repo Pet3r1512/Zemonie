@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SignUpFormType } from "@/lib/types/signupform";
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { describe, it, vi } from "vitest";
-import SignUpForm from "./SignUpForm";
 import { userEvent } from "@storybook/testing-library";
 import { useMutation } from "@tanstack/react-query";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { toast } from "sonner";
+import { describe, it, vi } from "vitest";
+import SignUpForm from "./SignUpForm";
 
 vi.mock("@/api/users/auth/SignUpEmail", () => ({
   default: vi.fn(),
@@ -217,6 +217,21 @@ describe("Name input validation", () => {
       ).not.toBeInTheDocument();
     });
   });
+
+  it("accepts a valid Vietnames name with space", async () => {
+    renderForm();
+
+    await userEvent.type(screen.getByRole("name-input"), "Hùng Thúy");
+
+    fireEvent.submit(screen.getByRole("form"));
+
+    await waitFor(() => {
+      expect(screen.queryByText("Your name is required")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Please enter a valid name using letters only"),
+      ).not.toBeInTheDocument();
+    });
+  });
 });
 
 describe("Password validation", () => {
@@ -348,7 +363,9 @@ async function fillForm({
   if (email) await user.type(screen.getByRole("email-input"), email);
   if (name) await user.type(screen.getByRole("name-input"), name);
   if (password) await user.type(screen.getByRole("password"), password);
-  if (confirmPassword) await user.type(screen.getByRole("confirmPassword"), confirmPassword);
+  if (confirmPassword) {
+    await user.type(screen.getByRole("confirmPassword"), confirmPassword);
+  }
   if (terms) await user.click(screen.getByRole("checkbox"));
   return user;
 }

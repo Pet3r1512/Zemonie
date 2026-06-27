@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 
 export default function PagesNav() {
   return (
-    <ul className="text-md lg:text-lg font-semibold hidden md:flex items-center gap-x-5">
+    <ul className="text-md lg:text-lg font-semibold hidden md:flex items-center gap-x-5 text-gray-900 dark:text-gray-100">
       {pages.map((link) => {
         return (
           <Link

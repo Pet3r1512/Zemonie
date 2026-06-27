@@ -1,11 +1,11 @@
 // oxlint-disable react/no-unstable-nested-components
-import { Label, Pie, PieChart, Sector } from "recharts";
-import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
-import categoryColorDictionary from "@/types/CategoryDict";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
+import categoryColorDictionary from "@/types/CategoryDict";
+import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
+import { Label, Pie, PieChart, Sector } from "recharts";
+import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 
 type ExpenseCategoryEntry = {
   _sum: { amount: string };
@@ -33,6 +33,15 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
   });
 
   const totalAmount = chartData.reduce((sum, entry) => sum + entry.value, 0);
+  const totalStr = totalAmount.toLocaleString();
+  const valueFontSize =
+    totalStr.length > 10
+      ? "text-lg"
+      : totalStr.length > 7
+        ? "text-xl"
+        : totalStr.length > 5
+          ? "text-2xl"
+          : "text-3xl";
 
   const chartConfig: ChartConfig = {};
   for (const item of chartData) {
@@ -119,7 +128,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-[hsl(var(--foreground))] text-3xl font-bold"
+                          className={`fill-[hsl(var(--foreground))] ${valueFontSize} font-bold`}
                         >
                           {totalAmount.toLocaleString()}
                         </tspan>

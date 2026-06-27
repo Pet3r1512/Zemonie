@@ -1,3 +1,4 @@
+// oxlint-disable oxc/no-async-endpoint-handlers
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
@@ -5,6 +6,7 @@ import { appRouter } from "./server/_index";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import prisma, { setPrismaConnectionString } from "./lib/prisma";
 import { auth } from "./lib/auth";
+import { processRecurringBudgets } from "./lib/processRecurringBudgets";
 import { createContext } from "./server/context";
 
 const app = new Hono<{
@@ -110,6 +112,21 @@ app.get("/api/users/me", async (c) => {
   return c.json({ isSetupDone: preferences.isSetupDone });
 });
 
+app.notFound((c) => {
+  return c.json(
+    { error: "Not Found", message: `Route not found: ${c.req.method} ${c.req.path}` },
+    404,
+  );
+});
+
+app.onError((err, c) => {
+  console.error("Unhandled error:", err);
+  return c.json(
+    { error: "Internal Server Error", message: err.message || "Something went wrong" },
+    500,
+  );
+});
+
 app.get("/api/ping", async (c) => {
   try {
     await prisma.$queryRaw`SELECT 1`;
@@ -133,7 +150,16 @@ export default {
     env: Record<string, string | undefined>,
     ctx: ExecutionContext,
   ) {
-    const baseUrl = env.BASE_URL || "https://api.zemonie.site";
-    ctx.waitUntil(fetch(`${baseUrl}/api/ping`));
+    if (env.DEV_DATABASE_URL) {
+      setPrismaConnectionString(env.DEV_DATABASE_URL);
+    } else if (env.DATABASE_URL) {
+      setPrismaConnectionString(env.DATABASE_URL);
+    }
+
+    if (event.cron === "0 0 * * *") {
+      ctx.waitUntil(processRecurringBudgets());
+    } else {
+      ctx.waitUntil(prisma.$queryRaw`SELECT 1`.then(() => {}).catch(() => {}));
+    }
   },
 };

@@ -1,19 +1,19 @@
+import SignInEmail from "@/api/users/auth/SignInEmail";
+import Logo from "@/components/Layout/Logo";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { SignInFormType } from "@/lib/types/signinform";
 import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-label";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import FormErrorMessage from "../FormErrorMessage";
-import { useMutation } from "@tanstack/react-query";
-import SignInEmail from "@/api/users/auth/SignInEmail";
 import { toast } from "sonner";
-import { useRouter } from "@tanstack/react-router";
+import FormErrorMessage from "../FormErrorMessage";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
-import Logo from "@/components/Layout/Logo";
 
 export default function SignInForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -122,7 +122,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   role="submit-btn"
                   disabled={mutation.isPending}
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary-dark"
+                  className="w-full bg-primary hover:bg-primary-dark dark:bg-primary dark:hover:bg-primary-dark transition-all duration-150 ease-linear dark:text-white"
                 >
                   {mutation.isPending ? (
                     <LoaderCircle data-testid="spinner" className="animate-spin" />

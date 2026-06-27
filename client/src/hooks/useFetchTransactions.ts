@@ -1,7 +1,7 @@
 import getTransactions from "@/api/users/transactions/getTransactions";
 import { TransactionsResponse } from "@/components/Dashboard/Transactions/TransactionsTable";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export type TransactionQueryOptions = "all" | "onlyIncome" | "onlyExpense";
 
