@@ -21,7 +21,7 @@
     "better-auth": "^1.6.11",
     "cookie": "^1.0.2",
     "dotenv": "^17.2.3",
-    "dotenv-expand": "^12.0.2",
+    "dotenv-expand": "^13.0.0",
     "hono": "^4.7.11",
     "ws": "^8.18.3",
     "zod": "^4.0.5"
