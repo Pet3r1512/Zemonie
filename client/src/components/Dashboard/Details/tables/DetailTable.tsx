@@ -19,9 +19,11 @@ const TABLE_TITLE_FONT_SIZE = "text-xs sm:text-sm md:text-base";
 export function DetailsTable({
   transactions,
   lastElementRef,
+  isLoadingMore,
 }: {
   transactions: TransactionInfo[];
   lastElementRef: (node: HTMLTableRowElement | null) => void;
+  isLoadingMore?: boolean;
 }) {
   const lastTxId = transactions[transactions.length - 1]?.id;
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
@@ -66,6 +68,13 @@ export function DetailsTable({
                 </TableCell>
               </TableRow>
             ))}
+            {isLoadingMore && (
+              <TableRow>
+                <TableCell colSpan={4} className="text-center py-4 text-sm text-gray-400">
+                  Loading more...
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </div>

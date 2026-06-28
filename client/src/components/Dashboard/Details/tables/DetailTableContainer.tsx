@@ -38,7 +38,7 @@ export default function DetailTableContainer({ option }: { option: TransactionQu
   return (
     <section className="bg-white dark:bg-dark-card rounded-2xl p-5 flex flex-col gap-y-5 flex-1 overflow-hidden min-h-0">
       <p className="text-lg lg:text-xl font-bold shrink-0">{TableTileDictionary[option]}</p>
-      {isLoading || isFetchingNextPage ? (
+      {isLoading ? (
         <div className="space-y-3 flex-1">
           <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
           <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
@@ -48,7 +48,11 @@ export default function DetailTableContainer({ option }: { option: TransactionQu
         <p className="text-gray-400 dark:text-gray-300 italic flex-1">No transactions found.</p>
       ) : (
         <div className="flex-1 min-h-0">
-          <DetailsTable lastElementRef={lastElementRef} transactions={allTransactions} />
+          <DetailsTable
+            lastElementRef={lastElementRef}
+            transactions={allTransactions}
+            isLoadingMore={isFetchingNextPage}
+          />
         </div>
       )}
     </section>
