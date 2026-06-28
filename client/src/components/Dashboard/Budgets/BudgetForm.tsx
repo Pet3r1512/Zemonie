@@ -23,9 +23,11 @@ import { FormProvider, SubmitHandler, useForm, Controller } from "react-hook-for
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useMemo, useState } from "react";
 import { Switch } from "@/components/ui/switch";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import createBudget from "@/api/dashboard/budget/createBudget";
+import getBudgets from "@/api/dashboard/budget/getBudgets";
 import { toast } from "sonner";
+import getCreatedBudgetCategory from "@/helpers/getCreatedBudgetCategory";
 
 export type BudgetFormData = {
   categoryId: number;
@@ -74,6 +76,22 @@ export function BudgetForm() {
     },
   });
 
+  const { data: budgetsData } = useQuery({
+    queryKey: ["budgets"],
+    queryFn: getBudgets,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+  });
+
+  const disabledCategories = useMemo(
+    () =>
+      getCreatedBudgetCategory({
+        budgets: budgetsData?.budgets.budgets ?? [],
+      }),
+    [budgetsData],
+  );
+
   const monthRange = useMemo(() => getMonthDateRange(), []);
 
   const onSubmit: SubmitHandler<BudgetFormData> = async (credentials) => {
@@ -111,7 +129,7 @@ export function BudgetForm() {
             <FieldGroup className="my-8">
               <Field>
                 <Label htmlFor="source">Category</Label>
-                <ExpenseSelect />
+                <ExpenseSelect disabled={disabledCategories} />
                 <FieldError className="text-red-500" errors={[errors.categoryId]} />
               </Field>
               <Field className="mb-2">
