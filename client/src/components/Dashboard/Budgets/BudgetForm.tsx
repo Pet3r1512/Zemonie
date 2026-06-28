@@ -129,7 +129,7 @@ export function BudgetForm() {
             <FieldGroup className="my-8">
               <Field>
                 <Label htmlFor="source">Category</Label>
-                <ExpenseSelect />
+                <ExpenseSelect disabled={disabledCategories} />
                 <FieldError className="text-red-500" errors={[errors.categoryId]} />
               </Field>
               <Field className="mb-2">
