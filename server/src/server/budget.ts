@@ -1,6 +1,7 @@
 import z from "zod";
 import { authenticatedProcedure, router } from "./tRPC";
 import prisma from "@/lib/prisma";
+import { readAmount, writeAmount } from "@/lib/crypto";
 
 export const budgetRouter = router({
   createBudget: authenticatedProcedure
@@ -34,7 +35,7 @@ export const budgetRouter = router({
           userId,
           categoryId,
           name: budgetName,
-          amount,
+          amount: await writeAmount(amount),
           isRecurring,
           startDate,
           endDate,
@@ -64,23 +65,32 @@ export const budgetRouter = router({
       where: { userId },
     });
 
-    const categoryTotals = await prisma.transaction.groupBy({
-      by: ["categoryId"],
+    const transactions = await prisma.transaction.findMany({
       where: {
         userId,
         createdAt: { gte: startOfMonth, lte: endOfMonth },
       },
-      _sum: { amount: true },
+      select: {
+        categoryId: true,
+        amount: true,
+      },
     });
 
-    // oxlint-disable-next-line no-underscore-dangle
-    const totalMap = new Map(categoryTotals.map((t) => [t.categoryId, Number(t._sum.amount ?? 0)]));
+    // Group by categoryId and sum decrypted amounts
+    const totalMap = new Map<number, number>();
+    for (const tx of transactions) {
+      if (tx.categoryId == null) continue;
+      const current = totalMap.get(tx.categoryId) ?? 0;
+      totalMap.set(tx.categoryId, current + (await readAmount(tx.amount)));
+    }
 
-    const result = budgets.map((budget) => ({
-      ...budget,
-      amount: Number(budget.amount),
-      spentAmount: totalMap.get(budget.categoryId) ?? 0,
-    }));
+    const result = await Promise.all(
+      budgets.map(async (budget) => ({
+        ...budget,
+        amount: await readAmount(budget.amount),
+        spentAmount: budget.categoryId != null ? (totalMap.get(budget.categoryId) ?? 0) : 0,
+      })),
+    );
 
     return { budgets: result };
   }),

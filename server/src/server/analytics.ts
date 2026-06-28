@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
 import CalculateHighestIncome from "../lib/analytics/CalculateHighestIncome";
+import { readAmount } from "@/lib/crypto";
 
 export const analyticsRouter = router({
   highestIncomeOfMonth: authenticatedProcedure
@@ -45,15 +46,17 @@ export const analyticsRouter = router({
         },
       });
 
-      const formattedIncome = allIncomeAmount
-        .filter(
-          (income): income is typeof income & { category: { name: string } } =>
-            income.category !== null,
-        )
-        .map((income) => ({
-          amount: income.amount.toNumber(),
-          category: income.category,
-        }));
+      const formattedIncome = await Promise.all(
+        allIncomeAmount
+          .filter(
+            (income): income is typeof income & { category: { name: string } } =>
+              income.category !== null,
+          )
+          .map(async (income) => ({
+            amount: await readAmount(income.amount),
+            category: income.category,
+          })),
+      );
 
       return { highestIncome: CalculateHighestIncome(formattedIncome) };
     }),
@@ -69,7 +72,7 @@ export const analyticsRouter = router({
     // Last month
     const startOfLastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
 
-    const currentMonthIncome = await prisma.transaction.aggregate({
+    const currentMonthTransactions = await prisma.transaction.findMany({
       where: {
         userId: userId,
         categoryId: {
@@ -80,12 +83,10 @@ export const analyticsRouter = router({
           lt: startOfNextMonth,
         },
       },
-      _sum: {
-        amount: true,
-      },
+      select: { amount: true },
     });
 
-    const lastMonthIncome = await prisma.transaction.aggregate({
+    const lastMonthTransactions = await prisma.transaction.findMany({
       where: {
         userId,
         categoryId: {
@@ -96,13 +97,18 @@ export const analyticsRouter = router({
           lt: startOfCurrentMonth,
         },
       },
-      _sum: {
-        amount: true,
-      },
+      select: { amount: true },
     });
 
-    const lastIncome = Number(lastMonthIncome._sum.amount);
-    const currentIncome = Number(currentMonthIncome._sum.amount);
+    let lastIncome = 0;
+    for (const tx of lastMonthTransactions) {
+      lastIncome += await readAmount(tx.amount);
+    }
+
+    let currentIncome = 0;
+    for (const tx of currentMonthTransactions) {
+      currentIncome += await readAmount(tx.amount);
+    }
 
     let growthRate = 0;
 
@@ -134,7 +140,7 @@ export const analyticsRouter = router({
 
       const endOfMonth = new Date(year, month, 0, 23, 59, 59);
 
-      const totalExpensesAmount = await prisma.transaction.aggregate({
+      const transactions = await prisma.transaction.findMany({
         where: {
           userId,
           category: {
@@ -145,12 +151,15 @@ export const analyticsRouter = router({
             lte: endOfMonth,
           },
         },
-        _sum: {
-          amount: true,
-        },
+        select: { amount: true },
       });
 
-      return { totalExpensesAmount: totalExpensesAmount._sum.amount };
+      let totalExpensesAmount = 0;
+      for (const tx of transactions) {
+        totalExpensesAmount += await readAmount(tx.amount);
+      }
+
+      return { totalExpensesAmount };
     }),
   highestExpenseCategory: authenticatedProcedure
     .input(
@@ -172,8 +181,7 @@ export const analyticsRouter = router({
 
       const endOfMonth = new Date(year, month, 0, 23, 59, 59);
 
-      const highestExpenseCategory = await prisma.transaction.groupBy({
-        by: ["categoryId"],
+      const expenseTransactions = await prisma.transaction.findMany({
         where: {
           userId,
           category: {
@@ -184,24 +192,41 @@ export const analyticsRouter = router({
             lte: endOfMonth,
           },
         },
-        _sum: {
+        select: {
           amount: true,
+          categoryId: true,
         },
-        orderBy: {
-          _sum: {
-            amount: "desc",
-          },
-        },
-        take: 1,
       });
 
-      if (!highestExpenseCategory.length) {
+      if (!expenseTransactions.length) {
+        return {};
+      }
+
+      // Group by categoryId and sum decrypted amounts
+      const categoryTotals = new Map<number, number>();
+      for (const tx of expenseTransactions) {
+        const catId = tx.categoryId!;
+        const current = categoryTotals.get(catId) ?? 0;
+        categoryTotals.set(catId, current + (await readAmount(tx.amount)));
+      }
+
+      // Find the category with the highest total
+      let highestCatId: number | null = null;
+      let highestTotal = 0;
+      for (const [catId, total] of categoryTotals) {
+        if (total > highestTotal) {
+          highestTotal = total;
+          highestCatId = catId;
+        }
+      }
+
+      if (highestCatId === null) {
         return {};
       }
 
       const highestCategoryName = await prisma.category.findUnique({
         where: {
-          id: Number(highestExpenseCategory[0].categoryId),
+          id: highestCatId,
         },
         select: {
           name: true,
@@ -209,7 +234,7 @@ export const analyticsRouter = router({
       });
 
       return {
-        highestExpenseCategoryAmount: highestExpenseCategory[0]._sum.amount,
+        highestExpenseCategoryAmount: highestTotal,
         categoryName: highestCategoryName?.name,
       };
     }),
@@ -232,8 +257,7 @@ export const analyticsRouter = router({
 
       const endOfMonth = new Date(year, month, 0, 23, 59, 59);
 
-      const expensesSummary = await prisma.transaction.groupBy({
-        by: ["categoryId"],
+      const expenseTransactions = await prisma.transaction.findMany({
         where: {
           userId,
           createdAt: {
@@ -244,10 +268,24 @@ export const analyticsRouter = router({
             type: "EXPENSE",
           },
         },
-        _sum: {
+        select: {
           amount: true,
+          categoryId: true,
         },
       });
+
+      // Group by categoryId and sum decrypted amounts
+      const categoryTotals = new Map<number, number>();
+      for (const tx of expenseTransactions) {
+        const catId = tx.categoryId!;
+        const current = categoryTotals.get(catId) ?? 0;
+        categoryTotals.set(catId, current + (await readAmount(tx.amount)));
+      }
+
+      const expensesSummary = Array.from(categoryTotals.entries()).map(([categoryId, total]) => ({
+        categoryId,
+        _sum: { amount: total },
+      }));
 
       return { expenseCategorySummary: expensesSummary };
     }),
@@ -293,7 +331,7 @@ export const analyticsRouter = router({
     for (const transaction of last7DaysTransactions) {
       const day = transaction.createdAt.toISOString().split("T")[0];
 
-      spendingByLast7Days[day] += Number(transaction.amount);
+      spendingByLast7Days[day] += await readAmount(transaction.amount);
     }
 
     // format result

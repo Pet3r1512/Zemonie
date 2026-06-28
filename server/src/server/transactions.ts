@@ -3,6 +3,7 @@ import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
 import { SupportedCurrency } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
+import { readAmount, writeAmount } from "@/lib/crypto";
 
 export const transactionsRouter = router({
   getTransactions: authenticatedProcedure
@@ -34,15 +35,17 @@ export const transactionsRouter = router({
       });
 
       return {
-        transactions: transactions.map((tx) => ({
-          id: tx.id,
-          userId: tx.userId,
-          categoryId: tx.categoryId,
-          amount: Number(tx.amount),
-          currency: tx.currency,
-          description: tx.description,
-          date: tx.createdAt.toISOString(),
-        })),
+        transactions: await Promise.all(
+          transactions.map(async (tx) => ({
+            id: tx.id,
+            userId: tx.userId,
+            categoryId: tx.categoryId,
+            amount: await readAmount(tx.amount),
+            currency: tx.currency,
+            description: tx.description,
+            date: tx.createdAt.toISOString(),
+          })),
+        ),
         hasMore: page * PAGE_SIZE < totalCount,
       };
     }),
@@ -75,7 +78,7 @@ export const transactionsRouter = router({
         data: {
           userId: userId,
           categoryId: categoryId,
-          amount: amount,
+          amount: await writeAmount(amount),
           currency: currency,
           description: description,
           createdAt: createdAt || new Date().toISOString(),
@@ -85,24 +88,26 @@ export const transactionsRouter = router({
       // calculate transaction delta
       const delta = category?.type === "INCOME" ? amount : -amount;
 
-      // update balance
+      // update balance (read current, compute new, write back)
+      const currentBalance = await prisma.balance.findUnique({ where: { userId } });
+      const currentAmount = currentBalance ? await readAmount(currentBalance.amount) : 0;
+      const newBalanceAmount = currentAmount + delta;
+
       const newBalance = await prisma.balance.upsert({
         where: {
           userId,
         },
         update: {
-          amount: {
-            increment: delta,
-          },
+          amount: await writeAmount(newBalanceAmount),
         },
         create: {
           userId,
-          amount: delta,
+          amount: await writeAmount(delta),
           currency: currency || "AUD",
         },
       });
 
-      return { newTransaction, newBalance: newBalance.amount };
+      return { newTransaction, newBalance: await readAmount(newBalance.amount) };
     }),
   getTotalIncomeByMonth: authenticatedProcedure
     .input(
@@ -124,10 +129,7 @@ export const transactionsRouter = router({
 
       const endOfMonth = new Date(year, month, 0, 23, 59, 59);
 
-      const totalIncome = await prisma.transaction.aggregate({
-        _sum: {
-          amount: true,
-        },
+      const transactions = await prisma.transaction.findMany({
         where: {
           userId,
           categoryId: {
@@ -138,10 +140,18 @@ export const transactionsRouter = router({
             lte: endOfMonth,
           },
         },
+        select: {
+          amount: true,
+        },
       });
 
+      let totalIncome = 0;
+      for (const tx of transactions) {
+        totalIncome += await readAmount(tx.amount);
+      }
+
       return {
-        totalIncome: totalIncome._sum.amount ?? 0,
+        totalIncome,
       };
     }),
   getLatestIncomeAndExpenses: authenticatedProcedure.query(async ({ ctx }) => {
@@ -173,7 +183,17 @@ export const transactionsRouter = router({
       take: 1,
     });
 
-    return { latestIncome: latestIncome[0], latestExpense: latestExpense[0] };
+    const latestIncomeTx = latestIncome[0];
+    const latestExpenseTx = latestExpense[0];
+
+    return {
+      latestIncome: latestIncomeTx
+        ? { ...latestIncomeTx, amount: await readAmount(latestIncomeTx.amount) }
+        : undefined,
+      latestExpense: latestExpenseTx
+        ? { ...latestExpenseTx, amount: await readAmount(latestExpenseTx.amount) }
+        : undefined,
+    };
   }),
   updateTransaction: authenticatedProcedure
     .input(
@@ -198,7 +218,8 @@ export const transactionsRouter = router({
 
       // compute old delta
       const oldType = original.category?.type;
-      const oldDelta = oldType === "INCOME" ? Number(original.amount) : -Number(original.amount);
+      const oldAmount = await readAmount(original.amount);
+      const oldDelta = oldType === "INCOME" ? oldAmount : -oldAmount;
       // compute new delta
       let newDelta = 0;
       if (categoryId) {
@@ -217,16 +238,21 @@ export const transactionsRouter = router({
         where: { id: transactionId },
         data: {
           categoryId,
-          amount,
+          amount: await writeAmount(amount),
           currency,
           description,
           ...(createdAt ? { createdAt: new Date(createdAt) } : {}),
         },
       });
+
       // adjust balance by the difference
+      const currentBalance = await prisma.balance.findUnique({ where: { userId } });
+      const currentAmount = currentBalance ? await readAmount(currentBalance.amount) : 0;
+      const newBalanceAmount = currentAmount + (newDelta - oldDelta);
+
       await prisma.balance.update({
         where: { userId },
-        data: { amount: { increment: newDelta - oldDelta } },
+        data: { amount: await writeAmount(newBalanceAmount) },
       });
 
       return { updatedTransaction };

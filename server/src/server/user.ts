@@ -2,6 +2,7 @@ import z from "zod";
 import { authenticatedProcedure, router } from "./tRPC";
 import { SupportedCurrency } from "@prisma/client";
 import prisma from "@/lib/prisma";
+import { writeAmount } from "@/lib/crypto";
 
 export const userRouter = router({
   setup: authenticatedProcedure
@@ -24,7 +25,7 @@ export const userRouter = router({
         },
         create: {
           userId,
-          amount: 0,
+          amount: await writeAmount(0),
           currency: "AUD",
         },
       });
