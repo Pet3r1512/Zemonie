@@ -1,5 +1,31 @@
 const releases = [
   {
+    version: "v1.0.12-beta",
+    date: "Jun 28, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "update",
+        text: "Removed plaintext fallback for encrypted amount fields — all values are now always decrypted.",
+      },
+      {
+        type: "fix",
+        text: "Fixed backfill script to work correctly with Neon serverless adapter.",
+      },
+    ],
+  },
+  {
+    version: "v1.0.11-beta",
+    date: "Jun 28, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Improved data security by encrypting sensitive financial information, including transaction amounts and account balances.",
+      },
+    ],
+  },
+  {
     version: "v1.0.10-beta",
     date: "Jun 28, 2026",
     tag: "Beta",
