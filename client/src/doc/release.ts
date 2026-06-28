@@ -1,5 +1,20 @@
 const releases = [
   {
+    version: "v1.0.10-beta",
+    date: "Jun 28, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "fix",
+        text: "Fixed table height inconsistencies to better fit their containers",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where the mobile sidebar could prevent users from interacting with content on the homepage.",
+      },
+    ],
+  },
+  {
     version: "v1.0.9-beta",
     date: "Jun 26, 2026",
     tag: "Beta",
