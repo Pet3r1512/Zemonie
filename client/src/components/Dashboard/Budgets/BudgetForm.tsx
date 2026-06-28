@@ -23,8 +23,9 @@ import { FormProvider, SubmitHandler, useForm, Controller } from "react-hook-for
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useMemo, useState } from "react";
 import { Switch } from "@/components/ui/switch";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import createBudget from "@/api/dashboard/budget/createBudget";
+import getBudgets from "@/api/dashboard/budget/getBudgets";
 import { toast } from "sonner";
 
 export type BudgetFormData = {
@@ -74,6 +75,13 @@ export function BudgetForm() {
     },
   });
 
+  const { data: budgetsData } = useQuery({
+    queryKey: ["budgets"],
+    queryFn: getBudgets,
+    refetchOnWindowFocus: false,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+  });
   const monthRange = useMemo(() => getMonthDateRange(), []);
 
   const onSubmit: SubmitHandler<BudgetFormData> = async (credentials) => {
