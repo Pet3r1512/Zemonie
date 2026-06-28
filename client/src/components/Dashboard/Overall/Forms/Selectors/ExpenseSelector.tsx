@@ -110,9 +110,11 @@ const expenseSources: SourceExpense[] = [
 export default function ExpenseSelect({
   value,
   contentClassName,
+  disabled,
 }: {
   value?: string;
   contentClassName?: string;
+  disabled?: number[];
 }) {
   const { setValue } = useFormContext<Transaction>();
 
@@ -135,11 +137,14 @@ export default function ExpenseSelect({
               <SelectItem
                 key={source.id}
                 value={source.id.toString()}
+                disabled={disabled?.includes(source.id)}
                 className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
               >
                 <div className="flex items-center gap-x-1 size={ICON_SIZE}">
                   {source.icon}
-                  <p>{source.name}</p>
+                  <p>
+                    {source.name} {disabled?.includes(source.id) ? "(Existed)" : ""}
+                  </p>
                 </div>
               </SelectItem>
             );
