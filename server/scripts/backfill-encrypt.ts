@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto";
+import { createCipheriv, randomBytes } from "node:crypto";
 
 const ALG = "aes-256-gcm";
 const KEY = Buffer.from(process.env.ENCRYPTION_KEY!, "base64");
@@ -10,21 +10,6 @@ function encryptAmount(value: string): string {
   const encrypted = Buffer.concat([cipher.update(value, "utf8"), cipher.final()]);
   const tag = cipher.getAuthTag();
   return `${iv.toString("base64")}:${Buffer.concat([encrypted, tag]).toString("base64")}`;
-}
-
-function decryptAmount(stored: string): string {
-  const [ivB64, cipherB64] = stored.split(":");
-  const iv = Buffer.from(ivB64, "base64");
-  const encData = Buffer.from(cipherB64, "base64");
-  const tag = encData.subarray(encData.length - 16);
-  const encrypted = encData.subarray(0, encData.length - 16);
-  const decipher = createDecipheriv(ALG, KEY, iv);
-  decipher.setAuthTag(tag);
-  return decipher.update(encrypted) + decipher.final("utf8");
-}
-
-function isEncrypted(value: string): boolean {
-  return value.includes(":");
 }
 
 const prisma = new PrismaClient();

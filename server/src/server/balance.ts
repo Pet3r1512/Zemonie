@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
-import { readAmount, writeAmount } from "@/lib/crypto";
+import { readAmount } from "@/lib/crypto";
 
 export const balancesRouter = router({
   createDefaultBalance: authenticatedProcedure
