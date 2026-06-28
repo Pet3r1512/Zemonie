@@ -27,6 +27,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import createBudget from "@/api/dashboard/budget/createBudget";
 import getBudgets from "@/api/dashboard/budget/getBudgets";
 import { toast } from "sonner";
+import getCreatedBudgetCategory from "@/helpers/getCreatedBudgetCategory";
 
 export type BudgetFormData = {
   categoryId: number;
@@ -82,6 +83,15 @@ export function BudgetForm() {
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
+
+  const disabledCategories = useMemo(
+    () =>
+      getCreatedBudgetCategory({
+        budgets: budgetsData?.budgets.budgets ?? [],
+      }),
+    [budgetsData],
+  );
+
   const monthRange = useMemo(() => getMonthDateRange(), []);
 
   const onSubmit: SubmitHandler<BudgetFormData> = async (credentials) => {
