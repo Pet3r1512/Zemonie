@@ -7,6 +7,7 @@ const EnvSchema = z.object({
   DATABASE_URL: z.string().url(),
   DEV_DATABASE_URL: z.string().url(),
   TRUSTED_ORIGIN: z.string().optional(),
+  ENCRYPTION_KEY: z.string().min(1),
 });
 
 const { data: env, error } = EnvSchema.safeParse(process.env);

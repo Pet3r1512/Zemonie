@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
+import { readAmount } from "@/lib/crypto";
 
 export const balancesRouter = router({
   createDefaultBalance: authenticatedProcedure
@@ -51,7 +52,7 @@ export const balancesRouter = router({
     return {
       status: 200,
       message: "Balance found",
-      balance: Number(currentBalance.amount),
+      balance: await readAmount(currentBalance.amount),
       currentcy: currentBalance.currency,
     };
   }),
