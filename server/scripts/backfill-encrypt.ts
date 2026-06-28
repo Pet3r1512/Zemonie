@@ -1,18 +1,22 @@
 import { PrismaClient } from "@prisma/client";
+import { PrismaNeon } from "@prisma/adapter-neon";
 import { createCipheriv, randomBytes } from "node:crypto";
 
 const ALG = "aes-256-gcm";
 const KEY = Buffer.from(process.env.ENCRYPTION_KEY!, "base64");
+
+const toB64 = (buf: Buffer) => buf.toString("base64");
 
 function encryptAmount(value: string): string {
   const iv = randomBytes(12);
   const cipher = createCipheriv(ALG, KEY, iv);
   const encrypted = Buffer.concat([cipher.update(value, "utf8"), cipher.final()]);
   const tag = cipher.getAuthTag();
-  return `${iv.toString("base64")}:${Buffer.concat([encrypted, tag]).toString("base64")}`;
+  return `${toB64(iv)}:${toB64(Buffer.concat([encrypted, tag]))}`;
 }
 
-const prisma = new PrismaClient();
+const adapter = new PrismaNeon({ connectionString: process.env.DATABASE_URL! });
+const prisma = new PrismaClient({ adapter });
 
 async function backfillTransactions() {
   const BATCH = 100;

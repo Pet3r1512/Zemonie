@@ -28,10 +28,7 @@ export async function decryptAmount(stored: string): Promise<string> {
 }
 
 export async function readAmount(stored: string): Promise<number> {
-  if (stored.includes(":")) {
-    return Number(await decryptAmount(stored));
-  }
-  return Number(stored);
+  return Number(await decryptAmount(stored));
 }
 
 export async function writeAmount(value: number): Promise<string> {
