@@ -84,6 +84,7 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
           accentColor="#ff7900"
           isFixed={true}
           closeOnClickAway={true}
+          headerClassName="bg-white/10 dark:bg-black/10 backdrop-blur-lg shadow-lg ring-1 ring-black/5 dark:ring-white/5"
         />
       </header>
     </>

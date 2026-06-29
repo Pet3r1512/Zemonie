@@ -13,7 +13,7 @@ export async function encryptAmount(value: string): Promise<string> {
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const encoded = new TextEncoder().encode(value);
   const cipher = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoded);
-  return `${toB64(iv)}:${toB64(cipher)}`;
+  return `${toB64(iv.buffer)}:${toB64(cipher)}`;
 }
 
 export async function decryptAmount(stored: string): Promise<string> {
