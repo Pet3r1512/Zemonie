@@ -174,12 +174,6 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         Math.abs(lastTransform.blur - newTransform.blur) > 0.1;
 
       if (hasChanged) {
-        const transform = `translate3d(0, ${newTransform.translateY}px, 0) scale(${newTransform.scale}) rotate(${newTransform.rotation}deg)`;
-        const filter = newTransform.blur > 0 ? `blur(${newTransform.blur}px)` : "";
-
-        card.style.transform = transform;
-        card.style.filter = filter;
-
         lastTransformsRef.current.set(i, newTransform);
       }
 
@@ -192,6 +186,13 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
           stackCompletedRef.current = false;
         }
       }
+    });
+
+    cardsRef.current.forEach((card, i) => {
+      const transformData = lastTransformsRef.current.get(i);
+      if (!transformData) return;
+      card.style.transform = `translate3d(0, ${transformData.translateY}px, 0) scale(${transformData.scale}) rotate(${transformData.rotation}deg)`;
+      card.style.filter = transformData.blur > 0 ? `blur(${transformData.blur}px)` : "";
     });
 
     isUpdatingRef.current = false;
@@ -337,7 +338,6 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         scrollBehavior: "smooth",
         WebkitTransform: "translateZ(0)",
         transform: "translateZ(0)",
-        willChange: "scroll-position",
       }}
     >
       <div className="scroll-stack-inner pt-[20vh] px-20 pb-200 min-h-screen">
