@@ -455,7 +455,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         </div>
 
         <header
-          className={`staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-between p-[2em] bg-transparent pointer-events-none z-20 ${headerClassName ?? ""}`}
+          className={`staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-between py-[1.25em]! px-[2em] bg-transparent pointer-events-none z-20 ${headerClassName ?? ""}`}
           aria-label="Main navigation header"
         >
           <div
@@ -518,7 +518,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           style={{ WebkitBackdropFilter: "blur(10px)" }}
           aria-hidden={!open}
         >
-          <div className="sm-panel-inner flex-1 flex flex-col">
+          <div className="sm-panel-inner flex-1 flex flex-col py-8">
             <ul
               className="sm-panel-list list-none m-0 p-0 flex flex-col gap-2"
               data-numbering={displayItemNumbering || undefined}
