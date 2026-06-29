@@ -518,7 +518,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           style={{ WebkitBackdropFilter: "blur(10px)" }}
           aria-hidden={!open}
         >
-          <div className="sm-panel-inner flex-1 flex flex-col">
+          <div className="sm-panel-inner flex-1 flex flex-col py-8">
             <ul
               className="sm-panel-list list-none m-0 p-0 flex flex-col gap-2"
               data-numbering={displayItemNumbering || undefined}
