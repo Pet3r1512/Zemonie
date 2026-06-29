@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import ScrollStack, { ScrollStackItem } from "@/components/ui/reactbits/scroll-stack";
+"use client";
+
+import { useRef } from "react";
 import { Banknote, Lock, ShieldOff } from "lucide-react";
+import { motion, useScroll, useTransform } from "motion/react";
 
 const cards = [
   {
@@ -17,7 +19,7 @@ const cards = [
     subtitle: "Actually encrypted",
     description:
       "Every transaction amount is AES-GCM encrypted before it ever hits the database — so even a data breach exposes nothing readable. Most finance apps store your numbers in plain text and hope for the best.",
-    tag: "Field-level AES-GCM encryption",
+    tag: "Applied AES-GCM encryption",
   },
   {
     icon: <Banknote size={28} className="text-primary" />,
@@ -29,37 +31,83 @@ const cards = [
   },
 ];
 
-export default function Differents() {
-  const [isStackComplete, setIsStackComplete] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const scrollStackRef = useRef<HTMLDivElement>(null);
+interface CardItemProps {
+  card: (typeof cards)[number];
+  i: number;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  range: [number, number];
+  targetScale: number;
+}
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const stackEl = scrollStackRef.current;
-    if (!section || !stackEl) return;
+function CardItem({ card, i, progress, range, targetScale }: CardItemProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    const onWheel = (e: WheelEvent) => {
-      if (isStackComplete) return;
-      const rect = section.getBoundingClientRect();
-      const inView = rect.top <= 0 && rect.bottom >= window.innerHeight * 0.5;
-      if (!inView) return;
-      e.preventDefault();
-      stackEl.scrollTop += e.deltaY;
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    return () => window.removeEventListener("wheel", onWheel);
-  }, [isStackComplete]);
-
-  const handleStackComplete = useCallback(() => {
-    setIsStackComplete(true);
-  }, []);
+  // Scale this card down as the next one scrolls over it
+  const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
-    <section ref={sectionRef} className="lg:mb-48">
-      {/* Header */}
-      <div className="max-w-6xl mx-auto relative z-10">
+    // Each card takes full viewport height — this is what gives scroll distance
+    <div ref={containerRef} className="h-screen flex items-center justify-center sticky top-0">
+      <motion.div
+        style={{
+          scale,
+          top: `calc(-5vh + ${i * 28}px)`, // stacking offset per Olivier's pattern
+        }}
+        className="relative w-full max-w-5xl mx-auto px-4"
+      >
+        <div
+          className={`
+            flex items-center gap-8 p-10 rounded-[40px] min-h-72
+            bg-white dark:bg-dark-card
+            border border-gray-200 dark:border-dark-elevated
+            shadow-[0_0_30px_rgba(0,0,0,0.08)]
+          `}
+        >
+          {/* Content */}
+          <div className="flex flex-col gap-3 max-w-lg">
+            <div className="flex items-center gap-2.5">
+              {card.icon}
+              <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-primary opacity-85">
+                {card.subtitle}
+              </span>
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-snug tracking-tight">
+              {card.title}
+            </h2>
+
+            <p className="text-gray-500 dark:text-gray-400 text-base leading-relaxed">
+              {card.description}
+            </p>
+
+            <div
+              className={`inline-flex items-center gap-1.5 mt-1 px-3.5 py-1.5 rounded-full border border-primary dark:border-primary w-fit`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-primary opacity-70 shrink-0" />
+              <span className="text-xs font-medium text-gray-400 dark:text-gray-500 tracking-wide">
+                {card.tag}
+              </span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+export default function Differents() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Track scroll progress across the entire section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <section className="lg:mb-48">
+      {/* Header — normal flow, not sticky */}
+      <div className="max-w-6xl mx-auto relative z-10 px-4">
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full mb-6 cursor-default">
             <span className="text-sm font-medium text-primary">Built Different</span>
@@ -72,47 +120,21 @@ export default function Differents() {
         </div>
       </div>
 
-      {/* ScrollStack */}
-      <div ref={scrollStackRef} className="h-[50dvh] max-w-5xl mx-auto overflow-hidden">
-        <ScrollStack
-          itemDistance={80}
-          blurAmount={3}
-          baseScale={0.92}
-          stackPosition="35%"
-          onStackComplete={handleStackComplete}
-          className="no-scrollbar"
-        >
-          {cards.map((card, i) => (
-            <ScrollStackItem
+      {/* Cards container — its full scroll height drives the animation */}
+      <div ref={containerRef}>
+        {cards.map((card, i) => {
+          const targetScale = 1 - (cards.length - i) * 0.05;
+          return (
+            <CardItem
               key={i}
-              itemClassName="bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-elevated"
-            >
-              <div className="lex items-center gap-8 h-full">
-                {/* Content */}
-                <div className={"flex flex-col gap-3 max-w-md"}>
-                  <div className="flex items-center gap-2.5">
-                    {card.icon}
-                    <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-primary opacity-85">
-                      {card.subtitle}
-                    </span>
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white leading-snug tracking-tight">
-                    {card.title}
-                  </h2>
-                  <p className="text-gray-500 dark:text-gray-400 text-base leading-relaxed">
-                    {card.description}
-                  </p>
-                  <div className="inline-flex items-center gap-1.5 mt-1 px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-dark-elevated w-fit">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary opacity-70 shrink-0" />
-                    <span className="text-xs font-medium text-gray-400 dark:text-gray-500 tracking-wide">
-                      {card.tag}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </ScrollStackItem>
-          ))}
-        </ScrollStack>
+              card={card}
+              i={i}
+              progress={scrollYProgress}
+              range={[i / cards.length, 1]}
+              targetScale={targetScale}
+            />
+          );
+        })}
       </div>
     </section>
   );
