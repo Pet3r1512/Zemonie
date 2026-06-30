@@ -8,6 +8,7 @@ import prisma, { setPrismaConnectionString } from "./lib/prisma";
 import { auth } from "./lib/auth";
 import { processRecurringBudgets } from "./lib/processRecurringBudgets";
 import { createContext } from "./server/context";
+import { processRecurringTransactions } from "./lib/processRecurringTransactions";
 
 const app = new Hono<{
   Variables: {
@@ -158,6 +159,7 @@ export default {
 
     if (event.cron === "0 0 * * *") {
       ctx.waitUntil(processRecurringBudgets());
+      ctx.waitUntil(processRecurringTransactions());
     } else {
       ctx.waitUntil(prisma.$queryRaw`SELECT 1`.then(() => {}).catch(() => {}));
     }
