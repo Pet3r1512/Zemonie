@@ -118,10 +118,8 @@ export default function Differents() {
           <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full mb-6 cursor-default">
             <span className="text-sm font-medium text-primary">Built Different</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            Finance tools built for
-            <br />
-            <span className="text-primary">real life</span>, not your banker
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
+            Finance tools built for <span className="text-primary">real life</span>, not your banker
           </h1>
         </div>
       </div>

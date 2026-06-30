@@ -15,7 +15,7 @@ export default function Hero() {
             <VersionTag />
           </div>
         </ElectricBorder>
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-4xl">
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-4xl">
           Manage Your Finances with <span className="text-primary">Zemonie</span>
         </h1>
 
