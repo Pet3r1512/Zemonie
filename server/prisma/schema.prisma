@@ -97,6 +97,7 @@ model Transaction {
   categoryId  Int?
   amount      String
   currency    SupportedCurrency @default(AUD)
+  isRecurring Boolean @default(false)
   pendingTransactions PendingTransaction[]
   description String?
   createdAt   DateTime          @default(now())
