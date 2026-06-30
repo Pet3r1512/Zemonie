@@ -56,12 +56,13 @@ export const transactionsRouter = router({
         amount: z.number(),
         currency: z.enum(SupportedCurrency).optional(),
         description: z.string().max(100).optional(),
+        isRecurring: z.boolean().optional(),
         createdAt: z.string().max(32).optional(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { categoryId, amount, currency, description, createdAt } = input;
+      const { categoryId, amount, currency, description, isRecurring, createdAt } = input;
 
       // get category
       const category = await prisma.category.findUnique({
