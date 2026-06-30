@@ -98,12 +98,15 @@ model Transaction {
   amount      String
   currency    SupportedCurrency @default(AUD)
   isRecurring Boolean @default(false)
+  recurringDay Int?
+  parentTransactionId String?
+  parentTransaction   Transaction?  @relation("TransactionRecurrence", fields: [parentTransactionId], references: [id])
+  childTransaction     Transaction[] @relation("TransactionRecurrence")
   pendingTransactions PendingTransaction[]
   description String?
   createdAt   DateTime          @default(now())
   user        User              @relation(fields: [userId], references: [id])
   category    Category?         @relation(fields: [categoryId], references: [id])
-
   @@index([userId, createdAt])
   @@index([userId, categoryId])
 }
