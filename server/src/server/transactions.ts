@@ -82,6 +82,7 @@ export const transactionsRouter = router({
           amount: await writeAmount(amount),
           currency: currency,
           description: description,
+          isRecurring: isRecurring,
           createdAt: createdAt || new Date().toISOString(),
         },
       });
