@@ -5,7 +5,7 @@ export default function Hero() {
       className="max-w-6xl mx-auto px-5 pt-20 pb-0 lg:px-0 lg:pt-28 relative overflow-hidden"
     >
       <div className="flex flex-col items-center text-center gap-6 relative z-10">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-2xl">
+        <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-4xl">
           Manage Your Finances with <span className="text-primary">Zemonie</span>
         </h1>
 
