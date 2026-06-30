@@ -20,9 +20,10 @@ import useBalanceStore from "@/store/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle } from "lucide-react";
 import { useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { Controller, FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import IncomeSelect from "./Selectors/IncomeSelector";
+import { Switch } from "@/components/ui/switch";
 
 export type Transaction = {
   categoryId: number;
@@ -30,6 +31,7 @@ export type Transaction = {
   currency: string;
   description?: string;
   createdAt?: string;
+  isRecurring?: boolean;
 };
 
 export function IncomeForm() {
@@ -116,17 +118,38 @@ export function IncomeForm() {
             </DialogHeader>
             <DialogDescription className="sr-only"></DialogDescription>
             <FieldGroup className="my-8">
-              <input
-                type="hidden"
-                {...register("categoryId", {
-                  required: "Please select an income source",
-                })}
-              />
-              <Field>
-                <Label htmlFor="source">Income Source</Label>
-                <IncomeSelect />
-                <FieldError className="text-red-500" errors={[errors.categoryId]} />
-              </Field>
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <input
+                    type="hidden"
+                    {...register("categoryId", {
+                      required: "Please select an income source",
+                    })}
+                  />
+                  <Field>
+                    <Label htmlFor="source">Income Source</Label>
+                    <IncomeSelect />
+                    <FieldError className="text-red-500" errors={[errors.categoryId]} />
+                  </Field>
+                </div>
+                <div>
+                  <Label>Recurred</Label>
+                  <div className="mt-1.5 h-12 flex items-center justify-center">
+                    <Controller
+                      name="isRecurring"
+                      control={methods.control}
+                      defaultValue={false}
+                      render={({ field }) => (
+                        <Switch
+                          id="isRecurring"
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
               <Field>
                 <Label htmlFor="amount">Amount</Label>
                 <Input
