@@ -2,6 +2,9 @@ import Hero from "@/components/Layout/Home/Hero";
 import { expect } from "@storybook/jest";
 import { Meta, StoryObj } from "@storybook/react-vite";
 import { within } from "@storybook/testing-library";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const meta: Meta<typeof Hero> = {
   component: Hero,
@@ -11,6 +14,13 @@ const meta: Meta<typeof Hero> = {
       isRotated: false,
     },
   },
+  decorators: [
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    ),
+  ],
 };
 
 export default meta;
@@ -44,7 +54,7 @@ export const Default: Story = {
     const GetStartedBtn = canvas.getByText("Get started");
     expect(GetStartedBtn).toBeInTheDocument();
 
-    const LearnMoreBtn = canvas.getByText("Learn more");
+    const LearnMoreBtn = canvas.getByText("Explore features");
     expect(LearnMoreBtn).toBeInTheDocument();
   },
 };

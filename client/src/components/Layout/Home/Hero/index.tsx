@@ -1,3 +1,7 @@
+import VersionTag from "@/components/Banner/VersionTag";
+import ElectricBorder from "@/components/ui/reactbits/electric-border";
+import { Info, Play } from "lucide-react";
+
 export default function Hero() {
   return (
     <section
@@ -5,7 +9,13 @@ export default function Hero() {
       className="max-w-6xl mx-auto px-5 pt-20 pb-0 lg:px-0 lg:pt-28 relative overflow-hidden"
     >
       <div className="flex flex-col items-center text-center gap-6 relative z-10">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-2xl">
+        <ElectricBorder color="#ff7900" speed={0.5} chaos={0.12} style={{ borderRadius: 16 }}>
+          <div className="flex items-center">
+            <p className="mr-2 font-bold">Latest Version: </p>
+            <VersionTag />
+          </div>
+        </ElectricBorder>
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-4xl">
           Manage Your Finances with <span className="text-primary">Zemonie</span>
         </h1>
 
@@ -19,17 +29,23 @@ export default function Hero() {
         </p>
 
         <div role="cta-buttons-group" className="flex items-center gap-x-4">
-          <a
-            href="/auth/signin"
-            className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors"
-          >
-            Get started
+          <a href="/auth/signin">
+            <button
+              type="button"
+              className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors flex items-center gap-x-1"
+            >
+              <Play size={18} />
+              <p>Get started</p>
+            </button>
           </a>
-          <a
-            href="/features"
-            className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50 dark:hover:bg-white/5"
-          >
-            Learn more <span aria-hidden="true">→</span>
+          <a href="/features">
+            <button
+              type="button"
+              className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50 dark:hover:bg-white/5 flex items-center gap-x-1"
+            >
+              <Info size={18} />
+              <p>Explore features</p>
+            </button>
           </a>
         </div>
       </div>
