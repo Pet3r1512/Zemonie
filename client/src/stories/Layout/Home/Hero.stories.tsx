@@ -54,7 +54,7 @@ export const Default: Story = {
     const GetStartedBtn = canvas.getByText("Get started");
     expect(GetStartedBtn).toBeInTheDocument();
 
-    const LearnMoreBtn = canvas.getByText("Learn More");
+    const LearnMoreBtn = canvas.getByText("Explore features");
     expect(LearnMoreBtn).toBeInTheDocument();
   },
 };

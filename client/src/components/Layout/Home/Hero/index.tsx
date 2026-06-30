@@ -30,15 +30,21 @@ export default function Hero() {
 
         <div role="cta-buttons-group" className="flex items-center gap-x-4">
           <a href="/auth/signin">
-            <button className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors flex items-center gap-x-1">
+            <button
+              type="button"
+              className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors flex items-center gap-x-1"
+            >
               <Play size={18} />
               <p>Get started</p>
             </button>
           </a>
           <a href="/features">
-            <button className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50 dark:hover:bg-white/5 flex items-center gap-x-1">
+            <button
+              type="button"
+              className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50 dark:hover:bg-white/5 flex items-center gap-x-1"
+            >
               <Info size={18} />
-              <p>Learn More</p>
+              <p>Explore features</p>
             </button>
           </a>
         </div>
