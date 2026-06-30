@@ -4,6 +4,7 @@ import z from "zod";
 import { SupportedCurrency } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { readAmount, writeAmount } from "@/lib/crypto";
+import getNextRecurrenceDate from "@/helpers/getNextRecurrenceDate";
 
 export const transactionsRouter = router({
   getTransactions: authenticatedProcedure
@@ -86,6 +87,18 @@ export const transactionsRouter = router({
           createdAt: createdAt || new Date().toISOString(),
         },
       });
+
+      // recurred transactions handler
+      if (isRecurring) {
+        const scheduledAt = getNextRecurrenceDate(new Date(), 1);
+        await prisma.pendingTransaction.create({
+          data: {
+            userId,
+            transactionId: newTransaction.id,
+            scheduledAt,
+          },
+        });
+      }
 
       // calculate transaction delta
       const delta = category?.type === "INCOME" ? amount : -amount;
