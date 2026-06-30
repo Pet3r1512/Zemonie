@@ -1,3 +1,5 @@
+import VersionTag from "@/components/Banner/VersionTag";
+import ElectricBorder from "@/components/ui/reactbits/electric-border";
 import { Info, Play } from "lucide-react";
 
 export default function Hero() {
@@ -7,6 +9,12 @@ export default function Hero() {
       className="max-w-6xl mx-auto px-5 pt-20 pb-0 lg:px-0 lg:pt-28 relative overflow-hidden"
     >
       <div className="flex flex-col items-center text-center gap-6 relative z-10">
+        <ElectricBorder color="#ff7900" speed={0.5} chaos={0.12} style={{ borderRadius: 16 }}>
+          <div className="flex items-center">
+            <p className="mr-2 font-bold">Latest Version: </p>
+            <VersionTag />
+          </div>
+        </ElectricBorder>
         <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold tracking-tight text-balance text-gray-900 dark:text-white max-w-4xl">
           Manage Your Finances with <span className="text-primary">Zemonie</span>
         </h1>
