@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { Banknote, Lock, ShieldOff } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { cn } from "@/lib/utils";
 
 const cards = [
   {
@@ -15,7 +16,7 @@ const cards = [
   },
   {
     icon: <ShieldOff size={28} className="text-primary" />,
-    title: "Your amounts are encrypted. Not just stored.",
+    title: "Your amounts are all encrypted. Not just stored.",
     subtitle: "Actually encrypted",
     description:
       "Every transaction amount is AES-GCM encrypted before it ever hits the database — so even a data breach exposes nothing readable. Most finance apps store your numbers in plain text and hope for the best.",
@@ -64,7 +65,12 @@ function CardItem({ card, i, progress, range, targetScale }: CardItemProps) {
           `}
         >
           {/* Content */}
-          <div className="flex flex-col gap-3 max-w-lg">
+          <div
+            className={cn(
+              "flex flex-col gap-3 max-w-lg",
+              i % 2 !== 0 ? "ml-auto items-end text-right" : "",
+            )}
+          >
             <div className="flex items-center gap-2.5">
               {card.icon}
               <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-primary opacity-85">
