@@ -20,15 +20,7 @@ export const budgetRouter = router({
       const now = new Date();
       const startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
 
-      const endDate = new Date(
-        now.getFullYear(),
-        now.getMonth() + 1,
-        0,
-        12,
-        0,
-        0,
-        0,
-      );
+      const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 12, 0, 0, 0);
 
       const newBudget = await prisma.budget.create({
         data: {
