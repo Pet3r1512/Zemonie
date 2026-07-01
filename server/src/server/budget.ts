@@ -23,11 +23,11 @@ export const budgetRouter = router({
       const endDate = new Date(
         now.getFullYear(),
         now.getMonth() + 1,
-        0, // last day of current month
-        23,
-        59,
-        59,
-        999,
+        0,
+        12,
+        0,
+        0,
+        0,
       );
 
       const newBudget = await prisma.budget.create({
@@ -62,7 +62,10 @@ export const budgetRouter = router({
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
     const budgets = await prisma.budget.findMany({
-      where: { userId },
+      where: {
+        userId,
+        endDate: { gte: startOfMonth },
+      },
     });
 
     const transactions = await prisma.transaction.findMany({
