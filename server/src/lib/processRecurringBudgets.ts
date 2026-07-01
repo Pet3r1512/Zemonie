@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 
 function getCalendarMonthRange(date: Date) {
   const startDate = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0, 0);
-  const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 999);
+  const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0, 12, 0, 0, 0);
   return { startDate, endDate };
 }
 
