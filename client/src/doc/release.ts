@@ -1,5 +1,28 @@
 const releases = [
   {
+    version: "v1.0.13-beta",
+    date: "Jul 02, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Added support for recurring transactions, allowing users to automatically repeat income and expense entries.",
+      },
+      {
+        type: "update",
+        text: "Users can now create only one budget per expense category to prevent duplicate budgets.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where the Income and Expense tables would scroll back to the top when loading more transactions.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where recurring budgets were not resetting correctly at the start of a new month.",
+      },
+    ],
+  },
+  {
     version: "v1.0.12-beta",
     date: "Jun 28, 2026",
     tag: "Beta",
