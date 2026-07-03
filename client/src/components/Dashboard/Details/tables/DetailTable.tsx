@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/table";
 
 import { formatCurrency } from "@/helpers/formatCurrency";
-import ParseISOStringDate from "@/helpers/parseISOStringData";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import { cn } from "@/lib/utils";
 import CategoryTag from "../../Category/CategoryTag";
@@ -52,7 +51,12 @@ export function DetailsTable({
                 className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
               >
                 <TableCell className="text-xs sm:text-sm md:text-base whitespace-nowrap">
-                  {ParseISOStringDate({ date: transaction.date })}
+                  {/* {ParseISOStringDate({ date: transaction.date })} */}
+                  {new Date(transaction.date).toLocaleDateString("en-DB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })}
                 </TableCell>
 
                 <TableCell>
