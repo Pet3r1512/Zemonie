@@ -45,9 +45,9 @@ export function DetailsTable({
           </TableHeader>
 
           <TableBody>
-            {transactions.map((transaction) => (
+            {transactions.map((transaction, index) => (
               <TableRow
-                key={transaction.id}
+                key={index + "_" + transaction.id}
                 ref={transaction.id === lastTxId ? lastElementRef : undefined}
                 className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
               >
