@@ -11,7 +11,10 @@ function RouteComponent() {
   const userId = useFetchUser();
 
   return (
-    <DashboardLayout section="Transactions">
+    <DashboardLayout
+      section="Transactions"
+      sectionDesc="Track and manage all your financial activities"
+    >
       <TransactionsTable userId={userId} />
     </DashboardLayout>
   );
