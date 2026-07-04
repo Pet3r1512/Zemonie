@@ -11,6 +11,7 @@ export type TransactionInfo = {
   currency: Currency;
   date: string;
   description: string;
+  parentTransactionId?: string;
 };
 
 export default function ListByDate({

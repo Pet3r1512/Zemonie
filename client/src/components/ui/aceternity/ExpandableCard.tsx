@@ -365,20 +365,30 @@ export function ExpandableCard({
           {currCategory && TransactionTypeDictionary[isIncome ? "INCOME" : "EXPENSE"]}
 
           <div className="space-y-0.5 lg:space-y-2 flex-1">
-            <p className="font-semibold">{currCategory?.name}</p>
+            <p className="font-semibold cursor-default">{currCategory?.name}</p>
+
             <p>{transaction.description}</p>
           </div>
 
-          <p
-            className={`lg:text-xl font-semibold ${
-              currCategory
-                ? TransactionAmountTextColor[isIncome ? "INCOME" : "EXPENSE"]
-                : "text-gray-500"
-            }`}
-          >
-            {isIncome ? "+ " : "- "}
-            {formatCurrency(transaction.amount, currency)}
-          </p>
+          <div className="flex flex-col items-end">
+            <p
+              className={`lg:text-xl font-semibold ${
+                currCategory
+                  ? TransactionAmountTextColor[isIncome ? "INCOME" : "EXPENSE"]
+                  : "text-gray-500"
+              }`}
+            >
+              {isIncome ? "+ " : "- "}
+              {formatCurrency(transaction.amount, currency)}
+            </p>
+            {transaction.parentTransactionId ? (
+              <p className="text-xs md:text-md text-center text-secondary border border-secondary px-.5 md:px-1 md:py-.5 py-.25 rounded-xl">
+                Recurred
+              </p>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       </m.div>
     </LazyMotion>
