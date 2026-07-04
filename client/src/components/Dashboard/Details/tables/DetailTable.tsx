@@ -12,8 +12,14 @@ import useUserPreferences from "@/hooks/users/useUserPreferences";
 import { cn } from "@/lib/utils";
 import CategoryTag from "../../Category/CategoryTag";
 import { TransactionInfo } from "../../Transactions/TransactionsTable/ListByDate";
+import { Badge } from "@/components/ui/badge";
 
 const TABLE_TITLE_FONT_SIZE = "text-xs sm:text-sm md:text-base";
+
+// const TransactionFrequencyTag: Record<string, ReactElement> = {
+//   "monthly": <Badge>Monthly</Badge>,
+//   "oneTime": <Badge>One Time</Badge>
+// };
 
 export function DetailsTable({
   transactions,
@@ -38,6 +44,8 @@ export function DetailsTable({
               <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Source</TableHead>
 
               <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Amount</TableHead>
+
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Frequency</TableHead>
 
               <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Description</TableHead>
             </TableRow>
@@ -65,6 +73,14 @@ export function DetailsTable({
 
                 <TableCell className="text-right font-medium text-xs sm:text-sm md:text-base whitespace-nowrap">
                   {formatCurrency(transaction.amount, currency)}
+                </TableCell>
+
+                <TableCell className="text-right">
+                  {transaction.parentTransactionId ? (
+                    <Badge className="bg-[#00b4d8] cursor-default">Monthly</Badge>
+                  ) : (
+                    <Badge className="bg-[#dad7cd] text-black cursor-default">One Time</Badge>
+                  )}
                 </TableCell>
 
                 <TableCell className="text-right max-w-62.5 truncate">
