@@ -121,11 +121,11 @@ export function ExpenseForm() {
                   <input
                     type="hidden"
                     {...register("categoryId", {
-                      required: "Please select an income source",
+                      required: "Please select an expense category",
                     })}
                   />
                   <Field>
-                    <Label htmlFor="source">Income Source</Label>
+                    <Label htmlFor="source">Category</Label>
                     <ExpenseSelect />
                     <FieldError className="text-red-500" errors={[errors.categoryId]} />
                   </Field>
