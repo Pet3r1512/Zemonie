@@ -44,6 +44,7 @@ export const transactionsRouter = router({
             amount: await readAmount(tx.amount),
             currency: tx.currency,
             description: tx.description,
+            parentTransactionId: tx.parentTransactionId,
             date: tx.createdAt.toISOString(),
           })),
         ),
