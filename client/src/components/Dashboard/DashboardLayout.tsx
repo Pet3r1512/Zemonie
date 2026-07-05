@@ -1,6 +1,6 @@
 import getGlobalCategories from "@/api/categories/getGlobalCategories";
 import checkUserSetup from "@/api/users/checkUserSetup";
-import { Toaster, toast } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import { authClient } from "@/lib/auth-client";
@@ -11,6 +11,7 @@ import LoadingScreen from "../Layout/LoadingScreen";
 import { AppSidebar } from "../ui/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import AccountSetupForm from "./Setup/AccountSetupForm";
+import { toast } from "sonner";
 
 const SETUP_CACHE_KEY = "isSetupDone";
 
