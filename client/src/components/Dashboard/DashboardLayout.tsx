@@ -137,6 +137,7 @@ export default function DashboardLayout({
           </p>
           <div className="flex gap-2 justify-center">
             <button
+              type="button"
               className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium cursor-pointer"
               onClick={() => setupQuery.refetch()}
             >
