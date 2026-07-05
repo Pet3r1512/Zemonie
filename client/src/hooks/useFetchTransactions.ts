@@ -1,14 +1,16 @@
 import getTransactions from "@/api/users/transactions/getTransactions";
-import { TransactionsResponse } from "@/components/Dashboard/Transactions/TransactionsTable";
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 export type TransactionQueryOptions = "all" | "onlyIncome" | "onlyExpense";
 
 export default function useFetchTransactions({ option }: { option?: TransactionQueryOptions }) {
+  const type =
+    option === "onlyIncome" ? "INCOME" : option === "onlyExpense" ? "EXPENSE" : undefined;
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, error } =
-    useInfiniteQuery<TransactionsResponse>({
-      queryKey: ["transactions"],
+    useInfiniteQuery<{ transactions: TransactionInfo[]; hasMore: boolean }>({
+      queryKey: ["transactions", type ?? "all"],
       staleTime: 5 * 60 * 1000,
       gcTime: 30 * 60 * 1000,
       refetchOnWindowFocus: false,
@@ -17,49 +19,23 @@ export default function useFetchTransactions({ option }: { option?: TransactionQ
       queryFn: async ({ pageParam = 1 }) => {
         const response = await getTransactions({
           page: pageParam as number,
+          ...(type ? { type } : {}),
         });
 
         return {
-          transactions: response.transactions,
-          hasMore: response.transactions.length > 0,
+          transactions: response.transactions.transactions,
+          hasMore: response.transactions.hasMore,
         };
       },
 
       getNextPageParam: (lastPage, allPages) => {
-        if (!lastPage.transactions.hasMore) return undefined;
-
+        if (!lastPage.hasMore) return undefined;
         return allPages.length + 1;
       },
     });
 
-  const filteredData = data
-    ? {
-        ...data,
-        pages: data.pages.map((page) => ({
-          ...page,
-          transactions: page.transactions.transactions.filter((transaction: TransactionInfo) => {
-            if (option === "onlyIncome") {
-              return (
-                transaction.categoryId && transaction.categoryId >= 1 && transaction.categoryId <= 7
-              );
-            }
-
-            if (option === "onlyExpense") {
-              return (
-                transaction.categoryId &&
-                transaction.categoryId >= 8 &&
-                transaction.categoryId <= 21
-              );
-            }
-
-            return true;
-          }),
-        })),
-      }
-    : undefined;
-
   return {
-    data: filteredData,
+    data,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
