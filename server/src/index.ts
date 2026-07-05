@@ -36,16 +36,23 @@ app.use(
 );
 
 async function authMiddleware(c: any, next: any) {
-  const session = await auth.api.getSession({ headers: c.req.raw.headers });
-  if (!session) {
+  try {
+    const session = await auth.api.getSession({ headers: c.req.raw.headers });
+    if (!session) {
+      c.set("user", null);
+      c.set("session", null);
+      await next();
+      return;
+    }
+    c.set("user", session.user);
+    c.set("session", session.session);
+    await next();
+  } catch (err) {
+    console.error("authMiddleware error:", err);
     c.set("user", null);
     c.set("session", null);
     await next();
-    return;
   }
-  c.set("user", session.user);
-  c.set("session", session.session);
-  await next();
 }
 
 app.get("/", (c) => {
