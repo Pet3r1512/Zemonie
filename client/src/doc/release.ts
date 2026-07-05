@@ -1,5 +1,32 @@
 const releases = [
   {
+    version: "v1.0.14-beta",
+    date: "Jul 05, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Added a Frequency column to transaction tables to identify recurring transactions at a glance.",
+      },
+      {
+        type: "update",
+        text: "Improved transaction tables by removing unnecessary scrollbars and displaying dates in DD/MM/YYYY format.",
+      },
+      {
+        type: "fix",
+        text: `Corrected an incorrect field label in the Expense form that displayed "Income Source" instead of "Expense Category."`,
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue that could allow access to the dashboard when session validation failed or data couldn't be loaded.",
+      },
+      {
+        type: "fix",
+        text: `Fixed an issue where the Income page could incorrectly display "No transactions found" after a long period without new income, even when older income records existed.`,
+      },
+    ],
+  },
+  {
     version: "v1.0.13-beta",
     date: "Jul 02, 2026",
     tag: "Beta",
