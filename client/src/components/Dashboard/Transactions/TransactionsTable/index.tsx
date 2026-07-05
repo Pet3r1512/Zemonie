@@ -10,13 +10,6 @@ export interface TransactionsTableProps {
   userId: string | undefined;
 }
 
-export interface TransactionsResponse {
-  transactions: {
-    transactions: TransactionInfo[];
-    hasMore: boolean;
-  };
-}
-
 export default function TransactionsTable({ userId }: TransactionsTableProps) {
   const queryClient = useQueryClient();
 
