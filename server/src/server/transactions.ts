@@ -11,18 +11,22 @@ export const transactionsRouter = router({
     .input(
       z.object({
         page: z.number().int().positive(),
+        type: z.enum(["INCOME", "EXPENSE"]).optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const { page } = input;
+      const { page, type } = input;
       const userId = ctx.userId;
 
       const PAGE_SIZE = 10;
 
+      const where: Record<string, unknown> = { userId };
+      if (type) {
+        where.category = { type };
+      }
+
       const transactions = await prisma.transaction.findMany({
-        where: {
-          userId,
-        },
+        where,
         orderBy: { createdAt: "desc" },
         take: PAGE_SIZE,
         skip: (page - 1) * PAGE_SIZE,
@@ -31,9 +35,7 @@ export const transactionsRouter = router({
         },
       });
 
-      const totalCount = await prisma.transaction.count({
-        where: { userId },
-      });
+      const totalCount = await prisma.transaction.count({ where });
 
       return {
         transactions: await Promise.all(
