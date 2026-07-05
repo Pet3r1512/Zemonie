@@ -104,20 +104,25 @@ app.get("/api/users/me", async (c) => {
     return c.json({ message: "Unauthorized" }, 401);
   }
 
-  let preferences = await prisma.user_Preferences.findUnique({
-    where: { userId: user.id },
-  });
-
-  if (!preferences) {
-    preferences = await prisma.user_Preferences.create({
-      data: {
-        userId: user.id,
-        isSetupDone: false,
-      },
+  try {
+    let preferences = await prisma.user_Preferences.findUnique({
+      where: { userId: user.id },
     });
-  }
 
-  return c.json({ isSetupDone: preferences.isSetupDone });
+    if (!preferences) {
+      preferences = await prisma.user_Preferences.create({
+        data: {
+          userId: user.id,
+          isSetupDone: false,
+        },
+      });
+    }
+
+    return c.json({ isSetupDone: preferences.isSetupDone });
+  } catch (err) {
+    console.error(`/api/users/me error for user ${user.id}:`, err);
+    return c.json({ error: "Failed to fetch user preferences" }, 500);
+  }
 });
 
 app.notFound((c) => {
@@ -128,7 +133,7 @@ app.notFound((c) => {
 });
 
 app.onError((err, c) => {
-  console.error("Unhandled error:", err);
+  console.error(`Unhandled error on ${c.req.method} ${c.req.path}:`, err);
   return c.json(
     { error: "Internal Server Error", message: err.message || "Something went wrong" },
     500,
