@@ -11,6 +11,7 @@ import LoadingScreen from "../Layout/LoadingScreen";
 import { AppSidebar } from "../ui/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "../ui/sidebar";
 import AccountSetupForm from "./Setup/AccountSetupForm";
+import { toast } from "sonner";
 
 const SETUP_CACHE_KEY = "isSetupDone";
 
@@ -67,6 +68,14 @@ export default function DashboardLayout({
     }
   }, [navigate, sessionQuery.data, sessionQuery.isPending]);
 
+  useEffect(() => {
+    if (setupQuery.isError) {
+      toast.error("Setup check failed", {
+        description: "Could not verify your account setup status.",
+      });
+    }
+  }, [setupQuery.isError]);
+
   if (!getGlobalCategoriesQuery.isLoading && getGlobalCategoriesQuery.data) {
     sessionStorage.setItem(
       "globalCategories",
@@ -112,10 +121,32 @@ export default function DashboardLayout({
     return <LoadingScreen />;
   }
 
-  // Setup query errored – show dashboard optimistically rather
-  // than blocking the user with the setup form
+  // Setup query errored
   if (setupQuery.isError) {
-    return dashboard;
+    // If the user has completed setup before (cached), optimistically show the dashboard
+    if (isCachedSetupDone) {
+      return dashboard;
+    }
+    // Otherwise show an error state instead of bypassing setup
+    return (
+      <div className="w-screen h-screen flex items-center justify-center">
+        <div className="text-center space-y-4 max-w-md">
+          <p className="text-lg font-semibold text-destructive">Unable to verify account setup</p>
+          <p className="text-sm text-muted-foreground">
+            There was an error checking your account status. Please try again.
+          </p>
+          <div className="flex gap-2 justify-center">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium cursor-pointer"
+              onClick={() => setupQuery.refetch()}
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   // Query resolved: show setup form only when the server confirms
