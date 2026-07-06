@@ -19,6 +19,8 @@ const MAX_DECIMALS: Record<CurrencyCode, number> = {
   VND: 0,
 };
 
+const numFmt = new Intl.NumberFormat("en-US");
+
 function stripToRaw(value: string): string {
   return value.replace(/[^0-9.]/g, "");
 }
@@ -31,7 +33,7 @@ function formatDisplay(raw: string, currency: CurrencyCode): string {
   const decRaw = dotIndex === -1 ? "" : raw.slice(dotIndex + 1);
 
   const intNum = parseInt(intRaw, 10);
-  const formattedInt = isNaN(intNum) ? "" : new Intl.NumberFormat("en-US").format(intNum);
+  const formattedInt = isNaN(intNum) ? "" : numFmt.format(intNum);
 
   const maxDec = MAX_DECIMALS[currency];
   const decPart = decRaw.replace(/[^0-9]/g, "").slice(0, maxDec);
