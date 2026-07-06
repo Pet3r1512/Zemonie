@@ -1,3 +1,4 @@
+import { getCurrencyFormatOptions } from "@/helpers/formatCurrency";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -39,12 +40,7 @@ export default function Data({ data }: { data: OverallDataType }) {
                 className={data.isLoading ? "invisible" : ""}
                 aria-hidden={data.isLoading}
                 value={data.isLoading ? 0 : (data.amount ?? 0)}
-                format={{
-                  style: data.currency ? "currency" : undefined,
-                  currency: data.currency,
-                  minimumFractionDigits: data.currency === "VND" ? 0 : 2,
-                  maximumFractionDigits: data.currency === "VND" ? 0 : 2,
-                }}
+                format={data.currency ? getCurrencyFormatOptions(data.currency) : undefined}
               />
             </div>
           ) : (
