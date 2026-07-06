@@ -1,3 +1,4 @@
+import { AmountInput } from "@/components/ui/amount-input";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 import ExpenseSelect from "../Overall/Forms/Selectors/ExpenseSelector";
 import { FormProvider, SubmitHandler, useForm, Controller } from "react-hook-form";
 import { DialogDescription } from "@radix-ui/react-dialog";
@@ -50,6 +52,7 @@ function getMonthDateRange() {
 export function BudgetForm() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const queryClient = useQueryClient();
+  const { data: userPreferences } = useUserPreferences();
   const methods = useForm<BudgetFormData>({
     defaultValues: {
       isRecurring: false,
@@ -148,26 +151,25 @@ export function BudgetForm() {
               </Field>
               <Field>
                 <Label htmlFor="amount">Max Spend</Label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400 text-sm font-medium pointer-events-none select-none">
-                    $
-                  </span>
-                  <Input
-                    id="amount"
-                    type="number"
-                    step="0.01"
-                    placeholder="500"
-                    className="pl-7"
-                    {...register("amount", {
-                      required: "Amount is required",
-                      valueAsNumber: true,
-                      min: {
-                        value: 0.01,
-                        message: "Amount must be greater than 0",
-                      },
-                    })}
-                  />
-                </div>
+                <Controller
+                  name="amount"
+                  control={methods.control}
+                  rules={{
+                    required: "Amount is required",
+                    min: { value: 0.01, message: "Amount must be greater than 0" },
+                    validate: (v) => (v !== undefined && v > 0) || "Amount must be greater than 0",
+                  }}
+                  render={({ field }) => (
+                    <AmountInput
+                      id="amount"
+                      value={field.value}
+                      onChange={(val) => field.onChange(val ?? 0)}
+                      onBlur={field.onBlur}
+                      currency={userPreferences?.preferences?.currency}
+                      placeholder={"500"}
+                    />
+                  )}
+                />
                 <FieldError className="text-red-500" errors={[errors.amount]} />
               </Field>
               <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">

@@ -1,4 +1,5 @@
 import createNewTransaction from "@/api/users/transactions/createNewTransaction";
+import { AmountInput } from "@/components/ui/amount-input";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import {
@@ -152,18 +153,23 @@ export function IncomeForm() {
               </div>
               <Field>
                 <Label htmlFor="amount">Amount</Label>
-                <Input
-                  id="amount"
-                  type="number"
-                  step={"0.01"}
-                  {...register("amount", {
+                <Controller
+                  name="amount"
+                  control={methods.control}
+                  rules={{
                     required: "Amount is required",
-                    valueAsNumber: true,
-                    min: {
-                      value: 0.01,
-                      message: "Amount must be greater than 0",
-                    },
-                  })}
+                    min: { value: 0.01, message: "Amount must be greater than 0" },
+                    validate: (v) => (v !== undefined && v > 0) || "Amount must be greater than 0",
+                  }}
+                  render={({ field }) => (
+                    <AmountInput
+                      id="amount"
+                      value={field.value}
+                      onChange={(val) => field.onChange(val ?? 0)}
+                      onBlur={field.onBlur}
+                      currency={data?.preferences?.currency}
+                    />
+                  )}
                 />
                 <FieldError className="text-red-500" errors={[errors.amount]} />
               </Field>
