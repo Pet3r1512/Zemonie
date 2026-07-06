@@ -50,12 +50,12 @@ function RouteComponent() {
             {releases.map((release, index) => (
               <div
                 key={release.version}
-                className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-8 lg:p-10"
+                className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-4.5 md:p-8 lg:p-10"
               >
-                <div className="flex items-center gap-3 mb-1">
+                <div className="flex flex-col md:flex-row md:items-center gap-3 mb-1">
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">{release.version}</h2>
                   {release.tag === "Beta" ? (
-                    <span className="rounded-full bg-yellow-300 dark:bg-yellow-600 text-gray-800 dark:text-gray-200 text-xs font-semibold px-3 py-1">
+                    <span className="rounded-full w-fit bg-yellow-300 dark:bg-yellow-600 text-gray-800 dark:text-gray-200 text-xs font-semibold px-3 py-1">
                       {release.tag}
                     </span>
                   ) : (
@@ -64,18 +64,20 @@ function RouteComponent() {
                     </span>
                   )}
                   {index === 0 && (
-                    <div className="text-green-500 text-xs font-extrabold ml-auto flex items-center">
+                    <div className="text-green-500 text-xs font-extrabold md:ml-auto flex items-center">
                       <Tag size={16} />
                       <p>Current Version</p>
                     </div>
                   )}
                 </div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">{release.date}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 mt-2 md:mt-0">
+                  {release.date}
+                </p>
                 <div className="space-y-3">
                   {release.changes.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       {changeBadge(item.type)}
-                      <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      <span className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                         {item.text}
                       </span>
                     </div>

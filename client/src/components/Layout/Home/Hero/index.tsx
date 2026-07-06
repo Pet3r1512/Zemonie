@@ -32,19 +32,19 @@ export default function Hero() {
           <a href="/auth/signin">
             <button
               type="button"
-              className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors flex items-center gap-x-1"
+              className="rounded-full bg-primary/95 px-5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary/85 dark:hover:bg-primary/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-colors flex items-center gap-x-1"
             >
               <Play size={18} />
-              <p>Get started</p>
+              <p className="text-xs md:text-base">Get started</p>
             </button>
           </a>
           <a href="/features">
             <button
               type="button"
-              className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50 dark:hover:bg-white/5 flex items-center gap-x-1"
+              className="text-sm font-semibold text-gray-900 dark:text-white bg-white dark:bg-dark-card border border-gray-200 dark:border-white/10 px-5 py-2.5 rounded-full transition-colors hover:bg-gray-50/80 dark:hover:bg-white/15 flex items-center gap-x-1"
             >
               <Info size={18} />
-              <p>Explore features</p>
+              <p className="text-xs md:text-base">Explore features</p>
             </button>
           </a>
         </div>
