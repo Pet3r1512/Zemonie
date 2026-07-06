@@ -5,10 +5,12 @@ import { cn } from "@/lib/utils";
 import NumberFlow from "@number-flow/react";
 import { CircleAlert, TrendingDown, TrendingUp } from "lucide-react";
 import { OverallDataType } from ".";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 const GROWTH_RATE_ICON_SIZE = 16;
 
 export default function Data({ data }: { data: OverallDataType }) {
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
   const isRateCard = data.name === "Income Growth" || data.name === "Save Rate";
   const isNetSavings = data.name === "Net Savings";
 
@@ -40,7 +42,11 @@ export default function Data({ data }: { data: OverallDataType }) {
                 className={data.isLoading ? "invisible" : ""}
                 aria-hidden={data.isLoading}
                 value={data.isLoading ? 0 : (data.amount ?? 0)}
-                format={data.currency ? getCurrencyFormatOptions(data.currency) : undefined}
+                format={
+                  data.currency
+                    ? { ...getCurrencyFormatOptions(currency), notation: "standard" as const }
+                    : undefined
+                }
               />
             </div>
           ) : (
