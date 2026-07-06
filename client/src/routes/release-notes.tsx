@@ -50,7 +50,7 @@ function RouteComponent() {
             {releases.map((release, index) => (
               <div
                 key={release.version}
-                className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-8 lg:p-10"
+                className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-4.5 md:p-8 lg:p-10"
               >
                 <div className="flex flex-col md:flex-row md:items-center gap-3 mb-1">
                   <h2 className="text-2xl lg:text-3xl font-bold text-primary">{release.version}</h2>
@@ -77,7 +77,7 @@ function RouteComponent() {
                   {release.changes.map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
                       {changeBadge(item.type)}
-                      <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      <span className="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                         {item.text}
                       </span>
                     </div>
