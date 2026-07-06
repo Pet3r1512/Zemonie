@@ -11,6 +11,7 @@ type AmountInputProps = {
   disabled?: boolean;
   className?: string;
   id?: string;
+  "aria-label"?: string;
 };
 
 const MAX_DECIMALS: Record<CurrencyCode, number> = {
@@ -57,6 +58,7 @@ export function AmountInput({
   disabled,
   className,
   id,
+  "aria-label": ariaLabel,
 }: AmountInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const rawRef = useRef("");
@@ -133,6 +135,8 @@ export function AmountInput({
   const symbol = getCurrencySymbol(currency);
   const isSymbolSuffix = currency === "VND";
 
+  const label = ariaLabel ?? (id ? id.charAt(0).toUpperCase() + id.slice(1) : "Amount");
+
   // When the form resets or external value changes, sync the display
   const displayText = formatForDisplay(value, currency);
 
@@ -146,6 +150,7 @@ export function AmountInput({
       <input
         ref={inputRef}
         id={id}
+        aria-label={label}
         type="text"
         inputMode="decimal"
         data-slot="input"
