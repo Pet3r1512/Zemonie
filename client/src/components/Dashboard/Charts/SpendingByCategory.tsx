@@ -1,6 +1,7 @@
 // oxlint-disable react/no-unstable-nested-components
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import categoryColorDictionary from "@/types/CategoryDict";
 import TAILWIND_TO_HEX from "@/types/Tailwind2Hex";
@@ -33,7 +34,8 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
   });
 
   const totalAmount = chartData.reduce((sum, entry) => sum + entry.value, 0);
-  const totalStr = totalAmount.toLocaleString();
+  const currency = user_preferences.data?.preferences?.currency ?? "AUD";
+  const totalStr = formatCurrency(totalAmount, currency);
   const valueFontSize =
     totalStr.length > 10
       ? "text-lg"
@@ -95,7 +97,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                       />
                       <span className="font-medium">{entry?.name}</span>
                       <span className="text-muted-foreground">
-                        {entry?.value + ` ${sessionStorage.getItem("currency")}`}
+                        {formatCurrency(Number(entry?.value ?? 0), currency)}
                       </span>
                     </div>
                   </div>
@@ -137,7 +139,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-[hsl(var(--muted-foreground))]"
                         >
-                          Total {user_preferences.data?.preferences.currency}
+                          Total
                         </tspan>
                       </text>
                     );
