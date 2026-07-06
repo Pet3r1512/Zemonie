@@ -4,7 +4,7 @@ const team = [
   {
     name: "Peter Pham",
     profileLink: "https://www.linkedin.com/in/peterpham1512/",
-    role: "Co-founder & CEO",
+    role: "Founder & CEO",
     initials: "PP",
     bio: "Software Engineer",
   },
