@@ -30,7 +30,7 @@ enum CategoryType {
   INCOME,
 }
 
-type CurrentCategory = {
+export type CurrentCategory = {
   id: number;
   type: CategoryType;
   name: string;
