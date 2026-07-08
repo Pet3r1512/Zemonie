@@ -1,32 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import BudgetItem from "./BudgetItem";
 import getBudgets from "@/api/dashboard/budget/getBudgets";
 import { Skeleton } from "@/components/ui/skeleton";
-
-enum BudgetDuration {
-  WEEK_1,
-  WEEK_2,
-  MONTH_1,
-  MONTH_3,
-  MONTH_6,
-  MONTH_12,
-}
-
-export type BudgetResponseType = {
-  id: string;
-  amount: number;
-  spentAmount: number;
-  categoryId: number;
-  createdAt: string;
-  updatedAt: string;
-  duration: BudgetDuration;
-  startDate: string;
-  endDate: string;
-  isRecurring: boolean;
-  isRollOver: boolean;
-  name: string;
-  parentBudgetId: string;
-};
+import { BudgetDetails } from "./BudgetDetails";
+import BudgetItem from "./BudgetItem";
+import { BudgetResponseType } from "./types";
 
 export default function BudgetListContainer() {
   const { data, isLoading } = useQuery({
@@ -50,7 +27,11 @@ export default function BudgetListContainer() {
       <p className="text-lg lg:text-xl font-bold shrink-0">Budget By Category</p>
       {data?.budgets.budgets.length !== 0 ? (
         data?.budgets.budgets.map((budget: BudgetResponseType) => {
-          return <BudgetItem key={budget.id} budget={budget} />;
+          return (
+            <BudgetDetails key={budget.id} budget={budget}>
+              <BudgetItem budget={budget} />
+            </BudgetDetails>
+          );
         })
       ) : (
         <p>You have no budget.</p>
