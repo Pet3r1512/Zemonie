@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Progress } from "@/components/ui/progress";
 import { Repeat } from "lucide-react";
-import { BudgetResponseType } from ".";
+import { BudgetResponseType } from "./types";
 import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
