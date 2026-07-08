@@ -1,4 +1,4 @@
-import { BudgetResponseType } from "@/components/Dashboard/Budgets/BudgetList";
+import { BudgetResponseType } from "@/components/Dashboard/Budgets/BudgetList/types";
 
 export default function getCreatedBudgetCategory({ budgets }: { budgets: BudgetResponseType[] }) {
   let createdCategoryBudget: number[] = [];
