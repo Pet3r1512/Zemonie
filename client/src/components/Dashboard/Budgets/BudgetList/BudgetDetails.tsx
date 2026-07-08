@@ -131,6 +131,18 @@ export function BudgetDetails({
                   </span>
                 </p>
               </div>
+              <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600" />
+              <div className="space-y-2.5">
+                <p className="font-semibold text-sm md:text-base">
+                  Type:{" "}
+                  <span className="font-normal">
+                    {budget.isRecurring ? "Recurred" : "One Time"}
+                  </span>
+                </p>
+                <p className="font-semibold text-sm md:text-base">
+                  ID: <span className="font-normal">{budget.id}</span>
+                </p>
+              </div>
             </m.div>
           </m.section>
         )}
