@@ -9,6 +9,8 @@ import categoryColorDictionary from "@/types/CategoryDict";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
+import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
+import { cn } from "@/lib/utils";
 
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
@@ -94,37 +96,49 @@ export function BudgetDetails({
                 <p className="text-xl font-bold">{formatCurrency(budget.amount, currency)}</p>
               </div>
               <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600" />
-              <div className="space-y-2.5">
+              <div
+                className={cn(
+                  budget.name
+                    ? "grid grid-cols-2 grid-rows-2 gap-2.5"
+                    : "grid grid-cols-2 grid-rows-1",
+                )}
+              >
                 {budget.name && (
-                  <p className="font-semibold">
+                  <p className="font-semibold col-span-2 text-sm md:text-base">
                     Name: <span className="font-normal">{budget.name}</span>
                   </p>
                 )}
-                <p className="font-semibold">
+                <p className="font-semibold text-sm md:text-base">
                   Spent:{" "}
                   <span className="font-normal text-green-500">
                     {formatCurrency(budget.spentAmount, currency)}
+                  </span>{" "}
+                </p>
+                <p className="font-semibold text-sm md:text-base">
+                  Progress:{" "}
+                  <span className="font-normal text-secondary">
+                    {CalculateBudgetProgress({ total: budget.amount, spent: budget.spentAmount })}%
                   </span>
                 </p>
               </div>
               <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600" />
               <div className="grid grid-cols-2 grid-rows-2 gap-2.5">
-                <p className="font-semibold">
+                <p className="font-semibold text-sm md:text-base">
                   Created At:{" "}
                   <span className="font-normal">
                     {ParseISOStringDate({ date: budget.createdAt }).split(",")[1]}
                   </span>
                 </p>
-                <p className="font-semibold">
+                <p className="font-semibold text-sm md:text-base">
                   Duration: <span className="font-normal">{durationDict[budget.duration]}</span>
                 </p>
-                <p className="font-semibold">
+                <p className="font-semibold text-sm md:text-base">
                   Start From:{" "}
                   <span className="font-normal">
                     {ParseISOStringDate({ date: budget.startDate }).split(",")[1]}
                   </span>
                 </p>
-                <p className="font-semibold">
+                <p className="font-semibold text-sm md:text-base">
                   End On:{" "}
                   <span className="font-normal">
                     {ParseISOStringDate({ date: budget.endDate }).split(",")[1]}
