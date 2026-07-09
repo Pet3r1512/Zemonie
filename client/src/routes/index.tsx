@@ -1,8 +1,8 @@
+import FeatureHighlight from "@/components/Layout/Home/FeatureHighligt";
 import Hero from "@/components/Layout/Home/Hero";
 import Page from "@/components/Layout/Page";
 import SEO from "@/components/SEO";
 import Ferrofluid from "@/components/ui/reactbits/ferro-fluid";
-import MagicBento from "@/components/ui/reactbits/magic-bento";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -33,19 +33,7 @@ function Index() {
       </div>
       <Page className="flex flex-col justify-center gap-y-24 md:gap-y-0 min-h-screen pb-10 md:pb-0">
         <Hero />
-        <MagicBento
-          textAutoHide={true}
-          enableStars
-          enableSpotlight
-          enableBorderGlow={true}
-          enableTilt={false}
-          enableMagnetism={false}
-          clickEffect
-          spotlightRadius={400}
-          particleCount={12}
-          glowColor="255, 121, 0"
-          disableAnimations={false}
-        />
+        <FeatureHighlight />
       </Page>
     </>
   );
