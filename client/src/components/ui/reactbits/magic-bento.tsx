@@ -32,39 +32,43 @@ const MOBILE_BREAKPOINT = 768;
 const cardData: BentoCardProps[] = [
   {
     color: "#120F17",
-    title: "Analytics",
-    description: "Track user behavior",
-    label: "Insights",
+    title: "Free & Open Source. Forever.",
+    description: "AGPL-3.0 licensed. Check the code yourself on GitHub.",
+    label: "No Catch",
   },
   {
     color: "#120F17",
-    title: "Dashboard",
-    description: "Centralized data view",
-    label: "Overview",
+    title: "You're In Control",
+    description:
+      "Track spending with wallets and envelopes — we never ask for your actual bank credentials.",
+    label: "No Bank Login Required",
   },
   {
     color: "#120F17",
-    title: "Collaboration",
-    description: "Work together seamlessly",
-    label: "Teamwork",
+    title: "Your Amounts Stay Yours",
+    description:
+      "Every transaction amount is encrypted end-to-end (AES-GCM). Not even we can read your numbers.",
+    label: "Privacy First",
   },
   {
     color: "#120F17",
-    title: "Automation",
-    description: "Streamline workflows",
-    label: "Efficiency",
+    title: "Made For How You Actually Spend",
+    description:
+      "Money personalities, streaks, and a leaderboard with your friends — finance that doesn't feel like a spreadsheet.",
+    label: "Built Different",
   },
   {
     color: "#120F17",
-    title: "Integration",
-    description: "Connect favorite tools",
-    label: "Connectivity",
+    title: "Recurring Transactions",
+    description:
+      "Rent, subscriptions, income — scheduled automatically so your budget stays accurate.",
+    label: "Set & Forget",
   },
   {
     color: "#120F17",
-    title: "Security",
-    description: "Enterprise-grade protection",
-    label: "Protection",
+    title: "Add Your Friends",
+    description: "Compare savings streaks and celebrate wins together.",
+    label: "Better Together",
   },
 ];
 
@@ -572,9 +576,7 @@ const MagicBento: React.FC<BentoProps> = ({
             --border-color: #2F293A;
             --background-dark: #120F17;
             --white: hsl(0, 0%, 100%);
-            --purple-primary: rgba(132, 0, 255, 1);
-            --purple-glow: rgba(132, 0, 255, 0.2);
-            --purple-border: rgba(132, 0, 255, 0.8);
+
           }
           
           .card-responsive {
