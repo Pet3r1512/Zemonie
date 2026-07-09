@@ -45,7 +45,7 @@ function Index() {
           clickEffect
           spotlightRadius={400}
           particleCount={12}
-          glowColor="132, 0, 255"
+          glowColor="255, 121, 0"
           disableAnimations={false}
         />
       </Page>
