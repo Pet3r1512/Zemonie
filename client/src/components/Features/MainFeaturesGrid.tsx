@@ -1,4 +1,11 @@
-import { ArrowDownUpIcon, BarChart3Icon, CheckIcon, PieChartIcon, RepeatIcon, TagIcon } from "lucide-react";
+import {
+  ArrowDownUpIcon,
+  BarChart3Icon,
+  CheckIcon,
+  PieChartIcon,
+  RepeatIcon,
+  TagIcon,
+} from "lucide-react";
 
 const features = [
   {
@@ -46,12 +53,7 @@ const features = [
     description:
       "Your finances at a glance. Pie charts, bar charts, and a clean dashboard — no spreadsheets, just clarity.",
     color: "from-indigo-500 to-purple-500",
-    benefits: [
-      "Pie & bar charts",
-      "Balance overview",
-      "Last 7 days view",
-      "At-a-glance dashboard",
-    ],
+    benefits: ["Pie & bar charts", "Balance overview", "Last 7 days view", "At-a-glance dashboard"],
   },
 ];
 
