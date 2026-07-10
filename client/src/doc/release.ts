@@ -14,7 +14,7 @@ const releases = [
       },
       {
         type: "fix",
-        text: `Fixed various minor UI issues on mobile devices."`,
+        text: `Fixed various minor UI issues on mobile devices.`,
       },
       {
         type: "fix",
