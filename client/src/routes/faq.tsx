@@ -44,6 +44,11 @@ const faqs = [
       "No, we do not sell or share your information with any company. Your authentication credentials are handled securely by Better-Auth, and all other information is kept safely on our servers.",
   },
   {
+    question: "How are users transactions being stored?",
+    answer:
+      "Every transaction you enter is stored securely on our servers. All monetary amounts are encrypted end-to-end using AES-GCM before they ever reach the database — not even we can read your numbers. Your authentication is handled by Better-Auth, and your session data is kept safe with encrypted cookies.",
+  },
+  {
     question: "Can I delete my account and data?",
     answer:
       "Yes. You can request account deletion at any time. Once your account is deleted, all your personal information and transaction data will be permanently removed from our systems.",

@@ -1,5 +1,28 @@
 const releases = [
   {
+    version: "v1.0.15-beta",
+    date: "Jul 10, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "feature",
+        text: "Added a detailed budget view with spending progress and key budget information.",
+      },
+      {
+        type: "update",
+        text: "Amount fields now automatically format values based on your selected currency while you type.",
+      },
+      {
+        type: "fix",
+        text: `Fixed various minor UI issues on mobile devices.`,
+      },
+      {
+        type: "fix",
+        text: "New transactions now use the current time instead of midnight, resulting in a more accurate transaction history.",
+      },
+    ],
+  },
+  {
     version: "v1.0.14-beta",
     date: "Jul 05, 2026",
     tag: "Beta",
