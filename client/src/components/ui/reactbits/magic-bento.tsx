@@ -8,6 +8,7 @@ export interface BentoCardProps {
   label?: string;
   textAutoHide?: boolean;
   disableAnimations?: boolean;
+  svg?: React.ReactNode;
 }
 
 export interface BentoProps {
@@ -29,26 +30,43 @@ const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = "132, 0, 255";
 const MOBILE_BREAKPOINT = 768;
 
+const ShieldSvg: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+
+const WalletSvg: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+    <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+  </svg>
+);
+
 const cardData: BentoCardProps[] = [
   {
     color: "#120F17",
     title: "Free & Open Source. Forever.",
     description: "AGPL-3.0 licensed. Check the code yourself on GitHub.",
     label: "No Catch",
-  },
-  {
-    color: "#120F17",
-    title: "You're In Control",
-    description:
-      "Track spending with wallets and envelopes — we never ask for your actual bank credentials.",
-    label: "No Bank Login Required",
-  },
-  {
-    color: "#120F17",
-    title: "Your Amounts Stay Yours",
-    description:
-      "Every transaction amount is encrypted end-to-end (AES-GCM). Not even we can read your numbers.",
-    label: "Privacy First",
   },
   {
     color: "#120F17",
@@ -59,10 +77,25 @@ const cardData: BentoCardProps[] = [
   },
   {
     color: "#120F17",
-    title: "Recurring Transactions",
+    title: "Your Amounts Stay Yours",
     description:
-      "Rent, subscriptions, income — scheduled automatically so your budget stays accurate.",
-    label: "Set & Forget",
+      "Every transaction amount is encrypted end-to-end (AES-GCM). Not even we can read your numbers.",
+    label: "Privacy First",
+    svg: <ShieldSvg />,
+  },
+  {
+    color: "#120F17",
+    title: "You're In Control",
+    description:
+      "Track spending with wallets and envelopes — we never ask for your actual bank credentials.",
+    label: "No Bank Login Required",
+    svg: <WalletSvg />,
+  },
+  {
+    color: "#120F17",
+    title: "Recurring Transactions",
+    description: "Automatically schedule your rent, subcriptions or income",
+    label: "Set Once - Stay Accurate",
   },
   {
     color: "#120F17",
@@ -729,6 +762,11 @@ const MagicBento: React.FC<BentoProps> = ({
                   clickEffect={clickEffect}
                   enableMagnetism={enableMagnetism}
                 >
+                  {card.svg && (
+                    <div className="absolute bottom-3 right-3 w-24 h-24 md:w-28 md:h-28 opacity-10 pointer-events-none">
+                      {card.svg}
+                    </div>
+                  )}
                   <div className="card__header flex justify-between gap-3 relative text-white">
                     <span className="card__label text-lg font-bold text-secondary">
                       {card.label}
@@ -865,6 +903,11 @@ const MagicBento: React.FC<BentoProps> = ({
                   el.addEventListener("click", handleClick);
                 }}
               >
+                {card.svg && (
+                  <div className="absolute bottom-3 right-3 w-24 h-24 md:w-28 md:h-28 opacity-10 pointer-events-none">
+                    {card.svg}
+                  </div>
+                )}
                 <div className="card__header flex justify-between gap-3 relative text-white">
                   <span className="card__label text-base">{card.label}</span>
                 </div>
