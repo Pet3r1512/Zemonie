@@ -19,19 +19,18 @@ const additionalFeatures = [
     icon: RefreshCwIcon,
     title: "Instant Sync Everywhere",
     description: "Update a transaction on one device and see it reflected everywhere in real time.",
-    badge: "New" as const,
   },
   {
     icon: CalendarIcon,
     title: "Smart Recurring Tracking",
     description: "We automatically keep bills, salary or subscriptions on recurring transactions.",
-    badge: "Coming Soon" as const,
+    badge: "New" as const,
   },
   {
     icon: Target,
     title: "Budget & Savings",
     description: "Set budgets, track spending, and actually keep your savings on point.",
-    badge: "Coming Soon" as const,
+    badge: "Developing" as const,
   },
   {
     icon: Award,
