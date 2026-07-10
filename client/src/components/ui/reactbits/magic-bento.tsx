@@ -70,9 +70,8 @@ const cardData: BentoCardProps[] = [
   },
   {
     color: "#120F17",
-    title: "Made For How You Actually Spend",
-    description:
-      "Money personalities, streaks, and a leaderboard with your friends — finance that doesn't feel like a spreadsheet.",
+    title: "Finance, But Fun",
+    description: "Personalised dashboard with useful charts and analysis.",
     label: "Built Different",
   },
   {
@@ -99,9 +98,9 @@ const cardData: BentoCardProps[] = [
   },
   {
     color: "#120F17",
-    title: "Ridiculous achievements",
-    description: "Badges for your best and worst money decisions.",
-    label: "Better Together",
+    title: "Shareable Achievements",
+    description: "Earn unique badges based on how you spend — then share them with friends.",
+    label: "Spend & Show Off",
   },
 ];
 
