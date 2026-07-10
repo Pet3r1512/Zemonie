@@ -1,15 +1,15 @@
-import { ArrowDownUpIcon, BarChart3Icon, CheckIcon, PieChartIcon, TagIcon } from "lucide-react";
+import { ArrowDownUpIcon, BarChart3Icon, CheckIcon, PieChartIcon, RepeatIcon, TagIcon } from "lucide-react";
 
 const features = [
   {
     icon: ArrowDownUpIcon,
     title: "Transaction Tracking",
     description:
-      "Log your income and expenses quickly and easily. Every transaction is stored and organised so nothing slips through the cracks.",
+      "Log income and expenses, edit past entries, and mark transactions as recurring — everything stays organised and up to date.",
     color: "from-blue-500 to-cyan-500",
     benefits: [
-      "Add income & expenses",
-      // "Edit or delete entries",
+      "Add, edit & delete entries",
+      "Recurring transactions",
       "Transaction history",
       "Fast entry flow",
     ],
@@ -18,7 +18,7 @@ const features = [
     icon: TagIcon,
     title: "Category Management",
     description:
-      "Assign transactions to meaningful categories — from groceries to salary — so your money always has a label and a story.",
+      "Assign every transaction to a category — from salary to subscriptions — so your money always tells a clear story.",
     color: "from-green-500 to-emerald-500",
     benefits: [
       "Predefined categories",
@@ -31,25 +31,25 @@ const features = [
     icon: BarChart3Icon,
     title: "Spending Analysis",
     description:
-      "Understand where your money goes each month. We break down your transactions so trends and patterns are impossible to miss.",
+      "See monthly summaries, compare income vs expenses, and drill into category breakdowns — all updated in real time.",
     color: "from-orange-500 to-red-500",
     benefits: [
       "Monthly summaries",
       "Income vs expense view",
       "Category breakdowns",
-      // "Period comparisons",
+      "Net savings overview",
     ],
   },
   {
     icon: PieChartIcon,
     title: "Visual Reports",
     description:
-      "See your finances at a glance with clear, intuitive charts. No spreadsheets — just beautiful visuals that make sense instantly.",
+      "Your finances at a glance. Pie charts, bar charts, and a clean dashboard — no spreadsheets, just clarity.",
     color: "from-indigo-500 to-purple-500",
     benefits: [
-      // "Pie & bar charts",
+      "Pie & bar charts",
       "Balance overview",
-      "Interactive visuals",
+      "Last 7 days view",
       "At-a-glance dashboard",
     ],
   },
