@@ -1,5 +1,4 @@
-import Differents from "@/components/Layout/Home/Differents";
-import Features from "@/components/Layout/Home/Features";
+import FeatureHighlight from "@/components/Layout/Home/FeatureHighligt";
 import Hero from "@/components/Layout/Home/Hero";
 import Page from "@/components/Layout/Page";
 import SEO from "@/components/SEO";
@@ -34,8 +33,7 @@ function Index() {
       </div>
       <Page className="flex flex-col justify-center gap-y-24 md:gap-y-0 min-h-screen pb-10 md:pb-0">
         <Hero />
-        <Features />
-        <Differents />
+        <FeatureHighlight />
       </Page>
     </>
   );
