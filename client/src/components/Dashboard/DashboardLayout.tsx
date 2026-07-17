@@ -45,6 +45,7 @@ export default function DashboardLayout({
     queryKey: ["globalCategories"],
     queryFn: () => getGlobalCategories(),
     enabled: !sessionStorage.getItem("globalCategories"),
+    staleTime: 60 * 60 * 1000,
   });
 
   const setupQuery = useQuery({
@@ -55,7 +56,7 @@ export default function DashboardLayout({
       return result;
     },
     enabled: !!sessionQuery.data?.user.id,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30 * 60 * 1000,
     retry: 2,
     retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10_000),
   });

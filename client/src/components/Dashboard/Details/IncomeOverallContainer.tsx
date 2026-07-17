@@ -26,15 +26,15 @@ export default function IncomeOverallContainer() {
         year: currentYear,
       }),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 mins
-    gcTime: 30 * 60 * 1000, // 30 mins
+    staleTime: 3 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
   const incomeGrowthRate = useQuery({
     queryKey: ["incomeRate"],
     queryFn: () => getIncomeGrowth(),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 
