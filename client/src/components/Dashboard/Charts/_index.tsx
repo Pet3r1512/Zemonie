@@ -27,7 +27,7 @@ export default function Charts() {
     queryKey: ["spendingByCategory", currentMonth, currentYear],
     queryFn: () => getSpendingByCategory({ month: currentMonth, year: currentYear }),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 
@@ -35,7 +35,7 @@ export default function Charts() {
     queryKey: ["last7DaysExpenses"],
     queryFn: () => getLast7DaysExpenses(),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 10 * 1000,
+    staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 

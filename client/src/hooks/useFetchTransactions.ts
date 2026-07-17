@@ -11,7 +11,7 @@ export default function useFetchTransactions({ option }: { option?: TransactionQ
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError, error } =
     useInfiniteQuery<{ transactions: TransactionInfo[]; hasMore: boolean }>({
       queryKey: ["transactions", type ?? "all"],
-      staleTime: 5 * 60 * 1000,
+      staleTime: 3 * 60 * 1000,
       gcTime: 30 * 60 * 1000,
       refetchOnWindowFocus: false,
       initialPageParam: 1,

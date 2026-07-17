@@ -36,7 +36,7 @@ export default function Overall() {
     queryKey: ["balance"],
     queryFn: () => getCurrentBalance(),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 
@@ -44,7 +44,7 @@ export default function Overall() {
     queryKey: ["latestTransactions"],
     queryFn: () => getLatestTransactions(),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });
 

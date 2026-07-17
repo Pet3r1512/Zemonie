@@ -16,7 +16,7 @@ export default function useFetchCurrentMonthExpenses({
         year: year,
       }),
     refetchOnWindowFocus: false,
-    staleTime: 5 * 60 * 1000, // 5 mins
+    staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000, // 30 mins
   });
 
