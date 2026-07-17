@@ -1,6 +1,29 @@
 const releases = [
   {
     version: "v1.0.15-beta",
+    date: "Jul 17, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "update",
+        text: "Reduced database compute usage to improve efficiency and optimize resource consumption.",
+      },
+      {
+        type: "update",
+        text: "Added end-to-end tests for the sign-in flow to improve reliability and prevent regressions.",
+      },
+      {
+        type: "update",
+        text: `Upgraded the core server request-handling dependency for improved performance, stability, and security.`,
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue that prevented users from adding new income or expense transactions.",
+      },
+    ],
+  },
+  {
+    version: "v1.0.15-beta",
     date: "Jul 10, 2026",
     tag: "Beta",
     changes: [
