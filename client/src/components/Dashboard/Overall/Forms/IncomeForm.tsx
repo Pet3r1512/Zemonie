@@ -25,6 +25,7 @@ import { Controller, FormProvider, SubmitHandler, useForm } from "react-hook-for
 import { toast } from "sonner";
 import IncomeSelect from "./Selectors/IncomeSelector";
 import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 
 export type Transaction = {
   categoryId: number;
@@ -45,6 +46,7 @@ export function IncomeForm() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = methods;
 
@@ -80,6 +82,8 @@ export function IncomeForm() {
       });
     },
   });
+
+  const descValue = watch("description");
 
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
     mutation.mutate({
@@ -174,14 +178,25 @@ export function IncomeForm() {
                 <FieldError className="text-red-500" errors={[errors.amount]} />
               </Field>
               <Field>
-                <Label htmlFor="desc">{"Description (optional)"}</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="desc">{"Description (optional)"}</Label>
+                  <p
+                    className={cn(
+                      "text-sm",
+                      descValue && descValue.length === 50 ? "text-red-500" : "",
+                    )}
+                  >
+                    {descValue?.length}/25
+                  </p>
+                </div>
                 <Input
                   id="desc"
                   type="text"
+                  maxLength={50}
                   {...register("description", {
                     maxLength: {
-                      value: 50,
-                      message: "Max length is 50 characters",
+                      value: 25,
+                      message: "Max length is 25 characters",
                     },
                   })}
                 />
