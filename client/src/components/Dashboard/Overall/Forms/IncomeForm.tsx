@@ -180,8 +180,8 @@ export function IncomeForm() {
                   type="text"
                   {...register("description", {
                     maxLength: {
-                      value: 50,
-                      message: "Max length is 50 characters",
+                      value: 25,
+                      message: "Max length is 25 characters",
                     },
                   })}
                 />
