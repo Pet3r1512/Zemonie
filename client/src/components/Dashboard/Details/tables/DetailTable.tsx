@@ -36,18 +36,22 @@ export function DetailsTable({
   return (
     <div className="w-full h-full overflow-hidden rounded-lg border dark:border-dark-elevated">
       <div className="h-full overflow-auto">
-        <Table className="min-w-150 md:min-w-full">
+        <Table className="min-w-150 md:min-w-full table-fixed">
           <TableHeader>
             <TableRow>
-              <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Date</TableHead>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "w-28")}>Date</TableHead>
 
-              <TableHead className={cn(TABLE_TITLE_FONT_SIZE)}>Source</TableHead>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "w-30")}>Source</TableHead>
 
-              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Amount</TableHead>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right w-26")}>Amount</TableHead>
 
-              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Frequency</TableHead>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right w-24")}>
+                Frequency
+              </TableHead>
 
-              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right")}>Description</TableHead>
+              <TableHead className={cn(TABLE_TITLE_FONT_SIZE, "text-right w-45")}>
+                Description
+              </TableHead>
             </TableRow>
           </TableHeader>
 
@@ -58,8 +62,7 @@ export function DetailsTable({
                 ref={transaction.id === lastTxId ? lastElementRef : undefined}
                 className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
               >
-                <TableCell className="text-xs sm:text-sm md:text-base whitespace-nowrap">
-                  {/* {ParseISOStringDate({ date: transaction.date })} */}
+                <TableCell className="text-xs sm:text-sm md:text-base truncate">
                   {new Date(transaction.date).toLocaleDateString("en-DB", {
                     day: "2-digit",
                     month: "2-digit",
@@ -83,7 +86,7 @@ export function DetailsTable({
                   )}
                 </TableCell>
 
-                <TableCell className="text-right max-w-62.5 truncate">
+                <TableCell className="text-right w-45 truncate" title={transaction.description}>
                   {transaction.description}
                 </TableCell>
               </TableRow>
