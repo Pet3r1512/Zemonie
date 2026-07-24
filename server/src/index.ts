@@ -17,16 +17,23 @@ const app = new Hono<{
   };
 }>();
 
+const isDev = process.env.NODE_ENV === "development";
+
 app.use(
   "*",
   cors({
-    origin: [
-      "https://www.zemonie.site",
-      "https://zemonie.site",
-      "https://staging.www.zemonie.site",
-      "https://staging.zemonie.site",
-      "http://localhost:5173",
-    ],
+    origin: (origin) => {
+      if (!origin) return "";
+      if (isDev) return origin;
+      const allowed = [
+        "https://www.zemonie.site",
+        "https://zemonie.site",
+        "https://staging.www.zemonie.site",
+        "https://staging.zemonie.site",
+        "http://localhost:5173",
+      ];
+      return allowed.includes(origin) ? origin : "";
+    },
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type", "Authorization", "Cookie"],
@@ -72,7 +79,15 @@ app.use(
 );
 
 app.on(["POST", "GET"], "/api/auth/**", async (c) => {
-  const response = await auth.handler(c.req.raw);
+  if (!isDev) {
+    const response = await auth.handler(c.req.raw);
+    return c.newResponse(response.body, response);
+  }
+  const origin = c.req.header("origin") || `${c.req.url}`;
+  const devBaseUrl = origin.replace(/\/$/, "");
+  const response = await auth.handler(c.req.raw, {
+    baseURL: devBaseUrl,
+  });
   return c.newResponse(response.body, response);
 });
 
