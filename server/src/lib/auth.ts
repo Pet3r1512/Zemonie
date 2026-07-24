@@ -45,11 +45,16 @@ export const auth = betterAuth({
   },
 
   trustedOrigins: isProduction
-    ? (process.env.TRUSTED_ORIGINS?.split(",") || [
+    ? process.env.TRUSTED_ORIGINS?.split(",") || [
         "https://www.zemonie.site",
         "https://zemonie.site",
-      ])
-    : [/localhost/, /^https?:\/\/192\.168\./, /^https?:\/\/10\./, /^https?:\/\/172\.(1[6-9]|2\d|3[01])\./],
+      ]
+    : [
+        /localhost/,
+        /^https?:\/\/192\.168\./,
+        /^https?:\/\/10\./,
+        /^https?:\/\/172\.(1[6-9]|2\d|3[01])\./,
+      ],
 
   session: {
     expiresIn: 60 * 60 * 24 * 7,
