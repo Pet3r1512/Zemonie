@@ -47,7 +47,7 @@ export default function DetailTableContainer({ option }: { option: TransactionQu
       ) : allTransactions.length === 0 ? (
         <p className="text-gray-400 dark:text-gray-300 italic flex-1">No transactions found.</p>
       ) : (
-        <div className="flex-1 min-h-[200px]">
+        <div className="flex-1 min-h-50">
           <DetailsTable
             lastElementRef={lastElementRef}
             transactions={allTransactions}
