@@ -6,7 +6,7 @@ export default function CategoryTag({ categoryId }: { categoryId: string }) {
     <p
       className={cn(
         categoryColorDictionary[categoryId].color,
-        "max-w-fit px-2 py-1 rounded-lg text-white/90 cursor-default",
+        "text-xs truncate md:text-md max-w-fit px-2 py-1 rounded-lg text-white/90 cursor-default",
       )}
     >
       {categoryColorDictionary[categoryId].name}

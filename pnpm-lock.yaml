@@ -202,7 +202,7 @@ importers:
         specifier: ^14.0.0
         version: 14.3.1(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@types/node':
-        specifier: ^20.17.6
+        specifier: ^20.19.41
         version: 20.19.41
       '@types/react':
         specifier: ^19.2.14

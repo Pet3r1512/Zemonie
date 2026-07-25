@@ -91,7 +91,7 @@ export default function DashboardLayout({
   const dashboard = (
     <SidebarProvider className="p-5">
       <AppSidebar />
-      <main className="w-full max-w-7xl mx-auto h-[calc(100dvh-2.5rem)] overflow-hidden flex flex-col">
+      <main className="w-full max-w-7xl mx-auto md:h-[calc(100dvh-2.5rem)] md:overflow-hidden flex flex-col">
         <div className="mb-5 space-y-2.5 lg:space-y-5 shrink-0">
           <SidebarTrigger />
           <p className="text-xl md:text-2xl lg:text-3xl font-bold text-primary">{section}</p>
@@ -100,7 +100,7 @@ export default function DashboardLayout({
           )}
           <p className="text-gray-700 dark:text-gray-300">{sectionDesc}</p>
         </div>
-        <div className="flex-1 min-h-0 flex flex-col gap-y-5 overflow-y-auto no-scrollbar">
+        <div className="flex-1 min-h-0 flex flex-col gap-y-5 md:overflow-y-auto no-scrollbar">
           {children}
         </div>
       </main>
