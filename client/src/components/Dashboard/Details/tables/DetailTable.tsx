@@ -79,9 +79,11 @@ export function DetailsTable({
 
               <TableCell className="text-right">
                 {transaction.parentTransactionId ? (
-                  <Badge className="bg-[#00b4d8] cursor-default">Monthly</Badge>
+                  <Badge className="bg-[#00b4d8] cursor-default truncate">Monthly</Badge>
                 ) : (
-                  <Badge className="bg-[#dad7cd] text-black cursor-default">One Time</Badge>
+                  <Badge className="bg-[#dad7cd] text-black cursor-default truncate">
+                    One Time
+                  </Badge>
                 )}
               </TableCell>
 
