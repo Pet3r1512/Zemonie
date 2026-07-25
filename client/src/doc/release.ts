@@ -1,6 +1,21 @@
 const releases = [
   {
-    version: "v1.0.15-beta",
+    version: "v1.0.17-beta",
+    date: "Jul 25, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "fix",
+        text: `Fixed an issue where long descriptions could cause layout shifting in the Income and Expense tables.`,
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue preventing Income and Expense tables from displaying correctly on mobile devices.",
+      },
+    ],
+  },
+  {
+    version: "v1.0.16-beta",
     date: "Jul 17, 2026",
     tag: "Beta",
     changes: [
