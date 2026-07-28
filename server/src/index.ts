@@ -79,15 +79,7 @@ app.use(
 );
 
 app.on(["POST", "GET"], "/api/auth/**", async (c) => {
-  if (!isDev) {
-    const response = await auth.handler(c.req.raw);
-    return c.newResponse(response.body, response);
-  }
-  const origin = c.req.header("origin") || `${c.req.url}`;
-  const devBaseUrl = origin.replace(/\/$/, "");
-  const response = await auth.handler(c.req.raw, {
-    baseURL: devBaseUrl,
-  });
+  const response = await auth.handler(c.req.raw);
   return c.newResponse(response.body, response);
 });
 
