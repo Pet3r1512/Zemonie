@@ -46,7 +46,8 @@ export function ExpenseForm() {
     mutationKey: ["expense"],
     mutationFn: createNewTransaction,
     onError: (error) => {
-      console.error(error?.message);
+      console.error(error);
+      toast.error(error?.message ?? "Failed to add expense. Please try again.");
     },
     onSuccess: async () => {
       toast.success("Add New Expense Successfully");

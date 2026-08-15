@@ -1,6 +1,6 @@
 import { CurrencyCode, getCurrencySymbol } from "@/helpers/formatCurrency";
 import { cn } from "@/lib/utils";
-import { useCallback, useRef, ChangeEvent, FocusEvent } from "react";
+import { useCallback, useEffect, useRef, ChangeEvent, FocusEvent } from "react";
 
 type AmountInputProps = {
   value?: number;
@@ -61,7 +61,7 @@ export function AmountInput({
   "aria-label": ariaLabel,
 }: AmountInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const rawRef = useRef("");
+  const focusedRef = useRef(false);
 
   const commitValue = useCallback(
     (raw: string) => {
@@ -80,7 +80,6 @@ export function AmountInput({
       const digitsBeforeCursor = raw.slice(0, cursorPos).replace(/[^0-9]/g, "").length;
 
       const cleaned = stripToRaw(raw);
-      rawRef.current = cleaned;
 
       const display = formatDisplay(cleaned, currency);
       e.target.value = display;
@@ -106,13 +105,17 @@ export function AmountInput({
       try {
         e.target.setSelectionRange(newPos, newPos);
       } catch {}
+
+      commitValue(cleaned);
     },
-    [currency],
+    [currency, commitValue],
   );
 
   const handleBlur = useCallback(
     (e: FocusEvent<HTMLInputElement>) => {
-      commitValue(rawRef.current);
+      focusedRef.current = false;
+
+      commitValue(e.target.value);
 
       // Format the committed value for clean display
       const cleaned = stripToRaw(e.target.value);
@@ -129,8 +132,17 @@ export function AmountInput({
   );
 
   const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
+    focusedRef.current = true;
     e.target.select();
   }, []);
+
+  useEffect(() => {
+    if (focusedRef.current) return;
+    const display = formatForDisplay(value, currency);
+    if (inputRef.current && inputRef.current.value !== display) {
+      inputRef.current.value = display;
+    }
+  }, [value, currency]);
 
   const symbol = getCurrencySymbol(currency);
   const isSymbolSuffix = currency === "VND";
@@ -162,7 +174,6 @@ export function AmountInput({
           className,
         )}
         defaultValue={displayText}
-        key={displayText}
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
