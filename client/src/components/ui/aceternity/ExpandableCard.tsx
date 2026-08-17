@@ -8,6 +8,7 @@ import { formatCurrency } from "@/helpers/formatCurrency";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 import categoryColorDictionary from "@/types/CategoryDict";
 import { ComponentMap } from "@/types/ComponentMap";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
@@ -167,62 +168,66 @@ export function ExpandableCard({
             className="fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:max-w-150 lg:min-w-150 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden will-change-transform"
           >
             {!editMode ? (
-              <div className="p-6 space-y-4 w-full! overflow-y-auto">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-x-2">
-                      {currCategory && categoryColorDictionary[currCategory.id.toString()]?.icon}
+              <div className="p-6 space-y-5 w-full! overflow-y-auto">
+                <div className="flex items-start justify-between gap-x-4">
+                  <div className="flex items-center gap-x-2">
+                    {currCategory && categoryColorDictionary[currCategory.id.toString()]?.icon}
+                    <div>
                       <p className="text-lg font-semibold">
-                        {transaction.description === ""
-                          ? "No Description"
-                          : transaction.description}
+                        {currCategory?.name ?? "Uncategorized"}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {ParseISOStringDate({ date: transaction.date })} {" · "}
+                        {new Date(transaction.date).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </p>
                     </div>
-                    <p>{ParseISOStringDate({ date: transaction.date })}</p>
                   </div>
-                  <div className="flex flex-col items-end">
-                    <p
-                      className={`text-lg md:text-xl lg:text-2xl font-bold ${
-                        currCategory
-                          ? TransactionAmountTextColor[isIncome ? "INCOME" : "EXPENSE"]
-                          : "text-gray-500"
-                      }`}
-                    >
-                      {isIncome ? "+ " : "- "}
-                      {formatCurrency(transaction.amount, currency)}
-                    </p>
-                    <p className="font-semibold">{transaction.currency}</p>
-                  </div>
+                  {transaction.parentTransactionId && (
+                    <Badge className="bg-[#00b4d8] text-white cursor-default whitespace-nowrap">
+                      Monthly · Recurring
+                    </Badge>
+                  )}
                 </div>
+
+                <p
+                  className={`text-3xl lg:text-4xl font-bold ${
+                    currCategory
+                      ? TransactionAmountTextColor[isIncome ? "INCOME" : "EXPENSE"]
+                      : "text-gray-500"
+                  }`}
+                >
+                  {isIncome ? "+ " : "- "}
+                  {formatCurrency(transaction.amount, currency)}
+                </p>
+
+                {transaction.description ? (
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                      Description
+                    </p>
+                    <p className="whitespace-pre-wrap break-words">{transaction.description}</p>
+                  </div>
+                ) : null}
 
                 <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-x-10 gap-y-5">
-                  <div className="space-y-2">
-                    <p className="font-semibold">TRANSACTION ID</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 font-mono">
-                      {transaction.id}
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="font-semibold">TYPE</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{currCategory?.type}</p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="font-semibold">CATEGORY</p>
-                    <div
-                      className={cn(
-                        "flex items-center gap-x-1 text-xs w-fit text-white px-2 py-1 rounded-2xl cursor-default",
-                        currCategory && categoryColorDictionary[currCategory.id.toString()]?.color,
-                      )}
-                    >
-                      <Tag size={12} />
-                      <p>{currCategory?.name ?? "Uncategorized"}</p>
-                    </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">
+                    Category
+                  </span>
+                  <div
+                    className={cn(
+                      "flex items-center gap-x-1 text-xs w-fit text-white px-2.5 py-1 rounded-2xl cursor-default",
+                      currCategory && categoryColorDictionary[currCategory.id.toString()]?.color,
+                    )}
+                  >
+                    <Tag size={12} />
+                    <p>{currCategory?.name ?? "Uncategorized"}</p>
                   </div>
                 </div>
-
-                <div className="h-0.5 w-full bg-gray-200 dark:bg-gray-600" />
               </div>
             ) : (
               <FormProvider {...methods}>
