@@ -1,5 +1,24 @@
 const releases = [
   {
+    version: "v1.0.18-beta",
+    date: "Aug 18, 2026",
+    tag: "Beta",
+    changes: [
+      {
+        type: "update",
+        text: "Removed unnecessary information from transaction and budget details for a cleaner experience.",
+      },
+      {
+        type: "fix",
+        text: `Fixed an issue that prevented users from adding new transactions on mobile devices.`,
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where users had to tap the amount field twice before entering a value when creating a transaction.",
+      },
+    ],
+  },
+  {
     version: "v1.0.17-beta",
     date: "Jul 25, 2026",
     tag: "Beta",
