@@ -10,9 +10,9 @@ export default function UpdatePassword() {
   const [hideNewConfirmPassword, setHideNewConfirmPassword] = useState<boolean>(true);
 
   return (
-    <div className="px-6 md:px-10">
+    <div className="px-6 md:px-10  md:max-w-xl lg:max-w-2xl">
       <form>
-        <FieldGroup className="md:w-1/2">
+        <FieldGroup>
           <Field>
             <Label
               htmlFor="currentPassword"
