@@ -31,6 +31,7 @@ export default function UpdatePassword() {
                 tabIndex={-1}
                 type="button"
                 data-testid="currentpassword-toggle"
+                aria-label={hideCurrentPassword ? "Show current password" : "Hide current password"}
                 className="absolute top-1/2 right-2.5 -translate-y-1/2"
                 onClick={() => {
                   setHideCurrentPassword((prev) => !prev);
@@ -58,6 +59,7 @@ export default function UpdatePassword() {
                 tabIndex={-1}
                 type="button"
                 data-testid="newpassword-toggle"
+                aria-label={hideNewPassword ? "Show new password" : "Hide new password"}
                 className="absolute top-1/2 right-2.5 -translate-y-1/2"
                 onClick={() => {
                   setHideNewPassword((prev) => !prev);
@@ -85,6 +87,9 @@ export default function UpdatePassword() {
                 tabIndex={-1}
                 type="button"
                 data-testid="newpassword-confirm-toggle"
+                aria-label={
+                  hideNewConfirmPassword ? "Show confirm password" : "Hide confirm password"
+                }
                 className="absolute top-1/2 right-2.5 -translate-y-1/2"
                 onClick={() => {
                   setHideNewConfirmPassword((prev) => !prev);
