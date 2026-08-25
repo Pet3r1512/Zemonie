@@ -99,6 +99,30 @@ export default function UpdatePassword() {
               </button>
             </div>
           </Field>
+          <Field>
+            <Label
+              htmlFor="newPassword"
+              className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
+            >
+              New Password
+            </Label>
+            <div className="relative">
+              <Input
+                id="newPassword"
+                type="text"
+                role="newPasswordInput"
+                className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+              />
+              <button
+                tabIndex={-1}
+                type="button"
+                data-testid="newpassword-toggle"
+                className="absolute top-1/2 right-2.5 -translate-y-1/2"
+              >
+                <Eye />
+              </button>
+            </div>
+          </Field>
         </FieldGroup>
       </form>
     </div>
