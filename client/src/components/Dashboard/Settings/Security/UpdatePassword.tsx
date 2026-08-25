@@ -1,9 +1,14 @@
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 export default function UpdatePassword() {
+  const [hideCurrentPassword, setHideCurrentPassword] = useState<boolean>(true);
+  const [hideNewPassword, setHideNewPassword] = useState<boolean>(true);
+  const [hideNewConfirmPassword, setHideNewConfirmPassword] = useState<boolean>(true);
+
   return (
     <div className="px-6 md:px-10">
       <form>
@@ -18,7 +23,7 @@ export default function UpdatePassword() {
             <div className="relative">
               <Input
                 id="currentPassword"
-                type="text"
+                type={hideCurrentPassword ? "password" : "text"}
                 role="currentPasswordInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
@@ -27,8 +32,11 @@ export default function UpdatePassword() {
                 type="button"
                 data-testid="currentpassword-toggle"
                 className="absolute top-1/2 right-2.5 -translate-y-1/2"
+                onClick={() => {
+                  setHideCurrentPassword((prev) => !prev);
+                }}
               >
-                <Eye />
+                {hideCurrentPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
           </Field>
@@ -42,7 +50,7 @@ export default function UpdatePassword() {
             <div className="relative">
               <Input
                 id="newPassword"
-                type="text"
+                type={hideNewPassword ? "password" : "text"}
                 role="newPasswordInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
@@ -51,8 +59,11 @@ export default function UpdatePassword() {
                 type="button"
                 data-testid="newpassword-toggle"
                 className="absolute top-1/2 right-2.5 -translate-y-1/2"
+                onClick={() => {
+                  setHideNewPassword((prev) => !prev);
+                }}
               >
-                <Eye />
+                {hideNewPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
           </Field>
@@ -66,7 +77,7 @@ export default function UpdatePassword() {
             <div className="relative">
               <Input
                 id="newPasswordConfirm"
-                type="text"
+                type={hideNewConfirmPassword ? "password" : "text"}
                 role="newPasswordConfirmInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
@@ -75,8 +86,11 @@ export default function UpdatePassword() {
                 type="button"
                 data-testid="newpassword-confirm-toggle"
                 className="absolute top-1/2 right-2.5 -translate-y-1/2"
+                onClick={() => {
+                  setHideNewConfirmPassword((prev) => !prev);
+                }}
               >
-                <Eye />
+                {hideNewConfirmPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
           </Field>
