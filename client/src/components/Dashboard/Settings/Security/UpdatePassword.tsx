@@ -1,6 +1,7 @@
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Eye } from "lucide-react";
 
 export default function UpdatePassword() {
   return (
@@ -21,6 +22,14 @@ export default function UpdatePassword() {
                 role="currentPasswordInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
               />
+              <button
+                tabIndex={-1}
+                type="button"
+                data-testid="currentpassword-toggle"
+                className="absolute top-1/2 right-2.5 -translate-y-1/2"
+              >
+                <Eye />
+              </button>
             </div>
           </Field>
         </FieldGroup>
