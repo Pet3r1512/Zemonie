@@ -1,10 +1,12 @@
 import ThemeToggle from "@/components/ThemeToggle";
 import { Card } from "@/components/ui/card";
 import { UserRoundCog } from "lucide-react";
+import Security from "./Security";
 
 export default function SettingsContainer() {
   return (
     <Card className="p-5">
+      <Security />
       <section className="space-y-5">
         <div className="flex items-center gap-x-1 text-secondary">
           <UserRoundCog />
