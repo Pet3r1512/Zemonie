@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Lock, Settings } from "lucide-react";
 import Security from "./Security";
+import { Separator } from "@/components/ui/separator";
 
 export default function SettingsContainer() {
   return (
@@ -28,13 +29,13 @@ export default function SettingsContainer() {
             <span>Preferences</span>
           </TabsTrigger>
         </TabsList>
-
         <div className="flex-1 min-w-0">
           <TabsContent value="security" className="mt-0">
             <Security />
           </TabsContent>
           <TabsContent value="preferences" className="mt-0 space-y-5">
             <p className="lg:text-lg font-bold text-secondary">App Preferences</p>
+            <Separator className="dark:bg-white/15 md:max-w-xl lg:max-w-2xl" />
             <div className="flex items-center justify-between md:max-w-xl lg:max-w-2xl px-6 md:px-10">
               <p>Theme</p>
               <ThemeToggle />
