@@ -66,7 +66,10 @@ export default function Security() {
       {isAllowedToChangePassword ? (
         <UpdatePassword />
       ) : (
-        <p>You can update your password again on {nextUpdateAt.toLocaleDateString()}.</p>
+        <p>
+          You can update your password again on{" "}
+          <span className="text-primary font-bold">{nextUpdateAt.toLocaleDateString()}</span>.
+        </p>
       )}
     </section>
   );
