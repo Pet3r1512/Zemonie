@@ -5,7 +5,7 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useMutation } from "@tanstack/react-query";
-import { Eye, EyeOff, Save } from "lucide-react";
+import { Eye, EyeOff, LoaderCircle, Save } from "lucide-react";
 import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -26,6 +26,7 @@ export default function UpdatePassword() {
     watch,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<UpdatePassswordFormType>();
 
   const updatePasswordMutation = useMutation({
