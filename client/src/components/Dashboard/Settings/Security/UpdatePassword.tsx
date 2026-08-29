@@ -1,11 +1,14 @@
+import ChangePassword from "@/api/users/auth/UpdatePassword";
 import FormErrorMessage from "@/components/Auth/FormErrorMessage";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff, Save } from "lucide-react";
 import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export interface UpdatePassswordFormType {
   currentPassword: string;
@@ -28,6 +31,18 @@ export default function UpdatePassword() {
     handleSubmit,
     formState: { errors },
   } = useForm<UpdatePassswordFormType>();
+
+  const updatePasswordMutation = useMutation({
+    mutationKey: ["updatePassword"],
+    mutationFn: ChangePassword,
+    onError: (error: any) => {
+      return toast.error(error.message || "Something went wrong. Please try again.");
+    },
+    onSuccess: (res) => {
+      toast.success("Password is updated successfully");
+      console.log(res);
+    },
+  });
 
   const newPasswordRef = useRef({});
   const currentPasswordRef = useRef({});
