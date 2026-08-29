@@ -182,8 +182,17 @@ export default function UpdatePassword() {
               <FormErrorMessage message={errors.newPasswordConfirm.message} />
             )}
           </Field>
-          <Button role="submit-btn" type="submit" className="w-fit ml-auto">
-            <Save />
+          <Button
+            role="submit-btn"
+            disabled={updatePasswordMutation.isPending}
+            type="submit"
+            className="w-fit ml-auto"
+          >
+            {updatePasswordMutation.isPending ? (
+              <LoaderCircle className="animate-spin" />
+            ) : (
+              <Save />
+            )}
             Update Password
           </Button>
         </FieldGroup>
