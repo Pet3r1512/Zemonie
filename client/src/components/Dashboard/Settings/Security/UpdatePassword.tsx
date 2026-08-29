@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Eye, EyeOff, LoaderCircle, Save } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -50,11 +50,6 @@ export default function UpdatePassword() {
   const onSubmit: SubmitHandler<UpdatePassswordFormType> = (credentials) => {
     updatePasswordMutation.mutate(credentials);
   };
-
-  const newPasswordRef = useRef({});
-  const currentPasswordRef = useRef({});
-  newPasswordRef.current = watch("newPassword", "");
-  currentPasswordRef.current = watch("currentPassword", "");
 
   return (
     <div className="px-6 md:px-10  md:max-w-xl lg:max-w-2xl">
@@ -126,7 +121,7 @@ export default function UpdatePassword() {
                     message: "Minimum 8 characters, at least one letter and one number",
                   },
                   validate: (value) =>
-                    value !== currentPasswordRef.current ||
+                    value !== getValues("currentPassword") ||
                     "New password must different with current password",
                 })}
               />
@@ -163,7 +158,7 @@ export default function UpdatePassword() {
                 {...register("newPasswordConfirm", {
                   required: "New password confirm is required",
                   validate: (value) =>
-                    value === newPasswordRef.current || "The passwords do not match",
+                    value === getValues("newPassword") || "The passwords do not match",
                 })}
               />
               <button
