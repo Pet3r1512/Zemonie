@@ -25,7 +25,7 @@ export default function UpdatePassword() {
               htmlFor="currentPassword"
               className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
             >
-              Current Password
+              Current Password <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
               <Input
