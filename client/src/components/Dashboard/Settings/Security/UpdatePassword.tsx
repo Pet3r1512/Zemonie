@@ -33,6 +33,17 @@ export default function UpdatePassword() {
                 type={hideCurrentPassword ? "password" : "text"}
                 role="currentPasswordInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                {...register("currentPassword", {
+                  required: "Current password is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters long",
+                  },
+                  pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
+                    message: "Minimum 8 characters, at least one letter and one number",
+                  },
+                })}
               />
               <button
                 tabIndex={-1}
