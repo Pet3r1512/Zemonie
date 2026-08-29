@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Eye, EyeOff, LoaderCircle, Save } from "lucide-react";
 import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -21,9 +21,11 @@ export default function UpdatePassword() {
   const [hideNewPassword, setHideNewPassword] = useState<boolean>(true);
   const [hideNewConfirmPassword, setHideNewConfirmPassword] = useState<boolean>(true);
 
+  const queryClient = useQueryClient();
+
   const {
     register,
-    watch,
+    getValues,
     handleSubmit,
     formState: { errors },
     reset,
@@ -35,11 +37,12 @@ export default function UpdatePassword() {
     onError: (error: any) => {
       return toast.error(error.message || "Something went wrong. Please try again.");
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       reset();
       setHideCurrentPassword(true);
       setHideNewPassword(true);
       setHideNewConfirmPassword(true);
+      await queryClient.invalidateQueries({ queryKey: ["session"] });
       toast.success("Password is updated successfully");
     },
   });
