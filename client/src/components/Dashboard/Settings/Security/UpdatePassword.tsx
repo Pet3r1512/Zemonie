@@ -138,6 +138,9 @@ export default function UpdatePassword() {
                 {hideNewConfirmPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
+            {errors.newPassword && errors.newPassword.message && (
+              <FormErrorMessage message={errors.newPassword.message} />
+            )}
           </Field>
           <Button disabled={!allowToUpdate} className="w-fit ml-auto">
             <Save />
