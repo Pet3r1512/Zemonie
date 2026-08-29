@@ -1,9 +1,11 @@
+import FormErrorMessage from "@/components/Auth/FormErrorMessage";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Save } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 interface UpdatePassswordFormType {
   currentPassword: string;
@@ -14,7 +16,13 @@ export default function UpdatePassword() {
   const [hideCurrentPassword, setHideCurrentPassword] = useState<boolean>(true);
   const [hideNewPassword, setHideNewPassword] = useState<boolean>(true);
   const [hideNewConfirmPassword, setHideNewConfirmPassword] = useState<boolean>(true);
+  // oxlint-disable-next-line no-unused-vars
   const [allowToUpdate, setAllowToUpdate] = useState<boolean>(false);
+
+  const {
+    register,
+    formState: { errors },
+  } = useForm<UpdatePassswordFormType>();
 
   return (
     <div className="px-6 md:px-10  md:max-w-xl lg:max-w-2xl">
@@ -58,6 +66,9 @@ export default function UpdatePassword() {
                 {hideCurrentPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
+            {errors.currentPassword && errors.currentPassword?.message && (
+              <FormErrorMessage message={errors.currentPassword.message} />
+            )}
           </Field>
           <Field>
             <Label
