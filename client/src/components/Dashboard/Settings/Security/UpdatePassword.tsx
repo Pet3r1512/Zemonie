@@ -39,6 +39,11 @@ export default function UpdatePassword() {
       return toast.error(error.message || "Something went wrong. Please try again.");
     },
     onSuccess: (res) => {
+    onSuccess: () => {
+      reset();
+      setHideCurrentPassword(true);
+      setHideNewPassword(true);
+      setHideNewConfirmPassword(true);
       toast.success("Password is updated successfully");
       console.log(res);
     },
