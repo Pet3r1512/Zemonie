@@ -5,6 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Save } from "lucide-react";
 import { useState } from "react";
 
+interface UpdatePassswordFormType {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export default function UpdatePassword() {
   const [hideCurrentPassword, setHideCurrentPassword] = useState<boolean>(true);
   const [hideNewPassword, setHideNewPassword] = useState<boolean>(true);
