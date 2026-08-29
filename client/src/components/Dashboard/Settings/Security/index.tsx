@@ -49,12 +49,25 @@ export default function Security() {
 
   const isAllowedToChangePassword =
     createdAt.getTime() === updatedAt.getTime() || new Date() >= nextUpdateAt;
+
   return (
     <section className="space-y-6">
       <p className="lg:text-lg font-bold text-secondary">Account Security</p>
+
       <Separator className="dark:bg-white/15 md:max-w-xl lg:max-w-2xl" />
+
       <p className="text-secondary font-semibold">Update Password</p>
-      <UpdatePassword />
+
+      {accountsQuery.isError && <p>Error: {accountsQuery.error.message}</p>}
+      {accountsQuery.isPending && <p>Loading...</p>}
+      {!accountsQuery.data?.data ||
+        (accountsQuery.data.data.length === 0 && <p>No accounts found.</p>)}
+
+      {isAllowedToChangePassword ? (
+        <UpdatePassword />
+      ) : (
+        <p>You can update your password again on {nextUpdateAt.toLocaleDateString()}.</p>
+      )}
     </section>
   );
 }
