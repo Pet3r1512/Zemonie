@@ -1,5 +1,14 @@
 import { Separator } from "@/components/ui/separator";
 import UpdatePassword from "./UpdatePassword";
+interface Account {
+  accountId: string;
+  providerId: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
+  scopes: string[];
+}
 
 export default function Security() {
   return (
