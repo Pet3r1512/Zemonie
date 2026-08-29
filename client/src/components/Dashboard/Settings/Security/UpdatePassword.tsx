@@ -16,10 +16,6 @@ export interface UpdatePassswordFormType {
   newPasswordConfirm: string;
 }
 
-const onSubmit: SubmitHandler<UpdatePassswordFormType> = (credentials) => {
-  console.log(credentials);
-};
-
 export default function UpdatePassword() {
   const [hideCurrentPassword, setHideCurrentPassword] = useState<boolean>(true);
   const [hideNewPassword, setHideNewPassword] = useState<boolean>(true);
@@ -46,6 +42,10 @@ export default function UpdatePassword() {
       toast.success("Password is updated successfully");
     },
   });
+
+  const onSubmit: SubmitHandler<UpdatePassswordFormType> = (credentials) => {
+    updatePasswordMutation.mutate(credentials);
+  };
 
   const newPasswordRef = useRef({});
   const currentPasswordRef = useRef({});
