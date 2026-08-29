@@ -7,7 +7,7 @@ import { Eye, EyeOff, Save } from "lucide-react";
 import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-interface UpdatePassswordFormType {
+export interface UpdatePassswordFormType {
   currentPassword: string;
   newPassword: string;
   newPasswordConfirm: string;
