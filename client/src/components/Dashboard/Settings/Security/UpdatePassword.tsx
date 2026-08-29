@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 interface UpdatePassswordFormType {
   currentPassword: string;
   newPassword: string;
+  newPasswordConfirm: string;
 }
 
 export default function UpdatePassword() {
@@ -83,6 +84,17 @@ export default function UpdatePassword() {
                 type={hideNewPassword ? "password" : "text"}
                 role="newPasswordInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                {...register("newPassword", {
+                  required: "New password is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters long",
+                  },
+                  pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
+                    message: "Minimum 8 characters, at least one letter and one number",
+                  },
+                })}
               />
               <button
                 tabIndex={-1}
@@ -97,6 +109,9 @@ export default function UpdatePassword() {
                 {hideNewPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
+            {errors.newPassword && errors.newPassword.message && (
+              <FormErrorMessage message={errors.newPassword.message} />
+            )}
           </Field>
           <Field>
             <Label
@@ -111,17 +126,6 @@ export default function UpdatePassword() {
                 type={hideNewConfirmPassword ? "password" : "text"}
                 role="newPasswordConfirmInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
-                {...register("newPassword", {
-                  required: "New password is required",
-                  minLength: {
-                    value: 8,
-                    message: "Password must be at least 8 characters long",
-                  },
-                  pattern: {
-                    value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
-                    message: "Minimum 8 characters, at least one letter and one number",
-                  },
-                })}
               />
               <button
                 tabIndex={-1}
@@ -138,9 +142,6 @@ export default function UpdatePassword() {
                 {hideNewConfirmPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
-            {errors.newPassword && errors.newPassword.message && (
-              <FormErrorMessage message={errors.newPassword.message} />
-            )}
           </Field>
           <Button disabled={!allowToUpdate} className="w-fit ml-auto">
             <Save />
