@@ -4,7 +4,7 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Save } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 interface UpdatePassswordFormType {
@@ -22,8 +22,12 @@ export default function UpdatePassword() {
 
   const {
     register,
+    watch,
     formState: { errors },
   } = useForm<UpdatePassswordFormType>();
+
+  const newPasswordRef = useRef({});
+  newPasswordRef.current = watch("newPassword", "");
 
   return (
     <div className="px-6 md:px-10  md:max-w-xl lg:max-w-2xl">
@@ -146,6 +150,9 @@ export default function UpdatePassword() {
                 {hideNewConfirmPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
+            {errors.newPasswordConfirm && errors.newPasswordConfirm.message && (
+              <FormErrorMessage message={errors.newPasswordConfirm.message} />
+            )}
           </Field>
           <Button disabled={!allowToUpdate} className="w-fit ml-auto">
             <Save />
