@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "./server/_index";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
+import { setBrevoApiKey } from "./lib/brevo";
 import prisma, { setPrismaConnectionString } from "./lib/prisma";
 import { auth } from "./lib/auth";
 import { processRecurringBudgets } from "./lib/processRecurringBudgets";
@@ -163,6 +164,7 @@ export default {
     } else if (env.DATABASE_URL) {
       setPrismaConnectionString(env.DATABASE_URL);
     }
+    setBrevoApiKey(env.BREVO_API);
     return app.fetch(request, env, ctx);
   },
   async scheduled(
