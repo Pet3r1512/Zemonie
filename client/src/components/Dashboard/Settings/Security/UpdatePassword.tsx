@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Save } from "lucide-react";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 interface UpdatePassswordFormType {
   currentPassword: string;
@@ -13,25 +13,30 @@ interface UpdatePassswordFormType {
   newPasswordConfirm: string;
 }
 
+const onSubmit: SubmitHandler<UpdatePassswordFormType> = (credentials) => {
+  console.log(credentials);
+};
+
 export default function UpdatePassword() {
   const [hideCurrentPassword, setHideCurrentPassword] = useState<boolean>(true);
   const [hideNewPassword, setHideNewPassword] = useState<boolean>(true);
   const [hideNewConfirmPassword, setHideNewConfirmPassword] = useState<boolean>(true);
-  // oxlint-disable-next-line no-unused-vars
-  const [allowToUpdate, setAllowToUpdate] = useState<boolean>(false);
 
   const {
     register,
     watch,
+    handleSubmit,
     formState: { errors },
   } = useForm<UpdatePassswordFormType>();
 
   const newPasswordRef = useRef({});
+  const currentPasswordRef = useRef({});
   newPasswordRef.current = watch("newPassword", "");
+  currentPasswordRef.current = watch("currentPassword", "");
 
   return (
     <div className="px-6 md:px-10  md:max-w-xl lg:max-w-2xl">
-      <form>
+      <form role="form" onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <Field>
             <Label
@@ -80,7 +85,7 @@ export default function UpdatePassword() {
               htmlFor="newPassword"
               className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
             >
-              New Password
+              New Password <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
               <Input
@@ -98,6 +103,9 @@ export default function UpdatePassword() {
                     value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
                     message: "Minimum 8 characters, at least one letter and one number",
                   },
+                  validate: (value) =>
+                    value !== currentPasswordRef.current ||
+                    "New password must different with current password",
                 })}
               />
               <button
@@ -122,7 +130,7 @@ export default function UpdatePassword() {
               htmlFor="newPassword"
               className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
             >
-              Confirm New Password
+              Confirm New Password <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
               <Input
@@ -131,6 +139,7 @@ export default function UpdatePassword() {
                 role="newPasswordConfirmInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                 {...register("newPasswordConfirm", {
+                  required: "New password confirm is required",
                   validate: (value) =>
                     value === newPasswordRef.current || "The passwords do not match",
                 })}
@@ -154,7 +163,7 @@ export default function UpdatePassword() {
               <FormErrorMessage message={errors.newPasswordConfirm.message} />
             )}
           </Field>
-          <Button disabled={!allowToUpdate} className="w-fit ml-auto">
+          <Button role="submit-btn" type="submit" className="w-fit ml-auto">
             <Save />
             Update Password
           </Button>
