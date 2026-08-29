@@ -1,24 +1,66 @@
+import ChangePassword from "@/api/users/auth/UpdatePassword";
+import FormErrorMessage from "@/components/Auth/FormErrorMessage";
+import { Button } from "@/components/ui/button";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff } from "lucide-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Eye, EyeOff, LoaderCircle, Save } from "lucide-react";
 import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+
+export interface UpdatePassswordFormType {
+  currentPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
 
 export default function UpdatePassword() {
   const [hideCurrentPassword, setHideCurrentPassword] = useState<boolean>(true);
   const [hideNewPassword, setHideNewPassword] = useState<boolean>(true);
   const [hideNewConfirmPassword, setHideNewConfirmPassword] = useState<boolean>(true);
 
+  const queryClient = useQueryClient();
+
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<UpdatePassswordFormType>();
+
+  const updatePasswordMutation = useMutation({
+    mutationKey: ["updatePassword"],
+    mutationFn: ChangePassword,
+    onError: (error: any) => {
+      return toast.error(error.message || "Something went wrong. Please try again.");
+    },
+    onSuccess: async () => {
+      reset();
+      setHideCurrentPassword(true);
+      setHideNewPassword(true);
+      setHideNewConfirmPassword(true);
+      await queryClient.invalidateQueries({ queryKey: ["session"] });
+      toast.success("Password is updated successfully");
+    },
+  });
+
+  const onSubmit: SubmitHandler<UpdatePassswordFormType> = (credentials) => {
+    updatePasswordMutation.mutate(credentials);
+  };
+
   return (
     <div className="px-6 md:px-10  md:max-w-xl lg:max-w-2xl">
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <Field>
             <Label
               htmlFor="currentPassword"
               className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
             >
-              Current Password
+              Current Password <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
               <Input
@@ -26,6 +68,17 @@ export default function UpdatePassword() {
                 type={hideCurrentPassword ? "password" : "text"}
                 role="currentPasswordInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                {...register("currentPassword", {
+                  required: "Current password is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters long",
+                  },
+                  pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
+                    message: "Minimum 8 characters, at least one letter and one number",
+                  },
+                })}
               />
               <button
                 tabIndex={-1}
@@ -40,13 +93,16 @@ export default function UpdatePassword() {
                 {hideCurrentPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
+            {errors.currentPassword && errors.currentPassword?.message && (
+              <FormErrorMessage message={errors.currentPassword.message} />
+            )}
           </Field>
           <Field>
             <Label
               htmlFor="newPassword"
               className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
             >
-              New Password
+              New Password <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
               <Input
@@ -54,6 +110,20 @@ export default function UpdatePassword() {
                 type={hideNewPassword ? "password" : "text"}
                 role="newPasswordInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                {...register("newPassword", {
+                  required: "New password is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters long",
+                  },
+                  pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
+                    message: "Minimum 8 characters, at least one letter and one number",
+                  },
+                  validate: (value) =>
+                    value !== getValues("currentPassword") ||
+                    "New password must different with current password",
+                })}
               />
               <button
                 tabIndex={-1}
@@ -68,13 +138,16 @@ export default function UpdatePassword() {
                 {hideNewPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
+            {errors.newPassword && errors.newPassword.message && (
+              <FormErrorMessage message={errors.newPassword.message} />
+            )}
           </Field>
           <Field>
             <Label
               htmlFor="newPassword"
               className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
             >
-              Confirm New Password
+              Confirm New Password <span className="text-red-500">*</span>
             </Label>
             <div className="relative">
               <Input
@@ -82,6 +155,11 @@ export default function UpdatePassword() {
                 type={hideNewConfirmPassword ? "password" : "text"}
                 role="newPasswordConfirmInput"
                 className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                {...register("newPasswordConfirm", {
+                  required: "New password confirm is required",
+                  validate: (value) =>
+                    value === getValues("newPassword") || "The passwords do not match",
+                })}
               />
               <button
                 tabIndex={-1}
@@ -98,7 +176,23 @@ export default function UpdatePassword() {
                 {hideNewConfirmPassword ? <Eye /> : <EyeOff />}
               </button>
             </div>
+            {errors.newPasswordConfirm && errors.newPasswordConfirm.message && (
+              <FormErrorMessage message={errors.newPasswordConfirm.message} />
+            )}
           </Field>
+          <Button
+            role="submit-btn"
+            disabled={updatePasswordMutation.isPending}
+            type="submit"
+            className="w-fit ml-auto"
+          >
+            {updatePasswordMutation.isPending ? (
+              <LoaderCircle className="animate-spin" />
+            ) : (
+              <Save />
+            )}
+            Update Password
+          </Button>
         </FieldGroup>
       </form>
     </div>
