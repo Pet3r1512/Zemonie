@@ -2,13 +2,13 @@ import { betterAuth } from "better-auth/minimal";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma";
 import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
+import brevo from "./brevo";
 
 const isProduction = process.env.NODE_ENV !== "development";
 
-const betterAuthUrl: string | { allowedHosts: string[]; protocol: "http"; fallback: string } =
-  isProduction
-    ? process.env.BETTER_AUTH_URL || "https://api.zemonie.site"
-    : { allowedHosts: ["*"], protocol: "http", fallback: "http://localhost:5173" };
+const betterAuthUrl = isProduction
+  ? process.env.BETTER_AUTH_URL || "https://api.zemonie.site"
+  : process.env.BETTER_AUTH_URL || "http://localhost:5173";
 const cookieDomain = process.env.COOKIE_DOMAIN || ".zemonie.site";
 
 export const auth = betterAuth({
