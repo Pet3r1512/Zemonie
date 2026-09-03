@@ -20,13 +20,18 @@ export default function useVerificationCooldown() {
     intervalRef.current = setInterval(() => {
       setRemaining((prev) => {
         if (prev <= 1) {
-          clearTimer();
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
   }, [clearTimer]);
+
+  useEffect(() => {
+    if (remaining === 0) {
+      clearTimer();
+    }
+  }, [remaining, clearTimer]);
 
   useEffect(() => {
     return clearTimer;
