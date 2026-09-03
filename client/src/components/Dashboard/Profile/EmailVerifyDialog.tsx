@@ -8,9 +8,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import SendVerificationEmail from "@/api/users/auth/SendVerificationEmail";
 import { toast } from "sonner";
 import { Mail } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
 interface EmailVerifyDialogProps {
   open: boolean;
@@ -30,7 +30,7 @@ export default function EmailVerifyDialog({
   const handleSend = async () => {
     setSending(true);
     try {
-      await SendVerificationEmail(email);
+      authClient.sendVerificationEmail({ email: email });
       toast.success("Verification email sent! Check your inbox.");
       onSent();
       onOpenChange(false);
