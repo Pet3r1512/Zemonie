@@ -67,7 +67,7 @@ export default function ProfilePage() {
                   {emailVerified ? (
                     <Badge
                       variant="secondary"
-                      className="gap-1 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800"
+                      className="gap-1 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800 cursor-default"
                     >
                       <CheckCircle className="size-3" />
                       Verified
