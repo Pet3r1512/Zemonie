@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import EmailVerifyDialog from "./EmailVerifyDialog";
 import { CalendarPlus2, CheckCircle, Lock, Mail, ShieldAlert, User } from "lucide-react";
 import { useState } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const profileFields = [
   { label: "Name", key: "name", icon: User },
@@ -76,14 +77,21 @@ export default function ProfilePage() {
                       Resend in {remaining}s
                     </Badge>
                   ) : (
-                    <Badge
-                      variant="secondary"
-                      className="gap-1 cursor-pointer hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800"
-                      onClick={() => setDialogOpen(true)}
-                    >
-                      <ShieldAlert className="size-3" />
-                      Verify
-                    </Badge>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Badge
+                          variant="secondary"
+                          className="gap-1 cursor-pointer hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800"
+                          onClick={() => setDialogOpen(true)}
+                        >
+                          <ShieldAlert className="size-3" />
+                          Verify
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Your email is not verified</p>
+                      </TooltipContent>
+                    </Tooltip>
                   )}
                 </div>
               ) : (
