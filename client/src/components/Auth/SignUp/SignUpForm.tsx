@@ -36,7 +36,6 @@ export default function SignUpForm({ className }: { className?: string }) {
   const mutation = useMutation({
     mutationKey: ["signup"],
     mutationFn: SignUpEmail,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       if (error.code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
         return toast.error("This Email Is Existed. Please Sign In or Use Another Email");
