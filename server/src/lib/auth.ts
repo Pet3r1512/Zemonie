@@ -87,6 +87,9 @@ export const auth = betterAuth({
                 },
               ],
               templateId: 1,
+              params: {
+                name: user.name,
+              },
             });
           } catch (error) {
             console.error("Failed to send welcome email:", error);
