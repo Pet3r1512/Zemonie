@@ -21,7 +21,6 @@ export const auth = betterAuth({
   }),
 
   emailAndPassword: {
-    requireEmailVerification: true,
     enabled: true,
     password: {
       hash: async (password: string) => {
@@ -68,6 +67,32 @@ export const auth = betterAuth({
       } catch (error) {
         console.error("Failed to send verification email:", error);
       }
+    },
+  },
+
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          try {
+            await brevo.transactionalEmails.sendTransacEmail({
+              sender: {
+                name: "Zemonie Team",
+                email: "customer.service@zemonie.site",
+              },
+              to: [
+                {
+                  email: user.email,
+                  name: user.name,
+                },
+              ],
+              templateId: 1,
+            });
+          } catch (error) {
+            console.error("Failed to send welcome email:", error);
+          }
+        },
+      },
     },
   },
 
