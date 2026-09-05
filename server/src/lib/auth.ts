@@ -71,6 +71,32 @@ export const auth = betterAuth({
     },
   },
 
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          try {
+            await brevo.transactionalEmails.sendTransacEmail({
+              sender: {
+                name: "Zemonie Team",
+                email: "customer.service@zemonie.site",
+              },
+              to: [
+                {
+                  email: user.email,
+                  name: user.name,
+                },
+              ],
+              templateId: 1,
+            });
+          } catch (error) {
+            console.error("Failed to send welcome email:", error);
+          }
+        },
+      },
+    },
+  },
+
   trustedOrigins: isProduction
     ? process.env.TRUSTED_ORIGINS?.split(",") || [
         "https://www.zemonie.site",
