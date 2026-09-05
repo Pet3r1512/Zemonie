@@ -16,7 +16,6 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormErrorMessage from "../FormErrorMessage";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
-import sendWelcomeEmail from "@/api/emails/welcomeEmail";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
@@ -34,14 +33,6 @@ export default function SignUpForm({ className }: { className?: string }) {
     defaultValues: { terms: false },
   });
 
-  const sendWelcomeEmailMutation = useMutation({
-    mutationKey: ["welcomeEmail"],
-    mutationFn: sendWelcomeEmail,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
-
   const mutation = useMutation({
     mutationKey: ["signup"],
     mutationFn: SignUpEmail,
@@ -53,7 +44,6 @@ export default function SignUpForm({ className }: { className?: string }) {
     },
     onSuccess: (res) => {
       toast.success(res.user.name + ", Everything is done! Navigating to dadshboard.");
-      sendWelcomeEmailMutation.mutate();
       return setTimeout(() => {
         router.navigate({ to: "/dashboard" });
       }, 1250);
