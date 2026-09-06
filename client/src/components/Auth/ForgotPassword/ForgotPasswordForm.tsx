@@ -97,7 +97,7 @@ export default function ForgotPasswordForm({ className }: { className?: string }
                     <p>Send Reset Link</p>
                   )}
                 </Button>
-                <div role="signin-nav" className="text-center text-sm">
+                <div role="signin-navigation" className="text-center text-sm">
                   Remembered your password?{" "}
                   <a href="/auth/signin" className="underline underline-offset-4 font-semibold">
                     Sign In
