@@ -72,7 +72,6 @@ export const auth = betterAuth({
 
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
-      console.log("Verification URL:", url);
       try {
         await brevo.transactionalEmails.sendTransacEmail({
           sender: {
