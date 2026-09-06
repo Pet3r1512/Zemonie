@@ -26,6 +26,8 @@ import { Route as DashboardExpensesRouteImport } from './routes/dashboard/expens
 import { Route as DashboardBudgetRouteImport } from './routes/dashboard/budget'
 import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
+import { Route as AuthForgotPasswordRouteImport } from './routes/auth/forgot-password'
+import { Route as AuthForgetPasswordRouteImport } from './routes/auth/forget-password'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -112,6 +114,16 @@ const AuthSigninRoute = AuthSigninRouteImport.update({
   path: '/auth/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
+  id: '/auth/forgot-password',
+  path: '/auth/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthForgetPasswordRoute = AuthForgetPasswordRouteImport.update({
+  id: '/auth/forget-password',
+  path: '/auth/forget-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -122,6 +134,8 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/release-notes': typeof ReleaseNotesRoute
   '/terms': typeof TermsRoute
+  '/auth/forget-password': typeof AuthForgetPasswordRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/budget': typeof DashboardBudgetRoute
@@ -141,6 +155,8 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/release-notes': typeof ReleaseNotesRoute
   '/terms': typeof TermsRoute
+  '/auth/forget-password': typeof AuthForgetPasswordRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/budget': typeof DashboardBudgetRoute
@@ -161,6 +177,8 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/release-notes': typeof ReleaseNotesRoute
   '/terms': typeof TermsRoute
+  '/auth/forget-password': typeof AuthForgetPasswordRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/dashboard/budget': typeof DashboardBudgetRoute
@@ -182,6 +200,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/release-notes'
     | '/terms'
+    | '/auth/forget-password'
+    | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
     | '/dashboard/budget'
@@ -201,6 +221,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/release-notes'
     | '/terms'
+    | '/auth/forget-password'
+    | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
     | '/dashboard/budget'
@@ -220,6 +242,8 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/release-notes'
     | '/terms'
+    | '/auth/forget-password'
+    | '/auth/forgot-password'
     | '/auth/signin'
     | '/auth/signup'
     | '/dashboard/budget'
@@ -240,6 +264,8 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   ReleaseNotesRoute: typeof ReleaseNotesRoute
   TermsRoute: typeof TermsRoute
+  AuthForgetPasswordRoute: typeof AuthForgetPasswordRoute
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
   DashboardBudgetRoute: typeof DashboardBudgetRoute
@@ -372,6 +398,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSigninRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/forgot-password': {
+      id: '/auth/forgot-password'
+      path: '/auth/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/forget-password': {
+      id: '/auth/forget-password'
+      path: '/auth/forget-password'
+      fullPath: '/auth/forget-password'
+      preLoaderRoute: typeof AuthForgetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -384,6 +424,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   ReleaseNotesRoute: ReleaseNotesRoute,
   TermsRoute: TermsRoute,
+  AuthForgetPasswordRoute: AuthForgetPasswordRoute,
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
   DashboardBudgetRoute: DashboardBudgetRoute,

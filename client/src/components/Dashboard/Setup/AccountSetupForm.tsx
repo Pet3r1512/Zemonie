@@ -95,7 +95,7 @@ export default function AccountSetupForm({ className }: { className?: string }) 
           <CardTitle className="text-xl lg:text-2xl text-primary-dark">Account Setup</CardTitle>
         </CardHeader>
         <CardContent>
-          <form role="form" onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               {/* <div className="grid gap-3">
                 <Label htmlFor="language">Language</Label>

@@ -45,11 +45,33 @@ export const auth = betterAuth({
         return timingSafeEqual(Buffer.from(key, "hex"), derived);
       },
     },
+
+    sendResetPassword: async ({ user, url }) => {
+      try {
+        await brevo.transactionalEmails.sendTransacEmail({
+          sender: {
+            name: "Zemonie Team",
+            email: "customer.service@zemonie.site",
+          },
+          subject: "Reset your password",
+          to: [
+            {
+              email: user.email,
+            },
+          ],
+          templateId: 2,
+          params: {
+            url: url,
+          },
+        });
+      } catch (error) {
+        console.error("Failed to send reset password email:", error);
+      }
+    },
   },
 
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
-      console.log("Verification URL:", url);
       try {
         await brevo.transactionalEmails.sendTransacEmail({
           sender: {
