@@ -15,8 +15,8 @@
     "NODE_ENV": "production",
     "PORT": "9999",
     "LOG_LEVEL": "info",
-    "BETTER_AUTH_URL": "https://zemonie.site",
-    "TRUSTED_ORIGIN": "https://zemonie.site",
+    "BETTER_AUTH_URL": "https://api.zemonie.site",
+    "TRUSTED_ORIGINS": "https://www.zemonie.site,https://zemonie.site",
     "BASE_URL": "https://api.zemonie.site",
   },
 
