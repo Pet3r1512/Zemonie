@@ -14,7 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormErrorMessage from "../FormErrorMessage";
 
-export default function ForgetPasswordForm({
+export default function ResetPasswordForm({
   token,
   className,
 }: {

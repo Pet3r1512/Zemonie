@@ -1,4 +1,4 @@
-import ForgetPassword from "@/components/Auth/ForgetPassword";
+import ResetPassword from "@/components/Auth/ResetPassword";
 import Page from "@/components/Layout/Page";
 import SEO from "@/components/SEO";
 import { createFileRoute, redirect } from "@tanstack/react-router";
@@ -28,7 +28,7 @@ function RouteComponent() {
         noIndex
       />
       <Page hideHeader>
-        <ForgetPassword token={token} error={error} />
+        <ResetPassword token={token} error={error} />
       </Page>
     </>
   );
