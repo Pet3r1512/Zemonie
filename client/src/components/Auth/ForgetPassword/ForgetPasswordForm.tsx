@@ -62,7 +62,7 @@ export default function ForgetPasswordForm({
           </div>
         </CardHeader>
         <CardContent>
-          <form role="form" onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-3">
