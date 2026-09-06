@@ -1,3 +1,4 @@
+import ResetPassword from "@/api/users/auth/ResetPassword";
 import Logo from "@/components/Layout/Logo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -5,24 +6,50 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ResetPasswordFormType } from "@/lib/types/resetpassword";
 import { cn } from "@/lib/utils";
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import FormErrorMessage from "../FormErrorMessage";
 
-export default function ForgetPasswordForm({ className }: { className?: string }) {
+export default function ForgetPasswordForm({
+  token,
+  className,
+}: {
+  token: string;
+  className?: string;
+}) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState<boolean>(true);
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ResetPasswordFormType>();
+
+  const mutation = useMutation({
+    mutationKey: ["reset-password"],
+    mutationFn: ResetPassword,
+    onError: (error) => {
+      toast.error(error?.message || "Reset password failed");
+    },
+    onSuccess: () => {
+      toast.success("Password updated. Please sign in.");
+      router.navigate({ to: "/auth/signin" });
+    },
+  });
 
   const passwordRef = useRef({});
   passwordRef.current = watch("password", "");
+
+  const onSubmit: SubmitHandler<ResetPasswordFormType> = (credentials) => {
+    mutation.mutate({ newPassword: credentials.password, token });
+  };
 
   return (
     <div
@@ -34,14 +61,11 @@ export default function ForgetPasswordForm({ className }: { className?: string }
           <Logo />
           <div className="flex flex-col items-center gap-2">
             <CardTitle className="text-xl lg:text-2xl text-primary-dark">Reset Password</CardTitle>
-            <CardDescription>
-              Enter a new password for your account. Make sure it&apos;s different from your
-              previous one.
-            </CardDescription>
+            <CardDescription>Enter a new password for your account</CardDescription>
           </div>
         </CardHeader>
         <CardContent>
-          <form role="form" onSubmit={handleSubmit(() => {})}>
+          <form role="form" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-3">
@@ -118,11 +142,11 @@ export default function ForgetPasswordForm({ className }: { className?: string }
                 </div>
                 <Button
                   role="submit-btn"
-                  disabled={isSubmitting}
+                  disabled={mutation.isPending}
                   type="submit"
                   className="w-full bg-primary hover:bg-primary-dark dark:bg-primary dark:hover:bg-primary-dark transition-all duration-150 ease-linear dark:text-white"
                 >
-                  {isSubmitting ? (
+                  {mutation.isPending ? (
                     <LoaderCircle data-testid="spinner" className="animate-spin" />
                   ) : (
                     <p>Reset Password</p>
