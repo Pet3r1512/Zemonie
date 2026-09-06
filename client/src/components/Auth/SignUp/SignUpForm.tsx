@@ -72,7 +72,7 @@ export default function SignUpForm({ className }: { className?: string }) {
         </CardHeader>
         <CardContent>
           <SignInViaGoogleBtn />
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form role="form" onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               <p className="bg-card text-center text-muted-foreground relative z-10 px-2 mt-8">
                 Or continue with
