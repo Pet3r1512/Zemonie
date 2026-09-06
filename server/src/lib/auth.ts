@@ -45,12 +45,8 @@ export const auth = betterAuth({
         return timingSafeEqual(Buffer.from(key, "hex"), derived);
       },
     },
-    sendResetPassword: async ({ user, token }) => {
-      const apiUrl =
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:8787"
-          : process.env.BASE_URL || "https://api.zemonie.site";
-      const resetUrl = `${apiUrl}/api/auth/reset-password/${token}?callbackURL=${encodeURIComponent("/auth/forget-password")}`;
+
+    sendResetPassword: async ({ user, url }) => {
       try {
         await brevo.transactionalEmails.sendTransacEmail({
           sender: {
