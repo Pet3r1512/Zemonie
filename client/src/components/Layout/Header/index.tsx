@@ -6,6 +6,7 @@ import Navbar from "./Navbar/NavbarContainer";
 import PagesNav from "./PagesNav";
 import StaggeredMenu from "@/components/ui/reactbits/staggered-menu";
 import { pages, mobileAuthNavLinks } from "@/lib/navigations";
+import { useReleaseBannerVisible } from "@/components/Banner/useReleaseBanner";
 
 const menuItems = [
   ...pages.map((page) => ({
@@ -21,6 +22,7 @@ const menuItems = [
 ];
 
 export default function Header({ hideHeader }: { hideHeader: boolean }) {
+  const [bannerVisible] = useReleaseBannerVisible();
   const [scrolled, setScrolled] = useState(() => {
     if (typeof window !== "undefined") {
       return window.scrollY > 50;
@@ -41,12 +43,15 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
 
   if (hideHeader) return null;
 
+  const offsetBelowBanner = bannerVisible && !scrolled;
+
   return (
     <>
       <header
         role="header"
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 hidden lg:flex justify-center px-5 lg:px-0 transition-all duration-150 ease-linear",
+          "fixed left-0 right-0 z-50 hidden lg:flex justify-center px-5 lg:px-0 transition-all duration-150 ease-linear",
+          offsetBelowBanner ? "top-11" : "top-0",
           scrolled && "py-4",
         )}
       >
@@ -71,7 +76,12 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
         </motion.div>
       </header>
 
-      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 w-full">
+      <header
+        className={cn(
+          "lg:hidden fixed left-0 right-0 z-50 w-full",
+          offsetBelowBanner ? "top-11" : "top-0",
+        )}
+      >
         <StaggeredMenu
           position="right"
           items={menuItems}
@@ -84,7 +94,9 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
           accentColor="#ff7900"
           isFixed={true}
           closeOnClickAway={true}
-          headerClassName="bg-white/10 dark:bg-black/10 backdrop-blur-lg shadow-lg ring-1 ring-black/5 dark:ring-white/5"
+          headerClassName={`bg-white/10 dark:bg-black/10 backdrop-blur-lg shadow-lg ring-1 ring-black/5 dark:ring-white/5${
+            offsetBelowBanner ? " top-[2.75rem]!" : ""
+          }`}
         />
       </header>
     </>

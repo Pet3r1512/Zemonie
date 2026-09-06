@@ -1,22 +1,16 @@
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 import { Link } from "@tanstack/react-router";
 import { X } from "lucide-react";
-import { useEffect, useState } from "react";
-
-const BANNER_KEY = "zemonie-beta-banner-dismissed";
+import { RELEASE_BANNER_KEY, useReleaseBannerVisible } from "@/components/Banner/useReleaseBanner";
 
 export function Release() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useReleaseBannerVisible();
   const currentUrl = useCurrentUrl().currUrl;
-
-  useEffect(() => {
-    setVisible(!localStorage.getItem(BANNER_KEY));
-  }, []);
 
   if (!visible) return null;
 
   function dismiss() {
-    localStorage.setItem(BANNER_KEY, "true");
+    localStorage.setItem(RELEASE_BANNER_KEY, "true");
     setVisible(false);
   }
 
@@ -25,9 +19,9 @@ export function Release() {
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 bg-linear-to-br from-primary to-secondary px-4 py-2.5 text-xs md:text-sm text-white font-bold cursor-default">
+    <div className="relative z-[60] flex h-11 items-center justify-center gap-2 bg-linear-to-br from-primary to-secondary px-4 text-xs md:text-sm text-white font-bold cursor-default">
       <div className="flex items-center gap-x-1">
-        <p>Zemonie open-beta version is out now.</p>
+        <p>Zemonie official version is out now.</p>
         <svg
           viewBox="0 0 64 64"
           xmlns="http://www.w3.org/2000/svg"
