@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormErrorMessage from "../FormErrorMessage";
@@ -43,9 +43,6 @@ export default function ForgetPasswordForm({
       router.navigate({ to: "/auth/signin" });
     },
   });
-
-  const passwordRef = useRef({});
-  passwordRef.current = watch("password", "");
 
   const onSubmit: SubmitHandler<ResetPasswordFormType> = (credentials) => {
     mutation.mutate({ newPassword: credentials.password, token });
@@ -120,7 +117,7 @@ export default function ForgetPasswordForm({
                       {...register("confirmPassword", {
                         required: "Confirm password is required",
                         validate: (value) =>
-                          value === passwordRef.current || "The passwords do not match",
+                          value === watch("password", "") || "The passwords do not match",
                       })}
                     />
                     <button
