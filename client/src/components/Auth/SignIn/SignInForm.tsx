@@ -81,7 +81,7 @@ export default function SignInForm({ className }: { className?: string }) {
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
                     <a
-                      href="#"
+                      href="/auth/forget-password"
                       tabIndex={-1}
                       className="ml-auto text-sm underline-offset-4 hover:underline dark:text-gray-300"
                     >
