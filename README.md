@@ -22,6 +22,45 @@ In future updates, we plan to introduce additional features such as group expens
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+## Features
+
+> Features available in Zemonie **v1.1.0** — the first official release.
+
+### Transactions
+- Create income and expense transactions with common categories
+- View all transactions grouped by date, with a transaction details popup
+- Update transactions
+- Recurring transactions — automatically repeat income and expense entries
+
+### Budgets
+- Create monthly budgets for a specific expense category (one budget per category)
+- Progress bar shows the percentage of budget used
+- Recurring budgets automatically carry over to the next month
+- Detailed budget view with spending progress and key information
+
+### Dashboard
+- Current balance overview
+- Overall analytics for spending behaviour
+- Bar chart comparing income and expenses in the current month
+- Pie chart displaying spending breakdown by categories
+- Last 7 days spending chart
+- Net savings for the current month, with savings rate
+- Income growth and personalized insights (e.g. highest income of the month, top spending category)
+
+### Currencies & Preferences
+- Multi-currency support: AUD, USD, VND with automatic currency formatting
+- Account setup wizard with avatar picker and currency selection
+- Dark mode with theme settings
+- Customisable profile avatar
+
+### Security
+- All financial amounts (transactions, budgets, balances) are encrypted
+- Email verification
+- Password reset via email link
+- Password update in user's profile
+
+
 ## Built With
 
 ### Frontend - Client
@@ -34,13 +73,14 @@ In future updates, we plan to introduce additional features such as group expens
 - Tanstack (Router, Query)
 - Zustand
 
-### Backend - Sever
+### Backend - Server
 
 - Hono
 - TypeScript
 - tRPC
 - Prisma - PostgreSQL - NeonDB
 - Better-auth
+- Brevo
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
