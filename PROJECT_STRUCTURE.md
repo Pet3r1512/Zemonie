@@ -137,22 +137,22 @@ src/
 
 #### `hooks/` — Custom Hooks
 
-| Hook                            | Purpose                           |
-| ------------------------------- | --------------------------------- |
-| `useScreenSize.ts`              | Responsive breakpoints (xs → 2xl) |
-| `useMobile.ts`                  | Mobile detection                  |
-| `useTheme.ts`                   | Dark/light theme                  |
-| `useFetchSession.ts`            | Auth session fetching             |
-| `useFetchUser.ts`               | User data fetching                |
-| `useFetchTransactions.ts`       | Paginated transaction fetching    |
-| `useFetchCurrentMonthIncome.ts` | Current month's income            |
-| `useFetchCurrentMonthExpense.ts`| Current month's expense           |
-| `useLogOut.ts`                  | Logout handler                    |
-| `useCurrentUrl.ts`              | Current URL path                  |
-| `users/useUserPreferences.ts`   | User preferences data             |
+| Hook                               | Purpose                            |
+| ---------------------------------- | ---------------------------------- |
+| `useScreenSize.ts`                 | Responsive breakpoints (xs → 2xl)  |
+| `useMobile.ts`                     | Mobile detection                   |
+| `useTheme.ts`                      | Dark/light theme                   |
+| `useFetchSession.ts`               | Auth session fetching              |
+| `useFetchUser.ts`                  | User data fetching                 |
+| `useFetchTransactions.ts`          | Paginated transaction fetching     |
+| `useFetchCurrentMonthIncome.ts`    | Current month's income             |
+| `useFetchCurrentMonthExpense.ts`   | Current month's expense            |
+| `useLogOut.ts`                     | Logout handler                     |
+| `useCurrentUrl.ts`                 | Current URL path                   |
+| `users/useUserPreferences.ts`      | User preferences data              |
 | `users/useVerificationCooldown.ts` | Email-verification resend cooldown |
-| `data/`                         | Data-fetching hooks               |
-| `aceternity/`                   | Aceternity UI hooks               |
+| `data/`                            | Data-fetching hooks                |
+| `aceternity/`                      | Aceternity UI hooks                |
 
 #### `store/` — State Management
 
@@ -231,52 +231,52 @@ src/
 | `balance.ts`      | createDefaultBalance, getCurrentBalance               |
 | `categories.ts`   | seedDefaultCategories, getGlobalCategories            |
 | `analytics.ts`    | highestIncomeOfMonth, incomeGrowth, expense analytics |
-| `budget.ts`       | Recurring budget create/get/delete                     |
+| `budget.ts`       | Recurring budget create/get/delete                    |
 | `user.ts`         | setup (avatar, currency, balance)                     |
 
 #### `src/lib/` — Core Modules
 
-| File                                  | Purpose                                                |
-| ------------------------------------- | ------------------------------------------------------ |
+| File                                  | Purpose                                                                    |
+| ------------------------------------- | -------------------------------------------------------------------------- |
 | `auth.ts`                             | Better-Auth config (adapter, email/password, email verification, sessions) |
-| `brevo.ts`                            | Brevo transactional email client + rate-limiting wrapper |
-| `crypto.ts`                           | AES-GCM encryption for balances                         |
-| `prisma.ts`                           | Prisma client with Neon adapter                        |
-| `processRecurringBudgets.ts`          | Cron-processed recurring budget creation               |
-| `processRecurringTransactions.ts`     | Cron-processed recurring transactions                  |
-| `analytics/CalculateHighestIncome.ts` | Highest income calculation utility                     |
+| `brevo.ts`                            | Brevo transactional email client + rate-limiting wrapper                   |
+| `crypto.ts`                           | AES-GCM encryption for balances                                            |
+| `prisma.ts`                           | Prisma client with Neon adapter                                            |
+| `processRecurringBudgets.ts`          | Cron-processed recurring budget creation                                   |
+| `processRecurringTransactions.ts`     | Cron-processed recurring transactions                                      |
+| `analytics/CalculateHighestIncome.ts` | Highest income calculation utility                                         |
 
 ### Database Models (`prisma/schema.prisma`)
 
-| Model                | Key Fields                                                                    |
-| -------------------- | ----------------------------------------------------------------------------- |
-| **User**             | id, name, email, emailVerified, image, createdAt                              |
-| **User_Preferences** | id, userId (unique), currency, avatar, theme, isSetupDone                     |
-| **Session**          | id, expiresAt, token, userId, ipAddress, userAgent                            |
-| **Account**          | id, accountId, providerId, userId, accessToken, refreshToken, scope, password |
-| **Verification**     | id, identifier, value, expiresAt                                              |
-| **Category**         | id, userId (nullable = global), name, description, type (INCOME/EXPENSE)      |
-| **Transaction**      | id, userId, categoryId, amount (Decimal), currency, description, createdAt    |
-| **Balance**          | id, userId (unique), amount (Decimal, encrypted), currency                    |
-| **Budget**           | id, userId, categoryId, amount, currency, duration, isRecurring, isRollOver, startDate, endDate, parentBudgetId (recurrence) |
-| **PendingBudget**    | id, userId, budgetId, status, scheduledAt (recurring job queue)              |
-| **PendingTransaction**| id, userId, transactionId, status, scheduledAt (recurring job queue)        |
+| Model                  | Key Fields                                                                                                                   |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **User**               | id, name, email, emailVerified, image, createdAt                                                                             |
+| **User_Preferences**   | id, userId (unique), currency, avatar, theme, isSetupDone                                                                    |
+| **Session**            | id, expiresAt, token, userId, ipAddress, userAgent                                                                           |
+| **Account**            | id, accountId, providerId, userId, accessToken, refreshToken, scope, password                                                |
+| **Verification**       | id, identifier, value, expiresAt                                                                                             |
+| **Category**           | id, userId (nullable = global), name, description, type (INCOME/EXPENSE)                                                     |
+| **Transaction**        | id, userId, categoryId, amount (Decimal), currency, description, createdAt                                                   |
+| **Balance**            | id, userId (unique), amount (Decimal, encrypted), currency                                                                   |
+| **Budget**             | id, userId, categoryId, amount, currency, duration, isRecurring, isRollOver, startDate, endDate, parentBudgetId (recurrence) |
+| **PendingBudget**      | id, userId, budgetId, status, scheduledAt (recurring job queue)                                                              |
+| **PendingTransaction** | id, userId, transactionId, status, scheduledAt (recurring job queue)                                                         |
 
 Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND), `BudgetDuration` (WEEK_1…MONTH_12), `PendingJobStatus` (PENDING, PROCESSING, COMPLETED, FAILED)
 
 ### Migrations (`prisma/migrations/`)
 
-| Migration                                       | Purpose                                      |
-| ----------------------------------------------- | -------------------------------------------- |
-| `0001_init`                                     | Initial schema                               |
-| `20260527000000_add_indexes`                    | Composite indexes for query performance      |
-| `20260527054805_create_user_preferences`        | Extract preferences from User into own table |
-| `20260527054900_remove_is_setup_done_from_user` | Cleanup migrated field                       |
-| `20260621001019_add_budgets`                    | Recurring budget model                       |
-| `20260624085803_add_pending_budgets`            | Pending budget job queue                     |
-| `20260628000000_encrypt_amount_fields`          | AES-GCM encryption of amount fields          |
-| `20260630085807_add_pending_transactions`       | Pending transaction job queue                |
-| `20260630093733_add_transaction_recurrence_fields` | Transaction recurrence fields            |
+| Migration                                          | Purpose                                      |
+| -------------------------------------------------- | -------------------------------------------- |
+| `0001_init`                                        | Initial schema                               |
+| `20260527000000_add_indexes`                       | Composite indexes for query performance      |
+| `20260527054805_create_user_preferences`           | Extract preferences from User into own table |
+| `20260527054900_remove_is_setup_done_from_user`    | Cleanup migrated field                       |
+| `20260621001019_add_budgets`                       | Recurring budget model                       |
+| `20260624085803_add_pending_budgets`               | Pending budget job queue                     |
+| `20260628000000_encrypt_amount_fields`             | AES-GCM encryption of amount fields          |
+| `20260630085807_add_pending_transactions`          | Pending transaction job queue                |
+| `20260630093733_add_transaction_recurrence_fields` | Transaction recurrence fields                |
 
 ---
 

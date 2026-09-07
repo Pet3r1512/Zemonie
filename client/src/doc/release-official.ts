@@ -1,7 +1,7 @@
 const release_official = [
   {
     version: "v1.1.0",
-    date: "Sep 06, 2026",
+    date: "Sep 07, 2026",
     tag: "Official",
     changes: [
       {
