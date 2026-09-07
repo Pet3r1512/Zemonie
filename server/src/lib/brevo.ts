@@ -41,9 +41,7 @@ export type SendTransacEmailParams = Parameters<
   BrevoClient["transactionalEmails"]["sendTransacEmail"]
 >[0];
 
-export async function sendTransacEmail(
-  params: SendTransacEmailParams,
-): Promise<boolean> {
+export async function sendTransacEmail(params: SendTransacEmailParams): Promise<boolean> {
   const recipient = params?.to?.[0]?.email?.toLowerCase();
   rollover();
 

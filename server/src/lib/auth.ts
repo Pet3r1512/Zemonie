@@ -85,7 +85,11 @@ export const auth = betterAuth({
               email: user.email,
             },
           ],
-          textContent: `Click the link to verify your email: ${url}`,
+          templateId: 3,
+          params: {
+            name: user.name,
+            verification_url: url,
+          },
         });
       } catch (error) {
         console.error("Failed to send verification email:", error);
