@@ -18,6 +18,9 @@
     "BETTER_AUTH_URL": "https://api.zemonie.site",
     "TRUSTED_ORIGINS": "https://www.zemonie.site,https://zemonie.site",
     "BASE_URL": "https://api.zemonie.site",
+    "EMAIL_SEND_INTERVAL_SECONDS": "60",
+    "EMAIL_RECIPIENT_DAILY_LIMIT": "5",
+    "EMAIL_DAILY_LIMIT": "250",
   },
 
   "triggers": {

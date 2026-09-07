@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth/minimal";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma";
 import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
-import brevo from "./brevo";
+import { sendTransacEmail } from "./brevo";
 
 const isProduction = process.env.NODE_ENV !== "development";
 
@@ -48,7 +48,7 @@ export const auth = betterAuth({
 
     sendResetPassword: async ({ user, url }) => {
       try {
-        await brevo.transactionalEmails.sendTransacEmail({
+        await sendTransacEmail({
           sender: {
             name: "Zemonie Team",
             email: "customer.service@zemonie.site",
@@ -74,7 +74,7 @@ export const auth = betterAuth({
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
       try {
-        await brevo.transactionalEmails.sendTransacEmail({
+        await sendTransacEmail({
           sender: {
             name: "Zemonie Team",
             email: "customer.service@zemonie.site",
@@ -98,7 +98,7 @@ export const auth = betterAuth({
       create: {
         after: async (user) => {
           try {
-            await brevo.transactionalEmails.sendTransacEmail({
+            await sendTransacEmail({
               sender: {
                 name: "Zemonie Team",
                 email: "customer.service@zemonie.site",

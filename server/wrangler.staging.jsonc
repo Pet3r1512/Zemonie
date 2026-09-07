@@ -19,6 +19,9 @@
     "COOKIE_DOMAIN": ".zemonie.site",
     "NODE_ENV": "staging",
     "LOG_LEVEL": "info",
+    "EMAIL_SEND_INTERVAL_SECONDS": "60",
+    "EMAIL_RECIPIENT_DAILY_LIMIT": "5",
+    "EMAIL_DAILY_LIMIT": "250",
   },
 
   "triggers": {
