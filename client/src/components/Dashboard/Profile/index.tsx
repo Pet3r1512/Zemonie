@@ -5,7 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { Badge } from "@/components/ui/badge";
 import EmailVerifyDialog from "./EmailVerifyDialog";
 import { CalendarPlus2, CheckCircle, Lock, Mail, ShieldAlert, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 const profileFields = [
@@ -20,18 +20,22 @@ const profileFields = [
 ];
 
 export default function ProfilePage() {
-  const session = authClient.useSession();
+  const { data: sessionData, refetch: refetchSession } = authClient.useSession();
   const { data } = useUserPreferences();
   const { remaining, isCoolingDown, startCooldown } = useVerificationCooldown();
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const emailVerified = session.data?.user.emailVerified as boolean | undefined;
+  const emailVerified = sessionData?.user.emailVerified as boolean | undefined;
+
+  useEffect(() => {
+    authClient.updateSession();
+  }, [refetchSession, sessionData]);
 
   const fieldValues: Record<string, string> = {
-    email: session.data?.user.email ?? "",
+    email: sessionData?.user.email ?? "",
     method: "Email and Password",
-    name: session.data?.user.name ?? "",
-    join: session.data?.user.createdAt.toLocaleString().split(",")[0] ?? "",
+    name: sessionData?.user.name ?? "",
+    join: sessionData?.user.createdAt.toLocaleString().split(",")[0] ?? "",
   };
 
   return (
