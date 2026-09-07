@@ -21,7 +21,7 @@ function RouteComponent() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
               Privacy Policy
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2">Last updated: May 2026</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">Last updated: September 2026</p>
           </div>
 
           <div className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10 space-y-8">
@@ -95,6 +95,13 @@ function RouteComponent() {
                 We do not sell, trade, or share your personal data with third parties for their
                 marketing purposes. Aggregated, anonymized data may be used internally for analytics
                 and product improvement.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed mt-4">
+                To deliver account-related emails — such as email verification, password reset, and
+                welcome messages — we rely on <strong>Brevo (Sendinblue)</strong>, a transactional
+                email service provider. Brevo processes your email address solely to deliver these
+                messages on our behalf and in accordance with our instructions. We only send emails
+                to the address you provided when you created your account.
               </p>
             </section>
 

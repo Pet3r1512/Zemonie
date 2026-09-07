@@ -21,7 +21,7 @@ function RouteComponent() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
               Cookie Policy
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2">Last updated: May 2026</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2">Last updated: September 2026</p>
           </div>
 
           <div className="rounded-2xl bg-white dark:bg-dark-bg shadow-2xl p-8 lg:p-10 space-y-8">
@@ -67,11 +67,23 @@ function RouteComponent() {
                         </code>
                       </td>
                       <td className="px-5 py-3 text-gray-700 dark:text-gray-300">
-                        Authentication session cookie set by Better-Auth
+                        Stores your signed session identifier and keeps you logged in
                       </td>
                       <td className="px-5 py-3 text-gray-700 dark:text-gray-300">
-                        Session / persistent
+                        Session / persistent (7 days)
                       </td>
+                    </tr>
+                    <tr className="border-b border-neutral-200 dark:border-dark-card last:border-b-0 lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card transition-all duration-150 ease-linear">
+                      <td className="px-5 py-3">
+                        <code className="bg-neutral-100 dark:bg-dark-card px-1.5 py-0.5 rounded text-sm font-mono">
+                          session_data
+                        </code>
+                      </td>
+                      <td className="px-5 py-3 text-gray-700 dark:text-gray-300">
+                        Caches your session details (user, session fields) so we can load them
+                        faster on subsequent requests
+                      </td>
+                      <td className="px-5 py-3 text-gray-700 dark:text-gray-300">5 minutes</td>
                     </tr>
                   </tbody>
                 </table>
