@@ -14,7 +14,7 @@
 
   "vars": {
     "BASE_URL": "https://staging.api.zemonie.site",
-    "BETTER_AUTH_URL": "https://staging.zemonie.site",
+    "BETTER_AUTH_URL": "https://staging.api.zemonie.site",
     "TRUSTED_ORIGINS": "https://staging.www.zemonie.site,https://staging.zemonie.site",
     "COOKIE_DOMAIN": ".zemonie.site",
     "NODE_ENV": "staging",

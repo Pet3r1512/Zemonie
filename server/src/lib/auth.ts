@@ -6,9 +6,9 @@ import brevo from "./brevo";
 
 const isProduction = process.env.NODE_ENV !== "development";
 
-const betterAuthUrl = isProduction
-  ? process.env.BETTER_AUTH_URL || "https://api.zemonie.site"
-  : process.env.BETTER_AUTH_URL || "http://localhost:5173";
+const betterAuthUrl =
+  process.env.BETTER_AUTH_URL ||
+  (isProduction ? "https://api.zemonie.site" : "http://localhost:8787");
 const cookieDomain = process.env.COOKIE_DOMAIN || ".zemonie.site";
 
 export const auth = betterAuth({
@@ -71,6 +71,7 @@ export const auth = betterAuth({
   },
 
   emailVerification: {
+    autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
       try {
         await brevo.transactionalEmails.sendTransacEmail({
