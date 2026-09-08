@@ -2,13 +2,13 @@ import { betterAuth } from "better-auth/minimal";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma";
 import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
-import brevo from "./brevo";
+import { sendTransacEmail } from "./brevo";
 
 const isProduction = process.env.NODE_ENV !== "development";
 
-const betterAuthUrl = isProduction
-  ? process.env.BETTER_AUTH_URL || "https://api.zemonie.site"
-  : process.env.BETTER_AUTH_URL || "http://localhost:5173";
+const betterAuthUrl =
+  process.env.BETTER_AUTH_URL ||
+  (isProduction ? "https://api.zemonie.site" : "http://localhost:8787");
 const cookieDomain = process.env.COOKIE_DOMAIN || ".zemonie.site";
 
 export const auth = betterAuth({
@@ -48,7 +48,7 @@ export const auth = betterAuth({
 
     sendResetPassword: async ({ user, url }) => {
       try {
-        await brevo.transactionalEmails.sendTransacEmail({
+        await sendTransacEmail({
           sender: {
             name: "Zemonie Team",
             email: "customer.service@zemonie.site",
@@ -71,9 +71,10 @@ export const auth = betterAuth({
   },
 
   emailVerification: {
+    autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
       try {
-        await brevo.transactionalEmails.sendTransacEmail({
+        await sendTransacEmail({
           sender: {
             name: "Zemonie Team",
             email: "customer.service@zemonie.site",
@@ -84,7 +85,11 @@ export const auth = betterAuth({
               email: user.email,
             },
           ],
-          textContent: `Click the link to verify your email: ${url}`,
+          templateId: 3,
+          params: {
+            name: user.name,
+            verification_url: url,
+          },
         });
       } catch (error) {
         console.error("Failed to send verification email:", error);
@@ -97,7 +102,7 @@ export const auth = betterAuth({
       create: {
         after: async (user) => {
           try {
-            await brevo.transactionalEmails.sendTransacEmail({
+            await sendTransacEmail({
               sender: {
                 name: "Zemonie Team",
                 email: "customer.service@zemonie.site",

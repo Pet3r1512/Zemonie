@@ -1,3 +1,4 @@
+import { Release } from "@/components/Banner/Release";
 import SEO, { SITE_URL } from "@/components/SEO";
 import { warmupDb } from "@/lib/ping";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
@@ -39,7 +40,7 @@ export const Route = createRootRoute({
         canonicalPath="/"
         jsonLd={[websiteSchema, organizationSchema] as unknown as Record<string, unknown>}
       />
-      {/* <Release /> */}
+      <Release />
       <Outlet />
     </>
   ),

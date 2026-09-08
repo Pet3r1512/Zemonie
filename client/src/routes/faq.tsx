@@ -44,6 +44,11 @@ const faqs = [
       "No, we do not sell or share your information with any company. Your authentication credentials are handled securely by Better-Auth, and all other information is kept safely on our servers.",
   },
   {
+    question: "Do we need to verify our email?",
+    answer:
+      "Absolutly not, but there are serveral features that only available to verified users only. We will notify you when you need to verify your email to use these features.",
+  },
+  {
     question: "How are users transactions being stored?",
     answer:
       "Every transaction you enter is stored securely on our servers. All monetary amounts are encrypted end-to-end using AES-GCM before they ever reach the database — not even we can read your numbers. Your authentication is handled by Better-Auth, and your session data is kept safe with encrypted cookies.",

@@ -87,16 +87,20 @@ src/
 | `AboutUs/`                           | About Us page (team, timeline, values)                              |
 | `Auth/SignIn/`                       | Sign-in page + form                                                 |
 | `Auth/SignUp/`                       | Sign-up page + form + tests                                         |
+| `Auth/ResetPassword/`                | Reset-password form for the email link flow (was `ForgetPassword/`) |
+| `Auth/ForgotPassword/`               | Request-password-reset form                                         |
 | `Auth/FormErrorMessage.tsx`          | Shared form error display                                           |
 | `Auth/SignInViaGoogleBtn.tsx`        | Google OAuth button                                                 |
-| `Banner/`                            | Release notes banner + version tag                                  |
+| `Banner/`                            | Release notes banner + version tag + dismiss hook                   |
 | `Dashboard/DashboardLayout.tsx`      | Dashboard layout wrapper                                            |
+| `Dashboard/Budgets/`                 | Recurring budget form, list, and overview                           |
+| `Dashboard/Settings/`                | Profile settings page with Security section                         |
 | `Dashboard/Category/CategoryTag.tsx` | Category badge/tag display                                          |
 | `Dashboard/Charts/`                  | Donut chart, spending-by-category                                   |
 | `Dashboard/Details/`                 | Expense/income detail views with tables                             |
 | `Dashboard/InitAccountLayout.tsx`    | First-time setup flow layout                                        |
 | `Dashboard/Overall/`                 | Dashboard summary cards, income/expense forms, category selectors   |
-| `Dashboard/Profile/`                 | User profile page                                                   |
+| `Dashboard/Profile/`                 | User profile page (email verification + session refresh)            |
 | `Dashboard/Setup/`                   | Account setup form + avatar picker                                  |
 | `Dashboard/Sidebar/`                 | Sidebar (user info, footer)                                         |
 | `Dashboard/Transactions/`            | Transaction list, grouped by date, summary                          |
@@ -133,17 +137,22 @@ src/
 
 #### `hooks/` — Custom Hooks
 
-| Hook                            | Purpose                           |
-| ------------------------------- | --------------------------------- |
-| `useScreenSize.ts`              | Responsive breakpoints (xs → 2xl) |
-| `useMobile.ts`                  | Mobile detection                  |
-| `useTheme.ts`                   | Dark/light theme                  |
-| `useFetchSession.ts`            | Auth session fetching             |
-| `useFetchUser.ts`               | User data fetching                |
-| `useFetchTransactions.ts`       | Paginated transaction fetching    |
-| `useFetchCurrentMonthIncome.ts` | Current month's income            |
-| `useLogOut.ts`                  | Logout handler                    |
-| `useCurrentUrl.ts`              | Current URL path                  |
+| Hook                               | Purpose                            |
+| ---------------------------------- | ---------------------------------- |
+| `useScreenSize.ts`                 | Responsive breakpoints (xs → 2xl)  |
+| `useMobile.ts`                     | Mobile detection                   |
+| `useTheme.ts`                      | Dark/light theme                   |
+| `useFetchSession.ts`               | Auth session fetching              |
+| `useFetchUser.ts`                  | User data fetching                 |
+| `useFetchTransactions.ts`          | Paginated transaction fetching     |
+| `useFetchCurrentMonthIncome.ts`    | Current month's income             |
+| `useFetchCurrentMonthExpense.ts`   | Current month's expense            |
+| `useLogOut.ts`                     | Logout handler                     |
+| `useCurrentUrl.ts`                 | Current URL path                   |
+| `users/useUserPreferences.ts`      | User preferences data              |
+| `users/useVerificationCooldown.ts` | Email-verification resend cooldown |
+| `data/`                            | Data-fetching hooks                |
+| `aceternity/`                      | Aceternity UI hooks                |
 
 #### `store/` — State Management
 
@@ -174,6 +183,8 @@ src/
 | `terms.tsx`                  | Terms of Service page                     |
 | `auth/signin.tsx`            | Sign-in page                              |
 | `auth/signup.tsx`            | Sign-up page                              |
+| `auth/forget-password.tsx`   | Request password reset                    |
+| `auth/forgot-password.tsx`   | Password reset (from email link)          |
 | `dashboard/index.tsx`        | Dashboard main page                       |
 | `dashboard/income.tsx`       | Income detail page                        |
 | `dashboard/expenses.tsx`     | Expense detail page                       |
@@ -220,39 +231,52 @@ src/
 | `balance.ts`      | createDefaultBalance, getCurrentBalance               |
 | `categories.ts`   | seedDefaultCategories, getGlobalCategories            |
 | `analytics.ts`    | highestIncomeOfMonth, incomeGrowth, expense analytics |
+| `budget.ts`       | Recurring budget create/get/delete                    |
 | `user.ts`         | setup (avatar, currency, balance)                     |
 
 #### `src/lib/` — Core Modules
 
-| File                                  | Purpose                                                |
-| ------------------------------------- | ------------------------------------------------------ |
-| `auth.ts`                             | Better-Auth config (adapter, email/password, sessions) |
-| `prisma.ts`                           | Prisma client with Neon adapter                        |
-| `analytics/CalculateHighestIncome.ts` | Highest income calculation utility                     |
+| File                                  | Purpose                                                                    |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| `auth.ts`                             | Better-Auth config (adapter, email/password, email verification, sessions) |
+| `brevo.ts`                            | Brevo transactional email client + rate-limiting wrapper                   |
+| `crypto.ts`                           | AES-GCM encryption for balances                                            |
+| `prisma.ts`                           | Prisma client with Neon adapter                                            |
+| `processRecurringBudgets.ts`          | Cron-processed recurring budget creation                                   |
+| `processRecurringTransactions.ts`     | Cron-processed recurring transactions                                      |
+| `analytics/CalculateHighestIncome.ts` | Highest income calculation utility                                         |
 
 ### Database Models (`prisma/schema.prisma`)
 
-| Model                | Key Fields                                                                    |
-| -------------------- | ----------------------------------------------------------------------------- |
-| **User**             | id, name, email, emailVerified, image, createdAt                              |
-| **User_Preferences** | id, userId (unique), currency, avatar, theme, isSetupDone                     |
-| **Session**          | id, expiresAt, token, userId, ipAddress, userAgent                            |
-| **Account**          | id, accountId, providerId, userId, accessToken, refreshToken, scope, password |
-| **Verification**     | id, identifier, value, expiresAt                                              |
-| **Category**         | id, userId (nullable = global), name, description, type (INCOME/EXPENSE)      |
-| **Transaction**      | id, userId, categoryId, amount (Decimal), currency, description, createdAt    |
-| **Balance**          | id, userId (unique), amount (Decimal), currency                               |
+| Model                  | Key Fields                                                                                                                   |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **User**               | id, name, email, emailVerified, image, createdAt                                                                             |
+| **User_Preferences**   | id, userId (unique), currency, avatar, theme, isSetupDone                                                                    |
+| **Session**            | id, expiresAt, token, userId, ipAddress, userAgent                                                                           |
+| **Account**            | id, accountId, providerId, userId, accessToken, refreshToken, scope, password                                                |
+| **Verification**       | id, identifier, value, expiresAt                                                                                             |
+| **Category**           | id, userId (nullable = global), name, description, type (INCOME/EXPENSE)                                                     |
+| **Transaction**        | id, userId, categoryId, amount (Decimal), currency, description, createdAt                                                   |
+| **Balance**            | id, userId (unique), amount (Decimal, encrypted), currency                                                                   |
+| **Budget**             | id, userId, categoryId, amount, currency, duration, isRecurring, isRollOver, startDate, endDate, parentBudgetId (recurrence) |
+| **PendingBudget**      | id, userId, budgetId, status, scheduledAt (recurring job queue)                                                              |
+| **PendingTransaction** | id, userId, transactionId, status, scheduledAt (recurring job queue)                                                         |
 
-Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND)
+Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND), `BudgetDuration` (WEEK_1…MONTH_12), `PendingJobStatus` (PENDING, PROCESSING, COMPLETED, FAILED)
 
 ### Migrations (`prisma/migrations/`)
 
-| Migration                                       | Purpose                                      |
-| ----------------------------------------------- | -------------------------------------------- |
-| `0001_init`                                     | Initial schema                               |
-| `20260527000000_add_indexes`                    | Composite indexes for query performance      |
-| `20260527054805_create_user_preferences`        | Extract preferences from User into own table |
-| `20260527054900_remove_is_setup_done_from_user` | Cleanup migrated field                       |
+| Migration                                          | Purpose                                      |
+| -------------------------------------------------- | -------------------------------------------- |
+| `0001_init`                                        | Initial schema                               |
+| `20260527000000_add_indexes`                       | Composite indexes for query performance      |
+| `20260527054805_create_user_preferences`           | Extract preferences from User into own table |
+| `20260527054900_remove_is_setup_done_from_user`    | Cleanup migrated field                       |
+| `20260621001019_add_budgets`                       | Recurring budget model                       |
+| `20260624085803_add_pending_budgets`               | Pending budget job queue                     |
+| `20260628000000_encrypt_amount_fields`             | AES-GCM encryption of amount fields          |
+| `20260630085807_add_pending_transactions`          | Pending transaction job queue                |
+| `20260630093733_add_transaction_recurrence_fields` | Transaction recurrence fields                |
 
 ---
 

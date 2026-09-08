@@ -25,6 +25,12 @@ const milestones = [
     description:
       "Zemonie opened its beta access to the public, allowing more users to experience and help shape the platform.",
   },
+  {
+    year: "Sep 2026",
+    title: "Official Release 🚀",
+    description:
+      "Zemonie launches its first official version (v1.1.0), bringing a stable, secure and refined money-management experience — complete with email verification, password recovery, and detailed financial insights — to everyone.",
+  },
 ];
 
 export default function Timeline() {

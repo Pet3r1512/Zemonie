@@ -30,7 +30,10 @@ export default function EmailVerifyDialog({
   const handleSend = async () => {
     setSending(true);
     try {
-      authClient.sendVerificationEmail({ email: email });
+      authClient.sendVerificationEmail({
+        email: email,
+        callbackURL: `${window.location.origin}/dashboard/profile`,
+      });
       toast.success("Verification email sent! Check your inbox.");
       onSent();
       onOpenChange(false);
