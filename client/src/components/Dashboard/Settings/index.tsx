@@ -21,6 +21,9 @@ export default function SettingsContainer() {
         <TabsList className="flex flex-row md:flex-col h-full lg:min-h-full w-full md:w-48 justify-start items-stretch bg-transparent p-0 gap-2">
           <TabsTrigger
             value="security"
+            onClick={() => {
+              setLatestTab("security");
+            }}
             className="justify-start gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
           >
             <Lock className="h-4 w-4" />
@@ -28,6 +31,9 @@ export default function SettingsContainer() {
           </TabsTrigger>
           <TabsTrigger
             value="preferences"
+            onClick={() => {
+              setLatestTab("preferences");
+            }}
             className="justify-start gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
           >
             <Settings className="h-4 w-4" />
