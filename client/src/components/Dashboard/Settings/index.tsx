@@ -4,8 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Lock, Settings } from "lucide-react";
 import Security from "./Security";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
 
 export default function SettingsContainer() {
+  const [latestTab, setLatestTab] = useState<string>("");
   return (
     <Card className="p-5 h-full lg:min-h-[50vh]">
       <Tabs
