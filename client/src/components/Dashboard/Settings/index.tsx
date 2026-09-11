@@ -4,18 +4,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Lock, Settings } from "lucide-react";
 import Security from "./Security";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
 
 export default function SettingsContainer() {
+  const [latestTab, setLatestTab] = useState<string>("");
+
+  useEffect(() => {
+    localStorage.setItem("latestSettingsTab", latestTab);
+  }, [latestTab]);
+
   return (
     <Card className="p-5 h-full lg:min-h-[50vh]">
       <Tabs
-        defaultValue="security"
+        defaultValue={localStorage.getItem("latestSettingsTab") || "security"}
         orientation="vertical"
         className="flex flex-col md:flex-row gap-6"
       >
         <TabsList className="flex flex-row md:flex-col h-full lg:min-h-full w-full md:w-48 justify-start items-stretch bg-transparent p-0 gap-2">
           <TabsTrigger
             value="security"
+            onClick={() => {
+              setLatestTab("security");
+            }}
             className="justify-start gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
           >
             <Lock className="h-4 w-4" />
@@ -23,6 +33,9 @@ export default function SettingsContainer() {
           </TabsTrigger>
           <TabsTrigger
             value="preferences"
+            onClick={() => {
+              setLatestTab("preferences");
+            }}
             className="justify-start gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
           >
             <Settings className="h-4 w-4" />
