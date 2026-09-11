@@ -8,13 +8,15 @@ import { useEffect, useState } from "react";
 
 export default function SettingsContainer() {
   const [latestTab, setLatestTab] = useState<string>("");
+
   useEffect(() => {
     localStorage.setItem("latestSettingsTab", latestTab);
   }, [latestTab]);
+
   return (
     <Card className="p-5 h-full lg:min-h-[50vh]">
       <Tabs
-        defaultValue="security"
+        defaultValue={localStorage.getItem("latestSettingsTab") || "security"}
         orientation="vertical"
         className="flex flex-col md:flex-row gap-6"
       >
