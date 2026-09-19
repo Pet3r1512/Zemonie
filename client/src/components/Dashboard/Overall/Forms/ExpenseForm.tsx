@@ -2,16 +2,7 @@ import createNewTransaction from "@/api/users/transactions/createNewTransaction"
 import { AmountInput } from "@/components/ui/amount-input";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { DialogFooter } from "@/components/ui/dialog";
 import { Field, FieldError, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,7 +11,6 @@ import useUserPreferences from "@/hooks/users/useUserPreferences";
 import useBalanceStore from "@/store/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle } from "lucide-react";
-import { useState } from "react";
 import { Controller, FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Transaction } from "./IncomeForm";
@@ -28,8 +18,7 @@ import ExpenseSelect from "./Selectors/ExpenseSelector";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
-export function ExpenseForm() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+export function ExpenseForm({ onClose }: { onClose: () => void }) {
   const methods = useForm<Transaction>();
   const queryClient = useQueryClient();
   const { data } = useUserPreferences();
@@ -59,6 +48,7 @@ export function ExpenseForm() {
         queryKey: ["balance"],
       });
       useBalanceStore.getState().markUpdated(false);
+      onClose();
       queryClient.invalidateQueries({
         queryKey: ["totalIncomeQuery"],
       });
@@ -93,137 +83,113 @@ export function ExpenseForm() {
     });
     reset();
 
-    setIsOpen(false);
+    onClose();
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger
-        asChild
-        autoFocus={isOpen}
-        onClick={(e) => {
-          e.currentTarget.blur();
-        }}
-      >
-        <Button className="bg-[#d62828] text-white hover:bg-[#d62828]/80 dark:bg-[#d62828]/75 dark:hover:bg-[#d62828]/85 dark:text-white rounded-2xl text-lg h-10.5">
-          + Add Expense
-        </Button>
-      </DialogTrigger>
-      <DialogContent
-        onInteractOutside={() => {}}
-        onOpenAutoFocus={(e) => e.preventDefault()}
-        onCloseAutoFocus={(e) => e.preventDefault()}
-        className="sm:max-w-sm bg-white dark:bg-dark-elevated pointer-events-auto"
-      >
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <DialogHeader>
-              <DialogTitle>Add Expense</DialogTitle>
-            </DialogHeader>
-            <DialogDescription className="sr-only"></DialogDescription>
-            <FieldGroup className="my-8">
-              <div className="flex gap-4">
-                <div className="flex-1">
-                  <input
-                    type="hidden"
-                    {...register("categoryId", {
-                      required: "Please select an expense category",
-                    })}
-                  />
-                  <Field>
-                    <Label htmlFor="source">Category</Label>
-                    <ExpenseSelect />
-                    <FieldError className="text-red-500" errors={[errors.categoryId]} />
-                  </Field>
-                </div>
-                <div>
-                  <Label>Recurred</Label>
-                  <div className="mt-1.5 h-12 flex items-center justify-center">
-                    <Controller
-                      name="isRecurring"
-                      control={methods.control}
-                      defaultValue={false}
-                      render={({ field }) => (
-                        <Switch
-                          id="isRecurring"
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      )}
-                    />
-                  </div>
-                </div>
-              </div>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FieldGroup className="my-8">
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <input
+                type="hidden"
+                {...register("categoryId", {
+                  required: "Please select an expense category",
+                })}
+              />
               <Field>
-                <Label htmlFor="amount">Amount</Label>
+                <Label htmlFor="source">Category</Label>
+                <ExpenseSelect />
+                <FieldError className="text-red-500" errors={[errors.categoryId]} />
+              </Field>
+            </div>
+            <div>
+              <Label>Recurred</Label>
+              <div className="mt-1.5 h-12 flex items-center justify-center">
                 <Controller
-                  name="amount"
+                  name="isRecurring"
                   control={methods.control}
-                  rules={{
-                    required: "Amount is required",
-                    min: { value: 0.01, message: "Amount must be greater than 0" },
-                    validate: (v) => (v !== undefined && v > 0) || "Amount must be greater than 0",
-                  }}
+                  defaultValue={false}
                   render={({ field }) => (
-                    <AmountInput
-                      id="amount"
-                      value={field.value}
-                      onChange={(val) => field.onChange(val ?? 0)}
-                      onBlur={field.onBlur}
-                      currency={data?.preferences?.currency}
+                    <Switch
+                      id="isRecurring"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
                     />
                   )}
                 />
-                <FieldError className="text-red-500" errors={[errors.amount]} />
-              </Field>
-              <Field>
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="desc">{"Description (optional)"}</Label>
-                  <p
-                    className={cn(
-                      "text-sm",
-                      descValue && descValue.length === 50 ? "text-red-500" : "",
-                    )}
-                  >
-                    {descValue?.length}/25
-                  </p>
-                </div>
-                <Input
-                  id="desc"
-                  type="text"
-                  maxLength={25}
-                  {...register("description", {
-                    maxLength: {
-                      value: 25,
-                      message: "Max length is 25 characters",
-                    },
-                  })}
+              </div>
+            </div>
+          </div>
+          <Field>
+            <Label htmlFor="amount">Amount</Label>
+            <Controller
+              name="amount"
+              control={methods.control}
+              rules={{
+                required: "Amount is required",
+                min: { value: 0.01, message: "Amount must be greater than 0" },
+                validate: (v) => (v !== undefined && v > 0) || "Amount must be greater than 0",
+              }}
+              render={({ field }) => (
+                <AmountInput
+                  id="amount"
+                  value={field.value}
+                  onChange={(val) => field.onChange(val ?? 0)}
+                  onBlur={field.onBlur}
+                  currency={data?.preferences?.currency}
                 />
-              </Field>
-              <Field>
-                <Label htmlFor="date">Date</Label>
-                <DatePicker />
-              </Field>
-            </FieldGroup>
-            <DialogFooter className="flex flex-row items-center justify-end gap-x-3.5">
-              <DialogClose asChild>
-                <Button
-                  variant="outline"
-                  className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
-                >
-                  Cancel
-                </Button>
-              </DialogClose>
-              <Button
-                type="submit"
-                className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
+              )}
+            />
+            <FieldError className="text-red-500" errors={[errors.amount]} />
+          </Field>
+          <Field>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="desc">{"Description (optional)"}</Label>
+              <p
+                className={cn(
+                  "text-sm",
+                  descValue && descValue.length === 50 ? "text-red-500" : "",
+                )}
               >
-                {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Expense"}
-              </Button>
-            </DialogFooter>
-          </form>
-        </FormProvider>
-      </DialogContent>
-    </Dialog>
+                {descValue?.length}/25
+              </p>
+            </div>
+            <Input
+              id="desc"
+              type="text"
+              maxLength={25}
+              {...register("description", {
+                maxLength: {
+                  value: 25,
+                  message: "Max length is 25 characters",
+                },
+              })}
+            />
+          </Field>
+          <Field>
+            <Label htmlFor="date">Date</Label>
+            <DatePicker />
+          </Field>
+        </FieldGroup>
+        <DialogFooter className="flex flex-row items-center justify-end gap-x-3.5">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onClose}
+            className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
+          >
+            {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Expense"}
+          </Button>
+        </DialogFooter>
+      </form>
+    </FormProvider>
   );
 }

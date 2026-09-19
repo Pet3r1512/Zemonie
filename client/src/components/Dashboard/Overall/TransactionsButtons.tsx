@@ -1,11 +1,9 @@
-import { ExpenseForm } from "./Forms/ExpenseForm";
-import { IncomeForm } from "./Forms/IncomeForm";
+import NewTransactionForm from "./Forms/NewTransactionForm";
 
 export default function TransactionButtons() {
   return (
     <div className="flex items-center gap-x-5 lg:justify-end">
-      <IncomeForm />
-      <ExpenseForm />
+      <NewTransactionForm />
     </div>
   );
 }
