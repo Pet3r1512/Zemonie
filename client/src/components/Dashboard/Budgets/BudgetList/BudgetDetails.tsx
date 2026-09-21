@@ -5,13 +5,14 @@ import { AnimatePresence, LazyMotion, m } from "motion/react";
 import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Repeat } from "lucide-react";
+import { Pencil, Repeat } from "lucide-react";
 import { BudgetDuration, BudgetResponseType } from "./types";
 import { CurrentCategory } from "@/components/ui/aceternity/ExpandableCard";
 import categoryColorDictionary from "@/types/CategoryDict";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
+import { Button } from "@/components/ui/button";
 
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
@@ -163,6 +164,12 @@ export function BudgetDetails({
                 </div>
               </div>
             </m.div>
+            <div className="flex items-center justify-end gap-x-2 p-6 mt-auto">
+              <Button size="sm" className="bg-primary/85 text-white hover:bg-primary">
+                <Pencil className="size-4" />
+                Edit
+              </Button>
+            </div>
           </m.section>
         )}
       </AnimatePresence>
