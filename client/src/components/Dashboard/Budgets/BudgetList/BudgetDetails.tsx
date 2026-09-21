@@ -14,7 +14,7 @@ import useUserPreferences from "@/hooks/users/useUserPreferences";
 import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
 import { Button } from "@/components/ui/button";
 import { AmountInput } from "@/components/ui/amount-input";
-import { DialogHeader, DialogFooter, Dialog } from "@/components/ui/dialog";
+import { DialogHeader, Dialog } from "@/components/ui/dialog";
 import {
   FieldGroup,
   Field,
@@ -24,7 +24,7 @@ import {
   FieldDescription,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { DialogTitle, DialogDescription, DialogClose } from "@radix-ui/react-dialog";
+import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
 import { Switch } from "@radix-ui/react-switch";
 import { FormProvider, Controller, useForm, SubmitHandler } from "react-hook-form";
 import ExpenseSelect from "../../Overall/Forms/Selectors/ExpenseSelector";
@@ -181,11 +181,11 @@ export function BudgetDetails({
               <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Dialog>
-                    <DialogHeader>
+                    <DialogHeader className="px-6 pt-6">
                       <DialogTitle>Add budget</DialogTitle>
                     </DialogHeader>
                     <DialogDescription className="sr-only"></DialogDescription>
-                    <FieldGroup className="my-8">
+                    <FieldGroup className="my-8 p-6 w-2xl">
                       <Field>
                         <FieldLabel htmlFor="source">Category</FieldLabel>
                         <ExpenseSelect disabled={disabledCategories} />
