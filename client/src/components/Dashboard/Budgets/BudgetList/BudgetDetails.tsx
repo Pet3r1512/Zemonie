@@ -14,7 +14,7 @@ import useUserPreferences from "@/hooks/users/useUserPreferences";
 import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
 import { Button } from "@/components/ui/button";
 import { AmountInput } from "@/components/ui/amount-input";
-import { DialogHeader, DialogFooter } from "@/components/ui/dialog";
+import { DialogHeader, DialogFooter, Dialog } from "@/components/ui/dialog";
 import {
   FieldGroup,
   Field,
@@ -26,14 +26,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { DialogTitle, DialogDescription, DialogClose } from "@radix-ui/react-dialog";
 import { Switch } from "@radix-ui/react-switch";
-import { FormProvider, Controller, useForm } from "react-hook-form";
-import { Label } from "recharts";
+import { FormProvider, Controller, useForm, SubmitHandler } from "react-hook-form";
 import ExpenseSelect from "../../Overall/Forms/Selectors/ExpenseSelector";
-import { BudgetFormData } from "../BudgetForm";
-import { useMutation } from "@tanstack/react-query";
+import { getMonthDateRange } from "../BudgetForm";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import updateBudget from "@/api/dashboard/budget/updateBudget";
+import getCreatedBudgetCategory from "@/helpers/getCreatedBudgetCategory";
 
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
+
+interface UpdateBudget {
+  id: string;
+  categoryId: string;
+  budgetName: string;
+  amount: number;
+  isRecurring: boolean;
+}
 
 const durationDict: Record<BudgetDuration, string> = {
   [BudgetDuration.WEEK_1]: "1 Week",
@@ -55,9 +63,19 @@ export function BudgetDetails({
   const [editMode, setEditMode] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
+  const queryClient = useQueryClient();
+  const { data: userPreferences } = useUserPreferences();
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
+  const monthRange = useMemo(() => getMonthDateRange(), []);
+  const disabledCategories = useMemo(
+    () =>
+      getCreatedBudgetCategory({
+        budgets: queryClient.getQueryData<any>(["budgets"])?.budgets?.budgets ?? [],
+      }),
+    [queryClient],
+  );
 
-  const methods = useForm<BudgetFormData>();
+  const methods = useForm<UpdateBudget>();
   const {
     register,
     handleSubmit,
@@ -113,11 +131,14 @@ export function BudgetDetails({
   useEffect(() => {
     if (editMode) {
       reset({
-        categoryId:
+        id: budget.id,
+        categoryId: String(
           budget.categoryId ??
-          (currCategory?.type.toString() === "INCOME" || currCategory?.type === CategoryType.INCOME
-            ? 1
-            : 8),
+            (currCategory?.type.toString() === "INCOME" ||
+            currCategory?.type === CategoryType.INCOME
+              ? 1
+              : 8),
+        ),
         budgetName: budget.name,
         amount: budget.amount,
         isRecurring: budget.isRecurring,
@@ -127,6 +148,10 @@ export function BudgetDetails({
   }, [editMode]);
 
   useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => setActive(false));
+
+  const onSubmit: SubmitHandler<UpdateBudget> = async (credentails) => {
+    updateBudgetMutation.mutate({ credentails });
+  };
 
   return (
     <LazyMotion features={loadFeatures}>
@@ -155,97 +180,83 @@ export function BudgetDetails({
             {editMode ? (
               <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <DialogHeader>
-                    <DialogTitle>Add budget</DialogTitle>
-                  </DialogHeader>
-                  <DialogDescription className="sr-only"></DialogDescription>
-                  <FieldGroup className="my-8">
-                    <Field>
-                      <Label htmlFor="source">Category</Label>
-                      <ExpenseSelect disabled={disabledCategories} />
-                      <FieldError className="text-red-500" errors={[errors.categoryId]} />
-                    </Field>
-                    <Field className="mb-2">
-                      <Label htmlFor="desc">{"Budget name (optional)"}</Label>
-                      <Input
-                        id="desc"
-                        type="text"
-                        placeholder="e.g. Shopping"
-                        {...register("budgetName", {
-                          maxLength: {
-                            value: 50,
-                            message: "Max length is 50 characters",
-                          },
-                        })}
-                      />
-                    </Field>
-                    <Field>
-                      <Label htmlFor="amount">Max Spend</Label>
-                      <Controller
-                        name="amount"
-                        control={methods.control}
-                        rules={{
-                          required: "Amount is required",
-                          min: { value: 0.01, message: "Amount must be greater than 0" },
-                          validate: (v) =>
-                            (v !== undefined && v > 0) || "Amount must be greater than 0",
-                        }}
-                        render={({ field }) => (
-                          <AmountInput
-                            id="amount"
-                            value={field.value}
-                            onChange={(val) => field.onChange(val ?? 0)}
-                            onBlur={field.onBlur}
-                            currency={userPreferences?.preferences?.currency}
-                            placeholder={"500"}
-                          />
-                        )}
-                      />
-                      <FieldError className="text-red-500" errors={[errors.amount]} />
-                    </Field>
-                    <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
-                      This budget runs for the current calendar month — {monthRange}
-                    </div>
-                    <Field
-                      orientation="horizontal"
-                      className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
-                    >
-                      <FieldContent>
-                        <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>
-                        <FieldDescription>
-                          Automatically creates next month&apos;s budget
-                        </FieldDescription>
-                      </FieldContent>
-                      <Controller
-                        name="isRecurring"
-                        control={methods.control}
-                        defaultValue={false}
-                        render={({ field }) => (
-                          <Switch
-                            id="isRecurring"
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                        )}
-                      />
-                    </Field>
-                  </FieldGroup>
-                  <DialogFooter className="flex flex-row justify-end items-center gap-x-2">
-                    <DialogClose asChild>
-                      <Button
-                        variant="outline"
-                        className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                  <Dialog>
+                    <DialogHeader>
+                      <DialogTitle>Add budget</DialogTitle>
+                    </DialogHeader>
+                    <DialogDescription className="sr-only"></DialogDescription>
+                    <FieldGroup className="my-8">
+                      <Field>
+                        <FieldLabel htmlFor="source">Category</FieldLabel>
+                        <ExpenseSelect disabled={disabledCategories} />
+                        <FieldError className="text-red-500" errors={[errors.categoryId]} />
+                      </Field>
+                      <Field className="mb-2">
+                        <FieldLabel htmlFor="desc">{"Budget name (optional)"}</FieldLabel>
+                        <Input
+                          id="desc"
+                          type="text"
+                          placeholder="e.g. Shopping"
+                          {...register("budgetName", {
+                            maxLength: {
+                              value: 50,
+                              message: "Max length is 50 characters",
+                            },
+                          })}
+                        />
+                      </Field>
+                      <Field>
+                        <FieldLabel htmlFor="amount">Max Spend</FieldLabel>
+                        <Controller
+                          name="amount"
+                          control={methods.control}
+                          rules={{
+                            required: "Amount is required",
+                            min: { value: 0.01, message: "Amount must be greater than 0" },
+                            validate: (v) =>
+                              (v !== undefined && v > 0) || "Amount must be greater than 0",
+                          }}
+                          render={({ field }) => (
+                            <AmountInput
+                              id="amount"
+                              value={field.value}
+                              onChange={(val) => field.onChange(val ?? 0)}
+                              onBlur={field.onBlur}
+                              currency={userPreferences?.preferences?.currency}
+                              placeholder={"500"}
+                            />
+                          )}
+                        />
+                        <FieldError className="text-red-500" errors={[errors.amount]} />
+                      </Field>
+                      <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
+                        This budget runs for the current calendar month — {monthRange}
+                      </div>
+                      <Field
+                        orientation="horizontal"
+                        className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
                       >
-                        Cancel
-                      </Button>
-                    </DialogClose>
-                    <Button
-                      type="submit"
-                      className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
-                    >
-                      Create
-                    </Button>
-                  </DialogFooter>
+                        <FieldContent>
+                          <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>
+                          <FieldDescription>
+                            Automatically creates next month&apos;s budget
+                          </FieldDescription>
+                        </FieldContent>
+                        <Controller
+                          name="isRecurring"
+                          control={methods.control}
+                          defaultValue={false}
+                          render={({ field }) => (
+                            <Switch
+                              id="isRecurring"
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          )}
+                        />
+                      </Field>
+                    </FieldGroup>
+                  </Dialog>
                 </form>
               </FormProvider>
             ) : (
@@ -325,12 +336,14 @@ export function BudgetDetails({
                     className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
                     onClick={() => {
                       reset({
-                        categoryId:
+                        id: budget.id,
+                        categoryId: String(
                           budget.categoryId ??
-                          (currCategory?.type.toString() === "INCOME" ||
-                          currCategory?.type === CategoryType.INCOME
-                            ? 1
-                            : 8),
+                            (currCategory?.type.toString() === "INCOME" ||
+                            currCategory?.type === CategoryType.INCOME
+                              ? 1
+                              : 8),
+                        ),
                         budgetName: budget.name,
                         amount: budget.amount,
                         isRecurring: budget.isRecurring,
