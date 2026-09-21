@@ -40,7 +40,7 @@ export type BudgetFormData = {
 
 const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
 
-function getMonthDateRange() {
+export function getMonthDateRange() {
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();
