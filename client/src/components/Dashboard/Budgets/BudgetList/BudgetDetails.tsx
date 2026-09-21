@@ -13,6 +13,7 @@ import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
 
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
@@ -43,6 +44,13 @@ export function BudgetDetails({
     return data ? JSON.parse(data) : [];
   }, []);
 
+  const updateBudgetMutation = useMutation({
+    mutationKey: ["updatedBudget"],
+    mutationFn: updateBudget,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
   const currCategory: CurrentCategory | undefined = globalCategories.find(
     (c) => c.id === budget.categoryId,
   );
