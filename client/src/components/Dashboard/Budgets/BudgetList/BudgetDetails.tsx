@@ -5,7 +5,7 @@ import { AnimatePresence, LazyMotion, m } from "motion/react";
 import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Pencil, Repeat } from "lucide-react";
+import { CheckCheck, Pencil, Repeat } from "lucide-react";
 import { BudgetDuration, BudgetResponseType } from "./types";
 import { CurrentCategory } from "@/components/ui/aceternity/ExpandableCard";
 import categoryColorDictionary from "@/types/CategoryDict";
@@ -33,6 +33,7 @@ export function BudgetDetails({
   children: React.ReactNode;
 }) {
   const [active, setActive] = useState(false);
+  const [editMode, setEditMode] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
@@ -165,10 +166,39 @@ export function BudgetDetails({
               </div>
             </m.div>
             <div className="flex items-center justify-end gap-x-2 p-6 mt-auto">
-              <Button size="sm" className="bg-primary/85 text-white hover:bg-primary">
-                <Pencil className="size-4" />
-                Edit
-              </Button>
+              {editMode ? (
+                <>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                    onClick={() => {
+                      setEditMode(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+
+                  <Button
+                    size="sm"
+                    type="submit"
+                    form={`transaction-form-${budget.id}`}
+                    className="bg-green-500 text-white hover:bg-green-500/80 dark:bg-green-500/80 dark:hover:bg-green-500 dark:text-white"
+                  >
+                    <CheckCheck className="size-4" />
+                    Save Changes
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  size="sm"
+                  onClick={() => setEditMode(true)}
+                  className="bg-primary/85 text-white hover:bg-primary"
+                >
+                  <Pencil className="size-4" />
+                  Edit
+                </Button>
+              )}
             </div>
           </m.section>
         )}
