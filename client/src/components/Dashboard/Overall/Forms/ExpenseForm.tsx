@@ -68,7 +68,7 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
         queryKey: ["last7DaysExpenses"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["budget"],
+        queryKey: ["budgets"],
       });
     },
   });

@@ -2,6 +2,7 @@ import z from "zod";
 import { authenticatedProcedure, router } from "./tRPC";
 import prisma from "@/lib/prisma";
 import { readAmount, writeAmount } from "@/lib/crypto";
+import { TRPCError } from "@trpc/server";
 
 export const budgetRouter = router({
   createBudget: authenticatedProcedure
@@ -89,4 +90,68 @@ export const budgetRouter = router({
 
     return { budgets: result };
   }),
+  updateBudget: authenticatedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        categoryId: z.number().optional(),
+        budgetName: z.string().optional(),
+        amount: z.number(),
+        isRecurring: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.userId;
+      const { id, categoryId, budgetName, amount, isRecurring } = input;
+
+      const currBudget = await prisma.budget.findUnique({
+        where: {
+          id,
+          userId,
+        },
+        include: {
+          category: {
+            select: { type: true },
+          },
+        },
+      });
+
+      if (!currBudget) throw new TRPCError({ code: "NOT_FOUND" });
+
+      const updatedBudget = await prisma.budget.update({
+        where: {
+          id,
+        },
+        data: {
+          categoryId,
+          name: budgetName,
+          amount: await writeAmount(amount),
+          isRecurring,
+        },
+      });
+
+      if (isRecurring && !currBudget.isRecurring) {
+        const existingPending = await prisma.pendingBudget.findFirst({
+          where: { budgetId: id, status: "PENDING" },
+        });
+
+        if (!existingPending) {
+          const now = new Date();
+          const scheduledAt = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0, 0);
+          await prisma.pendingBudget.create({
+            data: {
+              userId,
+              budgetId: id,
+              scheduledAt,
+            },
+          });
+        }
+      } else if (!isRecurring && currBudget.isRecurring) {
+        await prisma.pendingBudget.deleteMany({
+          where: { budgetId: id, status: "PENDING" },
+        });
+      }
+
+      return { updatedBudget };
+    }),
 });

@@ -26,7 +26,7 @@ import { Label } from "../label";
 
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
-enum CategoryType {
+export enum CategoryType {
   EXPENSE,
   INCOME,
 }
