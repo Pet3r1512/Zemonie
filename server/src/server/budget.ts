@@ -130,6 +130,28 @@ export const budgetRouter = router({
         },
       });
 
+      if (isRecurring && !currBudget.isRecurring) {
+        const existingPending = await prisma.pendingBudget.findFirst({
+          where: { budgetId: id, status: "PENDING" },
+        });
+
+        if (!existingPending) {
+          const now = new Date();
+          const scheduledAt = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0, 0);
+          await prisma.pendingBudget.create({
+            data: {
+              userId,
+              budgetId: id,
+              scheduledAt,
+            },
+          });
+        }
+      } else if (!isRecurring && currBudget.isRecurring) {
+        await prisma.pendingBudget.deleteMany({
+          where: { budgetId: id, status: "PENDING" },
+        });
+      }
+
       return { updatedBudget };
     }),
 });
