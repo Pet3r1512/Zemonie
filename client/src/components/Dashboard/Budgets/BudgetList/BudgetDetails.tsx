@@ -65,9 +65,7 @@ export function BudgetDetails({
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
   const queryClient = useQueryClient();
-  const { data: userPreferences } = useUserPreferences();
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
-  const monthRange = useMemo(() => getMonthDateRange(), []);
   const disabledCategories = useMemo(
     () =>
       getCreatedBudgetCategory({
@@ -75,14 +73,6 @@ export function BudgetDetails({
       }).filter((categoryId) => categoryId !== budget.categoryId),
     [queryClient, budget.categoryId],
   );
-
-  const methods = useForm<UpdateBudget>();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = methods;
 
   const globalCategories: CurrentCategory[] = useMemo(() => {
     const data = typeof window !== "undefined" ? sessionStorage.getItem("globalCategories") : null;
@@ -136,24 +126,11 @@ export function BudgetDetails({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
-  useEffect(() => {
-    if (editMode) {
-      reset({
-        id: budget.id,
-        categoryId: budget.categoryId ?? 8,
-        budgetName: budget.name,
-        amount: budget.amount,
-        isRecurring: budget.isRecurring,
-      });
-    }
-    // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [editMode]);
-
   useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => setActive(false), [
     "[data-radix-select-viewport]",
   ]);
 
-  const onSubmit: SubmitHandler<UpdateBudget> = async (credentials) => {
+  const handleSave: SubmitHandler<UpdateBudget> = (credentials) => {
     updateBudgetMutation.mutate({ credentials });
   };
 
@@ -182,91 +159,11 @@ export function BudgetDetails({
             className="fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:max-w-150 lg:min-w-150 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden will-change-transform"
           >
             {editMode ? (
-              <FormProvider {...methods}>
-                <form id={`budget-form-${budget.id}`} onSubmit={handleSubmit(onSubmit)}>
-                  <Dialog>
-                    <DialogHeader className="px-6 pt-6">
-                      <DialogTitle>Edit budget</DialogTitle>
-                    </DialogHeader>
-                    <DialogDescription className="sr-only"></DialogDescription>
-                    <FieldGroup className="my-8 p-6 w-2xl">
-                      <Field>
-                        <FieldLabel htmlFor="source">Category</FieldLabel>
-                        <ExpenseSelect
-                          value={methods.watch("categoryId")?.toString()}
-                          disabled={disabledCategories}
-                          contentClassName="z-[110]"
-                        />
-                        <FieldError className="text-red-500" errors={[errors.categoryId]} />
-                      </Field>
-                      <Field className="mb-2">
-                        <FieldLabel htmlFor="desc">{"Budget name (optional)"}</FieldLabel>
-                        <Input
-                          id="desc"
-                          type="text"
-                          placeholder="e.g. Shopping"
-                          {...register("budgetName", {
-                            maxLength: {
-                              value: 50,
-                              message: "Max length is 50 characters",
-                            },
-                          })}
-                        />
-                      </Field>
-                      <Field>
-                        <FieldLabel htmlFor="amount">Max Spend</FieldLabel>
-                        <Controller
-                          name="amount"
-                          control={methods.control}
-                          rules={{
-                            required: "Amount is required",
-                            min: { value: 0.01, message: "Amount must be greater than 0" },
-                            validate: (v) =>
-                              (v !== undefined && v > 0) || "Amount must be greater than 0",
-                          }}
-                          render={({ field }) => (
-                            <AmountInput
-                              id="amount"
-                              value={field.value}
-                              onChange={(val) => field.onChange(val ?? 0)}
-                              onBlur={field.onBlur}
-                              currency={userPreferences?.preferences?.currency}
-                              placeholder={"500"}
-                            />
-                          )}
-                        />
-                        <FieldError className="text-red-500" errors={[errors.amount]} />
-                      </Field>
-                      <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
-                        This budget runs for the current calendar month — {monthRange}
-                      </div>
-                      <Field
-                        orientation="horizontal"
-                        className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
-                      >
-                        <FieldContent>
-                          <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>
-                          <FieldDescription>
-                            Automatically creates next month&apos;s budget
-                          </FieldDescription>
-                        </FieldContent>
-                        <Controller
-                          name="isRecurring"
-                          control={methods.control}
-                          defaultValue={false}
-                          render={({ field }) => (
-                            <Switch
-                              id="isRecurring"
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          )}
-                        />
-                      </Field>
-                    </FieldGroup>
-                  </Dialog>
-                </form>
-              </FormProvider>
+              <BudgetEditForm
+                budget={budget}
+                disabledCategories={disabledCategories}
+                onSave={handleSave}
+              />
             ) : (
               <m.div className="p-6 space-y-5 w-full! overflow-y-auto">
                 <div className="flex items-start justify-between gap-x-4">
@@ -342,16 +239,7 @@ export function BudgetDetails({
                     size="sm"
                     variant="outline"
                     className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
-                    onClick={() => {
-                      reset({
-                        id: budget.id,
-                        categoryId: budget.categoryId ?? 8,
-                        budgetName: budget.name,
-                        amount: budget.amount,
-                        isRecurring: budget.isRecurring,
-                      });
-                      setEditMode(false);
-                    }}
+                    onClick={() => setEditMode(false)}
                   >
                     Cancel
                   </Button>
@@ -385,10 +273,119 @@ export function BudgetDetails({
         layoutId={`card-${budget.id}-${id}`}
         onClick={() => setActive(true)}
         className="cursor-pointer will-change-transform"
+        style={{ visibility: active ? "hidden" : "visible" }}
       >
         {children}
       </m.div>
     </LazyMotion>
+  );
+}
+
+function BudgetEditForm({
+  budget,
+  disabledCategories,
+  onSave,
+}: {
+  budget: BudgetResponseType;
+  disabledCategories: number[];
+  onSave: SubmitHandler<UpdateBudget>;
+}) {
+  const { data: userPreferences } = useUserPreferences();
+  const monthRange = useMemo(() => getMonthDateRange(), []);
+  const methods = useForm<UpdateBudget>({
+    defaultValues: {
+      id: budget.id,
+      categoryId: budget.categoryId ?? 8,
+      budgetName: budget.name,
+      amount: budget.amount,
+      isRecurring: budget.isRecurring,
+    },
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
+  return (
+    <FormProvider {...methods}>
+      <form id={`budget-form-${budget.id}`} onSubmit={handleSubmit(onSave)}>
+        <Dialog>
+          <DialogHeader className="px-6 pt-6">
+            <DialogTitle>Edit budget</DialogTitle>
+          </DialogHeader>
+          <DialogDescription className="sr-only"></DialogDescription>
+          <FieldGroup className="my-8 p-6 w-2xl">
+            <Field>
+              <FieldLabel htmlFor="source">Category</FieldLabel>
+              <ExpenseSelect
+                value={methods.watch("categoryId")?.toString()}
+                disabled={disabledCategories}
+                contentClassName="z-[110]"
+              />
+              <FieldError className="text-red-500" errors={[errors.categoryId]} />
+            </Field>
+            <Field className="mb-2">
+              <FieldLabel htmlFor="desc">{"Budget name (optional)"}</FieldLabel>
+              <Input
+                id="desc"
+                type="text"
+                placeholder="e.g. Shopping"
+                {...register("budgetName", {
+                  maxLength: {
+                    value: 50,
+                    message: "Max length is 50 characters",
+                  },
+                })}
+              />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="amount">Max Spend</FieldLabel>
+              <Controller
+                name="amount"
+                control={methods.control}
+                rules={{
+                  required: "Amount is required",
+                  min: { value: 0.01, message: "Amount must be greater than 0" },
+                  validate: (v) => (v !== undefined && v > 0) || "Amount must be greater than 0",
+                }}
+                render={({ field }) => (
+                  <AmountInput
+                    id="amount"
+                    value={field.value}
+                    onChange={(val) => field.onChange(val ?? 0)}
+                    onBlur={field.onBlur}
+                    currency={userPreferences?.preferences?.currency}
+                    placeholder={"500"}
+                  />
+                )}
+              />
+              <FieldError className="text-red-500" errors={[errors.amount]} />
+            </Field>
+            <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
+              This budget runs for the current calendar month — {monthRange}
+            </div>
+            <Field
+              orientation="horizontal"
+              className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
+            >
+              <FieldContent>
+                <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>
+                <FieldDescription>Automatically creates next month&apos;s budget</FieldDescription>
+              </FieldContent>
+              <Controller
+                name="isRecurring"
+                control={methods.control}
+                defaultValue={false}
+                render={({ field }) => (
+                  <Switch id="isRecurring" checked={field.value} onCheckedChange={field.onChange} />
+                )}
+              />
+            </Field>
+          </FieldGroup>
+        </Dialog>
+      </form>
+    </FormProvider>
   );
 }
 
