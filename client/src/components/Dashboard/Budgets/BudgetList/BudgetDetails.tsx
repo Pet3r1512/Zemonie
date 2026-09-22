@@ -28,11 +28,11 @@ import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
 import { Switch } from "@/components/ui/switch";
 import { FormProvider, Controller, useForm, SubmitHandler } from "react-hook-form";
 import ExpenseSelect from "../../Overall/Forms/Selectors/ExpenseSelector";
-import { getMonthDateRange } from "../BudgetForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import updateBudget from "@/api/dashboard/budget/updateBudget";
 import getCreatedBudgetCategory from "@/helpers/getCreatedBudgetCategory";
 import { toast } from "sonner";
+import { getMonthDateRange } from "@/helpers/getCurrentMonthRange";
 
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
