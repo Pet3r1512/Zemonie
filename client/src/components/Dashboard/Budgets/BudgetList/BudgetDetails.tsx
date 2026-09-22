@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { CheckCheck, Pencil, Repeat } from "lucide-react";
 import { BudgetDuration, BudgetResponseType } from "./types";
-import { CategoryType, CurrentCategory } from "@/components/ui/aceternity/ExpandableCard";
+import { CurrentCategory } from "@/components/ui/aceternity/ExpandableCard";
 import categoryColorDictionary from "@/types/CategoryDict";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
@@ -25,20 +25,21 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { DialogTitle, DialogDescription } from "@radix-ui/react-dialog";
-import { Switch } from "@radix-ui/react-switch";
+import { Switch } from "@/components/ui/switch";
 import { FormProvider, Controller, useForm, SubmitHandler } from "react-hook-form";
 import ExpenseSelect from "../../Overall/Forms/Selectors/ExpenseSelector";
 import { getMonthDateRange } from "../BudgetForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import updateBudget from "@/api/dashboard/budget/updateBudget";
 import getCreatedBudgetCategory from "@/helpers/getCreatedBudgetCategory";
+import { toast } from "sonner";
 
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
 interface UpdateBudget {
   id: string;
-  categoryId: string;
-  budgetName: string;
+  categoryId: number;
+  budgetName?: string;
   amount: number;
   isRecurring: boolean;
 }
@@ -71,8 +72,8 @@ export function BudgetDetails({
     () =>
       getCreatedBudgetCategory({
         budgets: queryClient.getQueryData<any>(["budgets"])?.budgets?.budgets ?? [],
-      }),
-    [queryClient],
+      }).filter((categoryId) => categoryId !== budget.categoryId),
+    [queryClient, budget.categoryId],
   );
 
   const methods = useForm<UpdateBudget>();
@@ -90,9 +91,16 @@ export function BudgetDetails({
 
   const updateBudgetMutation = useMutation({
     mutationKey: ["updatedBudget"],
-    mutationFn: updateBudget,
-    onSuccess: (data) => {
-      console.log(data);
+    mutationFn: (credentials) => updateBudget({ credentials }),
+    onSuccess: () => {
+      toast.success("Budget updated");
+      queryClient.invalidateQueries({
+        queryKey: ["budgets"],
+      });
+      setEditMode(false);
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
@@ -132,13 +140,7 @@ export function BudgetDetails({
     if (editMode) {
       reset({
         id: budget.id,
-        categoryId: String(
-          budget.categoryId ??
-            (currCategory?.type.toString() === "INCOME" ||
-            currCategory?.type === CategoryType.INCOME
-              ? 1
-              : 8),
-        ),
+        categoryId: budget.categoryId ?? 8,
         budgetName: budget.name,
         amount: budget.amount,
         isRecurring: budget.isRecurring,
@@ -149,8 +151,8 @@ export function BudgetDetails({
 
   useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => setActive(false));
 
-  const onSubmit: SubmitHandler<UpdateBudget> = async (credentails) => {
-    updateBudgetMutation.mutate({ credentails });
+  const onSubmit: SubmitHandler<UpdateBudget> = async (credentials) => {
+    updateBudgetMutation.mutate({ credentials });
   };
 
   return (
@@ -179,16 +181,20 @@ export function BudgetDetails({
           >
             {editMode ? (
               <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form id={`budget-form-${budget.id}`} onSubmit={handleSubmit(onSubmit)}>
                   <Dialog>
                     <DialogHeader className="px-6 pt-6">
-                      <DialogTitle>Add budget</DialogTitle>
+                      <DialogTitle>Edit budget</DialogTitle>
                     </DialogHeader>
                     <DialogDescription className="sr-only"></DialogDescription>
                     <FieldGroup className="my-8 p-6 w-2xl">
                       <Field>
                         <FieldLabel htmlFor="source">Category</FieldLabel>
-                        <ExpenseSelect disabled={disabledCategories} />
+                        <ExpenseSelect
+                          value={methods.watch("categoryId")?.toString()}
+                          disabled={disabledCategories}
+                          contentClassName="z-[110]"
+                        />
                         <FieldError className="text-red-500" errors={[errors.categoryId]} />
                       </Field>
                       <Field className="mb-2">
@@ -337,13 +343,7 @@ export function BudgetDetails({
                     onClick={() => {
                       reset({
                         id: budget.id,
-                        categoryId: String(
-                          budget.categoryId ??
-                            (currCategory?.type.toString() === "INCOME" ||
-                            currCategory?.type === CategoryType.INCOME
-                              ? 1
-                              : 8),
-                        ),
+                        categoryId: budget.categoryId ?? 8,
                         budgetName: budget.name,
                         amount: budget.amount,
                         isRecurring: budget.isRecurring,
@@ -357,7 +357,7 @@ export function BudgetDetails({
                   <Button
                     size="sm"
                     type="submit"
-                    form={`transaction-form-${budget.id}`}
+                    form={`budget-form-${budget.id}`}
                     className="bg-green-500 text-white hover:bg-green-500/80 dark:bg-green-500/80 dark:hover:bg-green-500 dark:text-white"
                   >
                     <CheckCheck className="size-4" />
