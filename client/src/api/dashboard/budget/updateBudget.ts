@@ -1,15 +1,17 @@
 import { SERVER_URL } from "@/constant/auth";
 
+export type UpdateBudgetCredentials = {
+  id: string;
+  categoryId: number;
+  budgetName?: string;
+  amount: number;
+  isRecurring: boolean;
+};
+
 export default async function updateBudget({
-  credentails,
+  credentials,
 }: {
-  credentails: {
-    id: string;
-    categoryId: string;
-    budgetName: string;
-    amount: number;
-    isRecurring: boolean;
-  };
+  credentials: UpdateBudgetCredentials;
 }) {
   const response = await fetch(`${SERVER_URL}/api/trpc/budget.updateBudget`, {
     method: "POST",
@@ -17,7 +19,7 @@ export default async function updateBudget({
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(credentails),
+    body: JSON.stringify(credentials),
   });
 
   const res = await response.json();
@@ -27,6 +29,6 @@ export default async function updateBudget({
   }
 
   return {
-    newBudget: res.result.data,
+    updatedBudget: res.result.data,
   };
 }
