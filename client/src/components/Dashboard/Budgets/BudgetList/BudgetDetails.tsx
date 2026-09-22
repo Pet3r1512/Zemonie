@@ -149,7 +149,9 @@ export function BudgetDetails({
     // oxlint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode]);
 
-  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => setActive(false));
+  useOutsideClick(ref as React.RefObject<HTMLDivElement>, () => setActive(false), [
+    "[data-radix-select-viewport]",
+  ]);
 
   const onSubmit: SubmitHandler<UpdateBudget> = async (credentials) => {
     updateBudgetMutation.mutate({ credentials });
