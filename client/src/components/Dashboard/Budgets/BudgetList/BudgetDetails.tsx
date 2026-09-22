@@ -81,7 +81,7 @@ export function BudgetDetails({
 
   const updateBudgetMutation = useMutation({
     mutationKey: ["updatedBudget"],
-    mutationFn: (credentials) => updateBudget({ credentials }),
+    mutationFn: (credentials: UpdateBudget) => updateBudget({ credentials }),
     onSuccess: () => {
       toast.success("Budget updated");
       queryClient.invalidateQueries({
@@ -131,7 +131,7 @@ export function BudgetDetails({
   ]);
 
   const handleSave: SubmitHandler<UpdateBudget> = (credentials) => {
-    updateBudgetMutation.mutate({ credentials });
+    updateBudgetMutation.mutate(credentials);
   };
 
   return (
