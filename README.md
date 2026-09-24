@@ -24,7 +24,7 @@ In future updates, we plan to introduce additional features such as group expens
 
 ## Features
 
-> Features available in Zemonie **v1.1.0** — the first official release.
+> Features available in Zemonie since **v1.1.0** — the first official release.
 
 ### Transactions
 
@@ -39,6 +39,7 @@ In future updates, we plan to introduce additional features such as group expens
 - Progress bar shows the percentage of budget used
 - Recurring budgets automatically carry over to the next month
 - Detailed budget view with spending progress and key information
+- Edit budgets and related data now recalculates automatically. (Ver 1.1.1)
 
 ### Dashboard
 
