@@ -62,6 +62,7 @@ export function BudgetDetails({
 }) {
   const [active, setActive] = useState(false);
   const [editMode, setEditMode] = useState<boolean>(false);
+  const [animating, setAnimating] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
   const queryClient = useQueryClient();
@@ -156,7 +157,11 @@ export function BudgetDetails({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:max-w-150 lg:min-w-150 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden will-change-transform"
+            onAnimationStart={() => setAnimating(true)}
+            onAnimationComplete={() => setAnimating(false)}
+            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:min-w-150 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden ${
+              animating ? "will-change-transform" : "will-change-auto"
+            }`}
           >
             {editMode ? (
               <BudgetEditForm
@@ -272,7 +277,7 @@ export function BudgetDetails({
       <m.div
         layoutId={`card-${budget.id}-${id}`}
         onClick={() => setActive(true)}
-        className="cursor-pointer will-change-transform"
+        className={`cursor-pointer ${animating ? "will-change-transform" : "will-change-auto"}`}
         style={{ visibility: active ? "hidden" : "visible" }}
       >
         {children}
