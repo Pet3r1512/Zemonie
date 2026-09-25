@@ -188,7 +188,7 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
             type="submit"
             className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
           >
-            {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Expense"}
+            {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Save Transaction"}
           </Button>
         </DialogFooter>
       </form>
