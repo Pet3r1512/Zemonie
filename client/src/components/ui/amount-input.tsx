@@ -155,7 +155,7 @@ export function AmountInput({
   return (
     <div className="relative">
       {!isSymbolSuffix && (
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400 text-sm font-medium pointer-events-none select-none">
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 dark:text-neutral-400 text-3xl font-medium pointer-events-none select-none">
           {symbol}
         </span>
       )}

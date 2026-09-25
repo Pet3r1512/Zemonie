@@ -90,6 +90,29 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup className="my-8">
+          <Field>
+            <Label htmlFor="amount">Amount</Label>
+            <Controller
+              name="amount"
+              control={methods.control}
+              rules={{
+                required: "Amount is required",
+                min: { value: 0.01, message: "Amount must be greater than 0" },
+                validate: (v) => (v !== undefined && v > 0) || "Amount must be greater than 0",
+              }}
+              render={({ field }) => (
+                <AmountInput
+                  id="amount"
+                  value={field.value}
+                  onChange={(val) => field.onChange(val ?? 0)}
+                  onBlur={field.onBlur}
+                  currency={data?.preferences?.currency}
+                  className="text-5xl! h-24! px-8"
+                />
+              )}
+            />
+            <FieldError className="text-red-500" errors={[errors.amount]} />
+          </Field>
           <div className="flex gap-4">
             <div className="flex-1">
               <input
@@ -122,28 +145,7 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
               </div>
             </div>
           </div>
-          <Field>
-            <Label htmlFor="amount">Amount</Label>
-            <Controller
-              name="amount"
-              control={methods.control}
-              rules={{
-                required: "Amount is required",
-                min: { value: 0.01, message: "Amount must be greater than 0" },
-                validate: (v) => (v !== undefined && v > 0) || "Amount must be greater than 0",
-              }}
-              render={({ field }) => (
-                <AmountInput
-                  id="amount"
-                  value={field.value}
-                  onChange={(val) => field.onChange(val ?? 0)}
-                  onBlur={field.onBlur}
-                  currency={data?.preferences?.currency}
-                />
-              )}
-            />
-            <FieldError className="text-red-500" errors={[errors.amount]} />
-          </Field>
+
           <Field>
             <div className="flex items-center justify-between">
               <Label htmlFor="desc">{"Description (optional)"}</Label>
@@ -175,18 +177,10 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
         </FieldGroup>
         <DialogFooter className="flex flex-row items-center justify-end gap-x-3.5">
           <Button
-            type="button"
-            variant="outline"
-            onClick={onClose}
-            className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
-          >
-            Cancel
-          </Button>
-          <Button
             type="submit"
-            className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
+            className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white w-full"
           >
-            {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Add New Expense"}
+            {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Save Transaction"}
           </Button>
         </DialogFooter>
       </form>
