@@ -178,16 +178,8 @@ export function IncomeForm({ onClose }: { onClose: () => void }) {
         </FieldGroup>
         <DialogFooter className="flex flex-row items-center justify-end gap-x-3.5">
           <Button
-            type="button"
-            variant="outline"
-            onClick={onClose}
-            className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
-          >
-            Cancel
-          </Button>
-          <Button
             type="submit"
-            className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
+            className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white w-full"
           >
             {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Save Transaction"}
           </Button>
