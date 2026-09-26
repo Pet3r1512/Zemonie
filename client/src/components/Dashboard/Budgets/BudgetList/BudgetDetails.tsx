@@ -5,7 +5,7 @@ import { AnimatePresence, LazyMotion, m } from "motion/react";
 import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { CheckCheck, Pencil, Repeat } from "lucide-react";
+import { CheckCheck, Pencil, Repeat, X } from "lucide-react";
 import { BudgetDuration, BudgetResponseType } from "./types";
 import { CurrentCategory } from "@/components/ui/aceternity/ExpandableCard";
 import categoryColorDictionary from "@/types/CategoryDict";
@@ -159,7 +159,7 @@ export function BudgetDetails({
             exit={{ opacity: 0 }}
             onAnimationStart={() => setAnimating(true)}
             onAnimationComplete={() => setAnimating(false)}
-            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:min-w-150 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden ${
+            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:max-w-250 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden ${
               animating ? "will-change-transform" : "will-change-auto"
             }`}
           >
@@ -243,9 +243,10 @@ export function BudgetDetails({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                    className="bg-red-500/85! text-white"
                     onClick={() => setEditMode(false)}
                   >
+                    <X />
                     Cancel
                   </Button>
 

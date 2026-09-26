@@ -13,7 +13,7 @@ import categoryColorDictionary from "@/types/CategoryDict";
 import { ComponentMap } from "@/types/ComponentMap";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
+import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag, X } from "lucide-react";
 import { AnimatePresence, LazyMotion, m, easeInOut } from "motion/react";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -168,7 +168,7 @@ export function ExpandableCard({
             transition={transition}
             onAnimationStart={() => setAnimating(true)}
             onAnimationComplete={() => setAnimating(false)}
-            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:min-w-150 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden ${
+            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:max-w-250 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden ${
               animating ? "will-change-transform" : "will-change-auto"
             }`}
           >
@@ -323,7 +323,7 @@ export function ExpandableCard({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                    className="bg-red-500/85! text-white"
                     onClick={() => {
                       reset({
                         categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
@@ -335,6 +335,7 @@ export function ExpandableCard({
                       setEditMode(false);
                     }}
                   >
+                    <X />
                     Cancel
                   </Button>
 
