@@ -13,7 +13,7 @@ import categoryColorDictionary from "@/types/CategoryDict";
 import { ComponentMap } from "@/types/ComponentMap";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag } from "lucide-react";
+import { ArrowDown, ArrowUp, CheckCheck, Pencil, Tag, X } from "lucide-react";
 import { AnimatePresence, LazyMotion, m, easeInOut } from "motion/react";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -335,6 +335,7 @@ export function ExpandableCard({
                       setEditMode(false);
                     }}
                   >
+                    <X />
                     Cancel
                   </Button>
 
