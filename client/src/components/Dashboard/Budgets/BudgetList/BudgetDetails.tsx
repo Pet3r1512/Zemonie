@@ -5,7 +5,7 @@ import { AnimatePresence, LazyMotion, m } from "motion/react";
 import { useOutsideClick } from "@/hooks/aceternity/useOutsideClick";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { CheckCheck, Pencil, Repeat } from "lucide-react";
+import { CheckCheck, Pencil, Repeat, X } from "lucide-react";
 import { BudgetDuration, BudgetResponseType } from "./types";
 import { CurrentCategory } from "@/components/ui/aceternity/ExpandableCard";
 import categoryColorDictionary from "@/types/CategoryDict";
@@ -243,9 +243,10 @@ export function BudgetDetails({
                   <Button
                     size="sm"
                     variant="outline"
-                    className="text-red-500 dark:text-red-500 dark:hover:text-red-500"
+                    className="bg-red-500/85! text-white"
                     onClick={() => setEditMode(false)}
                   >
+                    <X />
                     Cancel
                   </Button>
 
