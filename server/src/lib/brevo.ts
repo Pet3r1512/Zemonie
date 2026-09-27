@@ -1,21 +1,21 @@
 import { BrevoClient } from "@getbrevo/brevo";
 
-let _apiKey: string | undefined;
-let _brevo: BrevoClient | null = null;
+let brevoApiKey: string | undefined;
+let brevoClient: BrevoClient | null = null;
 
 export function setBrevoApiKey(apiKey: string | undefined) {
-  _apiKey = apiKey;
+  brevoApiKey = apiKey;
 }
 
 function getBrevo(): BrevoClient {
-  if (!_brevo) {
-    _brevo = new BrevoClient({
-      apiKey: _apiKey ?? "",
+  if (!brevoClient) {
+    brevoClient = new BrevoClient({
+      apiKey: brevoApiKey ?? "",
       timeoutInSeconds: 30,
       maxRetries: 3,
     });
   }
-  return _brevo;
+  return brevoClient;
 }
 
 const isProduction = process.env.NODE_ENV !== "development";

@@ -4,18 +4,18 @@ import { neonConfig } from "@neondatabase/serverless";
 
 neonConfig.poolQueryViaFetch = true;
 
-let _connectionString: string | undefined;
+let connectionStringOverride: string | undefined;
 
 export function setPrismaConnectionString(cs: string) {
-  _connectionString = cs;
+  connectionStringOverride = cs;
 }
 
-let _prisma: PrismaClient | null = null;
+let prismaClient: PrismaClient | null = null;
 
 function getPrisma(): PrismaClient {
-  if (!_prisma) {
+  if (!prismaClient) {
     const connectionString =
-      _connectionString ??
+      connectionStringOverride ??
       (process.env.NODE_ENV === "development"
         ? process.env.DEV_DATABASE_URL
         : process.env.DATABASE_URL);
@@ -23,9 +23,9 @@ function getPrisma(): PrismaClient {
       throw new Error("DATABASE_URL is not defined");
     }
     const adapter = new PrismaNeon({ connectionString });
-    _prisma = new PrismaClient({ adapter, log: ["error"] });
+    prismaClient = new PrismaClient({ adapter, log: ["error"] });
   }
-  return _prisma;
+  return prismaClient;
 }
 
 const prisma = new Proxy({} as PrismaClient, {
