@@ -1,5 +1,20 @@
 const release_official = [
   {
+    version: "v1.1.2",
+    date: "Sep 29, 2026",
+    tag: "Official",
+    changes: [
+      {
+        type: "update",
+        text: "Restructured the new transaction form by moving the amount field to the top and making it more prominent, while removing the unnecessary “Cancel” button for a simpler experience.",
+      },
+      {
+        type: "update",
+        text: "Reduced the width of transaction and budget detail popups on larger screens, such as laptops, for a cleaner layout.",
+      },
+    ],
+  },
+  {
     version: "v1.1.1",
     date: "Sep 24, 2026",
     tag: "Official",
