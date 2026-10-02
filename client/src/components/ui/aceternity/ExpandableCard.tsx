@@ -278,12 +278,12 @@ export function ExpandableCard({
 
                         {isIncome ? (
                           <IncomeSelect
-                            value={transaction.categoryId?.toString()}
+                            value={formValues.categoryId?.toString()}
                             contentClassName="z-[110]"
                           />
                         ) : (
                           <ExpenseSelect
-                            value={transaction.categoryId?.toString()}
+                            value={formValues.categoryId?.toString()}
                             contentClassName="z-[110]"
                           />
                         )}
