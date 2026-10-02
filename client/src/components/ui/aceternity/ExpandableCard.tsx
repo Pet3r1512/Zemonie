@@ -24,6 +24,7 @@ import { Field, FieldError, FieldGroup } from "../field";
 import { Input } from "../input";
 import { Label } from "../label";
 
+const toDayKey = (v?: string) => (v ? new Date(v).toDateString() : "");
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
 export enum CategoryType {
@@ -76,6 +77,7 @@ export function ExpandableCard({
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = methods;
   const queryClient = useQueryClient();
@@ -122,6 +124,19 @@ export function ExpandableCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode]);
 
+  const formValues = watch();
+  const initialCategoryId = transaction.categoryId ?? (isIncome ? 1 : 8);
+
+  const hasChanges = useMemo(() => {
+    if (!editMode) return false;
+    return (
+      (formValues.categoryId ?? initialCategoryId) !== initialCategoryId ||
+      formValues.amount !== transaction.amount ||
+      (formValues.description ?? "") !== (transaction.description ?? "") ||
+      toDayKey(formValues.createdAt) !== toDayKey(transaction.createdAt)
+    );
+  }, [editMode, transaction, formValues, initialCategoryId]);
+
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
     onSave?.({
       id: transaction.id,
@@ -129,7 +144,7 @@ export function ExpandableCard({
       categoryId: credentials.categoryId,
       amount: credentials.amount,
       currency: transaction.currency,
-      date: credentials.createdAt ?? transaction.date,
+      createdAt: credentials.createdAt ?? transaction.createdAt,
       description: credentials.description ?? "",
     });
     setEditMode(false);
@@ -342,6 +357,7 @@ export function ExpandableCard({
                   <Button
                     size="sm"
                     type="submit"
+                    disabled={!hasChanges}
                     form={`transaction-form-${transaction.id}`}
                     className="bg-green-500 text-white hover:bg-green-500/80 dark:bg-green-500/80 dark:hover:bg-green-500 dark:text-white"
                   >
