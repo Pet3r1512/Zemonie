@@ -72,14 +72,6 @@ export function ExpandableCard({
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
-  const methods = useForm<Transaction>();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = methods;
   const queryClient = useQueryClient();
 
   const globalCategories: CurrentCategory[] = useMemo(() => {
@@ -94,6 +86,14 @@ export function ExpandableCard({
   const isIncome =
     currCategory?.type.toString() === "INCOME" || currCategory?.type === CategoryType.INCOME;
 
+  const methods = useForm<Transaction>({ defaultValues: initialValues });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = methods;
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
