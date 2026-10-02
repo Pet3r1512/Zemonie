@@ -2,12 +2,12 @@ import { TransactionInfo } from "@/components/Dashboard/Transactions/Transaction
 
 export default function groupTransactions(transactions: TransactionInfo[]) {
   const sortedTransactions = [...transactions].toSorted(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );
 
   return sortedTransactions.reduce(
     (acc, tx) => {
-      const d = new Date(tx.date);
+      const d = new Date(tx.createdAt);
       const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
         2,
         "0",
