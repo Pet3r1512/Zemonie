@@ -131,7 +131,7 @@ export function ExpandableCard({
   }, [editMode]);
 
   const formValues = watch();
-  const initialCategoryId = transaction.categoryId ?? (isIncome ? 1 : 8);
+  const initialCategoryId = initialValues.categoryId;
 
   const hasChanges = useMemo(() => {
     if (!editMode) return false;
