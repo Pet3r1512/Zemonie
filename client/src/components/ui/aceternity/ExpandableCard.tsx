@@ -86,6 +86,17 @@ export function ExpandableCard({
   const isIncome =
     currCategory?.type.toString() === "INCOME" || currCategory?.type === CategoryType.INCOME;
 
+  const initialValues: Transaction = useMemo(
+    () => ({
+      categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
+      amount: transaction.amount,
+      currency: transaction.currency,
+      description: transaction.description,
+      createdAt: transaction.createdAt,
+    }),
+    [transaction, isIncome],
+  );
+
   const methods = useForm<Transaction>({ defaultValues: initialValues });
   const {
     register,
@@ -94,6 +105,7 @@ export function ExpandableCard({
     watch,
     formState: { errors },
   } = methods;
+
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -113,13 +125,7 @@ export function ExpandableCard({
 
   useEffect(() => {
     if (editMode) {
-      reset({
-        categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
-        amount: transaction.amount,
-        currency: transaction.currency,
-        description: transaction.description,
-        createdAt: transaction.createdAt,
-      });
+      reset(initialValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editMode]);
@@ -340,13 +346,7 @@ export function ExpandableCard({
                     variant="outline"
                     className="bg-red-500/85! text-white"
                     onClick={() => {
-                      reset({
-                        categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
-                        amount: transaction.amount,
-                        currency: transaction.currency,
-                        description: transaction.description,
-                        createdAt: transaction.createdAt,
-                      });
+                      reset(initialValues);
                       setEditMode(false);
                     }}
                   >
