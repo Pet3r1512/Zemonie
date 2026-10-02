@@ -213,7 +213,7 @@ export function ExpandableCard({
                     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                       Description
                     </p>
-                    <p className="whitespace-pre-wrap break-words">{transaction.description}</p>
+                    <p className="whitespace-pre-wrap wrap-break-word">{transaction.description}</p>
                   </div>
                 ) : null}
 
