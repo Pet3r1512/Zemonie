@@ -116,7 +116,7 @@ export function ExpandableCard({
         amount: transaction.amount,
         currency: transaction.currency,
         description: transaction.description,
-        createdAt: transaction.date,
+        createdAt: transaction.createdAt,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -182,8 +182,8 @@ export function ExpandableCard({
                         {currCategory?.name ?? "Uncategorized"}
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {ParseISOStringDate({ date: transaction.date })} {" · "}
-                        {new Date(transaction.date).toLocaleTimeString([], {
+                        {ParseISOStringDate({ date: transaction.createdAt })} {" · "}
+                        {new Date(transaction.createdAt).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
@@ -309,7 +309,7 @@ export function ExpandableCard({
 
                       <Field>
                         <Label htmlFor="date">Date</Label>
-                        <DatePicker defaultDate={transaction.date} />
+                        <DatePicker defaultDate={transaction.createdAt} />
                       </Field>
                     </FieldGroup>
                   </Dialog>
@@ -330,7 +330,7 @@ export function ExpandableCard({
                         amount: transaction.amount,
                         currency: transaction.currency,
                         description: transaction.description,
-                        createdAt: transaction.date,
+                        createdAt: transaction.createdAt,
                       });
                       setEditMode(false);
                     }}
