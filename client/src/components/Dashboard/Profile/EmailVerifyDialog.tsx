@@ -58,7 +58,7 @@ export default function EmailVerifyDialog({
             link to verify.
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex-row gap-2 sm:justify-center">
+        <DialogFooter className="flex-row gap-2 justify-center">
           <Button variant="destructive" onClick={() => onOpenChange(false)} disabled={sending}>
             Cancel
           </Button>
