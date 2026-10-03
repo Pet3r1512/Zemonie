@@ -64,7 +64,7 @@ export default function ProfilePage() {
                 <div className="flex-1 min-w-0 flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{field.label}</p>
-                    <p className="text-base font-medium text-gray-900 dark:text-white truncate max-w-7/8">
+                    <p className="text-base font-medium text-gray-900 dark:text-white truncate max-w-7/8 md:max-w-none">
                       {fieldValues[field.key]}
                     </p>
                   </div>
