@@ -63,7 +63,7 @@ export default function EmailVerifyDialog({
             Cancel
           </Button>
           <Button onClick={handleSend} disabled={sending}>
-            {sending ? "Sending..." : "Send verification email"}
+            {sending ? "Sending..." : "Send now"}
           </Button>
         </DialogFooter>
       </DialogContent>
