@@ -47,7 +47,7 @@ export const transactionsRouter = router({
             currency: tx.currency,
             description: tx.description,
             parentTransactionId: tx.parentTransactionId,
-            date: tx.createdAt.toISOString(),
+            createdAt: tx.createdAt.toISOString(),
           })),
         ),
         hasMore: page * PAGE_SIZE < totalCount,
