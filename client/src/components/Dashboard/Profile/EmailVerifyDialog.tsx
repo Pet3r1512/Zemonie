@@ -46,7 +46,7 @@ export default function EmailVerifyDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md dark:bg-black bg-white border-0 shadow-2xl">
+      <DialogContent className="sm:max-w-md dark:bg-black bg-white border-0 shadow-2xl space-y-2">
         <DialogHeader>
           <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10">
             <Mail className="size-6 text-primary" />
