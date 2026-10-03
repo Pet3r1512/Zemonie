@@ -1,5 +1,28 @@
 const release_official = [
   {
+    version: "v1.1.3",
+    date: "Oct 04, 2026",
+    tag: "Official",
+    changes: [
+      {
+        type: "feature",
+        text: "Only sends a transaction update request when the transaction data has actually changed.",
+      },
+      {
+        type: "fix",
+        text: "Fixed missing colors in charts.",
+      },
+      {
+        type: "fix",
+        text: "Fixed the email verification dialog and profile page layout on mobile devices.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue that prevented users from changing the category when updating a transaction.",
+      },
+    ],
+  },
+  {
     version: "v1.1.2",
     date: "Sep 29, 2026",
     tag: "Official",
