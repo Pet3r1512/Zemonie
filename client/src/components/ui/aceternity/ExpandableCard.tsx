@@ -123,13 +123,6 @@ export function ExpandableCard({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
-  useEffect(() => {
-    if (editMode) {
-      reset(initialValues);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editMode]);
-
   const formValues = watch();
   const initialCategoryId = initialValues.categoryId;
 
@@ -345,10 +338,7 @@ export function ExpandableCard({
                     size="sm"
                     variant="outline"
                     className="bg-red-500/85! text-white"
-                    onClick={() => {
-                      reset(initialValues);
-                      setEditMode(false);
-                    }}
+                    onClick={() => setEditMode(false)}
                   >
                     <X />
                     Cancel
@@ -368,7 +358,10 @@ export function ExpandableCard({
               ) : (
                 <Button
                   size="sm"
-                  onClick={() => setEditMode(true)}
+                  onClick={() => {
+                    reset(initialValues);
+                    setEditMode(true);
+                  }}
                   className="bg-primary/85 text-white hover:bg-primary"
                 >
                   <Pencil className="size-4" />
