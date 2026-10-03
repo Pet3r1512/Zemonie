@@ -9,7 +9,7 @@ export type TransactionInfo = {
   categoryId?: number;
   amount: number;
   currency: Currency;
-  date: string;
+  createdAt: string;
   description: string;
   parentTransactionId?: string;
 };

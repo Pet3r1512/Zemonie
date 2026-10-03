@@ -8,7 +8,7 @@ export default async function updateTransaction({ credentials }: { credentials: 
     amount: credentials.amount,
     currency: credentials.currency,
     description: credentials.description,
-    createdAt: credentials.date,
+    createdAt: credentials.createdAt,
   };
 
   const response = await fetch(`${SERVER_URL}/api/trpc/transactions.updateTransaction`, {

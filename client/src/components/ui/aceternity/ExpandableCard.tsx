@@ -24,6 +24,7 @@ import { Field, FieldError, FieldGroup } from "../field";
 import { Input } from "../input";
 import { Label } from "../label";
 
+const toDayKey = (v?: string) => (v ? new Date(v).toDateString() : "");
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
 
 export enum CategoryType {
@@ -71,13 +72,6 @@ export function ExpandableCard({
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
-  const methods = useForm<Transaction>();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = methods;
   const queryClient = useQueryClient();
 
   const globalCategories: CurrentCategory[] = useMemo(() => {
@@ -91,6 +85,26 @@ export function ExpandableCard({
 
   const isIncome =
     currCategory?.type.toString() === "INCOME" || currCategory?.type === CategoryType.INCOME;
+
+  const initialValues: Transaction = useMemo(
+    () => ({
+      categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
+      amount: transaction.amount,
+      currency: transaction.currency,
+      description: transaction.description,
+      createdAt: transaction.createdAt,
+    }),
+    [transaction, isIncome],
+  );
+
+  const methods = useForm<Transaction>({ defaultValues: initialValues });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = methods;
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -109,18 +123,18 @@ export function ExpandableCard({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [active]);
 
-  useEffect(() => {
-    if (editMode) {
-      reset({
-        categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
-        amount: transaction.amount,
-        currency: transaction.currency,
-        description: transaction.description,
-        createdAt: transaction.date,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editMode]);
+  const formValues = watch();
+  const initialCategoryId = initialValues.categoryId;
+
+  const hasChanges = useMemo(() => {
+    if (!editMode) return false;
+    return (
+      (formValues.categoryId ?? initialCategoryId) !== initialCategoryId ||
+      formValues.amount !== transaction.amount ||
+      (formValues.description ?? "") !== (transaction.description ?? "") ||
+      toDayKey(formValues.createdAt) !== toDayKey(transaction.createdAt)
+    );
+  }, [editMode, transaction, formValues, initialCategoryId]);
 
   const onSubmit: SubmitHandler<Transaction> = async (credentials) => {
     onSave?.({
@@ -129,7 +143,7 @@ export function ExpandableCard({
       categoryId: credentials.categoryId,
       amount: credentials.amount,
       currency: transaction.currency,
-      date: credentials.createdAt ?? transaction.date,
+      createdAt: credentials.createdAt ?? transaction.createdAt,
       description: credentials.description ?? "",
     });
     setEditMode(false);
@@ -182,8 +196,8 @@ export function ExpandableCard({
                         {currCategory?.name ?? "Uncategorized"}
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {ParseISOStringDate({ date: transaction.date })} {" · "}
-                        {new Date(transaction.date).toLocaleTimeString([], {
+                        {ParseISOStringDate({ date: transaction.createdAt })} {" · "}
+                        {new Date(transaction.createdAt).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
@@ -213,7 +227,7 @@ export function ExpandableCard({
                     <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                       Description
                     </p>
-                    <p className="whitespace-pre-wrap break-words">{transaction.description}</p>
+                    <p className="whitespace-pre-wrap wrap-break-word">{transaction.description}</p>
                   </div>
                 ) : null}
 
@@ -257,12 +271,12 @@ export function ExpandableCard({
 
                         {isIncome ? (
                           <IncomeSelect
-                            value={transaction.categoryId?.toString()}
+                            value={formValues.categoryId?.toString()}
                             contentClassName="z-[110]"
                           />
                         ) : (
                           <ExpenseSelect
-                            value={transaction.categoryId?.toString()}
+                            value={formValues.categoryId?.toString()}
                             contentClassName="z-[110]"
                           />
                         )}
@@ -309,7 +323,7 @@ export function ExpandableCard({
 
                       <Field>
                         <Label htmlFor="date">Date</Label>
-                        <DatePicker defaultDate={transaction.date} />
+                        <DatePicker defaultDate={transaction.createdAt} />
                       </Field>
                     </FieldGroup>
                   </Dialog>
@@ -324,16 +338,7 @@ export function ExpandableCard({
                     size="sm"
                     variant="outline"
                     className="bg-red-500/85! text-white"
-                    onClick={() => {
-                      reset({
-                        categoryId: transaction.categoryId ?? (isIncome ? 1 : 8),
-                        amount: transaction.amount,
-                        currency: transaction.currency,
-                        description: transaction.description,
-                        createdAt: transaction.date,
-                      });
-                      setEditMode(false);
-                    }}
+                    onClick={() => setEditMode(false)}
                   >
                     <X />
                     Cancel
@@ -342,6 +347,7 @@ export function ExpandableCard({
                   <Button
                     size="sm"
                     type="submit"
+                    disabled={!hasChanges}
                     form={`transaction-form-${transaction.id}`}
                     className="bg-green-500 text-white hover:bg-green-500/80 dark:bg-green-500/80 dark:hover:bg-green-500 dark:text-white"
                   >
@@ -352,7 +358,10 @@ export function ExpandableCard({
               ) : (
                 <Button
                   size="sm"
-                  onClick={() => setEditMode(true)}
+                  onClick={() => {
+                    reset(initialValues);
+                    setEditMode(true);
+                  }}
                   className="bg-primary/85 text-white hover:bg-primary"
                 >
                   <Pencil className="size-4" />
