@@ -56,7 +56,7 @@ export default function ProfilePage() {
         {profileFields.map((field) => {
           const Icon = field.icon;
           return (
-            <div key={field.key} className="flex items-center gap-4 px-6 py-5">
+            <div key={field.key} className="flex items-center gap-4 px-3 py-2 md:px-6 md:py-5">
               <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                 <Icon size={20} className="text-primary" />
               </div>
