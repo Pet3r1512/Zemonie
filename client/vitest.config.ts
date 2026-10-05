@@ -1,12 +1,12 @@
 import path from "path";
-import { coverageConfigDefaults, defineConfig } from "vitest/config";
+import { configDefaults, coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
     setupFiles: ["./setupTests.ts"],
-    exclude: ["e2e/**", ...coverageConfigDefaults.exclude],
+    exclude: ["e2e/**", ...configDefaults.exclude],
     coverage: {
       provider: "istanbul",
       reporter: ["text"],
