@@ -450,7 +450,9 @@ describe("onSuccess callback tests", () => {
     act(() => vi.advanceTimersByTime(1250));
 
     await waitFor(() => {
-      expect(toast.success).toHaveBeenCalledWith("Hana, Everything is done!");
+      expect(toast.success).toHaveBeenCalledWith(
+        "Hana, Everything is done! Navigating to dashboard.",
+      );
     });
   });
 

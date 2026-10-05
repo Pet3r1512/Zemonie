@@ -43,7 +43,7 @@ export default function SignUpForm({ className }: { className?: string }) {
       return toast.error(error.message || "Something went wrong. Please try again.");
     },
     onSuccess: (res) => {
-      toast.success(res.user.name + ", Everything is done! Navigating to dadshboard.");
+      toast.success(res.user.name + ", Everything is done! Navigating to dashboard.");
       return setTimeout(() => {
         router.navigate({ to: "/dashboard" });
       }, 1250);
