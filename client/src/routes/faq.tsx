@@ -31,7 +31,7 @@ const faqs = [
   {
     question: "Which stage is Zemonie at?",
     answer:
-      "We are currently in the open-beta stage. The app is functional but not yet feature-complete. Our team is actively working toward releasing the official version as soon as possible.",
+      "An official version of Zemonie has been released since September 2026. We are enhancing Zemonie with new updates and features frequently.",
   },
   {
     question: "What are the future plans for Zemonie?",
