@@ -1,40 +1,40 @@
-import { decryptAmount, encryptAmount } from "@/lib/crypto";
+import { decryptAmount, encryptAmount, readAmount, writeAmount } from "@/lib/crypto";
 import { describe, expect, it } from "vitest";
 
-describe("Amount encryption tests: ", () => {
-  describe("AUD and USD currency tests:", () => {
-    it("returns correct result when encrypt and decrypt amount of $20.99", async () => {
-      const amount: string = "20.99";
-      const encryptResult: string = await encryptAmount(amount);
-      const decryptResult: string = await decryptAmount(encryptResult);
+describe("encryptAmount / decryptAmount (string round-trip)", () => {
+  it.each([["20.99"], ["1025.49"], ["50.000"], ["75.000.000"], [""]])(
+    "preserves the string %j through encrypt -> decrypt",
+    async (value) => {
+      const encrypted = await encryptAmount(value);
+      const decrypted = await decryptAmount(encrypted);
 
-      expect(decryptResult).toBe("20.99");
-    });
+      expect(decrypted).toBe(value);
+    },
+  );
+});
 
-    it("returns correct result when encrypt and decrypt amount of $1025.49", async () => {
-      const amount: string = "1025.49";
-      const encryptResult: string = await encryptAmount(amount);
-      const decryptResult: string = await decryptAmount(encryptResult);
+describe("writeAmount / readAmount (number round-trip)", () => {
+  describe("AUD / USD amounts (decimals)", () => {
+    it.each([[20.99], [1025.49], [0], [0.01], [1000000.5]])(
+      "restores the number %d after write -> read",
+      async (amount) => {
+        const stored = await writeAmount(amount);
+        const restored = await readAmount(stored);
 
-      expect(decryptResult).toBe("1025.49");
-    });
+        expect(restored).toBe(amount);
+      },
+    );
   });
 
-  describe("VND currency tests: ", () => {
-    it("returns correct result when encrypt and decrypt 50.000 VND", async () => {
-      const amount: string = "50.000";
-      const encryptResult: string = await encryptAmount(amount);
-      const decryptResult: string = await decryptAmount(encryptResult);
+  describe("VND amounts (whole numbers)", () => {
+    it.each([[50000], [75000000], [0]])(
+      "restores the number %d after write -> read",
+      async (amount) => {
+        const stored = await writeAmount(amount);
+        const restored = await readAmount(stored);
 
-      expect(decryptResult).toBe("50.000");
-    });
-
-    it("returns correct result when encrypt and decrypt 75.000.000 VND", async () => {
-      const amount: string = "75.000.000";
-      const encryptResult: string = await encryptAmount(amount);
-      const decryptResult: string = await decryptAmount(encryptResult);
-
-      expect(decryptResult).toBe("75.000.000");
-    });
+        expect(restored).toBe(amount);
+      },
+    );
   });
 });
