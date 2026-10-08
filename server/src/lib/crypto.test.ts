@@ -41,12 +41,13 @@ describe("writeAmount / readAmount (number round-trip)", () => {
 
 describe("IV (Initialisation Vector) uniqueness", () => {
   it("produces different ciphertext but same plaintext for identical input", async () => {
-
-    expect(firstDecryption).toBe(secondDecryption);
     const amount = "20.99";
     const firstEncryption = await encryptAmount(amount);
     const secondEncryption = await encryptAmount(amount);
     const firstDecryption = await decryptAmount(firstEncryption);
     const secondDecryption = await decryptAmount(secondEncryption);
+
+    expect(firstDecryption).toBe(amount);
+    expect(secondDecryption).toBe(amount);
   });
 });
