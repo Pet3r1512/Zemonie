@@ -38,3 +38,23 @@ describe("writeAmount / readAmount (number round-trip)", () => {
     );
   });
 });
+
+describe("IV (Initialisation Vector) uniqueness", () => {
+  it("should return 2 different result when encrypt the same amount of money", async () => {
+    const amount: string = "20.99";
+    const firstEncryption: string = await encryptAmount(amount);
+    const secondEncryption: string = await encryptAmount(amount);
+
+    expect(firstEncryption).not.toBe(secondEncryption);
+  });
+
+  it("should decrypt to the same amount from 2 different encryption results", async () => {
+    const amount: string = "20.99";
+    const firstEncryption: string = await encryptAmount(amount);
+    const secondEncryption: string = await encryptAmount(amount);
+    const firstDecryption: string = await decryptAmount(firstEncryption);
+    const secondDecryption: string = await decryptAmount(secondEncryption);
+
+    expect(firstDecryption).toBe(secondDecryption);
+  });
+});
