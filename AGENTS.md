@@ -89,10 +89,13 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
 
 ## Testing
 
-- **Runner:** [Vitest](https://vitest.dev) with React Testing Library (client).
-- **Environment:** `jsdom`; global setup in `client/setupTests.ts`
+- **Runner:** [Vitest](https://vitest.dev) — React Testing Library in `client/`,
+  plain Vitest (`environment: "node"`) in `server/`.
+- **Environment (client):** `jsdom`; global setup in `client/setupTests.ts`
   (`@testing-library/jest-dom` + a `ResizeObserver` polyfill). Globals are enabled.
-- **Location:** co-locate tests next to the component as `*.test.tsx` / `*.test.ts`.
+- **Environment (server):** `node`; `server/vitest.setup.ts` injects an ephemeral
+  `ENCRYPTION_KEY` for the test run so no key-shaped secret is ever committed.
+- **Location:** co-locate tests next to the source as `*.test.tsx` / `*.test.ts`.
 - **Browser/Storybook tests:** `client/vitest.workspace.ts` defines Storybook browser
   projects (`chromium`, `firefox`, `webkit`) via Playwright + `@storybook/addon-vitest`.
   CI runs these against a running Storybook (`STORYBOOK_URL`).
@@ -102,11 +105,14 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
 - **Query/assert** with `screen.getByRole` / `getByText` / `getByTestId`, drive interactions
   with `userEvent`, and await async UI with `waitFor`.
 - **Commands:**
-  - `pnpm --dir client test` (or root `pnpm test:client`) — run the suite.
-  - `pnpm --dir client test-watch` — watch mode.
+  - `pnpm --dir client test` (or root `pnpm test:client`) — run the client suite.
+  - `pnpm --dir client test-watch` — client watch mode.
   - `pnpm --dir client coverage` — coverage (istanbul provider).
-- **CI:** `.github/workflows/ci.yaml` runs the client tests (across Chromium, Firefox,
-  WebKit) then builds, on every PR and push to `master`.
+  - `pnpm --dir server test` (or root `pnpm test:server`) — run the server suite
+    (`vitest run`); `pnpm --dir server test-watch` for watch mode.
+- **CI:** `.github/workflows/ci.yaml` type-checks and tests the server (`pnpm test:server`),
+  then runs the client tests (across Chromium, Firefox, WebKit) and builds, on every PR
+  and push to `master`.
 
 ---
 

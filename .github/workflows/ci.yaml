@@ -66,6 +66,9 @@ jobs:
       - name: Typecheck server
         run: cd server && pnpm exec tsc --noEmit
 
+      - name: Test server
+        run: pnpm test:server
+
       # LINT & FORMAT
       - name: Lint
         run: pnpm lint
