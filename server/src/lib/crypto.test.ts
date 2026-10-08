@@ -51,3 +51,35 @@ describe("IV (Initialisation Vector) uniqueness", () => {
     expect(secondDecryption).toBe(amount);
   });
 });
+
+describe("tamper detection (AES-GCM authentication)", () => {
+  it("rejects well-formed base64 that is not a real IV/ciphertext", async () => {
+    await expect(decryptAmount("AAAA:BBBB")).rejects.toThrow();
+  });
+
+  it("rejects input with no IV/ciphertext separator", async () => {
+    await expect(decryptAmount("notvalid")).rejects.toThrow();
+  });
+
+  it("rejects ciphertext whose bytes have been modified", async () => {
+    const encrypted = await encryptAmount("20.99");
+    const [ivB64, cipherB64] = encrypted.split(":");
+
+    const cipherBytes = Uint8Array.from(atob(cipherB64), (c) => c.charCodeAt(0));
+    cipherBytes[0] ^= 0xff;
+    const tamperedCipherB64 = btoa(String.fromCharCode(...cipherBytes));
+
+    await expect(decryptAmount(`${ivB64}:${tamperedCipherB64}`)).rejects.toThrow();
+  });
+
+  it("rejects when the IV has been modified", async () => {
+    const encrypted = await encryptAmount("20.99");
+    const [ivB64, cipherB64] = encrypted.split(":");
+
+    const ivBytes = Uint8Array.from(atob(ivB64), (c) => c.charCodeAt(0));
+    ivBytes[0] ^= 0xff;
+    const tamperedIvB64 = btoa(String.fromCharCode(...ivBytes));
+
+    await expect(decryptAmount(`${tamperedIvB64}:${cipherB64}`)).rejects.toThrow();
+  });
+});
