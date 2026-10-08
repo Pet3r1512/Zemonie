@@ -202,6 +202,8 @@ src/
 | `wrangler.jsonc`         | Cloudflare Worker production config (cron, domain, env vars) |
 | `wrangler.staging.jsonc` | Cloudflare Worker staging config (cron, domain, env vars)    |
 | `tsconfig.json`          | TypeScript config                                            |
+| `vitest.config.ts`       | Vitest config (node environment, `@` alias, setup file)      |
+| `vitest.setup.ts`        | Test setup (injects an ephemeral `ENCRYPTION_KEY`)           |
 | `prisma.config.ts`       | Prisma config (schema path, datasource)                      |
 | `prisma/schema.prisma`   | Database schema                                              |
 | `.dev.vars`              | Local dev secrets for wrangler                               |
@@ -309,8 +311,9 @@ Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND), `B
 | `client/src/components/Auth/SignUp/SignUpForm.test.tsx` | Component test (Vitest + React Testing Library) |
 | `client/src/components/Layout/Logo.test.tsx`            | Component test (Vitest + React Testing Library) |
 | `client/src/helpers/shortenUserName.test.tsx`           | Unit test (Vitest)                              |
+| `server/src/lib/crypto.test.ts`                         | Unit test (Vitest, node) — amount encryption    |
 
-Tests are written for Vitest and run via `@storybook/experimental-addon-test` across Chromium, Firefox, and WebKit.
+Client tests are written for Vitest and run via `@storybook/experimental-addon-test` across Chromium, Firefox, and WebKit. Server tests run with plain Vitest (`pnpm test:server` → `vitest run`) and are executed in CI.
 
 ---
 
