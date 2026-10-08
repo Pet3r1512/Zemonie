@@ -19,4 +19,22 @@ describe("Amount encryption tests: ", () => {
       expect(decryptResult).toBe("1025.49");
     });
   });
+
+  describe("VND currency tests: ", () => {
+    it("returns correct result when encrypt and decrypt 50.000 VND", async () => {
+      const amount: string = "50.000";
+      const encryptResult: string = await encryptAmount(amount);
+      const decryptResult: string = await decryptAmount(encryptResult);
+
+      expect(decryptResult).toBe("50.000");
+    });
+
+    it("returns correct result when encrypt and decrypt 75.000.000 VND", async () => {
+      const amount: string = "75.000.000";
+      const encryptResult: string = await encryptAmount(amount);
+      const decryptResult: string = await decryptAmount(encryptResult);
+
+      expect(decryptResult).toBe("75.000.000");
+    });
+  });
 });
