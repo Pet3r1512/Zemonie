@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "concurrently \"pnpm --dir client dev --host\" \"pnpm --dir server dev\"",
     "test:client": "pnpm --dir client test",
+    "test:server": "pnpm --dir server test",
     "lint": "oxlint . --ignore-path .oxlintignore",
     "lint:fix": "oxlint --fix . --ignore-path .oxlintignore",
     "format": "oxfmt --check .",
