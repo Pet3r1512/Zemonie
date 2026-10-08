@@ -47,6 +47,7 @@ describe("IV (Initialisation Vector) uniqueness", () => {
     const firstDecryption = await decryptAmount(firstEncryption);
     const secondDecryption = await decryptAmount(secondEncryption);
 
+    expect(firstEncryption).not.toBe(secondEncryption);
     expect(firstDecryption).toBe(amount);
     expect(secondDecryption).toBe(amount);
   });
