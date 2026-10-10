@@ -42,8 +42,9 @@ export default function ListByDate({
     <section className="space-y-10 min-h-0 ">
       {dailySummary(sortedEntries).map(([date, txs, dailyNet]) => (
         <div key={date} className="space-y-1 lg:space-y-5">
-          <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 dark:bg-dark-card font-bold">
-            {ParseISOStringDate({ date: date })}
+          <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 dark:bg-dark-card font-bold flex items-center justify-between">
+            <p>{ParseISOStringDate({ date: date })}</p>
+            <p className="text-sm font-light">{dailyNet}</p>
           </div>
 
           {txs.map((tx) => (
