@@ -1,5 +1,6 @@
 import { Currency } from "@/api/users/createBalance";
 import { ExpandableCard } from "@/components/ui/aceternity/ExpandableCard";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import dailySummary from "@/helpers/dailySummary";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
@@ -45,21 +46,26 @@ export default function ListByDate({
         <div key={date} className="space-y-1 lg:space-y-5">
           <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 dark:bg-dark-card font-bold flex items-center justify-between">
             <p>{ParseISOStringDate({ date: date })}</p>
-            {txs.length > 1 && (
-              <p className="text-sm">
-                {dailyNet > 0 && (
-                  <span className="text-green-500/90">
-                    {formatCurrency(dailyNet, txs[0].currency)}
-                  </span>
-                )}
-                {dailyNet < 0 && (
-                  <span className="text-red-500/90">
-                    {formatCurrency(dailyNet, txs[0].currency)}
-                  </span>
-                )}
-                {dailyNet === 0 && <span className=""></span>}
-              </p>
-            )}
+            {txs.length > 1 ? (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <p className="text-sm cursor-default">
+                    {dailyNet > 0 && (
+                      <span className="text-green-500/90">
+                        {formatCurrency(dailyNet, txs[0].currency)}
+                      </span>
+                    )}
+                    {dailyNet < 0 && (
+                      <span className="text-red-500/90">
+                        {formatCurrency(dailyNet, txs[0].currency)}
+                      </span>
+                    )}
+                    {dailyNet === 0 && <span className=""></span>}
+                  </p>
+                </TooltipTrigger>
+                <TooltipContent>Daily Net</TooltipContent>
+              </Tooltip>
+            ) : null}
           </div>
 
           {txs.map((tx) => (
