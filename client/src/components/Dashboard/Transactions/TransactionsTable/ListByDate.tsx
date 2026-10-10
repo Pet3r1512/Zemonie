@@ -46,7 +46,7 @@ export default function ListByDate({
           <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 dark:bg-dark-card font-bold flex items-center justify-between">
             <p>{ParseISOStringDate({ date: date })}</p>
             {txs.length > 1 && (
-              <p className="text-sm font-normal text-secondary">
+              <p className="text-sm">
                 {dailyNet > 0 && (
                   <span className="text-green-500/90">
                     {formatCurrency(dailyNet, txs[0].currency)}
