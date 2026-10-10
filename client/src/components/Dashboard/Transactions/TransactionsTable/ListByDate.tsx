@@ -1,5 +1,6 @@
 import { Currency } from "@/api/users/createBalance";
 import { ExpandableCard } from "@/components/ui/aceternity/ExpandableCard";
+import dailySummary from "@/helpers/dailySummary";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
 import groupTransactions from "@/lib/groupTransactions";
 
@@ -39,7 +40,7 @@ export default function ListByDate({
 
   return (
     <section className="space-y-10 min-h-0 ">
-      {sortedEntries.map(([date, txs]) => (
+      {dailySummary(sortedEntries).map(([date, txs, dailyNet]) => (
         <div key={date} className="space-y-1 lg:space-y-5">
           <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 dark:bg-dark-card font-bold">
             {ParseISOStringDate({ date: date })}
