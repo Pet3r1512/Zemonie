@@ -29,10 +29,6 @@ export default function ListByDate({
 }) {
   const groupedByDate = groupTransactions(transactions);
 
-  if (Object.keys(groupedByDate).length === 0) {
-    return <div className="text-gray-500 dark:text-gray-400">No transactions</div>;
-  }
-
   const globalCategories: CurrentCategory[] = useMemo(() => {
     const data = sessionStorage.getItem("globalCategories");
     return data ? JSON.parse(data) : [];
@@ -42,6 +38,10 @@ export default function ListByDate({
     () => Object.fromEntries(globalCategories.map((c) => [c.id, c.type])),
     [globalCategories],
   );
+
+  if (Object.keys(groupedByDate).length === 0) {
+    return <div className="text-gray-500 dark:text-gray-400">No transactions</div>;
+  }
 
   const sortedEntries = Object.entries(groupedByDate).toSorted(
     ([a], [b]) => new Date(b).getTime() - new Date(a).getTime(),
