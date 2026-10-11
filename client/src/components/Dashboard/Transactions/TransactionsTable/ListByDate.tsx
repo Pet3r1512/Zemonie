@@ -1,10 +1,11 @@
 import { Currency } from "@/api/users/createBalance";
-import { ExpandableCard } from "@/components/ui/aceternity/ExpandableCard";
+import { CurrentCategory, ExpandableCard } from "@/components/ui/aceternity/ExpandableCard";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import dailySummary from "@/helpers/dailySummary";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import ParseISOStringDate from "@/helpers/parseISOStringData";
 import groupTransactions from "@/lib/groupTransactions";
+import { useMemo } from "react";
 
 export type TransactionInfo = {
   id: string;
@@ -32,6 +33,16 @@ export default function ListByDate({
     return <div className="text-gray-500 dark:text-gray-400">No transactions</div>;
   }
 
+  const globalCategories: CurrentCategory[] = useMemo(() => {
+    const data = sessionStorage.getItem("globalCategories");
+    return data ? JSON.parse(data) : [];
+  }, []);
+
+  const categoryLookup = useMemo(
+    () => Object.fromEntries(globalCategories.map((c) => [c.id, c.type])),
+    [globalCategories],
+  );
+
   const sortedEntries = Object.entries(groupedByDate).toSorted(
     ([a], [b]) => new Date(b).getTime() - new Date(a).getTime(),
   );
@@ -42,7 +53,7 @@ export default function ListByDate({
 
   return (
     <section className="space-y-10 min-h-0 ">
-      {dailySummary(sortedEntries).map(([date, txs, dailyNet]) => (
+      {dailySummary(sortedEntries, categoryLookup).map(([date, txs, dailyNet]) => (
         <div key={date} className="space-y-1 lg:space-y-5">
           <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 dark:bg-dark-card font-bold flex items-center justify-between">
             <p>{ParseISOStringDate({ date: date })}</p>
