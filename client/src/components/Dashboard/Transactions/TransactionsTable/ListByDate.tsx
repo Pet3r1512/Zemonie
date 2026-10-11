@@ -27,8 +27,6 @@ export default function ListByDate({
   lastElementRef?: (node: HTMLDivElement | null) => void;
   onSave?: (transaction: TransactionInfo) => void;
 }) {
-  const groupedByDate = groupTransactions(transactions);
-
   const globalCategories: CurrentCategory[] = useMemo(() => {
     const data = sessionStorage.getItem("globalCategories");
     return data ? JSON.parse(data) : [];
@@ -38,6 +36,8 @@ export default function ListByDate({
     () => Object.fromEntries(globalCategories.map((c) => [c.id, c.type])),
     [globalCategories],
   );
+
+  const groupedByDate = groupTransactions(transactions);
 
   if (Object.keys(groupedByDate).length === 0) {
     return <div className="text-gray-500 dark:text-gray-400">No transactions</div>;
