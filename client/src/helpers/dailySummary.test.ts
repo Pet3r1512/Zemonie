@@ -105,6 +105,39 @@ describe("Daily Summary calculation tests: ", () => {
         ],
         -119,
       ],
+      [
+        "2026-10-05",
+        [
+          {
+            amount: 1000,
+            categoryId: 1,
+            createdAt: "2026-10-05T12:37:01.594Z",
+            description: "income",
+            currency: Currency.AUD,
+            id: "cms2dpjmw0001psp7f4jqcjo2",
+            userId: "LgwXffWenUWSzxdQb6mSOdzWkgvXl2Kw",
+          },
+          {
+            amount: 350,
+            categoryId: 5,
+            createdAt: "2026-10-05T12:37:01.594Z",
+            description: "gift",
+            currency: Currency.AUD,
+            id: "cmv2dpjmw0001psa1f4jqcjo2",
+            userId: "LgwXffWenUWSzxdQb6mSOdzWkgvXl2Kw",
+          },
+          {
+            amount: 75,
+            categoryId: 7,
+            createdAt: "2026-10-05T12:37:01.594Z",
+            description: "income",
+            currency: Currency.AUD,
+            id: "cmv2dpjmw0001psa1f4jqcjo2",
+            userId: "LgwXffWenUWSzxdQb6mSOdzWkgvXl2Kw",
+          },
+        ],
+        1425,
+      ],
     ]);
   });
 });
