@@ -46,7 +46,12 @@ const features = [
     description:
       "Your finances at a glance. Pie charts, bar charts, and a clean dashboard — no spreadsheets, just clarity.",
     color: "from-indigo-500 to-purple-500",
-    benefits: ["Pie & bar charts", "Balance overview", "Last 7 days view", "At-a-glance dashboard"],
+    benefits: [
+      "At-a-glance pie & bar charts",
+      "Balance overview",
+      "Last 7 days view",
+      "Daily net summary",
+    ],
   },
 ];
 

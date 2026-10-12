@@ -1,5 +1,20 @@
 const release_official = [
   {
+    version: "v1.1.4",
+    date: "Oct 12, 2026",
+    tag: "Official",
+    changes: [
+      {
+        type: "feature",
+        text: "Added a daily summary to the Transactions page, showing your net balance for each day based on your income and expenses. 🚀",
+      },
+      {
+        type: "update",
+        text: "Continued improving performance and reliability behind the scenes to keep Zemonie fast, stable, and reliable.",
+      },
+    ],
+  },
+  {
     version: "v1.1.3",
     date: "Oct 04, 2026",
     tag: "Official",
