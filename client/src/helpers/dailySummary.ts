@@ -10,7 +10,7 @@ export default function dailySummary(
   return data.map(([date, transactions]) => {
     const dailyNet = transactions.reduce((acc, curr) => {
       const categoryType = categoryLookup[curr.categoryId ?? 0];
-      if (categoryType === CategoryType.INCOME) {
+      if (curr.categoryId! <= 7) {
         return acc + curr.amount;
       } else {
         return acc - curr.amount;
