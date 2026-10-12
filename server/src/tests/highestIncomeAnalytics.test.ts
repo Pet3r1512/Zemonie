@@ -46,4 +46,10 @@ describe("Highest Income Analytic's test", () => {
       amount: 650,
     });
   });
+
+  it("keeps the first category incase there are 2 or more categories with same total amount", () => {
+    const result = CalculateHighestIncome([income(200, "Salary"), income(200, "Bonus")]);
+
+    expect(result.category).toBe("Salary");
+  });
 });
