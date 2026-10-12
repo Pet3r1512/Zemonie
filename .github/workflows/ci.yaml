@@ -69,6 +69,14 @@ jobs:
       - name: Test server
         run: pnpm test:server
 
+      # CLIENT: fast jsdom unit / component tests (first-class gate)
+      - name: Install client dependencies
+        run: cd client && pnpm install
+
+      - name: Run jsdom unit & component tests
+        run: pnpm exec vitest run --project jsdom
+        working-directory: client
+
       # LINT & FORMAT
       - name: Lint
         run: pnpm lint
@@ -76,7 +84,23 @@ jobs:
       - name: Check formatting
         run: pnpm format
 
-      # CLIENT
+  test-storybook:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
       - name: Install client dependencies
         run: cd client && pnpm install
 
@@ -95,14 +119,14 @@ jobs:
           done
         working-directory: client
 
-      - name: Test client
+      - name: Run Storybook / Playwright browser tests
         run: pnpm test
         working-directory: client
         env:
           STORYBOOK_URL: http://localhost:6006
 
   build:
-    needs: [test]
+    needs: [test, test-storybook]
     runs-on: ubuntu-latest
     strategy:
       matrix:
