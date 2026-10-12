@@ -7,6 +7,11 @@ const storybookPlugin = storybookUrl
   ? storybookTest({ storybookUrl })
   : storybookTest({ storybookScript: "pnpm storybook --no-open" });
 
+const jsdomProject = {
+  extends: "./vitest.config.ts",
+  name: "jsdom",
+};
+
 const browserTest = (name: string) => ({
   extends: "./vite.config.ts",
   plugins: [storybookPlugin],
@@ -15,7 +20,7 @@ const browserTest = (name: string) => ({
     browser: {
       enabled: true,
       headless: true,
-      name,
+      instances: [{ browser: name }],
       provider: "playwright",
     },
     setupFiles: ["./.storybook/vitest.setup.ts"],
@@ -23,7 +28,7 @@ const browserTest = (name: string) => ({
 });
 
 export default defineWorkspace([
-  "./vitest.config.ts",
+  jsdomProject,
   browserTest("chromium"),
   browserTest("firefox"),
   browserTest("webkit"),
