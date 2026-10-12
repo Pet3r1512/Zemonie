@@ -1,6 +1,5 @@
 import { Currency } from "@/api/users/createBalance";
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
-import { CategoryType } from "@/components/ui/aceternity/ExpandableCard";
 import { describe, it } from "vitest";
 import dailySummary from "./dailySummary";
 
@@ -85,18 +84,9 @@ const mockData: [string, TransactionInfo[]][] = [
   ],
 ];
 
-const categoryLookup: Record<number, CategoryType> = {
-  1: CategoryType.INCOME,
-  5: CategoryType.INCOME,
-  7: CategoryType.INCOME,
-  9: CategoryType.EXPENSE,
-  12: CategoryType.EXPENSE,
-  15: CategoryType.EXPENSE,
-};
-
 describe("Daily Summary calculation tests: ", () => {
   it("should calculate daily net correctly", () => {
-    const result = dailySummary(mockData, categoryLookup);
+    const result = dailySummary(mockData);
 
     expect(result).toStrictEqual([
       [
