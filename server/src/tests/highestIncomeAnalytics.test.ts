@@ -19,4 +19,17 @@ describe("Highest Income Analytic's test", () => {
       amount: 150,
     });
   });
+
+  it("picks the correct category with highest amount", () => {
+    const result = CalculateHighestIncome([
+      income(1500, "Salary"),
+      income(20, "Bonus"),
+      income(100, "Gift"),
+    ]);
+
+    expect(result).toEqual({
+      category: "Salary",
+      amount: 1500,
+    });
+  });
 });
