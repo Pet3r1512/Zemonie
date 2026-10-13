@@ -22,13 +22,11 @@ export default defineConfig({
     {
       command: "pnpm --dir ../server dev",
       port: 8787,
-      reuseExistingServer: true,
       timeout: 30000,
     },
     {
       command: "pnpm --dir . dev --host",
       port: 5173,
-      reuseExistingServer: true,
       timeout: 30000,
     },
   ],
