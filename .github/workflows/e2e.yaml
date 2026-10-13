@@ -2,12 +2,12 @@ name: E2E
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 3 * * *' #3AM UTC
+    - cron: "0 3 * * *" #3AM UTC
   pull_request:
     type: [labeled]
-    path: 
-      - 'client/**'
-      - 'server/**'
+    path:
+      - "client/**"
+      - "server/**"
 jobs:
   e2e:
     if: github.event_name == 'schedule' || github.event.label.name == 'e2e'
@@ -21,7 +21,7 @@ jobs:
       - uses: pnpm/action-setup@v4
         with: { version: 10 }
       - uses: actions/setup-node@v6
-        with: { node-version: 22, cache: 'pnpm'}
+        with: { node-version: 22, cache: "pnpm" }
       - run: pnpm install --frozen-lockfile
       - run: cd client && pnpm exec playwright install --with-deps chronium
       - run: cd client && pnpm exec playwright test --project=chronium
@@ -37,4 +37,3 @@ jobs:
           name: playwright-traces
           path: client/test-results/
           retention-days: 7
-          
