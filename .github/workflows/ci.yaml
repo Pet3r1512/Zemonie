@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
 
       - uses: ./.github/actions/setup
-        with: 
+        with:
           node-version: ${{ matrix.node-version}}
 
       - uses: millionco/react-doctor@v2
@@ -119,18 +119,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: pnpm/action-setup@v4
+      - uses: ./.github/actions/setup
         with:
-          version: 10
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: "pnpm"
-
-      # Deploy server
-      - name: Install server dependencies
-        run: cd server && pnpm install --frozen-lockfile
+          node-version: ${{ matrix.node-version}}
 
       - name: Generate Prisma client
         run: cd server && pnpm prisma generate
