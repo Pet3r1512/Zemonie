@@ -9,5 +9,5 @@ runs:
         key: playwright-${{ runner.os }}-${{ hashFiles('**/package-lock.json', '**/pnpm-lock.yaml') }}
     - name: Install browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: pnpm exec playwright install --with-deps chromium
+      run: pnpm exec playwright install --with-deps chromium firefox webkit
       shell: bash
