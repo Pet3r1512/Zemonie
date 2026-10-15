@@ -147,9 +147,6 @@ jobs:
           TRUSTED_ORIGINS: ${{ secrets.TRUSTED_ORIGINS_STAGING }}
 
       # Deploy client
-      - name: Install client dependencies
-        run: cd client && pnpm install --frozen-lockfile
-
       - name: Build client
         run: pnpm build
         working-directory: client
