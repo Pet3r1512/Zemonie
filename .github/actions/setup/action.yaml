@@ -11,8 +11,7 @@ runs:
       with: { version: 10 }
     - uses: actions/setup-node@v6
       with:
-        node-version: {{ inputs.node-version }}
+        node-version: ${{ inputs.node-version }}
         cache: "pnpm"
     - run: pnpm install --frozen-lockfile
       shell: bash
-      
