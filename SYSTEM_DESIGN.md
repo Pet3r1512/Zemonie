@@ -70,17 +70,46 @@ sequenceDiagram
     participant DB as Neon PostgreSQL
 
     User->>SPA: fill form, submit
+
+    Note over SPA: react-hook-form validation<br/>invalid → inline field errors, no request sent
+
     SPA->>API: POST /api/trpc/transactions.addTransaction<br/>(input + session cookie)
+
     API->>Auth: validate session
-    Auth-->>API: userId
-    API->>API: Zod validate input
-    API->>Crypto: writeAmount(amount)
-    Crypto-->>API: encrypted string (iv:cipher)
-    API->>DB: prisma.transaction.create(...)
-    DB-->>API: row
-    API-->>SPA: { success: true }
-    SPA->>SPA: invalidate queries · toast.success
-    SPA-->>User: UI updates
+    alt no / expired session
+        Auth-->>API: null
+        API-->>SPA: TRPCError UNAUTHORIZED
+    else authenticated
+        Auth-->>API: userId
+        API->>API: Zod validate input
+        alt invalid input
+            API-->>SPA: TRPCError BAD_REQUEST
+        else valid
+            API->>Crypto: writeAmount(amount)
+            alt ENCRYPTION_KEY missing / crypto error
+                Crypto-->>API: throws
+                API-->>SPA: TRPCError INTERNAL_SERVER_ERROR
+            else encrypted
+                Crypto-->>API: encrypted string (iv:cipher)
+                API->>DB: create transaction + upsert balance
+                alt DB write fails
+                    DB-->>API: error
+                    API-->>SPA: TRPCError INTERNAL_SERVER_ERROR
+                else success
+                    DB-->>API: rows
+                    API-->>SPA: { newTransaction, newBalance }
+                end
+            end
+        end
+    end
+
+    alt response not ok
+        SPA->>SPA: createNewTransaction throws<br/>Error(res.error?.message ?? "Unknown Error")
+        SPA->>User: useMutation onError → toast.error()<br/>form stays mounted for retry
+    else success
+        SPA->>SPA: invalidate queries (transactions, balance, …)
+        SPA->>User: toast.success · close dialog · UI updates
+    end
 ```
 
 ---
@@ -173,17 +202,49 @@ participant "crypto.ts\n(AES-GCM)" as Crypto
 database "Neon\nPostgreSQL" as DB
 
 User -> SPA : fill form, submit
-SPA -> API : POST /api/trpc/transactions.addTransaction\n(credentials, cookie)
+
+note over SPA
+  react-hook-form validation
+  invalid -> inline errors, no request
+end note
+
+SPA -> API : POST /api/trpc/transactions.addTransaction\n(input, cookie)
+
 API -> Auth : validate session
-Auth --> API : userId
-API -> API : Zod validate input
-API -> Crypto : writeAmount(amount)
-Crypto --> API : encrypted string (iv:cipher)
-API -> DB : prisma.transaction.create(...)
-DB --> API : row
-API --> SPA : { success: true }
-SPA -> SPA : invalidate queries, toast.success
-SPA --> User : UI updates
+alt no / expired session
+  Auth --> API : null
+  API --> SPA : TRPCError UNAUTHORIZED
+else authenticated
+  Auth --> API : userId
+  API -> API : Zod validate input
+  alt invalid input
+    API --> SPA : TRPCError BAD_REQUEST
+  else valid
+    API -> Crypto : writeAmount(amount)
+    alt ENCRYPTION_KEY missing / crypto error
+      Crypto --> API : throws
+      API --> SPA : TRPCError INTERNAL_SERVER_ERROR
+    else encrypted
+      Crypto --> API : encrypted string (iv:cipher)
+      API -> DB : create transaction + upsert balance
+      alt DB write fails
+        DB --> API : error
+        API --> SPA : TRPCError INTERNAL_SERVER_ERROR
+      else success
+        DB --> API : rows
+        API --> SPA : { newTransaction, newBalance }
+      end
+    end
+  end
+end
+
+alt response not ok
+  SPA -> SPA : throws Error(res.error?.message ?? "Unknown Error")
+  SPA -> User : onError -> toast.error(); form stays mounted (retry)
+else success
+  SPA -> SPA : invalidate queries (transactions, balance, ...)
+  SPA -> User : toast.success, close dialog, UI updates
+end
 @enduml
 ```
 
