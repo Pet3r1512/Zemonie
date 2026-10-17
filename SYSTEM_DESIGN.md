@@ -51,7 +51,7 @@ flowchart TB
 > - **Dev:** Vite proxy forwards `/api/*` to the local server worker on `localhost:8787`.
 > - **Prod:** `www.zemonie.site` → client worker, `api.zemonie.site` → server worker.
 >   Auth session cookies are shared across the `zemonie.site` subdomains.
-> - A cron job pings the server every ~5 min to keep the database warm.
+> - A cron job pings the server every ~15 min to keep the database warm.
 
 ---
 
