@@ -6,8 +6,7 @@ workspaces, both deployed to **Cloudflare Workers**:
 - `client/` — React SPA (Vite + TanStack Router + React Query + Tailwind v4).
 - `server/` — Hono + tRPC API (Better-Auth, Zod, Prisma + Neon PostgreSQL).
 
-See `PROJECT_STRUCTURE.md` for the full folder/route/API map and `DESIGN_SYSTEM.md`
-for the visual design reference.
+See `PROJECT_STRUCTURE.md` for the full folder/route/API map.
 
 ## High-level architecture
 
