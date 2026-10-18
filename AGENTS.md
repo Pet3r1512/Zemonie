@@ -120,7 +120,6 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
 
 - Keep the following root docs accurate when your change affects them:
   - `PROJECT_STRUCTURE.md` — authoritative map of folders, routes, API, models.
-  - `DESIGN_SYSTEM.md` — colors, typography, component design reference.
   - `SYSTEM_DESIGN.md` — high-level architecture notes.
   - `README.md` — project overview and status.
 - When adding a component, route, API procedure, hook, or DB model, update

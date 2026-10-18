@@ -12,7 +12,6 @@ A Gen Z-focused money management app — monorepo with client (React SPA) and se
 | `server/`             | Hono + tRPC backend (Prisma + Neon PostgreSQL)                            |
 | `public/`             | Shared brand assets (`zemonie_icon.svg`, `zemonie_logo.webp`)             |
 | `.github/`            | GitHub Actions CI & deploy workflows                                      |
-| `DESIGN_SYSTEM.md`    | Design system reference (colors, typography, components)                  |
 | `package.json`        | Root workspace scripts (`dev` runs both client & server via concurrently) |
 | `pnpm-workspace.yaml` | Declares `client` and `server` as workspace packages                      |
 
