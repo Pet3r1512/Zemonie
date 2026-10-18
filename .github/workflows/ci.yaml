@@ -87,7 +87,8 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
       - if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: cd client && pnpm exec playwright install --with-deps chromium firefox webkit
+        run: cd client && pnpm exec playwright install chromium firefox webkit
+      - run: cd client && pnpm exec playwright install-deps
 
       - name: Start Storybook
         run: |
