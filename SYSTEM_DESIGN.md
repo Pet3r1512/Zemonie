@@ -9,7 +9,6 @@ workspaces, both deployed to **Cloudflare Workers**:
 See `PROJECT_STRUCTURE.md` for the full folder/route/API map and `DESIGN_SYSTEM.md`
 for the visual design reference.
 
----
 
 ## High-level architecture
 
@@ -26,14 +25,14 @@ flowchart TB
         subgraph serverWorker["Server Worker — api.zemonie.site"]
             hono[Hono app]
             trpc["tRPC routers<br/>(+ Zod validation)"]
-            auth[Better-Auth]
-            crypto["AES-GCM crypto<br/>(balance encryption)"]
-            cron["Cron<br/>recurring budgets & transactions"]
+            auth[Better-Auth<br/>(User authentication)]
+            crypto["AES-GCM encryption<br/>(all amount fields)"]
+            cron["Cron jobs<br/>(recurring budgets & transactions)"]
         end
     end
 
     db[("Neon PostgreSQL")]
-    brevo["Brevo<br/>transactional email"]
+    brevo["Brevo<br/>(Sending emails service)"]
 
     user --> spa
     spa --> clientWorker
