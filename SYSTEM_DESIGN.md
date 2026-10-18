@@ -76,39 +76,19 @@ sequenceDiagram
     SPA->>API: POST /api/trpc/transactions.addTransaction<br/>(input + session cookie)
 
     API->>Auth: validate session
-    alt no / expired session
-        Auth-->>API: null
-        API-->>SPA: TRPCError UNAUTHORIZED
-    else authenticated
-        Auth-->>API: userId
-        API->>API: Zod validate input
-        alt invalid input
-            API-->>SPA: TRPCError BAD_REQUEST
-        else valid
-            API->>Crypto: writeAmount(amount)
-            alt ENCRYPTION_KEY missing / crypto error
-                Crypto-->>API: throws
-                API-->>SPA: TRPCError INTERNAL_SERVER_ERROR
-            else encrypted
-                Crypto-->>API: encrypted string (iv:cipher)
-                API->>DB: create transaction + upsert balance
-                alt DB write fails
-                    DB-->>API: error
-                    API-->>SPA: TRPCError INTERNAL_SERVER_ERROR
-                else success
-                    DB-->>API: rows
-                    API-->>SPA: { newTransaction, newBalance }
-                end
-            end
-        end
-    end
+    Auth-->>API: userId
+    API->>API: Zod validate input
+    API->>Crypto: writeAmount(amount)
+    Crypto-->>API: encrypted string (iv:cipher)
+    API->>DB: create transaction + upsert balance
+    DB-->>API: rows
+    API-->>SPA: { newTransaction, newBalance }
 
-    alt response not ok
-        SPA->>SPA: createNewTransaction throws<br/>Error(res.error?.message ?? "Unknown Error")
-        SPA->>User: useMutation onError → toast.error()<br/>form stays mounted for retry
-    else success
+    alt response ok
         SPA->>SPA: invalidate queries (transactions, balance, …)
         SPA->>User: toast.success · close dialog · UI updates
+    else error
+        SPA->>SPA: createNewTransaction throws → toast.error()<br/>form stays mounted for retry
     end
 ```
 
@@ -211,39 +191,19 @@ end note
 SPA -> API : POST /api/trpc/transactions.addTransaction\n(input, cookie)
 
 API -> Auth : validate session
-alt no / expired session
-  Auth --> API : null
-  API --> SPA : TRPCError UNAUTHORIZED
-else authenticated
-  Auth --> API : userId
-  API -> API : Zod validate input
-  alt invalid input
-    API --> SPA : TRPCError BAD_REQUEST
-  else valid
-    API -> Crypto : writeAmount(amount)
-    alt ENCRYPTION_KEY missing / crypto error
-      Crypto --> API : throws
-      API --> SPA : TRPCError INTERNAL_SERVER_ERROR
-    else encrypted
-      Crypto --> API : encrypted string (iv:cipher)
-      API -> DB : create transaction + upsert balance
-      alt DB write fails
-        DB --> API : error
-        API --> SPA : TRPCError INTERNAL_SERVER_ERROR
-      else success
-        DB --> API : rows
-        API --> SPA : { newTransaction, newBalance }
-      end
-    end
-  end
-end
+Auth --> API : userId
+API -> API : Zod validate input
+API -> Crypto : writeAmount(amount)
+Crypto --> API : encrypted string (iv:cipher)
+API -> DB : create transaction + upsert balance
+DB --> API : rows
+API --> SPA : { newTransaction, newBalance }
 
-alt response not ok
-  SPA -> SPA : throws Error(res.error?.message ?? "Unknown Error")
-  SPA -> User : onError -> toast.error(); form stays mounted (retry)
-else success
+alt response ok
   SPA -> SPA : invalidate queries (transactions, balance, ...)
   SPA -> User : toast.success, close dialog, UI updates
+else error
+  SPA -> SPA : throws → toast.error(); form stays mounted (retry)
 end
 @enduml
 ```
