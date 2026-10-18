@@ -9,7 +9,6 @@ workspaces, both deployed to **Cloudflare Workers**:
 See `PROJECT_STRUCTURE.md` for the full folder/route/API map and `DESIGN_SYSTEM.md`
 for the visual design reference.
 
-
 ## High-level architecture
 
 ```mermaid
@@ -17,7 +16,7 @@ flowchart TB
     user([User])
 
     subgraph browser[Browser]
-        spa["React SPA<br/>TanStack Router · React Query · Tailwind v4"]
+        spa["Vite ReactJS<br/>TanStack Router · React Query · Tailwind v4"]
     end
 
     subgraph cf[Cloudflare]
