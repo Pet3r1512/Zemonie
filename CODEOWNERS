@@ -1,0 +1,21 @@
+# CODEOWNERS
+# Reviewers are automatically requested on pull requests that touch these paths.
+# Replace the placeholder handles below with actual GitHub usernames or team slugs.
+
+# Default owners for everything
+* @zemonie-maintainers
+
+# Client workspace (React SPA, Vite, TanStack Router, Tailwind v4)
+/client/ @zemonie-client-team
+
+# Server workspace (Hono + tRPC, Prisma + Neon, Better-Auth)
+/server/ @zemonie-server-team
+
+# Repository configuration and workflows
+/.github/ @zemonie-maintainers
+
+# Root documentation and config
+/AGENTS.md @zemonie-maintainers
+/PROJECT_STRUCTURE.md @zemonie-maintainers
+/SYSTEM_DESIGN.md @zemonie-maintainers
+/README.md @zemonie-maintainers
