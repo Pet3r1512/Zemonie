@@ -47,11 +47,12 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
   - ops / infra → `OPS-###`
   - `release/` → `release/vX.Y.Z`
   - urgent production fixes → `HOTFIX/...`
-- **Commit messages:** `#TICKET-ID: Short description` (e.g. `#FIX-056: Email verify dialog UI`).
+- **Commit messages:** conventional prefixes (e.g. `fix:`, `feat:`, `doc:`, `add:`, `ops:`,
+  `improvement:`) followed by a short description (e.g. `fix: Email verify dialog UI`).
   Release commits use `Release/vX.Y.Z`.
-- **Pull requests:** target `master`, titled like the commit convention
-  (`#TICKET-ID: Description`), and are squash-merged with the PR number appended
-  (e.g. `#FEAT-069: Edit budget (#323)`).
+- **Pull requests:** target `master`, titled with the ticket ID
+  (`#TICKET-ID: Description`, e.g. `#FIX-056: Email verify dialog UI`), and are
+  squash-merged with the PR number appended (e.g. `#FEAT-069: Edit budget (#323)`).
 - Before opening a PR, make sure type-check, lint, format, and tests pass.
 
 ---

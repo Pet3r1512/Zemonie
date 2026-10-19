@@ -2,7 +2,7 @@
 Thanks for contributing to Zemonie! Before opening a PR, please make sure:
 - You branched off `master` using `<type>/<kebab-case-description>/<TICKET-ID>`
 - Your commit message uses conventional prefixes (`ops:`, `doc:`, `add:`, `fix:`, `feat:`, …)
-- The PR title is `#TICKET_ID: description`
+- The PR title is `#TICKET-ID: description`
 - Type-check, lint, format, and tests pass (see AGENTS.md "Verify before finishing")
 -->
 
@@ -12,7 +12,7 @@ Briefly describe what this PR changes and why.
 
 ## Ticket
 
-Closes #TICKET-ID
+Closes #ISSUE_NUMBER
 
 ## Type of change
 
