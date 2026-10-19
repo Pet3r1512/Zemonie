@@ -1,0 +1,21 @@
+# CODEOWNERS
+# Reviewers are automatically requested on pull requests that touch these paths.
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything
+* @Pet3r1512
+
+# Client workspace (React SPA, Vite, TanStack Router, Tailwind v4)
+/client/ @Pet3r1512
+
+# Server workspace (Hono + tRPC, Prisma + Neon, Better-Auth)
+/server/ @Pet3r1512
+
+# Repository configuration and workflows
+/.github/ @Pet3r1512
+
+# Root documentation and config
+/AGENTS.md @Pet3r1512
+/PROJECT_STRUCTURE.md @Pet3r1512
+/SYSTEM_DESIGN.md @Pet3r1512
+/README.md @Pet3r1512
