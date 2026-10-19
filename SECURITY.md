@@ -12,7 +12,11 @@
 If you discover a security vulnerability in Zemonie, please report it
 responsibly. Do **not** open a public GitHub issue for security concerns.
 
-Email the maintainer with the following details:
+Report it privately via
+[GitHub Security Advisories](https://github.com/Pet3r1512/Zemonie/security/advisories/new)
+instead of opening a public GitHub issue.
+
+Include the following details:
 
 - A clear description of the vulnerability
 - Steps to reproduce it
