@@ -57,15 +57,16 @@ Common types / ticket prefixes:
 
 ## Commit messages
 
-Use the format:
+Use conventional prefixes describing the change type:
 
 ```
-#TICKET-ID: Short description
+<type>: Short description
 ```
 
-Example: `#FIX-056: Email verify dialog UI`
+Examples: `fix: Email verify dialog UI`, `doc: Update system design`, `feat: Edit budget`
 
-Release commits use `Release/vX.Y.Z`.
+Release commits use `Release/vX.Y.Z`. The **PR title** uses the ticket format
+`#TICKET-ID: Description` (e.g. `#FIX-056: Email verify dialog UI`).
 
 ---
 
@@ -98,8 +99,9 @@ Release commits use `Release/vX.Y.Z`.
 Run type-check, lint, format, and relevant tests:
 
 ```bash
-# Formatting
+# Formatting (fix, then check)
 pnpm format:fix
+pnpm format
 
 # Lint
 pnpm lint
@@ -120,7 +122,7 @@ Git hooks (Husky) run `pnpm format:fix && lint-staged` on pre-commit, and
 ## Opening a PR
 
 1. Target `master`.
-2. Title the PR like the commit convention (`#TICKET-ID: Description`).
+2. Title the PR with the ticket ID (`#TICKET-ID: Description`).
 3. PRs are squash-merged with the PR number appended (e.g. `#FEAT-069: Edit budget (#323)`).
 4. Before opening, ensure type-check, lint, format, and tests pass.
 5. Fill out the pull request template (`.github/pull_request_template.md`).
