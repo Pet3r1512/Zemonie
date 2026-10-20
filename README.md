@@ -8,6 +8,18 @@
 
 <h3 align="center">Money Management for genZ</h3>
 
+<p align="center">
+  <a href="https://github.com/Pet3r1512/Zemonie/actions/workflows/ci.yaml">
+    <img src="https://img.shields.io/github/actions/workflow/status/Pet3r1512/Zemonie/ci.yaml?branch=master&label=CI" alt="CI">
+  </a>
+  <a href="https://app.codecov.io/gh/Pet3r1512/Zemonie">
+    <img src="https://codecov.io/gh/Pet3r1512/Zemonie/branch/master/graph/badge.svg" alt="coverage">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/github/license/Pet3r1512/Zemonie" alt="license">
+  </a>
+</p>
+
 </div>
 
 <!-- ABOUT THE PROJECT -->

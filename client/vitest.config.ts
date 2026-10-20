@@ -10,7 +10,7 @@ export default defineConfig({
     exclude: ["e2e/**", ...configDefaults.exclude],
     coverage: {
       provider: "istanbul",
-      reporter: ["text"],
+      reporter: ["text", "lcov"],
       exclude: [
         "src/stories/**",
         "src/api/**",

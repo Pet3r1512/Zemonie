@@ -55,10 +55,17 @@ jobs:
       - name: Test server
         run: pnpm test:server
 
-      # CLIENT: fast jsdom unit / component tests (first-class gate)
-      - name: Run jsdom unit & component tests
-        run: pnpm exec vitest run --project jsdom
+      # CLIENT: fast jsdom unit / component tests (first-class gate) + coverage
+      - name: Run jsdom unit & component tests with coverage
+        run: pnpm exec vitest run --project jsdom --coverage
         working-directory: client
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./client/coverage/lcov.info
+          flags: client
 
       # LINT & FORMAT
       - name: Lint
