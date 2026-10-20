@@ -23,7 +23,7 @@ flowchart TB
         subgraph serverWorker["Server Worker — api.zemonie.site"]
             hono[Hono app]
             trpc["tRPC routers<br/>(+ Zod validation)"]
-            auth[Better-Auth<br/>(User authentication)]
+            auth["Better-Auth<br/>(User authentication)"]
             crypto["AES-GCM encryption<br/>(all amount fields)"]
             cron["Cron jobs<br/>(recurring budgets & transactions)"]
         end
