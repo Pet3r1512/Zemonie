@@ -16,6 +16,7 @@ jobs:
     env:
       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      DATABASE_URL: ${{ secrect.DATABASE_URL_STAGING}}
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v4
