@@ -6,6 +6,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "postinstall": "prisma generate",
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "test-watch": "vitest",
     "env": "dotenv -e .dev.vars"
   },
@@ -34,6 +35,7 @@
     "@types/dotenv": "^8.2.3",
     "@types/node": "^24.0.10",
     "@types/ws": "^8.18.1",
+    "@vitest/coverage-istanbul": "^3.2.6",
     "prisma": "^7.8.0",
     "tsx": "^4.20.3",
     "vitest": "^3.2.4",
