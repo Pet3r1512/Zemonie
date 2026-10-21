@@ -297,7 +297,8 @@ Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND), `B
 
 | File                  | Trigger                          | Purpose                                      |
 | --------------------- | -------------------------------- | -------------------------------------------- |
-| `ci.yaml`             | PR + push to master              | Tests (Chromium, Firefox, WebKit) then build |
+| `ci.yaml`             | PR + push to master              | Unit tests then build                        |
+| `e2e.yaml`            | Master (at 3AM UTC)              | E2E Tests (Chromium, Firefox, WebKit)        |
 | `deploy-staging.yaml` | PR to master + workflow_dispatch | Deploy client + server to staging workers    |
 | `release.yaml`        | Tag push `v*`                    | Deploy client + server to production workers |
 
