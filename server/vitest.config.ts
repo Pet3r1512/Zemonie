@@ -6,6 +6,21 @@ export default defineConfig({
     environment: "node",
     exclude: ["e2e/**", ...configDefaults.exclude],
     setupFiles: ["./vitest.setup.ts"],
+    coverage: {
+      provider: "istanbul",
+      reporter: ["text", "lcov"],
+      exclude: [
+        "src/index.ts",
+        "src/env.ts",
+        "vitest.setup.ts",
+        "**/*.test.ts",
+        "**/*.config.{js,ts}",
+        "prisma/**",
+        ".wrangler/**",
+        "dist/**",
+        ...configDefaults.exclude,
+      ],
+    },
   },
   resolve: {
     alias: {
