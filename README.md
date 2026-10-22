@@ -197,6 +197,7 @@ Zemonie/
 - [x] Dashboard analytics & charts
 - [x] Multi-currency support (AUD, USD, VND)
 - [x] Encrypted financial data at rest
+- [ ] Multiple money sources (bank accounts, digital wallets...)
 - [ ] Group expense sharing for outings
 - [ ] Savings goal categories (tuition, family savings, etc.)
 - [ ] Dedicated mobile application
