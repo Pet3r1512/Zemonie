@@ -14,7 +14,7 @@ Many members of Gen Z struggle with managing their finances and planning for the
 
 In its initial release, Zemonie offers a simple platform where users can easily track expenses, make notes about spending, and visualize income and expenses through intuitive charts.
 
-**Live:** [zemonie.site](https://www.zemonie.site) · **API:** [api.zemonie.site](https://api.zemonie.site)
+**Live:** [zemonie.site](https://www.zemonie.site)
 
 ---
 
