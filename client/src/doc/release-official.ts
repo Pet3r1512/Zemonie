@@ -1,5 +1,24 @@
 const release_official = [
   {
+    version: "v1.1.5",
+    date: "Oct 22, 2026",
+    tag: "Official",
+    changes: [
+      {
+        type: "fix",
+        text: "Fixed an issue that could cause the daily net amount to be calculated incorrectly.",
+      },
+      {
+        type: "update",
+        text: "Improved the reliability and stability of Zemonie with additional testing and quality improvements behind the scenes.",
+      },
+      {
+        type: "update",
+        text: "Expanded our documentation to make Zemonie easier to understand, contribute to, and maintain.",
+      },
+    ],
+  },
+  {
     version: "v1.1.4",
     date: "Oct 12, 2026",
     tag: "Official",
