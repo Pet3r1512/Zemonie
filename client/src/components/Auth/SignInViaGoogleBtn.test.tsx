@@ -22,8 +22,8 @@ describe("SignInViaGoogleBtn", () => {
   });
 
   it("renders the Google logo", () => {
-    const { container } = render(<SignInViaGoogleBtn />);
+    render(<SignInViaGoogleBtn />);
 
-    expect(container.querySelector("svg")).toBeInTheDocument();
+    expect(screen.getByTitle("Google-btn")).toBeInTheDocument();
   });
 });
