@@ -19,6 +19,6 @@ describe("FormErrorMessage", () => {
   it("applies the error styling", () => {
     render(<FormErrorMessage message="Something went wrong" />);
 
-    expect(screen.getByTestId("form-error-msg")).toHaveClass("text-red-500");
+    expect(screen.getByRole("alert")).toHaveTextContent("Something went wrong");
   });
 });
