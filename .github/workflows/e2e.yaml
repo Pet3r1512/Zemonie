@@ -24,6 +24,19 @@ jobs:
       - uses: actions/setup-node@v6
         with: { node-version: 22, cache: "pnpm" }
       - run: pnpm install --frozen-lockfile
+
+      - name: Create server dev varsr
+        run: |
+          cat > server/.dev.vars <<EOF
+          NODE_ENV=development
+          DATABASE_URL=${{ secrets.DATABASE_URL_STAGING }}
+          BETTER_AUTH_SECRET=${{ secrets.BETTER_AUTH_SECRET }}
+          BETTER_AUTH_URL=http://localhost:8787
+          TRUSTED_ORIGIN=http://localhost:5173
+          ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+          BREVO_API=${{ secrets.BREVO_API }}
+          EOF
+
       - run: cd client && pnpm exec playwright install --with-deps chromium
       - run: cd client && pnpm exec playwright test --project=chromium
       - uses: actions/upload-artifact@v4
