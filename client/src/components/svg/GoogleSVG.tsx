@@ -7,6 +7,7 @@ export default function GoogleSVG() {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       fill="#000000"
     >
+      <title>Google-btn</title>
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
