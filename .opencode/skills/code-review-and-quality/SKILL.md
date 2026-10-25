@@ -135,7 +135,7 @@ Every change needs a description that stands alone in version control history.
 
 **Body:** What is changing and why. Include context, decisions, and reasoning not visible in the code itself. Link to bug numbers, benchmark results, or design docs where relevant. Acknowledge approach shortcomings when they exist.
 
-**Zemonie conventions (from AGENTS.md):** commits use conventional prefixes — `feat:`, `fix:`, `improvement:`, `doc:`, `add:`, `ops:` — followed by a short description. PRs target `master` and are titled `#TICKET-ID: Description` (e.g. `#FIX-056: Email verify dialog UI`); keep branches named `<type>/<kebab-case-description>/<TICKET-ID>`. A commit or PR title that doesn't match this format is a review finding.
+**Zemonie conventions (from AGENTS.md):** commits use conventional prefixes — `feat:`, `fix:`, `improvement:`, `test:`, `doc:`, `add:`, `ops:` — followed by a short description. PRs target `master` and are titled `#TICKET-ID: Description` (e.g. `#FIX-056: Email verify dialog UI`); keep branches named `<type>/<kebab-case-description>/<TICKET-ID>`. A commit or PR title that doesn't match this format is a review finding.
 
 **Anti-patterns:** "Fix bug," "Fix build," "Add patch," "Moving code from A to B," "Phase 1," "Add convenience functions."
 
