@@ -137,6 +137,7 @@ jobs:
           VITE_SERVER_URL: https://api.zemonie.site
 
   deploy-staging:
+    if: github.actor != 'dependabot[bot]'
     needs: [build]
     runs-on: ubuntu-latest
     env:
