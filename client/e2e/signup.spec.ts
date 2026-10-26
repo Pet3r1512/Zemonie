@@ -28,4 +28,25 @@ test.describe("Sign Up Flow", () => {
     await expect(page.getByText("Confirm password is required"));
     await expect(page.getByText("You must accept the terms and privacy policies"));
   });
+
+  test("shows errors for invalid email address", async ({ page }) => {
+    await page.locator("#email").fill("bademail@bad");
+    await page.locator("#name").fill("Valid Name");
+    await page.locator("#password").fill("validpassword123");
+    await page.locator("#confirmPassword").fill("validpassword123");
+    await page.getByRole("checkbox").check();
+    await page.locator('button[type="submit"]').click();
+
+    await expect(page.getByText("Invalid email address")).toBeVisible();
+    await expect(page.getByText("Name is too short")).not.toBeVisible();
+    await expect(page.getByText("Please enter a valid name using letters only")).not.toBeVisible();
+    await expect(page.getByText("Password must be at least 8 characters long")).not.toBeVisible();
+    await expect(
+      page.getByText("Minimum 8 characters, at least one letter and one number"),
+    ).not.toBeVisible();
+    await expect(page.getByText("Confirm password is required")).not.toBeVisible();
+    await expect(
+      page.getByText("You must accept the terms and privacy policies"),
+    ).not.toBeVisible();
+  });
 });
