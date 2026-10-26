@@ -19,4 +19,13 @@ test.describe("Sign Up Flow", () => {
     await expect(page.getByRole("checkbox")).toBeVisible();
     await expect(page.locator('button[type="submit"]')).toBeVisible();
   });
+
+  test("shows validation errors on empty submission", async ({ page }) => {
+    await page.locator('button[type="submit"]').click({ force: true });
+    await expect(page.getByText("Email is required"));
+    await expect(page.getByText("Your name is required"));
+    await expect(page.getByText("Password is required"));
+    await expect(page.getByText("Confirm password is required"));
+    await expect(page.getByText("You must accept the terms and privacy policies"));
+  });
 });
