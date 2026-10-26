@@ -177,4 +177,17 @@ test.describe("Sign Up Flow", () => {
     await page.getByRole("link", { name: /sign in/i }).click();
     await expect(page).toHaveURL("/auth/signin");
   });
+
+  test("signs up successfully with valid credentials and redirects to dashboard", async ({
+    page,
+  }) => {
+    await page.locator("#email").fill("validemail@email.com");
+    await page.locator("#name").fill("Valid Name");
+    await page.locator("#password").fill("validpassword123");
+    await page.locator("#confirmPassword").fill("validpassword123");
+    await page.getByRole("checkbox").check();
+    await page.locator('button[type="submit"]').click();
+
+    await expect(page).toHaveURL(/\/dashboard/, { timeout: 15000 });
+  });
 });
