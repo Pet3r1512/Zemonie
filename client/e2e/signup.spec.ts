@@ -172,4 +172,9 @@ test.describe("Sign Up Flow", () => {
     await expect(passwordInput).toHaveAttribute("type", "password");
     await expect(confirmPasswordInput).toHaveAttribute("type", "password");
   });
+
+  test("navigates to sign in page", async ({ page }) => {
+    await page.getByRole("link", { name: /sign in/i }).click();
+    await expect(page).toHaveURL("/auth/signin");
+  });
 });
