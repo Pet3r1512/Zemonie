@@ -72,7 +72,7 @@ export default function SignUpForm({ className }: { className?: string }) {
         </CardHeader>
         <CardContent>
           <SignInViaGoogleBtn />
-          <form role="form" onSubmit={handleSubmit(onSubmit)}>
+          <form role="form" noValidate onSubmit={handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               <p className="bg-card text-center text-muted-foreground relative z-10 px-2 mt-8">
                 Or continue with
@@ -82,6 +82,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                   <Label htmlFor="email">Email</Label>
                   <Input
                     role="email-input"
+                    type="email"
                     id="email"
                     {...register("email", {
                       required: "Email is required",
@@ -167,6 +168,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       type={hideConfirmPassword ? "password" : "text"}
                       required
                       {...register("confirmPassword", {
+                        required: "Confirm password is required",
                         validate: (value) =>
                           value === passwordRef.current || "The passwords do not match",
                       })}
