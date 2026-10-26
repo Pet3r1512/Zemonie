@@ -168,6 +168,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                       type={hideConfirmPassword ? "password" : "text"}
                       required
                       {...register("confirmPassword", {
+                        required: "Confirm password is required",
                         validate: (value) =>
                           value === passwordRef.current || "The passwords do not match",
                       })}
