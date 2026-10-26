@@ -9,4 +9,14 @@ test.describe("Sign Up Flow", () => {
     const form = page.locator("form");
     await expect(form).toBeVisible({ timeout: 20000 });
   });
+
+  test("renders the sign-up form", async ({ page }) => {
+    await expect(page.getByText("Create An Account")).toBeVisible();
+    await expect(page.locator("#email")).toBeVisible();
+    await expect(page.locator("#name")).toBeVisible();
+    await expect(page.locator("#password")).toBeVisible();
+    await expect(page.locator("#confirmPassword")).toBeVisible();
+    await expect(page.getByRole("checkbox")).toBeVisible();
+    await expect(page.locator('button[type="submit"]')).toBeVisible();
+  });
 });
