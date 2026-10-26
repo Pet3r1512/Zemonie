@@ -82,6 +82,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                   <Label htmlFor="email">Email</Label>
                   <Input
                     role="email-input"
+                    type="email"
                     id="email"
                     {...register("email", {
                       required: "Email is required",
