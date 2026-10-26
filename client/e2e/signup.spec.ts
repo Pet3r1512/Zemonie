@@ -153,4 +153,23 @@ test.describe("Sign Up Flow", () => {
     await expect(page.getByText("Confirm password is required")).not.toBeVisible();
     await expect(page.getByText("You must accept the terms and privacy policies")).toBeVisible();
   });
+
+  test("toggles password visibility", async ({ page }) => {
+    const passwordInput = page.locator("#password");
+    const confirmPasswordInput = page.locator("#confirmPassword");
+
+    await passwordInput.fill("validPassword1");
+    await confirmPasswordInput.fill("validPassword1");
+
+    await expect(passwordInput).toHaveAttribute("type", "password");
+    await expect(confirmPasswordInput).toHaveAttribute("type", "password");
+
+    await page.getByTestId("password-toggle").click();
+    await expect(passwordInput).toHaveAttribute("type", "text");
+    await expect(confirmPasswordInput).toHaveAttribute("type", "password");
+
+    await page.getByTestId("password-toggle").click();
+    await expect(passwordInput).toHaveAttribute("type", "password");
+    await expect(confirmPasswordInput).toHaveAttribute("type", "password");
+  });
 });
