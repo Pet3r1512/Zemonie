@@ -61,7 +61,7 @@ jobs:
         working-directory: client
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./client/coverage/lcov.info
