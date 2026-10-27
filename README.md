@@ -204,6 +204,99 @@ Zemonie/
 
 ---
 
+## Docker (Run with Containers)
+
+Use Docker to run the client and server in a production-like setup without installing Node/pnpm locally. The client is built with Vite and served by Nginx; the server runs with `tsx` via the Node adapter.
+
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) or Docker Engine
+- A valid `server/.env` file (gitignored). It must contain the required secrets for the server (database, auth, encryption, Brevo, etc.)
+
+### Quick Start (Recommended)
+```bash
+# From the root of the repo
+docker compose up --build -d
+```
+
+This builds and starts both services:
+- Server waits for its healthcheck before the client starts
+- Client is built with `VITE_SERVER_URL=http://localhost:9999` by default
+- Server runs in `NODE_ENV=development` with local CORS/trusted origins
+
+| Service | URL | Notes |
+| :-- | :-- | :-- |
+| Client (Nginx) | `http://localhost:8080` | Production build, served statically. SPA fallback enabled. |
+| Server (Node + tsx) | `http://localhost:9999` | Healthchecked at `/`. API routes under `/api/*`. |
+
+### Environment Variables
+
+#### Server (`server/.env`)
+Loaded via `env_file`. Compose overrides some values for local container usage.
+
+| Variable | Purpose | Notes |
+| :-- | :-- | :-- |
+| `NODE_ENV` | Environment mode | Overridden to `development` by compose. Enables localhost CORS and dev DB selection. |
+| `PORT` | Server port | Overridden to `9999` by compose. |
+| `BETTER_AUTH_URL` | Auth base URL | Overridden to `http://localhost:9999` by compose. |
+| `DEV_DATABASE_URL` / `DATABASE_URL` | Database connection | `prisma.ts` prefers `DEV_DATABASE_URL` when `NODE_ENV=development`. Use `host.docker.internal` if pointing to a local Postgres instance. |
+| `BETTER_AUTH_SECRET` | Auth secret | Required. |
+| `ENCRYPTION_KEY` | Encryption key | Required to encrypt/decrypt monetary amounts. |
+| `BREVO_API` | Brevo API key | Required for transactional emails. |
+| `TRUSTED_ORIGINS` | Allowed origins | In dev the server is permissive, but keep it set. |
+
+#### Client
+`VITE_SERVER_URL` is baked in at build time via the `VITE_SERVER_URL` build arg. Default is `http://localhost:9999` in Compose. Changing it requires rebuilding the image.
+
+### Manual Build & Run (Without Compose)
+```bash
+# Build images
+docker build -f server/Dockerfile -t zemonie-server .
+docker build -f client/Dockerfile --build-arg VITE_SERVER_URL=http://localhost:9999 -t zemonie-client .
+
+# Run server
+docker run --rm -p 9999:9999 \
+  --env-file server/.env \
+  -e NODE_ENV=development \
+  -e PORT=9999 \
+  -e BETTER_AUTH_URL=http://localhost:9999 \
+  zemonie-server
+
+# Run client
+docker run --rm -p 8080:8080 zemonie-client
+```
+
+### Useful Commands
+```bash
+# View running containers and health
+docker compose ps
+
+# Follow logs
+docker compose logs -f server
+docker compose logs -f client
+
+# Stop and remove containers
+docker compose down
+
+# Rebuild after making changes
+docker compose up --build -d
+
+# Check migrations
+docker compose exec server pnpm exec prisma migrate status
+
+# Apply migrations
+docker compose exec server pnpm exec prisma migrate deploy
+```
+
+### Important Notes & Caveats
+- **No hot reload**: Client is a production build served by Nginx. Server runs with `tsx` with no watch mode. Changes require rebuilding images.
+- **Secrets not committed**: `server/.env`, `.dev.vars`, `.env.*` are gitignored. Contributors must provide their own.
+- **Database**: Defaults to the dev Neon database via `DEV_DATABASE_URL`. For a local Postgres instance, use `host.docker.internal` in the connection string.
+- **Migrations are not automatic**: Containers do not run `prisma migrate deploy` on startup. Run manually if needed.
+- **Cron not supported**: Cloudflare `scheduled()` jobs are not executed by the Node adapter; only run in Workers/Wrangler.
+- **CORS/Auth**: Use `localhost` (not `127.0.0.1`) for consistency with cookies. Compose forces `NODE_ENV=development` for local use.
+- **Dev dependencies included**: Server image includes devDependencies because `tsx` is used at runtime.
+- **Browser calls API directly**: The client does not proxy `/api`; requests go to `VITE_SERVER_URL`. CORS must allow the origin.
+
 ## Contributing
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, branching model, commit conventions, and the process for submitting pull requests.
