@@ -28,11 +28,10 @@ RUN HUSKY=0 pnpm install --frozen-lockfile --filter server
 COPY --chown=node:node server ./server
 
 WORKDIR /src/server
-ENV NODE_ENV=production
 ENV PORT=9999
 EXPOSE 9999
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-  CMD wget -qO- "http://127.0.0.1:${PORT:-9999}/" >/dev/null || exit 1
+  CMD wget -qO- "http://127.0.0.1:${PORT:-9999}/api/ping" >/dev/null || exit 1
 
 CMD ["pnpm", "start"]
