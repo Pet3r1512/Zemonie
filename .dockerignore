@@ -26,8 +26,8 @@ storybook-static
 .env.*
 **/.env
 **/.env.*
-.dev.vars
-**/.dev.vars
+.dev.vars*
+**/.dev.vars*
 .DS_Store
 **/.DS_Store
 .dockerignore
