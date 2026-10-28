@@ -1,0 +1,32 @@
+# COMPOSE CREATES A DEFAULT NETWORK FOR THE 2 SERVICES,
+# SO THE CONTAINERS CAN REACH EACH OTHER BY SERVICE NAME
+# THE BROWSER CANNOT RESOLVE "server:9999"
+# THAT IS WHY THE CLIENT USES "localhost:9999"
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    init: true
+    env_file:
+      - path: server/.env
+        required: true
+    environment:
+      NODE_ENV: development
+      PORT: "9999"
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:-http://localhost:9999}
+    ports:
+      - "9999:9999"
+
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+      args:
+        VITE_SERVER_URL: ${VITE_SERVER_URL:-http://localhost:9999}
+    depends_on:
+      server:
+        condition: service_healthy
+    ports:
+      - "8080:8080"

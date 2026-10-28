@@ -2,6 +2,7 @@
   "name": "server",
   "scripts": {
     "dev": "wrangler dev",
+    "start": "tsx src/docker.ts",
     "deploy": "pnpm prisma generate && wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "postinstall": "prisma generate",
