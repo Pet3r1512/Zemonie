@@ -20,10 +20,23 @@ const server = serve({
   port,
 });
 
-const shutdown = () => {
-  server.close(() => process.exit(0));
+const shutdown = (signal: string) => {
+  console.log(`Received ${signal}, shutting down...`);
+  const timeout = setTimeout(() => {
+    console.error("Shutdown timed out, forcing exit");
+    process.exit(1);
+  }, 10000);
+
+  if (typeof (server as any).closeAllConnections === "function") {
+    (server as any).closeAllConnections();
+  }
+
+  server.close(() => {
+    clearTimeout(timeout);
+    process.exit(0);
+  });
 };
 
 // Handle Docker stop signals and Ctrl C
-process.on("SIGTERM", shutdown);
-process.on("SIGINT", shutdown);
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
