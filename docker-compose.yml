@@ -11,7 +11,7 @@ services:
     init: true
     env_file:
       - path: server/.env
-        required: false
+        required: true
     environment:
       NODE_ENV: development
       PORT: "9999"
