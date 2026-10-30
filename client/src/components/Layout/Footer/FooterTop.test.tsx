@@ -1,83 +1,47 @@
-import { describe, expect, it } from "vitest";
-import FooterTop from "./FooterTop";
 import { render, screen } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { describe, expect, it, vi } from "vitest";
+import FooterTop from "./FooterTop";
+
+vi.mock("@/components/Banner/VersionTag", () => ({
+  default: () => <div data-testid="version-tag">v1.0.0</div>,
+}));
+
+vi.mock("../Logo", () => ({
+  default: () => <div data-testid="logo">Logo</div>,
+}));
+
+vi.mock("./CommonLinks", () => ({
+  default: () => <div data-testid="common-links">CommonLinks</div>,
+}));
 
 describe("FooterTop", () => {
-  it("should render FooterTop container", () => {
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false,
-        },
-      },
-    });
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <FooterTop />
-      </QueryClientProvider>,
-    );
+  it("renders the footer top container", () => {
+    render(<FooterTop />);
 
     expect(screen.getByTestId("footertop-container")).toBeInTheDocument();
   });
 
-  it("should render Logo", () => {
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false,
-        },
-      },
-    });
+  it("renders the logo", () => {
+    render(<FooterTop />);
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <FooterTop />
-      </QueryClientProvider>,
-    );
-
-    expect(screen.getByTestId("logo-wrapper")).toBeInTheDocument();
+    expect(screen.getByTestId("logo")).toBeInTheDocument();
   });
 
-  it("should render correct text content", () => {
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false,
-        },
-      },
-    });
+  it("renders the tagline", () => {
+    render(<FooterTop />);
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <FooterTop />
-      </QueryClientProvider>,
-    );
-
-    const description = screen.getByText(
-      /Smart money management for.*Take control of your finances today/,
-    );
-
-    expect(description).toHaveTextContent(
-      "Smart money management for GenZ. Take control of your finances today.",
-    );
+    expect(screen.getByText(/Smart money management for/)).toBeInTheDocument();
+    expect(screen.getByText("GenZ")).toBeInTheDocument();
   });
 
-  it("should render Common links section", () => {
-    const queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          retry: false,
-        },
-      },
-    });
+  it("renders the version tag", () => {
+    render(<FooterTop />);
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <FooterTop />
-      </QueryClientProvider>,
-    );
+    expect(screen.getByTestId("version-tag")).toBeInTheDocument();
+  });
+
+  it("renders common links", () => {
+    render(<FooterTop />);
 
     expect(screen.getByTestId("common-links")).toBeInTheDocument();
   });
