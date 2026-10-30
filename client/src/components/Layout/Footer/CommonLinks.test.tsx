@@ -38,10 +38,23 @@ describe("CommonLinks", () => {
     render(<CommonLinks />);
 
     expect(screen.getByRole("link", { name: "Features" })).toHaveAttribute("href", "/features");
+    expect(screen.getByRole("link", { name: "Release Notes" })).toHaveAttribute(
+      "href",
+      "/release-notes",
+    );
+    expect(screen.getByRole("link", { name: "FAQ" })).toHaveAttribute("href", "/faq");
     expect(screen.getByRole("link", { name: "About Us" })).toHaveAttribute("href", "/about-us");
+    expect(screen.getByRole("link", { name: "Terms of Service" })).toHaveAttribute(
+      "href",
+      "/terms",
+    );
     expect(screen.getByRole("link", { name: "Privacy Policy" })).toHaveAttribute(
       "href",
       "/privacy",
+    );
+    expect(screen.getByRole("link", { name: "Cookie Policy" })).toHaveAttribute(
+      "href",
+      "/cookie-policy",
     );
   });
 });
