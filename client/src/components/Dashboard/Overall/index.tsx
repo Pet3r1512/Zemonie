@@ -108,7 +108,7 @@ export default function Overall() {
   ];
 
   return (
-    <section className="flex flex-col lg:flex-row items-center gap-y-5 lg:gap-x-5 max-w-7xl">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl">
       {data.map((item) => (
         <Data key={item.name} data={item} />
       ))}

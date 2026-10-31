@@ -41,10 +41,10 @@ export default function ListByDate({
   const lastTxId = allTxs[allTxs.length - 1]?.id;
 
   return (
-    <section className="space-y-10 min-h-0 ">
+    <section className="space-y-6 min-h-0">
       {dailySummary(sortedEntries).map(([date, txs, dailyNet]) => (
-        <div key={date} className="space-y-1 lg:space-y-5">
-          <div className="p-0.5 lg:p-1.5 rounded-lg bg-gray-200 dark:bg-dark-card font-bold flex items-center justify-between">
+        <div key={date} className="space-y-2 lg:space-y-4">
+          <div className="px-3 py-2 rounded-xl bg-gray-100 dark:bg-dark-card font-semibold flex items-center justify-between text-sm">
             <p>{ParseISOStringDate({ date: date })}</p>
             {txs.length > 1 ? (
               <Tooltip>

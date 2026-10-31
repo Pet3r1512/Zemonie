@@ -63,7 +63,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
 
   if (summary.length === 0) {
     return (
-      <Card className="flex flex-col">
+      <Card className="flex flex-col rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-black/5 dark:border-white/10">
         <CardHeader className="items-center pb-0">
           <CardTitle>Spending by Category</CardTitle>
         </CardHeader>

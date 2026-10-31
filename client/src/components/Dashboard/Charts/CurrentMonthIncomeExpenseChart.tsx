@@ -31,7 +31,7 @@ export function CurrentMonthIncomeExpenseChart({
   }
 
   return (
-    <Card>
+    <Card className="rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-black/5 dark:border-white/10">
       <CardHeader>
         <CardTitle>Income vs Expenses</CardTitle>
       </CardHeader>

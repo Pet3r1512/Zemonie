@@ -17,7 +17,7 @@ export default function Data({ data }: { data: OverallDataType }) {
   const rateColor = data.amount >= 0 ? "text-green-500" : "text-red-500";
 
   return (
-    <Card className="w-full py-3.5 px-5 gap-2.5 shadow-lg lg:hover:shadow-2xl transition-all duration-150 ease-linear">
+    <Card className="w-full py-6 px-6 gap-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 ease-out border border-black/5 dark:border-white/10">
       <div className="flex items-center justify-between">
         <p className="lg:text-xl font-extrabold truncate">{data.name}</p>
         {data.icon}
