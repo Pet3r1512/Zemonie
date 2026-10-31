@@ -30,6 +30,7 @@ export default defineConfig({
         "src/components/ui/**",
         "src/app.tsx",
         "src/main.tsx",
+        "playwright-report/*",
         ...coverageConfigDefaults.exclude,
       ],
     },
