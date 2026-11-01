@@ -27,6 +27,15 @@ Read `AGENTS.md` and `PROJECT_STRUCTURE.md` for the full development guidelines 
 
    (`client` on Vite, `server` on Wrangler at `localhost:8787`.)
 
+4. Optional: run a production-like stack with Docker. This requires a populated
+   `server/.env` (gitignored):
+
+   ```bash
+   docker compose up --build -d
+   ```
+
+   See `README.md` → Docker for ports, environment variables, and caveats.
+
 ---
 
 ## Branching model

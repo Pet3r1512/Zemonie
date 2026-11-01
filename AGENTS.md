@@ -71,6 +71,18 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
 
 ---
 
+## Containers (Docker)
+
+- `docker-compose.yml` builds the client (Vite → Nginx) and server (Node adapter at
+  `server/src/docker.ts`) containers for local, production-like runs.
+- Requires a populated `server/.env` (gitignored). The compose file treats it as optional,
+  so the stack can appear healthy while DB/auth calls fail if it is missing.
+- Commands: `docker compose up --build -d`, `docker compose down`, `docker compose logs -f`.
+- The Node adapter does **not** run the Cloudflare `scheduled()` cron jobs. See
+  `README.md` → Docker for environment variables and caveats.
+
+---
+
 ## Code Quality
 
 - **Linter:** [oxlint](https://oxc.rs) configured in root `.oxlintrc.json`.

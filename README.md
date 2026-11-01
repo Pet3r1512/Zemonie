@@ -67,8 +67,8 @@ In its initial release, Zemonie offers a simple platform where users can easily 
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Client**          | React 19, TypeScript, Vite, TanStack Router, TanStack Query, Zustand, Tailwind CSS v4, shadcn/ui, Lucide Icons |
 | **Server**          | Hono, tRPC, TypeScript, Prisma, Neon PostgreSQL, Better-Auth, Brevo                                            |
-| **Infrastructure**  | Cloudflare Workers (client + server), Wrangler                                                                 |
 | **Testing**         | Vitest, React Testing Library, Playwright (Storybook browser tests)                                            |
+| **Infrastructure**  | Cloudflare Workers (client + server), Wrangler; Docker for local containers                                    |
 | **Package Manager** | pnpm (monorepo)                                                                                                |
 
 ---
@@ -179,6 +179,7 @@ Zemonie/
 ├── server/                 # Hono + tRPC API (Prisma + Neon PostgreSQL)
 ├── public/                 # Brand assets
 ├── .github/                # GitHub Actions workflows (CI, E2E, deploy)
+├── docker-compose.yml      # Local client + server containers
 ├── AGENTS.md               # Development guidelines for contributors & AI agents
 ├── CONTRIBUTING.md         # Contributing guide
 ├── SECURITY.md             # Security policy

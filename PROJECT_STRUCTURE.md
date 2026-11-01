@@ -13,6 +13,8 @@ A Gen Z-focused money management app — monorepo with client (React SPA) and se
 | `public/`             | Shared brand assets (`zemonie_icon.svg`, `zemonie_logo.webp`)             |
 | `.github/`            | GitHub Actions CI & deploy workflows                                      |
 | `.opencode/`          | Installed skills for Opencode                                             |
+| `docker-compose.yml`  | Local client + server containers                                          |
+| `.dockerignore`       | Docker build context exclusions                                           |
 | `package.json`        | Root workspace scripts (`dev` runs both client & server via concurrently) |
 | `pnpm-workspace.yaml` | Declares `client` and `server` as workspace packages                      |
 
@@ -36,6 +38,8 @@ A Gen Z-focused money management app — monorepo with client (React SPA) and se
 | `postcss.config.js`     | PostCSS with Tailwind v4                                                     |
 | `index.html`            | HTML entry point                                                             |
 | `setupTests.ts`         | Vitest test setup (global mocks, matchers)                                   |
+| `Dockerfile`            | Multi-stage container build (Vite build served by Nginx)                     |
+| `nginx.conf`            | Nginx SPA config for the client container                                    |
 | `.prettierrc`           | Prettier code formatting config                                              |
 | `.prettierignore`       | Prettier ignore rules                                                        |
 | `.storybook/`           | Storybook config (main, preview, vitest addon)                               |
