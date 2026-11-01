@@ -1,5 +1,28 @@
 const release_official = [
   {
+    version: "v1.1.6",
+    date: "Nov 01, 2026",
+    tag: "Official",
+    changes: [
+      {
+        type: "update",
+        text: "Improved consistency across the app with more unified page layouts and visual styles.",
+      },
+      {
+        type: "update",
+        text: "Strengthened app reliability through expanded testing to help prevent issues and ensure features work as expected.",
+      },
+      {
+        type: "update",
+        text: "Improved the sign-up experience and overall account setup reliability.",
+      },
+      {
+        type: "update",
+        text: "Improved the stability and maintainability of the app to support future improvements.",
+      },
+    ],
+  },
+  {
     version: "v1.1.5",
     date: "Oct 22, 2026",
     tag: "Official",
