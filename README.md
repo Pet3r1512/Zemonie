@@ -67,8 +67,8 @@ In its initial release, Zemonie offers a simple platform where users can easily 
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Client**          | React 19, TypeScript, Vite, TanStack Router, TanStack Query, Zustand, Tailwind CSS v4, shadcn/ui, Lucide Icons |
 | **Server**          | Hono, tRPC, TypeScript, Prisma, Neon PostgreSQL, Better-Auth, Brevo                                            |
-| **Infrastructure**  | Cloudflare Workers (client + server), Wrangler                                                                 |
-| **Testing**         | Vitest, React Testing Library, Playwright (Storybook browser tests)                                            |
+| **Infrastructure**  | Cloudflare Workers (client + server), Wrangler; Docker for local containers                                    |
+| **Testing**         | Vitest, React Testing Library, Playwright (E2E + Storybook browser tests)                                      |
 | **Package Manager** | pnpm (monorepo)                                                                                                |
 
 ---
@@ -126,7 +126,7 @@ DATABASE_URL="postgresql://..."
 BETTER_AUTH_SECRET="your-secret"
 BETTER_AUTH_URL="http://localhost:8787"
 ENCRYPTION_KEY="your-32-byte-base64-key"
-BREVO_API_KEY="your-brevo-api-key"
+BREVO_API="your-brevo-api-key"
 TRUSTED_ORIGINS="http://localhost:5173"
 ```
 
@@ -157,6 +157,9 @@ pnpm --dir server test
 
 # Server with coverage
 pnpm --dir server coverage
+
+# Client E2E (Playwright)
+pnpm --dir client exec playwright test --project=chromium
 ```
 
 ### Building
@@ -179,8 +182,11 @@ Zemonie/
 ├── server/                 # Hono + tRPC API (Prisma + Neon PostgreSQL)
 ├── public/                 # Brand assets
 ├── .github/                # GitHub Actions workflows (CI, E2E, deploy)
+├── .opencode/              # Installed skills for Opencode
+├── docker-compose.yml      # Local client + server containers
 ├── AGENTS.md               # Development guidelines for contributors & AI agents
 ├── CONTRIBUTING.md         # Contributing guide
+├── DESIGN_SYSTEM.md        # UI/UX conventions used by reviews and contributors
 ├── SECURITY.md             # Security policy
 ├── CODEOWNERS              # Repository ownership
 ├── SYSTEM_DESIGN.md        # High-level architecture & flow diagrams

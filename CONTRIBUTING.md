@@ -6,7 +6,7 @@ This is a **pnpm monorepo** with two workspaces, both deployed to Cloudflare Wor
 - `client/` — React SPA (Vite + TanStack Router + Tailwind v4)
 - `server/` — Hono + tRPC API (Prisma + Neon PostgreSQL, Better-Auth)
 
-Read `AGENTS.md` and `PROJECT_STRUCTURE.md` for the full development guidelines and codebase map.
+Read `AGENTS.md` and `PROJECT_STRUCTURE.md` for the full development guidelines and codebase map, and `DESIGN_SYSTEM.md` before changing UI components.
 
 ---
 
@@ -26,6 +26,15 @@ Read `AGENTS.md` and `PROJECT_STRUCTURE.md` for the full development guidelines 
    ```
 
    (`client` on Vite, `server` on Wrangler at `localhost:8787`.)
+
+4. Optional: run a production-like stack with Docker. This requires a populated
+   `server/.env` (gitignored):
+
+   ```bash
+   docker compose up --build -d
+   ```
+
+   See `README.md` → Docker for ports, environment variables, and caveats.
 
 ---
 
@@ -107,7 +116,7 @@ pnpm format
 pnpm lint
 
 # Client type-check
-pnpm --filter client exec tsc --noEmit
+pnpm --dir client exec tsc -b
 
 # Tests
 pnpm test:client   # or pnpm --dir client test

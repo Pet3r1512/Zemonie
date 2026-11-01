@@ -13,6 +13,9 @@ A Gen Z-focused money management app — monorepo with client (React SPA) and se
 | `public/`             | Shared brand assets (`zemonie_icon.svg`, `zemonie_logo.webp`)             |
 | `.github/`            | GitHub Actions CI & deploy workflows                                      |
 | `.opencode/`          | Installed skills for Opencode                                             |
+| `docker-compose.yml`  | Local client + server containers                                          |
+| `.dockerignore`       | Docker build context exclusions                                           |
+| `DESIGN_SYSTEM.md`    | UI/UX conventions for contributors and reviews                            |
 | `package.json`        | Root workspace scripts (`dev` runs both client & server via concurrently) |
 | `pnpm-workspace.yaml` | Declares `client` and `server` as workspace packages                      |
 
@@ -36,6 +39,9 @@ A Gen Z-focused money management app — monorepo with client (React SPA) and se
 | `postcss.config.js`     | PostCSS with Tailwind v4                                                     |
 | `index.html`            | HTML entry point                                                             |
 | `setupTests.ts`         | Vitest test setup (global mocks, matchers)                                   |
+| `Dockerfile`            | Multi-stage container build (Vite build served by Nginx)                     |
+| `nginx.conf`            | Nginx SPA config for the client container                                    |
+| `e2e/`                  | Playwright end-to-end specs (`signin.spec.ts`, `signup.spec.ts`)             |
 | `.prettierrc`           | Prettier code formatting config                                              |
 | `.prettierignore`       | Prettier ignore rules                                                        |
 | `.storybook/`           | Storybook config (main, preview, vitest addon)                               |
@@ -208,12 +214,14 @@ src/
 | `prisma/schema.prisma`   | Database schema                                              |
 | `.dev.vars`              | Local dev secrets for wrangler                               |
 | `.env`                   | Environment variables                                        |
+| `Dockerfile`             | Node 22 + tsx image for container runs                       |
 
 ### `src/` — Server Source
 
 ```
 src/
 ├── index.ts          # Hono app entry (CORS, session, tRPC mount, auth mount, cron)
+├── docker.ts         # Node adapter for container runs (fetch + graceful shutdown)
 ├── env.ts            # Zod-validated environment variables
 ├── server/           # tRPC routers
 ├── lib/              # Auth config, Prisma client, analytics utilities
@@ -284,37 +292,40 @@ Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND), `B
 
 ## Client `public/` Assets
 
-| Directory      | Content                            |
-| -------------- | ---------------------------------- |
-| `favicon.ico`  | Browser tab favicon                |
-| `robots.txt`   | Crawler rules                      |
-| `sitemap.xml`  | SEO sitemap                        |
-| `logo/`        | Zemonie icon and logo (SVG + WebP) |
-| `screenshots/` | App screenshots (Dashboard.webp)   |
+| Directory      | Content                                |
+| -------------- | -------------------------------------- |
+| `favicon.ico`  | Browser tab favicon                    |
+| `robots.txt`   | Crawler rules                          |
+| `sitemap.xml`  | SEO sitemap                            |
+| `logo/`        | Zemonie icon and logo (SVG + WebP)     |
+| `screenshots/` | App screenshots (light/dark dashboard) |
 
 ---
 
 ## CI/CD — `.github/workflows/`
 
-| File                  | Trigger                          | Purpose                                      |
-| --------------------- | -------------------------------- | -------------------------------------------- |
-| `ci.yaml`             | PR + push to master              | Unit tests then build                        |
-| `e2e.yaml`            | Master (at 3AM UTC)              | E2E Tests (Chromium, Firefox, WebKit)        |
-| `deploy-staging.yaml` | PR to master + workflow_dispatch | Deploy client + server to staging workers    |
-| `release.yaml`        | Tag push `v*`                    | Deploy client + server to production workers |
+| File           | Trigger                                 | Purpose                                                                                                     |
+| -------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `ci.yaml`      | PR + push to master                     | React Doctor, server tests, client jsdom tests, Storybook browser tests, build; deploys staging on `master` |
+| `e2e.yaml`     | Schedule (3AM UTC), `e2e` label, manual | Playwright E2E tests (Chromium)                                                                             |
+| `release.yaml` | Tag push `v*`                           | Deploy client + server to production workers                                                                |
 
 ---
 
 ## Tests
 
-| File                                                    | Type                                            |
-| ------------------------------------------------------- | ----------------------------------------------- |
-| `client/src/components/Auth/SignUp/SignUpForm.test.tsx` | Component test (Vitest + React Testing Library) |
-| `client/src/components/Layout/Logo.test.tsx`            | Component test (Vitest + React Testing Library) |
-| `client/src/helpers/shortenUserName.test.tsx`           | Unit test (Vitest)                              |
-| `server/src/lib/crypto.test.ts`                         | Unit test (Vitest, node) — amount encryption    |
+Tests are co-located with source as `*.test.ts` / `*.test.tsx`.
 
-Client tests are written for Vitest and run via `@storybook/experimental-addon-test` across Chromium, Firefox, and WebKit. Server tests run with plain Vitest (`pnpm test:server` → `vitest run`) and are executed in CI.
+| Suite                 | Location                     | Runner                                          |
+| --------------------- | ---------------------------- | ----------------------------------------------- |
+| Client component/unit | `client/src/**`              | Vitest + React Testing Library (jsdom)          |
+| Client E2E            | `client/e2e/`                | Playwright (`signin.spec.ts`, `signup.spec.ts`) |
+| Storybook browser     | `client/vitest.workspace.ts` | Playwright projects: Chromium, Firefox, WebKit  |
+| Server unit           | `server/src/**`              | Vitest (`environment: "node"`)                  |
+
+Commands: `pnpm --dir client test`, `pnpm --dir client coverage`,
+`pnpm --dir client exec playwright test`, `pnpm --dir server test`.
+CI runs the server suite first, then client tests across Chromium/Firefox/WebKit, plus E2E on a schedule or `e2e` label.
 
 ---
 
