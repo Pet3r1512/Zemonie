@@ -109,6 +109,9 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
 - **Environment (server):** `node`; `server/vitest.setup.ts` injects an ephemeral
   `ENCRYPTION_KEY` for the test run so no key-shaped secret is ever committed.
 - **Location:** co-locate tests next to the source as `*.test.tsx` / `*.test.ts`.
+- **E2E:** Playwright specs live in `client/e2e/`; run
+  `pnpm --dir client exec playwright test --project=chromium`. CI runs them on a
+  schedule, manual dispatch, or the `e2e` PR label.
 - **Browser/Storybook tests:** `client/vitest.workspace.ts` defines Storybook browser
   projects (`chromium`, `firefox`, `webkit`) via Playwright + `@storybook/addon-vitest`.
   CI runs these against a running Storybook (`STORYBOOK_URL`).

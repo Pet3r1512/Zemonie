@@ -67,8 +67,8 @@ In its initial release, Zemonie offers a simple platform where users can easily 
 | ------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Client**          | React 19, TypeScript, Vite, TanStack Router, TanStack Query, Zustand, Tailwind CSS v4, shadcn/ui, Lucide Icons |
 | **Server**          | Hono, tRPC, TypeScript, Prisma, Neon PostgreSQL, Better-Auth, Brevo                                            |
-| **Testing**         | Vitest, React Testing Library, Playwright (Storybook browser tests)                                            |
 | **Infrastructure**  | Cloudflare Workers (client + server), Wrangler; Docker for local containers                                    |
+| **Testing**         | Vitest, React Testing Library, Playwright (E2E + Storybook browser tests)                                      |
 | **Package Manager** | pnpm (monorepo)                                                                                                |
 
 ---
@@ -157,6 +157,9 @@ pnpm --dir server test
 
 # Server with coverage
 pnpm --dir server coverage
+
+# Client E2E (Playwright)
+pnpm --dir client exec playwright test --project=chromium
 ```
 
 ### Building
