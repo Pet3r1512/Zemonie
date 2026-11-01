@@ -138,6 +138,7 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
   - `PROJECT_STRUCTURE.md` — authoritative map of folders, routes, API, models.
   - `SYSTEM_DESIGN.md` — high-level architecture notes.
   - `README.md` — project overview and status.
+  - `DESIGN_SYSTEM.md` — UI/UX conventions for new and edited components.
 - When adding a component, route, API procedure, hook, or DB model, update
   `PROJECT_STRUCTURE.md` in the same PR.
 - Write code comments only where intent is non-obvious; prefer clear naming over comments.
@@ -156,7 +157,7 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
   - Client (`client/tsconfig.app.json`): `strict`, `noUnusedLocals`,
     `noUnusedParameters`, `noFallthroughCasesInSwitch`, `noEmit`.
   - Server (`server/tsconfig.json`): `strict`.
-  - Run client type-check: `pnpm --filter client exec tsc --noEmit`.
+  - Run client type-check: `pnpm --dir client exec tsc -b`.
 - **Git hooks (Husky):**
   - `pre-commit`: `pnpm format:fix && pnpm lint-staged`
     (lint-staged runs `oxlint --fix` + `oxfmt` on staged files).

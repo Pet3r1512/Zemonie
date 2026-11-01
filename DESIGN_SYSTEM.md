@@ -13,7 +13,7 @@ Apple-inspired, calm, intentional. Used by AI code review to keep new changes co
 ## Colors
 
 - Brand accent: `primary` = `#ff7900` (orange). Keep as brand identity.
-- Light bg: `#f5f5f7`; Dark bg: `#0f1115` (`dark-bg`).
+- Light bg: `#f5f5f7` (`body`); dashboard surfaces use white. Dark bg: `#0f1115` (`dark-bg`).
 - Cards: white / `dark-card` (`#181c23`), elevated `dark-elevated` (`#222833`).
 - Text: gray-900/white headings; gray-500/400 muted; red-500 errors.
 - Borders: `border-black/5` (light), `border-white/10` (dark).
@@ -25,7 +25,7 @@ Apple-inspired, calm, intentional. Used by AI code review to keep new changes co
 ## Shadows
 
 - Cards: `shadow-sm` with `hover:shadow-md` and `transition-shadow duration-200`.
-- Avoid `shadow-lg`/`shadow-2xl`/`shadow-xl` except hero screenshot.
+- Avoid `shadow-lg`/`shadow-2xl`/`shadow-xl` in new or edited components (except the hero screenshot). Existing usages are tracked for cleanup.
 
 ## Spacing
 
@@ -37,7 +37,7 @@ Apple-inspired, calm, intentional. Used by AI code review to keep new changes co
 
 - Headings: `font-semibold tracking-tight`, scale `text-2xl md:text-3xl lg:text-4xl`.
 - Body/muted: `text-sm`/`text-base`, `text-gray-500 dark:text-gray-400`.
-- Avoid `font-bold`/`font-extrabold` except emphasis.
+- Use `font-semibold` for headings; `font-bold`/`font-extrabold` only for emphasis (e.g., compact summary-card titles).
 
 ## Layouts
 
@@ -58,4 +58,4 @@ Apple-inspired, calm, intentional. Used by AI code review to keep new changes co
 ## Conventions
 
 - Use `@/` path alias. No comments unless intent non-obvious.
-- Verify: `pnpm --filter client exec tsc --noEmit`, `pnpm lint`, `pnpm format`.
+- Verify: `pnpm --dir client exec tsc -b`, `pnpm lint`, `pnpm format`.

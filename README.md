@@ -126,7 +126,7 @@ DATABASE_URL="postgresql://..."
 BETTER_AUTH_SECRET="your-secret"
 BETTER_AUTH_URL="http://localhost:8787"
 ENCRYPTION_KEY="your-32-byte-base64-key"
-BREVO_API_KEY="your-brevo-api-key"
+BREVO_API="your-brevo-api-key"
 TRUSTED_ORIGINS="http://localhost:5173"
 ```
 
@@ -182,9 +182,11 @@ Zemonie/
 ├── server/                 # Hono + tRPC API (Prisma + Neon PostgreSQL)
 ├── public/                 # Brand assets
 ├── .github/                # GitHub Actions workflows (CI, E2E, deploy)
+├── .opencode/              # Installed skills for Opencode
 ├── docker-compose.yml      # Local client + server containers
 ├── AGENTS.md               # Development guidelines for contributors & AI agents
 ├── CONTRIBUTING.md         # Contributing guide
+├── DESIGN_SYSTEM.md        # UI/UX conventions used by reviews and contributors
 ├── SECURITY.md             # Security policy
 ├── CODEOWNERS              # Repository ownership
 ├── SYSTEM_DESIGN.md        # High-level architecture & flow diagrams

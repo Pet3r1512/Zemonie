@@ -50,6 +50,14 @@ flowchart TB
 >   Auth session cookies are shared across the `zemonie.site` subdomains.
 > - A cron job pings the server every ~15 min to keep the database warm.
 
+> **Local containers**
+>
+> `docker-compose.yml` runs the same code without Wrangler: the client is built with Vite
+> and served by Nginx (`client/Dockerfile`), and the server runs through a Node adapter
+> (`server/src/docker.ts`) using `@hono/node-server`. This path is intended for local or
+> self-hosted use; production remains on Workers. Cloudflare `scheduled()` cron jobs are
+> not executed by the Node adapter.
+
 ---
 
 ## Request flow — "Add transaction"
