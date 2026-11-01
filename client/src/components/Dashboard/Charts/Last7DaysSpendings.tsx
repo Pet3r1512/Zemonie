@@ -39,7 +39,7 @@ export default function Last7DaysSpendings({
   chartData: Last7DaysExpensesChartType;
 }) {
   return (
-    <Card>
+    <Card className="rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-black/5 dark:border-white/10">
       <CardHeader>
         <CardTitle>Last 7 Days Spendings</CardTitle>
       </CardHeader>
