@@ -3,7 +3,9 @@ import { describe, expect, it, vi } from "vitest";
 import ListByDate, { TransactionInfo } from "./ListByDate";
 import { Currency } from "@/api/users/createBalance";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { userEvent } from "@storybook/testing-library";
+import userEvent from "@testing-library/user-event";
+import groupTransactions from "@/lib/groupTransactions";
+import { act } from "react";
 
 const mockTransactions: TransactionInfo[] = [
   {
@@ -84,8 +86,17 @@ describe("List By Date component tests", () => {
   it("displays daily tooltip on hover", async () => {
     renderListByDate();
 
-    const dailyNet = screen.getByTestId("daily-net");
-    await userEvent.hover(dailyNet);
+    renderListByDate();
+
+    const dailyNet = screen.getAllByTestId("daily-net");
+
+    const transactionGroupIndex = sortedEntries.findIndex(
+      ([_, transactions]) => transactions.length > 1,
+    );
+
+    await act(async () => {
+      await userEvent.hover(dailyNet[transactionGroupIndex]);
+    });
 
     expect(await screen.findByRole("tooltip")).toHaveTextContent("Daily Net");
   });
@@ -95,5 +106,6 @@ describe("List By Date component tests", () => {
 
     expect(screen.getByText("mockDescription1")).toBeInTheDocument();
     expect(screen.getByText("mockDescription2")).toBeInTheDocument();
+    expect(screen.getByText("mockDescription3")).toBeInTheDocument();
   });
 });
