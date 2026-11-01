@@ -12,7 +12,7 @@ const mockTransactions: TransactionInfo[] = [
     categoryId: 1,
     amount: 200,
     currency: Currency.AUD,
-    createdAt: "",
+    createdAt: "2026-11-01T10:00:00.000Z",
     description: "mockDescription1",
   },
   {
@@ -21,10 +21,25 @@ const mockTransactions: TransactionInfo[] = [
     categoryId: 8,
     amount: 12,
     currency: Currency.AUD,
-    createdAt: "",
+    createdAt: "2026-11-01T12:00:00.000Z",
     description: "mockDescription2",
   },
+  {
+    id: "mockTransactionid3",
+    userId: "mockUserId",
+    categoryId: 10,
+    amount: 31,
+    currency: Currency.AUD,
+    createdAt: "2026-11-02T12:00:00.000Z",
+    description: "mockDescription3",
+  },
 ];
+
+const groupedByDate = groupTransactions(mockTransactions);
+
+const sortedEntries = Object.entries(groupedByDate).toSorted(
+  ([a], [b]) => new Date(b).getTime() - new Date(a).getTime(),
+);
 
 const renderListByDate = () => {
   const queryClient = new QueryClient({
@@ -58,11 +73,12 @@ describe("List By Date component tests", () => {
   it("displays correct daily net", () => {
     renderListByDate();
 
-    const expectedDailyNet = mockTransactions.reduce((net, transaction) => {
-      return transaction.categoryId! <= 7 ? net + transaction.amount : net - transaction.amount;
-    }, 0);
-
-    expect(screen.getByTestId("daily-net")).toHaveTextContent(expectedDailyNet.toString());
+    const expectedDailyNets = sortedEntries.map(([_, transactions]) =>
+      transactions.reduce((net, transaction) => {
+        return transaction.categoryId! <= 7 ? net + transaction.amount : net - transaction.amount;
+      }, 0),
+    );
+    expect(expectedDailyNets).toStrictEqual([-31, 188]);
   });
 
   it("displays daily tooltip on hover", async () => {
