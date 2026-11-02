@@ -129,6 +129,7 @@ src/
 | `localISOString.ts`     | Current local datetime as ISO string with timezone offset |
 | `parseISOStringData.ts` | Parse ISO date string to locale-formatted date            |
 | `shortenUserName.ts`    | Truncate long user names                                  |
+| `userTimezone.ts`       | Convert an UTC timestamp to user's timezone               |
 
 #### `lib/` — Core Modules
 

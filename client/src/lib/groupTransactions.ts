@@ -1,4 +1,5 @@
 import { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
+import { toUserTimezone } from "@/helpers/userTimezone";
 
 export default function groupTransactions(transactions: TransactionInfo[]) {
   const sortedTransactions = [...transactions].toSorted(
@@ -7,7 +8,7 @@ export default function groupTransactions(transactions: TransactionInfo[]) {
 
   return sortedTransactions.reduce(
     (acc, tx) => {
-      const d = new Date(tx.createdAt);
+      const d = toUserTimezone(tx.createdAt);
       const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
         2,
         "0",

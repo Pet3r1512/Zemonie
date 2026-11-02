@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 
 import { formatCurrency } from "@/helpers/formatCurrency";
+import { formatUserDateShort } from "@/helpers/userTimezone";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import { cn } from "@/lib/utils";
 import CategoryTag from "../../Category/CategoryTag";
@@ -62,11 +63,7 @@ export function DetailsTable({
               className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
             >
               <TableCell className="text-xs sm:text-sm md:text-base truncate">
-                {new Date(transaction.createdAt).toLocaleDateString("en-DB", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                })}
+                {formatUserDateShort(transaction.createdAt)}
               </TableCell>
 
               <TableCell>

@@ -9,6 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { formatChartDate, formatChartTooltip } from "@/helpers/userTimezone";
 
 export const description = "A bar chart";
 
@@ -25,12 +26,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 function formatDate(dateStr: string) {
-  const date = new Date(dateStr + "T00:00:00");
-  return date.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
+  return formatChartTooltip(dateStr);
 }
 
 export default function Last7DaysSpendings({
@@ -57,13 +53,7 @@ export default function Last7DaysSpendings({
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => {
-                const date = new Date(value + "T00:00:00");
-                return date.toLocaleDateString("en-US", {
-                  month: "numeric",
-                  day: "numeric",
-                });
-              }}
+              tickFormatter={(value) => formatChartDate(value)}
             />
             <YAxis width={45} />
             <ChartTooltip
