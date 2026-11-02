@@ -41,3 +41,33 @@ export function formatUserDateShort(date: Date | string): string {
     year: "numeric",
   });
 }
+
+/** Format a calendar date (strip time) in user's timezone. */
+export function formatUserCalendarDate(isoOrDate: string): string {
+  const dateOnly = String(isoOrDate).split("T")[0];
+  return parseInput(dateOnly).toLocaleString("en-US", {
+    timeZone: getUserTimeZone(),
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
+/** Chart x-axis tick: short month/day (e.g. 12/31). */
+export function formatChartDate(dateStr: string): string {
+  return parseInput(dateStr + "T00:00:00").toLocaleString("en-US", {
+    timeZone: getUserTimeZone(),
+    month: "numeric",
+    day: "numeric",
+  });
+}
+
+/** Chart tooltip: weekday, month day (e.g. Thu, Dec 31). */
+export function formatChartTooltip(dateStr: string): string {
+  return parseInput(dateStr + "T00:00:00").toLocaleString("en-US", {
+    timeZone: getUserTimeZone(),
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+}
