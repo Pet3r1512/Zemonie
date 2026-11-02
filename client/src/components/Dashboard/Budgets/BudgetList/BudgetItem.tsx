@@ -6,6 +6,7 @@ import { Repeat } from "lucide-react";
 import { BudgetResponseType } from "./types";
 import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
 import { formatCurrency } from "@/helpers/formatCurrency";
+import { formatUserDateShort } from "@/helpers/userTimezone";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import categoryColorDictionary from "@/types/CategoryDict";
 
@@ -24,7 +25,7 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
           <p className="text-xs md:text-sm text-gray-700 dark:text-gray-500">
             End Date:{" "}
             <span className="text-white/80 font-semibold">
-              {new Date(budget.endDate).toLocaleDateString()}
+              {formatUserDateShort(budget.endDate)}
             </span>
           </p>
         </div>

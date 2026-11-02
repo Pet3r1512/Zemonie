@@ -10,6 +10,7 @@ import { BudgetDuration, BudgetResponseType } from "./types";
 import { CurrentCategory } from "@/components/ui/aceternity/ExpandableCard";
 import categoryColorDictionary from "@/types/CategoryDict";
 import { formatCurrency } from "@/helpers/formatCurrency";
+import { formatUserDateShort } from "@/helpers/userTimezone";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import CalculateBudgetProgress from "@/helpers/calculateBudgetProgress";
 import { Button } from "@/components/ui/button";
@@ -101,14 +102,9 @@ export function BudgetDetails({
 
   const progress = CalculateBudgetProgress({ total: budget.amount, spent: budget.spentAmount });
 
-  const period = `${new Date(budget.startDate).toLocaleDateString([], {
-    day: "2-digit",
-    month: "short",
-  })} – ${new Date(budget.endDate).toLocaleDateString([], {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  })}`;
+  const period = `${formatUserDateShort(budget.startDate)} – ${formatUserDateShort(
+    budget.endDate,
+  )}`;
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
