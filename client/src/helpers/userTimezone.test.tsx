@@ -1,5 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  formatChartDate,
+  formatChartTooltip,
+  formatUserCalendarDate,
   formatUserDate,
   formatUserDateShort,
   formatUserTime,
