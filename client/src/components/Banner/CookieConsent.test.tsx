@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import CookieConsent from "./CookieConsent";
-import { COOKIE_CONSENT_KEY, COOKIE_CONSENT_VERSION } from "./useCookieConsent";
+import { COOKIE_CONSENT_KEY, COOKIE_CONSENT_VERSION } from "../../hooks/useCookieConsent";
 
 vi.mock("@tanstack/react-router", () => ({
   Link: ({ children, to, className }: { children?: ReactNode; to: string; className?: string }) => (

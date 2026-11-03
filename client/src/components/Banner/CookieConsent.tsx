@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Cookie } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCookieConsent } from "./useCookieConsent";
+import { useCookieConsent } from "../../hooks/useCookieConsent";
 
 export default function CookieConsent() {
   const { visible, accept } = useCookieConsent();
