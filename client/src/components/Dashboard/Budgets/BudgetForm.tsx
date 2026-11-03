@@ -52,6 +52,7 @@ export function BudgetForm() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = methods;
 
@@ -163,9 +164,7 @@ export function BudgetForm() {
                 />
                 <FieldError className="text-red-500" errors={[errors.amount]} />
               </Field>
-              <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
-                This budget runs for the current calendar month — {monthRange}
-              </div>
+
               <Field
                 orientation="horizontal"
                 className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
@@ -189,6 +188,11 @@ export function BudgetForm() {
                   )}
                 />
               </Field>
+              {watch("isRecurring") === true && (
+                <div className="rounded-lg bg-orange-50 dark:bg-orange-950/30 border border-orange-200 dark:border-orange-900/50 px-3 py-2 text-sm text-orange-800 dark:text-orange-300">
+                  This budget runs for the current calendar month — {monthRange}
+                </div>
+              )}
             </FieldGroup>
             <DialogFooter className="flex flex-row justify-end items-center gap-x-2">
               <DialogClose asChild>
