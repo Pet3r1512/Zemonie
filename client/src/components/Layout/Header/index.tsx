@@ -6,7 +6,7 @@ import Navbar from "./Navbar/NavbarContainer";
 import PagesNav from "./PagesNav";
 import StaggeredMenu from "@/components/ui/reactbits/staggered-menu";
 import { pages, mobileAuthNavLinks } from "@/lib/navigations";
-import { useReleaseBannerVisible } from "@/components/Banner/useReleaseBanner";
+import { useReleaseBannerVisible } from "@/hooks/useReleaseBanner";
 
 const menuItems = [
   ...pages.map((page) => ({

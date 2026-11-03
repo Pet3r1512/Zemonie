@@ -1,7 +1,7 @@
 import { useCurrentUrl } from "@/hooks/useCurrentUrl";
 import { Link } from "@tanstack/react-router";
 import { X } from "lucide-react";
-import { RELEASE_BANNER_KEY, useReleaseBannerVisible } from "@/components/Banner/useReleaseBanner";
+import { RELEASE_BANNER_KEY, useReleaseBannerVisible } from "@/hooks/useReleaseBanner";
 
 export function Release() {
   const [visible, setVisible] = useReleaseBannerVisible();

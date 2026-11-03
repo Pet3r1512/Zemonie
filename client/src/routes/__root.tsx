@@ -1,3 +1,4 @@
+import CookieConsent from "@/components/Banner/CookieConsent";
 import { Release } from "@/components/Banner/Release";
 import SEO, { SITE_URL } from "@/components/SEO";
 import { warmupDb } from "@/lib/ping";
@@ -41,6 +42,7 @@ export const Route = createRootRoute({
         jsonLd={[websiteSchema, organizationSchema] as unknown as Record<string, unknown>}
       />
       <Release />
+      <CookieConsent />
       <Outlet />
     </>
   ),
