@@ -97,7 +97,7 @@ src/
 | `Auth/ForgotPassword/`               | Request-password-reset form                                         |
 | `Auth/FormErrorMessage.tsx`          | Shared form error display                                           |
 | `Auth/SignInViaGoogleBtn.tsx`        | Google OAuth button                                                 |
-| `Banner/`                            | Release notes banner + version tag + dismiss hook                   |
+| `Banner/`                            | Release banner, version tag, cookie consent notice + hooks          |
 | `Dashboard/DashboardLayout.tsx`      | Dashboard layout wrapper                                            |
 | `Dashboard/Budgets/`                 | Recurring budget form, list, and overview                           |
 | `Dashboard/Settings/`                | Profile settings page with Security section                         |
