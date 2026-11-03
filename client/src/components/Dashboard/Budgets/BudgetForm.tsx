@@ -157,6 +157,7 @@ export function BudgetForm() {
                       onBlur={field.onBlur}
                       currency={userPreferences?.preferences?.currency}
                       placeholder={"500"}
+                      className="text-5xl! h-24! px-8"
                     />
                   )}
                 />
