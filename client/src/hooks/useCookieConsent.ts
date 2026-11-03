@@ -4,8 +4,6 @@ export const COOKIE_CONSENT_KEY = "zemonie-cookie-consent";
 export const COOKIE_CONSENT_VERSION = "1";
 
 function hasAcknowledgedCookies() {
-  if (typeof window === "undefined") return true;
-
   try {
     return localStorage.getItem(COOKIE_CONSENT_KEY) === COOKIE_CONSENT_VERSION;
   } catch {
