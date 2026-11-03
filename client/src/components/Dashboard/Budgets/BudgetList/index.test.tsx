@@ -51,6 +51,10 @@ describe("Budget List tests", () => {
     vi.spyOn(globalThis, "fetch").mockImplementation(() => new Promise(() => {}));
   });
 
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
+
   it("should render skeleton while waiting for budget response", () => {
     vi.mocked(getBudgets).mockImplementation(() => new Promise(() => {}));
 
