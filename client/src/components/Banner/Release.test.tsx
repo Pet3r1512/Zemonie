@@ -9,7 +9,7 @@ vi.mock("@/hooks/useCurrentUrl", () => ({
   useCurrentUrl: () => ({ currUrl: "/" }),
 }));
 
-vi.mock("@/components/Banner/useReleaseBanner", () => ({
+vi.mock("@/hooks/useReleaseBanner", () => ({
   RELEASE_BANNER_KEY: "zemonie-release-banner-dismissed",
   useReleaseBannerVisible: () => [true, mockSetVisible],
 }));
