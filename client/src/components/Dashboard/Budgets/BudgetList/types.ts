@@ -1,3 +1,5 @@
+import { Currency } from "@/api/users/createBalance";
+
 export enum BudgetDuration {
   WEEK_1 = "WEEK_1",
   WEEK_2 = "WEEK_2",
@@ -9,9 +11,11 @@ export enum BudgetDuration {
 
 export type BudgetResponseType = {
   id: string;
+  userId: string;
   amount: number;
   spentAmount: number;
   categoryId: number;
+  currency: Currency;
   createdAt: string;
   updatedAt: string;
   duration: BudgetDuration;
