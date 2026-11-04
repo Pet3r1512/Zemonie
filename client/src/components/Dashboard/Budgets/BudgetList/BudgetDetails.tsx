@@ -132,7 +132,7 @@ export function BudgetDetails({
   };
 
   return (
-    <LazyMotion features={loadFeatures}>
+    <LazyMotion aria-label="budget-details" features={loadFeatures}>
       <AnimatePresence>
         {active && (
           <m.div
