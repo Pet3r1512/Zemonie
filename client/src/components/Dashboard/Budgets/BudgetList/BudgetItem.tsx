@@ -15,7 +15,10 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
   const currentCategory = categoryColorDictionary[budget.categoryId];
 
   return (
-    <Card className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:scale-101 transition-all duration-150 ease-linear">
+    <Card
+      aria-label="budget-item"
+      className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:scale-101 transition-all duration-150 ease-linear"
+    >
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1.5">
         <div className="space-y-1.5">
           <article className="flex items-center gap-x-1.5">
