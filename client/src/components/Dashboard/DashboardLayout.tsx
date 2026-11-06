@@ -91,8 +91,8 @@ export default function DashboardLayout({
   const dashboard = (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full max-w-7xl mx-auto flex flex-col flex-1 p-6 md:p-8 md:h-dvh md:overflow-hidden relative bg-white dark:bg-dark-bg">
-        <div className="space-y-3 shrink-0 sticky top-0 z-10 bg-white dark:bg-dark-bg md:static md:z-auto md:mb-6 pb-6 md:pb-0">
+      <main className="w-full max-w-7xl mx-auto flex flex-col flex-1 p-6 md:p-8 h-dvh overflow-hidden relative bg-white dark:bg-dark-bg">
+        <div className="space-y-3 shrink-0 bg-white dark:bg-dark-bg md:mb-6 pb-6 md:pb-0">
           <SidebarTrigger />
           <p className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-primary">
             {section}
