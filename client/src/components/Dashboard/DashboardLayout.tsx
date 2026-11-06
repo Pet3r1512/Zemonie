@@ -104,7 +104,7 @@ export default function DashboardLayout({
           )}
           <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base">{sectionDesc}</p>
         </div>
-        <div className="flex-1 min-h-0 flex flex-col gap-y-6 md:overflow-y-auto no-scrollbar">
+        <div className="flex-1 min-h-0 flex flex-col gap-y-6 overflow-y-auto overscroll-contain no-scrollbar">
           {children}
         </div>
       </main>
