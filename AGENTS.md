@@ -48,7 +48,7 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
   - `release/` → `release/vX.Y.Z`
   - urgent production fixes → `HOTFIX/...`
 - **Commit messages:** conventional prefixes (e.g. `fix:`, `feat:`, `doc:`, `add:`, `ops:`,
-  `improvement:`) followed by a short description (e.g. `fix: Email verify dialog UI`).
+  `improvement:`, `style:`) followed by a short description (e.g. `fix: Email verify dialog UI`).
   Release commits use `Release/vX.Y.Z`.
 - **Pull requests:** target `master`, titled with the ticket ID
   (`#TICKET-ID: Description`, e.g. `#FIX-056: Email verify dialog UI`), and are
