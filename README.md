@@ -2,6 +2,7 @@
 
 Money management built for Gen Z — track spending, manage budgets, and grow savings with clarity.
 
+[![Version](https://img.shields.io/github/v/release/Pet3r1512/Zemonie)]
 [![CI](https://img.shields.io/github/actions/workflow/status/Pet3r1512/Zemonie/ci.yaml?branch=master&label=CI)](https://github.com/Pet3r1512/Zemonie/actions/workflows/ci.yaml)
 [![Coverage](https://codecov.io/gh/Pet3r1512/Zemonie/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Pet3r1512/Zemonie)
 [![License: MIT](https://img.shields.io/github/license/Pet3r1512/Zemonie)](LICENSE)
