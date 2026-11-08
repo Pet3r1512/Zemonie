@@ -181,7 +181,8 @@ test.describe("Sign Up Flow", () => {
   test("signs up successfully with valid credentials and redirects to dashboard", async ({
     page,
   }) => {
-    await page.locator("#email").fill("validemail@email.com");
+    const uniqueEmail = `e2e-${Date.now()}-${Math.random().toString(36).slice(2)}@example.com`;
+    await page.locator("#email").fill(uniqueEmail);
     await page.locator("#name").fill("Valid Name");
     await page.locator("#password").fill("validpassword123");
     await page.locator("#confirmPassword").fill("validpassword123");
