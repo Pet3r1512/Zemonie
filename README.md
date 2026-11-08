@@ -64,13 +64,13 @@ In its initial release, Zemonie offers a simple platform where users can easily 
 
 ## Tech Stack
 
-| Layer               | Technology                                                                                                     |
-| ------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Client**          | React 19, TypeScript, Vite, TanStack Router, TanStack Query, Zustand, Tailwind CSS v4, shadcn/ui, Lucide Icons |
-| **Server**          | Hono, tRPC, TypeScript, Prisma, Neon PostgreSQL, Better-Auth, Brevo                                            |
-| **Infrastructure**  | Cloudflare Workers (client + server), Wrangler; Docker for local containers                                    |
-| **Testing**         | Vitest, React Testing Library, Playwright (E2E + Storybook browser tests)                                      |
-| **Package Manager** | pnpm (monorepo)                                                                                                |
+| Layer               | Technology                                                                                            |
+| ------------------- | ----------------------------------------------------------------------------------------------------- |
+| **Client**          | React 19, TypeScript, Vite, TanStack Router, TanStack Query, Tailwind CSS v4, shadcn/ui, Lucide Icons |
+| **Server**          | Hono, tRPC, TypeScript, Prisma, Neon PostgreSQL, Better-Auth, Brevo                                   |
+| **Infrastructure**  | Cloudflare Workers (client + server), Wrangler; Docker for local containers                           |
+| **Testing**         | Vitest, React Testing Library, Playwright (E2E + Storybook browser tests)                             |
+| **Package Manager** | pnpm (monorepo)                                                                                       |
 
 ---
 

@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
 import { readAmount } from "@/lib/crypto";
+import { TRPCError } from "@trpc/server";
 
 export const balancesRouter = router({
   createDefaultBalance: authenticatedProcedure
@@ -33,7 +34,7 @@ export const balancesRouter = router({
         message: "Default balance is created",
       };
     }),
-  getCurrentBalance: authenticatedProcedure.mutation(async ({ ctx }) => {
+  getCurrentBalance: authenticatedProcedure.query(async ({ ctx }) => {
     const userId = ctx.userId;
 
     const currentBalance = await prisma.balance.findFirst({
@@ -43,17 +44,17 @@ export const balancesRouter = router({
     });
 
     if (!currentBalance) {
-      return {
-        status: 400,
-        error: "Cannot find balance",
-      };
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "Cannot find balance",
+      });
     }
 
     return {
       status: 200,
       message: "Balance found",
       balance: await readAmount(currentBalance.amount),
-      currentcy: currentBalance.currency,
+      currency: currentBalance.currency,
     };
   }),
 });

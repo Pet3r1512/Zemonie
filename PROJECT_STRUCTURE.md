@@ -59,7 +59,6 @@ src/
 ├── hooks/            # Custom React hooks (session, user, transactions, screen size, theme)
 ├── lib/              # Core modules (auth-client, navigation, types, cn() utility)
 ├── routes/           # TanStack Router file-based routes
-├── store/            # Zustand stores (balance)
 ├── stories/          # Storybook stories
 ├── types/            # TypeScript type definitions
 ├── main.tsx          # App entry point (Router + QueryClient setup)
@@ -79,8 +78,6 @@ src/
 | `users/analytics/income/`                    | Income analytics (highest income, growth, total by month) |
 | `users/analytics/expenses/`                  | Expense analytics (highest category, total by month)      |
 | `users/auth/`                                | Auth API (sign in, sign up, log out)                      |
-| `users/balances/getCurrentBalance.ts`        | Fetch current balance                                     |
-| `users/dashboard/getLatestTransactions.ts`   | Fetch latest transactions                                 |
 | `users/transactions/createNewTransaction.ts` | Create a transaction                                      |
 | `users/transactions/getTransactions.ts`      | Fetch paginated transactions                              |
 
@@ -139,6 +136,7 @@ src/
 | `groupTransactions.ts` | Group transactions by local date                |
 | `navigations.ts`       | Navigation menu definitions                     |
 | `ping.ts`              | Keep-alive ping to prevent cold starts          |
+| `trpc.ts`              | tRPC Client context provider                    |
 | `utils.ts`             | `cn()` utility (Tailwind class merging)         |
 | `types/`               | Shared TypeScript types (sign-in/sign-up forms) |
 
@@ -160,12 +158,6 @@ src/
 | `users/useVerificationCooldown.ts` | Email-verification resend cooldown |
 | `data/`                            | Data-fetching hooks                |
 | `aceternity/`                      | Aceternity UI hooks                |
-
-#### `store/` — State Management
-
-| File       | Purpose               |
-| ---------- | --------------------- |
-| `store.ts` | Zustand balance store |
 
 #### `types/` — TypeScript Type Definitions
 

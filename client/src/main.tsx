@@ -2,12 +2,16 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
-import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import "./index.css";
+
 import LoadingScreen from "./components/Layout/LoadingScreen";
 import { ErrorPage, NotFoundPage } from "./components/ui/ErrorPage";
 import { routeTree } from "./routeTree.gen";
+
+import { queryClient } from "./lib/trpc";
 
 const router = createRouter({
   routeTree,
@@ -15,8 +19,6 @@ const router = createRouter({
   defaultNotFoundComponent: NotFoundPage,
   defaultErrorComponent: ErrorPage,
 });
-
-const queryClient = new QueryClient();
 
 declare module "@tanstack/react-router" {
   interface Register {
@@ -26,14 +28,16 @@ declare module "@tanstack/react-router" {
 
 // Render the app
 const rootElement = document.getElementById("root")!;
+
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
+
   root.render(
     <StrictMode>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
-          <ReactQueryDevtools />
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </HelmetProvider>
     </StrictMode>,

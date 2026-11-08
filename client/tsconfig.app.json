@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*", "../server/src/*"]
     },
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },

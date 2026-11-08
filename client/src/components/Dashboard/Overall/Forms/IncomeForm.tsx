@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import localISOString from "@/helpers/localISOString";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
-import useBalanceStore from "@/store/store";
+import { trpc } from "@/lib/trpc";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle } from "lucide-react";
 import { Controller, FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -54,11 +54,10 @@ export function IncomeForm({ onClose }: { onClose: () => void }) {
       });
 
       await queryClient.invalidateQueries({
-        queryKey: ["balance"],
+        queryKey: trpc.balances.getCurrentBalance.queryKey(),
       });
 
       onClose();
-      useBalanceStore.getState().markUpdated(false);
       queryClient.invalidateQueries({ queryKey: ["totalIncome"] });
       queryClient.invalidateQueries({
         queryKey: ["highestIncomeOfMonth"],
