@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import localISOString from "@/helpers/localISOString";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
-import useBalanceStore from "@/store/store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { LoaderCircle } from "lucide-react";
 import { Controller, FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -17,6 +16,7 @@ import { Transaction } from "./IncomeForm";
 import ExpenseSelect from "./Selectors/ExpenseSelector";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { trpc } from "@/lib/trpc";
 
 export function ExpenseForm({ onClose }: { onClose: () => void }) {
   const methods = useForm<Transaction>();
@@ -40,14 +40,14 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
     },
     onSuccess: async () => {
       toast.success("Add New Expense Successfully");
+      await queryClient.invalidateQueries();
       await queryClient.invalidateQueries({
         queryKey: ["transactions"],
       });
 
       await queryClient.invalidateQueries({
-        queryKey: ["balance"],
+        queryKey: trpc.balances.getCurrentBalance.queryKey(),
       });
-      useBalanceStore.getState().markUpdated(false);
       onClose();
       queryClient.invalidateQueries({
         queryKey: ["totalIncomeQuery"],
