@@ -33,7 +33,7 @@ export const balancesRouter = router({
         message: "Default balance is created",
       };
     }),
-  getCurrentBalance: authenticatedProcedure.mutation(async ({ ctx }) => {
+  getCurrentBalance: authenticatedProcedure.query(async ({ ctx }) => {
     const userId = ctx.userId;
 
     const currentBalance = await prisma.balance.findFirst({
