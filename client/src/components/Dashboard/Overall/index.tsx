@@ -1,4 +1,3 @@
-import getCurrentBalance from "@/api/users/balances/getCurrentBalance";
 import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
 import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
@@ -7,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { MoveDown, MoveUp, TrendingUp, Wallet } from "lucide-react";
 import { ReactNode } from "react";
 import Data from "./Data";
+import { trpc } from "@/lib/trpc";
 
 export type OverallDataType = {
   name: string;
@@ -32,9 +32,11 @@ export default function Overall() {
     month: currentMonth,
     year: currentYear,
   });
+
+  const balanceOptions = trpc.balances.getCurrentBalance.queryOptions();
+
   const balanceQuery = useQuery({
-    queryKey: ["balance"],
-    queryFn: () => getCurrentBalance(),
+    ...balanceOptions,
     refetchOnWindowFocus: false,
     staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
@@ -48,8 +50,6 @@ export default function Overall() {
     gcTime: 30 * 60 * 1000,
   });
 
-  const currentBalance = balanceQuery.data?.balance.balance ?? 0;
-
   const data: OverallDataType[] = [
     {
       name: "Total Balance",
@@ -61,7 +61,7 @@ export default function Overall() {
       ),
       isLoading: balanceQuery.isLoading,
       isError: balanceQuery.isError,
-      amount: currentBalance,
+      amount: !balanceQuery.isLoading ? balanceQuery.data?.balance : 0,
       currency,
     },
     {
