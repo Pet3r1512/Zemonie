@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
 import { readAmount } from "@/lib/crypto";
+import { TRPCError } from "@trpc/server";
 
 export const balancesRouter = router({
   createDefaultBalance: authenticatedProcedure
@@ -43,10 +44,10 @@ export const balancesRouter = router({
     });
 
     if (!currentBalance) {
-      return {
-        status: 400,
-        error: "Cannot find balance",
-      };
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "Cannot find balance",
+      });
     }
 
     return {
