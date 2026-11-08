@@ -53,7 +53,7 @@ export const balancesRouter = router({
       status: 200,
       message: "Balance found",
       balance: await readAmount(currentBalance.amount),
-      currentcy: currentBalance.currency,
+      currency: currentBalance.currency,
     };
   }),
 });
