@@ -79,8 +79,6 @@ src/
 | `users/analytics/income/`                    | Income analytics (highest income, growth, total by month) |
 | `users/analytics/expenses/`                  | Expense analytics (highest category, total by month)      |
 | `users/auth/`                                | Auth API (sign in, sign up, log out)                      |
-| `users/balances/getCurrentBalance.ts`        | Fetch current balance                                     |
-| `users/dashboard/getLatestTransactions.ts`   | Fetch latest transactions                                 |
 | `users/transactions/createNewTransaction.ts` | Create a transaction                                      |
 | `users/transactions/getTransactions.ts`      | Fetch paginated transactions                              |
 
@@ -160,12 +158,6 @@ src/
 | `users/useVerificationCooldown.ts` | Email-verification resend cooldown |
 | `data/`                            | Data-fetching hooks                |
 | `aceternity/`                      | Aceternity UI hooks                |
-
-#### `store/` — State Management
-
-| File       | Purpose               |
-| ---------- | --------------------- |
-| `store.ts` | Zustand balance store |
 
 #### `types/` — TypeScript Type Definitions
 
