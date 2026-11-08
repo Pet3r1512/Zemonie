@@ -40,7 +40,6 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
     },
     onSuccess: async () => {
       toast.success("Add New Expense Successfully");
-      await queryClient.invalidateQueries();
       await queryClient.invalidateQueries({
         queryKey: ["transactions"],
       });
