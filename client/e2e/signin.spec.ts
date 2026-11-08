@@ -18,7 +18,7 @@ test.describe("Sign In Flow", () => {
   });
 
   test("shows validation errors on empty submission", async ({ page }) => {
-    await page.locator('button[type="submit"]').click({ force: true });
+    await page.locator('button[type="submit"]').click();
     await expect(page.getByText("Email is required")).toBeVisible();
     await expect(page.getByText("Password is required")).toBeVisible();
   });
@@ -26,7 +26,7 @@ test.describe("Sign In Flow", () => {
   test("shows error for invalid email format", async ({ page }) => {
     await page.locator("#email").fill("bad@bad");
     await page.locator("#password").fill("password123");
-    await page.locator('button[type="submit"]').click({ force: true });
+    await page.locator('button[type="submit"]').click();
     await expect(page.getByTestId("form-error-msg")).toBeVisible({ timeout: 5000 });
   });
 
@@ -51,7 +51,7 @@ test.describe("Sign In Flow", () => {
     test("signs in with valid credentials and redirects to dashboard", async ({ page }) => {
       await page.locator("#email").fill(USER_EMAIL);
       await page.locator("#password").fill(USER_PASSWORD);
-      await page.locator('button[type="submit"]').click({ force: true });
+      await page.locator('button[type="submit"]').click();
       await expect(page).toHaveURL(/\/dashboard/, { timeout: 15000 });
     });
   });
