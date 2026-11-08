@@ -21,12 +21,12 @@ test.describe("Sign Up Flow", () => {
   });
 
   test("shows validation errors on empty submission", async ({ page }) => {
-    await page.locator('button[type="submit"]').click({ force: true });
-    await expect(page.getByText("Email is required"));
-    await expect(page.getByText("Your name is required"));
-    await expect(page.getByText("Password is required"));
-    await expect(page.getByText("Confirm password is required"));
-    await expect(page.getByText("You must accept the terms and privacy policies"));
+    await page.locator('button[type="submit"]').click();
+    await expect(page.getByText("Email is required")).toBeVisible();
+    await expect(page.getByText("Your name is required")).toBeVisible();
+    await expect(page.getByText("Password is required", { exact: true })).toBeVisible();
+    await expect(page.getByText("Confirm password is required")).toBeVisible();
+    await expect(page.getByText("You must accept the terms and privacy policies")).toBeVisible();
   });
 
   test("shows errors for invalid email address", async ({ page }) => {
@@ -181,7 +181,8 @@ test.describe("Sign Up Flow", () => {
   test("signs up successfully with valid credentials and redirects to dashboard", async ({
     page,
   }) => {
-    await page.locator("#email").fill("validemail@email.com");
+    const uniqueEmail = `e2e-${Date.now()}-${Math.random().toString(36).slice(2)}@example.com`;
+    await page.locator("#email").fill(uniqueEmail);
     await page.locator("#name").fill("Valid Name");
     await page.locator("#password").fill("validpassword123");
     await page.locator("#confirmPassword").fill("validpassword123");
