@@ -132,7 +132,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                           y={viewBox.cy}
                           className={`fill-[hsl(var(--foreground))] ${valueFontSize} font-bold`}
                         >
-                          {totalAmount.toLocaleString()}
+                          {totalStr}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
