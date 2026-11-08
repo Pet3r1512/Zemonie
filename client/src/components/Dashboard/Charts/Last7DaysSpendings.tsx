@@ -10,6 +10,8 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { formatChartDate, formatChartTooltip } from "@/helpers/userTimezone";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 export const description = "A bar chart";
 
@@ -34,6 +36,8 @@ export default function Last7DaysSpendings({
 }: {
   chartData: Last7DaysExpensesChartType;
 }) {
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
+
   return (
     <Card className="rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-black/5 dark:border-white/10">
       <CardHeader>
@@ -58,7 +62,12 @@ export default function Last7DaysSpendings({
             <YAxis width={45} />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel />}
+              content={
+                <ChartTooltipContent
+                  hideLabel
+                  valueFormatter={(value) => formatCurrency(value, currency)}
+                />
+              }
               labelFormatter={(value) => formatDate(value)}
             />
             <Bar dataKey="amount" fill="var(--color-amount)" radius={8} />

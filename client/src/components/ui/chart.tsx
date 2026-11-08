@@ -152,6 +152,7 @@ const ChartTooltipContent = ({
   labelFormatter,
   labelClassName,
   formatter,
+  valueFormatter,
   color,
   nameKey,
   labelKey,
@@ -162,6 +163,7 @@ const ChartTooltipContent = ({
     indicator?: "line" | "dot" | "dashed";
     nameKey?: string;
     labelKey?: string;
+    valueFormatter?: (value: number) => React.ReactNode;
   }) => {
   const { config } = useChart();
 
@@ -235,7 +237,7 @@ const ChartTooltipContent = ({
                     )}
                     <div
                       className={cn(
-                        "flex flex-1 justify-between leading-none",
+                        "flex flex-1 justify-between gap-2 leading-none",
                         nestLabel ? "items-end" : "items-center",
                       )}
                     >
@@ -255,9 +257,11 @@ const ChartTooltipContent = ({
                           {itemConfig?.label || item.name}
                         </span>
                       </div>
-                      {item.value && (
+                      {item.value !== undefined && item.value !== null && (
                         <span className="font-mono font-medium tabular-nums text-oklch(0.145 0 0) dark:text-black">
-                          {item.value.toLocaleString()}
+                          {valueFormatter
+                            ? valueFormatter(Number(item.value))
+                            : item.value.toLocaleString()}
                         </span>
                       )}
                     </div>

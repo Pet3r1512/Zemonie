@@ -9,6 +9,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { formatCurrency } from "@/helpers/formatCurrency";
+import useUserPreferences from "@/hooks/users/useUserPreferences";
 
 export const description = "A multiple bar chart";
 
@@ -26,6 +28,8 @@ export function CurrentMonthIncomeExpenseChart({
     expenses: number;
   }>;
 }) {
+  const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
+
   if (!chartData || chartData.length === 0) {
     return null;
   }
@@ -41,7 +45,15 @@ export function CurrentMonthIncomeExpenseChart({
             <CartesianGrid vertical={false} />
             <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />
             <YAxis />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dashed" />} />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  indicator="dashed"
+                  valueFormatter={(value) => formatCurrency(value, currency)}
+                />
+              }
+            />
             <Bar dataKey="income" fill="var(--color-income)" radius={4} />
             <Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
           </BarChart>
