@@ -137,6 +137,7 @@ src/
 | `groupTransactions.ts` | Group transactions by local date                |
 | `navigations.ts`       | Navigation menu definitions                     |
 | `ping.ts`              | Keep-alive ping to prevent cold starts          |
+| `trpc.ts`              | tRPC Client context provider                    |
 | `utils.ts`             | `cn()` utility (Tailwind class merging)         |
 | `types/`               | Shared TypeScript types (sign-in/sign-up forms) |
 
