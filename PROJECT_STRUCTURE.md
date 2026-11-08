@@ -59,7 +59,6 @@ src/
 ├── hooks/            # Custom React hooks (session, user, transactions, screen size, theme)
 ├── lib/              # Core modules (auth-client, navigation, types, cn() utility)
 ├── routes/           # TanStack Router file-based routes
-├── store/            # Zustand stores (balance)
 ├── stories/          # Storybook stories
 ├── types/            # TypeScript type definitions
 ├── main.tsx          # App entry point (Router + QueryClient setup)
