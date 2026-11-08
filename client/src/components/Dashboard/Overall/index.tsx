@@ -1,4 +1,3 @@
-import getLatestTransactions from "@/api/users/dashboard/getLatestTransactions";
 import useFetchCurrentMonthExpenses from "@/hooks/data/useFetchCurrentMonthExpense";
 import useFetchCurrentMonthIncome from "@/hooks/data/useFetchCurrentMonthIncome";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
@@ -43,8 +42,7 @@ export default function Overall() {
   });
 
   const latestTransactionsQuery = useQuery({
-    queryKey: ["latestTransactions"],
-    queryFn: () => getLatestTransactions(),
+    ...trpc.transactions.getLatestIncomeAndExpenses.queryOptions(),
     refetchOnWindowFocus: false,
     staleTime: 3 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
@@ -81,7 +79,7 @@ export default function Overall() {
     },
     {
       name: "Latest Income",
-      subtitle: latestTransactionsQuery.data?.result.latestIncome?.description ?? "",
+      subtitle: latestTransactionsQuery.data?.latestIncome.description ?? "",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100 dark:bg-green-900/30">
           <MoveDown className="text-green-500" />
@@ -89,12 +87,12 @@ export default function Overall() {
       ),
       isLoading: latestTransactionsQuery.isLoading,
       isError: latestTransactionsQuery.isError,
-      amount: latestTransactionsQuery.data?.result.latestIncome?.amount ?? 0,
+      amount: latestTransactionsQuery.data?.latestIncome?.amount ?? 0,
       currency,
     },
     {
       name: "Latest Expense",
-      subtitle: latestTransactionsQuery.data?.result.latestExpense?.description ?? "",
+      subtitle: latestTransactionsQuery.data?.latestExpense?.description ?? "",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-red-100 dark:bg-red-900/30">
           <MoveUp className="text-red-500" />
@@ -102,7 +100,7 @@ export default function Overall() {
       ),
       isLoading: latestTransactionsQuery.isLoading,
       isError: latestTransactionsQuery.isError,
-      amount: latestTransactionsQuery.data?.result.latestExpense?.amount ?? 0,
+      amount: latestTransactionsQuery.data?.latestExpense?.amount ?? 0,
       currency,
     },
   ];
