@@ -59,7 +59,7 @@ export default function Overall() {
       ),
       isLoading: balanceQuery.isLoading,
       isError: balanceQuery.isError,
-      amount: !balanceQuery.isLoading ? balanceQuery.data?.balance : 0,
+      amount: balanceQuery.data?.balance ?? 0,
       currency,
     },
     {
@@ -79,7 +79,7 @@ export default function Overall() {
     },
     {
       name: "Latest Income",
-      subtitle: latestTransactionsQuery.data?.latestIncome.description ?? "",
+      subtitle: latestTransactionsQuery.data?.latestIncome?.description ?? "",
       icon: (
         <div className="flex items-center justify-center rounded-full p-2.5 bg-green-100 dark:bg-green-900/30">
           <MoveDown className="text-green-500" />
