@@ -27,7 +27,7 @@ describe("Parse date to ISO string helper's test: ", () => {
   it("should return yesterday", () => {
     const today = new Date();
     const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setDate(yesterday.getDate() - 1);
 
     expect(ParseISOStringDate({ date: yesterday.toISOString() })).toBe("Yesterday");
   });
