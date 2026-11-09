@@ -63,7 +63,7 @@ describe("Get Created Budget Category helper's tests: ", () => {
 
   it("does not mutate the provided budgets array", () => {
     const budgets = [createBudget({ categoryId: 2 }), createBudget({ categoryId: 4 })];
-    const snapshot = JSON.parse(JSON.stringify(budgets));
+    const snapshot = structuredClone(budgets);
 
     getCreatedBudgetCategory({ budgets });
 
