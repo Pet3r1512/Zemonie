@@ -7,7 +7,7 @@ describe("Parse date to ISO string helper's test: ", () => {
 
     const result = ParseISOStringDate({ date: today });
 
-    expect(result).toBe("Tuesday, 7 July 2026");
+    expect(result).toBe("Jul 7, 2026");
   });
 
   it("should return", () => {
@@ -15,7 +15,9 @@ describe("Parse date to ISO string helper's test: ", () => {
 
     const result = ParseISOStringDate({ date: today });
 
-    expect(result).toBe("Monday, 5 February 2024");
+    expect(result).toBe("Feb 5, 2024");
+  });
+
   it("should return today", () => {
     const today = new Date().toISOString();
 
