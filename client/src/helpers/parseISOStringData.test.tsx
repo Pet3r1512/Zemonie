@@ -1,7 +1,17 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import ParseISOStringDate from "./parseISOStringData";
 
+const FIXED_NOW = new Date("2026-08-15T12:00:00.000Z");
+
 describe("Parse date to ISO string helper's test: ", () => {
+  beforeEach(() => {
+    vi.useFakeTimers().setSystemTime(FIXED_NOW);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it("should return", () => {
     const today: string = "07/07/2026";
 
@@ -19,14 +29,13 @@ describe("Parse date to ISO string helper's test: ", () => {
   });
 
   it("should return today", () => {
-    const today = new Date().toISOString();
+    const today = FIXED_NOW.toISOString();
 
     expect(ParseISOStringDate({ date: today })).toBe("Today");
   });
 
   it("should return yesterday", () => {
-    const today = new Date();
-    const yesterday = new Date(today);
+    const yesterday = new Date(FIXED_NOW);
     yesterday.setDate(yesterday.getDate() - 1);
 
     expect(ParseISOStringDate({ date: yesterday.toISOString() })).toBe("Yesterday");
