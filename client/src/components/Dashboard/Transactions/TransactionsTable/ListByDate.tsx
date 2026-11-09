@@ -3,7 +3,7 @@ import { ExpandableCard } from "@/components/ui/aceternity/ExpandableCard";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import dailySummary from "@/helpers/dailySummary";
 import { formatCurrency } from "@/helpers/formatCurrency";
-import { formatUserDate } from "@/helpers/userTimezone";
+import ParseISOStringDate from "@/helpers/parseISOStringData";
 import groupTransactions from "@/lib/groupTransactions";
 
 export type TransactionInfo = {
@@ -45,7 +45,7 @@ export default function ListByDate({
       {dailySummary(sortedEntries).map(([date, txs, dailyNet]) => (
         <div key={date} className="space-y-2 lg:space-y-4">
           <div className="px-3 py-2 rounded-xl bg-gray-100 dark:bg-dark-card font-semibold flex items-center justify-between text-sm">
-            <p>{formatUserDate(date)}</p>
+            <p>{ParseISOStringDate({ date: date })}</p>
             {txs.length > 1 ? (
               <Tooltip>
                 <TooltipTrigger asChild>
