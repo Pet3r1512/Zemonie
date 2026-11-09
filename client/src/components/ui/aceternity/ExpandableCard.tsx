@@ -5,7 +5,7 @@ import ExpenseSelect from "@/components/Dashboard/Overall/Forms/Selectors/Expens
 import IncomeSelect from "@/components/Dashboard/Overall/Forms/Selectors/IncomeSelector";
 import type { TransactionInfo } from "@/components/Dashboard/Transactions/TransactionsTable/ListByDate";
 import { formatCurrency } from "@/helpers/formatCurrency";
-import { formatUserDate, formatUserTime } from "@/helpers/userTimezone";
+import { formatUserTime } from "@/helpers/userTimezone";
 import useUserPreferences from "@/hooks/users/useUserPreferences";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +23,7 @@ import { Dialog, DialogHeader } from "../dialog";
 import { Field, FieldError, FieldGroup } from "../field";
 import { Input } from "../input";
 import { Label } from "../label";
+import ParseISOStringDate from "@/helpers/parseISOStringData";
 
 const toDayKey = (v?: string) => (v ? new Date(v).toDateString() : "");
 const loadFeatures = () => import("motion/react").then((res) => res.domMax);
@@ -196,7 +197,7 @@ export function ExpandableCard({
                         {currCategory?.name ?? "Uncategorized"}
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {formatUserDate(transaction.createdAt)} {" · "}
+                        {ParseISOStringDate({ date: transaction.createdAt })} {" · "}
                         {formatUserTime(transaction.createdAt)}
                       </p>
                     </div>
