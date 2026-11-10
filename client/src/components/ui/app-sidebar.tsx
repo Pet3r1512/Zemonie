@@ -78,7 +78,7 @@ export function AppSidebar() {
         {sidebarItems.map((group) => {
           return (
             <SidebarGroup key={group.groupLabel}>
-              <SidebarGroupLabel className="font-semibold text-gray-500 dark:text-[#8b8988]">
+              <SidebarGroupLabel className="font-semibold text-secondary">
                 {group.groupLabel}
               </SidebarGroupLabel>
               <SidebarMenu className="md:space-y-2.5">
