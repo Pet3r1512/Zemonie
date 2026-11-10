@@ -83,39 +83,40 @@ src/
 
 #### `components/` — UI Components
 
-| Path                                 | Purpose                                                             |
-| ------------------------------------ | ------------------------------------------------------------------- |
-| `SEO.tsx`                            | SEO meta tags component                                             |
-| `ThemeToggle.tsx`                    | Dark/light mode toggle                                              |
-| `AboutUs/`                           | About Us page (team, timeline, values)                              |
-| `Auth/SignIn/`                       | Sign-in page + form                                                 |
-| `Auth/SignUp/`                       | Sign-up page + form + tests                                         |
-| `Auth/ResetPassword/`                | Reset-password form for the email link flow (was `ForgetPassword/`) |
-| `Auth/ForgotPassword/`               | Request-password-reset form                                         |
-| `Auth/FormErrorMessage.tsx`          | Shared form error display                                           |
-| `Auth/SignInViaGoogleBtn.tsx`        | Google OAuth button                                                 |
-| `Banner/`                            | Release banner, version tag, cookie consent notice + hooks          |
-| `Dashboard/DashboardLayout.tsx`      | Dashboard layout wrapper                                            |
-| `Dashboard/Budgets/`                 | Recurring budget form, list, and overview                           |
-| `Dashboard/Settings/`                | Profile settings page with Security section                         |
-| `Dashboard/Category/CategoryTag.tsx` | Category badge/tag display                                          |
-| `Dashboard/Charts/`                  | Donut chart, spending-by-category                                   |
-| `Dashboard/Details/`                 | Expense/income detail views with tables                             |
-| `Dashboard/InitAccountLayout.tsx`    | First-time setup flow layout                                        |
-| `Dashboard/Overall/`                 | Dashboard summary cards, income/expense forms, category selectors   |
-| `Dashboard/Profile/`                 | User profile page (email verification + session refresh)            |
-| `Dashboard/Setup/`                   | Account setup form + avatar picker                                  |
-| `Dashboard/Sidebar/`                 | Sidebar (user info, footer)                                         |
-| `Dashboard/Transactions/`            | Transaction list, grouped by date, summary                          |
-| `Features/`                          | Landing features page (hero, showcase, grid, CTA)                   |
-| `Layout/Header/`                     | Header with navbar + mobile sidebar                                 |
-| `Layout/Footer/`                     | Footer sections                                                     |
-| `Layout/Home/`                       | Landing page (Hero, Features sections)                              |
-| `Layout/LoadingScreen.tsx`           | Loading spinner                                                     |
-| `Layout/Logo.tsx`                    | Zemonie logo component                                              |
-| `Layout/Page.tsx`                    | Generic page wrapper                                                |
-| `ui/`                                | shadcn/ui primitives (button, dialog, select, table, sidebar, etc.) |
-| `svg/GoogleSVG.tsx`                  | Google logo SVG                                                     |
+| Path                                 | Purpose                                                                                                                     |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `SEO.tsx`                            | SEO meta tags component                                                                                                     |
+| `ThemeToggle.tsx`                    | Dark/light mode toggle                                                                                                      |
+| `AboutUs/`                           | About Us page (team, timeline, values)                                                                                      |
+| `Auth/SignIn/`                       | Sign-in page + form                                                                                                         |
+| `Auth/SignUp/`                       | Sign-up page + form + tests                                                                                                 |
+| `Auth/ResetPassword/`                | Reset-password form for the email link flow (was `ForgetPassword/`)                                                         |
+| `Auth/ForgotPassword/`               | Request-password-reset form                                                                                                 |
+| `Auth/FormErrorMessage.tsx`          | Shared form error display                                                                                                   |
+| `Auth/SignInViaGoogleBtn.tsx`        | Google OAuth button                                                                                                         |
+| `Banner/`                            | Release banner, version tag, cookie consent notice + hooks                                                                  |
+| `Dashboard/DashboardLayout.tsx`      | Dashboard layout wrapper                                                                                                    |
+| `Dashboard/Budgets/`                 | Recurring budget form, list, and overview                                                                                   |
+| `Dashboard/Settings/`                | Profile settings page with Security section                                                                                 |
+| `Dashboard/Category/CategoryTag.tsx` | Category badge/tag display                                                                                                  |
+| `Dashboard/Charts/`                  | Donut chart, spending-by-category                                                                                           |
+| `Dashboard/Details/`                 | Expense/income detail views with tables                                                                                     |
+| `Dashboard/InitAccountLayout.tsx`    | First-time setup flow layout                                                                                                |
+| `Dashboard/Overall/`                 | Dashboard summary cards, income/expense forms, category selectors                                                           |
+| `Dashboard/Profile/`                 | User profile page (email verification + session refresh)                                                                    |
+| `Dashboard/Setup/`                   | Account setup form + avatar picker                                                                                          |
+| `Dashboard/Sidebar/`                 | Sidebar (user info, footer)                                                                                                 |
+| `Dashboard/Transactions/`            | Transaction list, grouped by date, summary                                                                                  |
+| `Features/`                          | Landing features page (hero, showcase, grid, CTA)                                                                           |
+| `Layout/Header/`                     | Site header — Logo + `PagesNav` (Home/Features/About/FAQ/Release Notes, orange active chip) + Navbar + mobile StaggeredMenu |
+| `Layout/Footer/`                     | Footer sections                                                                                                             |
+| `Layout/Home/`                       | Homepage sections — hero (`Hero.tsx`, rim canvas, dashboard mock), `Showcase`, `FeatureGrid`, `CTASection`                  |
+| `Layout/LoadingScreen.tsx`           | Loading spinner                                                                                                             |
+| `Layout/Logo.tsx`                    | Zemonie logo component                                                                                                      |
+| `Layout/Page.tsx`                    | Generic page wrapper (`content` prop: theme-aware bg + starfield; default light wrapper)                                    |
+| `Layout/Starfield.tsx`               | Shared starfield canvas (`CanvasLayer`, seeded stars) used by Hero and content pages                                        |
+| `ui/`                                | shadcn/ui primitives (button, dialog, select, table, sidebar, etc.)                                                         |
+| `svg/GoogleSVG.tsx`                  | Google logo SVG                                                                                                             |
 
 #### `helpers/` — Utility Functions
 
@@ -169,26 +170,26 @@ src/
 
 #### `routes/` — File-Based Routes (TanStack Router)
 
-| Route                        | Component                                 |
-| ---------------------------- | ----------------------------------------- |
-| `__root.tsx`                 | Root layout (sidebar, header, auth guard) |
-| `index.tsx`                  | Home/landing page                         |
-| `about-us.tsx`               | About Us page                             |
-| `cookie-policy.tsx`          | Cookie Policy page                        |
-| `faq.tsx`                    | FAQ page                                  |
-| `features.tsx`               | Features page                             |
-| `privacy.tsx`                | Privacy Policy page                       |
-| `release-notes.tsx`          | Release notes / changelog                 |
-| `terms.tsx`                  | Terms of Service page                     |
-| `auth/signin.tsx`            | Sign-in page                              |
-| `auth/signup.tsx`            | Sign-up page                              |
-| `auth/forget-password.tsx`   | Request password reset                    |
-| `auth/forgot-password.tsx`   | Password reset (from email link)          |
-| `dashboard/index.tsx`        | Dashboard main page                       |
-| `dashboard/income.tsx`       | Income detail page                        |
-| `dashboard/expenses.tsx`     | Expense detail page                       |
-| `dashboard/profile.tsx`      | Profile / settings page                   |
-| `dashboard/transactions.tsx` | Transactions list                         |
+| Route                        | Component                                                                                 |
+| ---------------------------- | ----------------------------------------------------------------------------------------- |
+| `__root.tsx`                 | Root layout (sidebar, header, auth guard)                                                 |
+| `index.tsx`                  | Home — hero + dashboard showcase + feature bento + CTA (site Header shown, Footer hidden) |
+| `about-us.tsx`               | About Us page                                                                             |
+| `cookie-policy.tsx`          | Cookie Policy page                                                                        |
+| `faq.tsx`                    | FAQ page                                                                                  |
+| `features.tsx`               | Features page                                                                             |
+| `privacy.tsx`                | Privacy Policy page                                                                       |
+| `release-notes.tsx`          | Release notes / changelog                                                                 |
+| `terms.tsx`                  | Terms of Service page                                                                     |
+| `auth/signin.tsx`            | Sign-in page                                                                              |
+| `auth/signup.tsx`            | Sign-up page                                                                              |
+| `auth/forget-password.tsx`   | Request password reset                                                                    |
+| `auth/forgot-password.tsx`   | Password reset (from email link)                                                          |
+| `dashboard/index.tsx`        | Dashboard main page                                                                       |
+| `dashboard/income.tsx`       | Income detail page                                                                        |
+| `dashboard/expenses.tsx`     | Expense detail page                                                                       |
+| `dashboard/profile.tsx`      | Profile / settings page                                                                   |
+| `dashboard/transactions.tsx` | Transactions list                                                                         |
 
 ---
 
@@ -324,18 +325,14 @@ CI runs the server suite first, then client tests across Chromium/Firefox/WebKit
 
 ## Storybook Stories (`client/src/stories/`)
 
-| Story          | Path                                            |
-| -------------- | ----------------------------------------------- |
-| `ThemeToggle`  | `ThemeToggle.stories.tsx`                       |
-| `SignUpForm`   | `auth/SignUp/SignUpForm.stories.tsx`            |
-| `Header`       | `Layout/Header/Header.stories.tsx`              |
-| `Navbar`       | `Layout/Header/Navbar.stories.tsx`              |
-| `Sidebar`      | `Layout/Header/Sidebar.stories.tsx`             |
-| `Hero`         | `Layout/Home/Hero.stories.tsx`                  |
-| `Screenshot`   | `Layout/Home/Screenshot.stories.tsx`            |
-| `FeatureCards` | `Layout/Home/Features/FeatureCards.stories.tsx` |
-| `Features`     | `Layout/Home/Features/Features.stories.tsx`     |
-| `Page`         | `Layout/Page.stories.tsx`                       |
+| Story         | Path                                 |
+| ------------- | ------------------------------------ |
+| `ThemeToggle` | `ThemeToggle.stories.tsx`            |
+| `SignUpForm`  | `auth/SignUp/SignUpForm.stories.tsx` |
+| `Header`      | `Layout/Header/Header.stories.tsx`   |
+| `Navbar`      | `Layout/Header/Navbar.stories.tsx`   |
+| `Sidebar`     | `Layout/Header/Sidebar.stories.tsx`  |
+| `Page`        | `Layout/Page.stories.tsx`            |
 
 ---
 
