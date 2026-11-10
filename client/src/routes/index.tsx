@@ -1,8 +1,8 @@
-import FeatureHighlight from "@/components/Layout/Home/FeatureHighligt";
+import CTASection from "@/components/Layout/Home/CTASection";
+import FeatureGrid from "@/components/Layout/Home/FeatureGrid";
 import Hero from "@/components/Layout/Home/Hero";
-import Page from "@/components/Layout/Page";
+import Header from "@/components/Layout/Header";
 import SEO from "@/components/SEO";
-import Ferrofluid from "@/components/ui/reactbits/ferro-fluid";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -13,28 +13,11 @@ function Index() {
   return (
     <>
       <SEO title="Home" canonicalPath="/" />
-      <div style={{ width: "100%", height: "100%", position: "absolute" }}>
-        <Ferrofluid
-          colors={["#ff7900", "#ff7900", "#ff7900"]}
-          speed={0.5}
-          scale={1.6}
-          turbulence={1}
-          fluidity={0.1}
-          rimWidth={0.2}
-          sharpness={2.5}
-          shimmer={1.5}
-          glow={2}
-          flowDirection="down"
-          opacity={1}
-          mouseInteraction
-          mouseStrength={1}
-          mouseRadius={0.35}
-        />
-      </div>
-      <Page className="flex flex-col justify-center gap-y-24 md:gap-y-0 min-h-screen pb-10 md:pb-0">
-        <Hero />
-        <FeatureHighlight />
-      </Page>
+      <Header hideHeader={false} />
+      <Hero />
+      {/* <Showcase /> */}
+      <FeatureGrid />
+      <CTASection />
     </>
   );
 }

@@ -17,6 +17,9 @@
 }
 
 @theme {
+  --font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+
   --color-primary: #ff7900;
   --color-secondary: #f79d65;
 
