@@ -29,7 +29,7 @@ export default function ListByDate({
   const groupedByDate = groupTransactions(transactions);
 
   if (Object.keys(groupedByDate).length === 0) {
-    return <div className="text-gray-500 dark:text-gray-400">No transactions</div>;
+    return <div className="text-gray-500 dark:text-[#8b8988]">No transactions</div>;
   }
 
   const sortedEntries = Object.entries(groupedByDate).toSorted(
@@ -44,7 +44,7 @@ export default function ListByDate({
     <section data-testid="listbydate-container" className="space-y-6 min-h-0">
       {dailySummary(sortedEntries).map(([date, txs, dailyNet]) => (
         <div key={date} className="space-y-2 lg:space-y-4">
-          <div className="px-3 py-2 rounded-xl bg-gray-100 dark:bg-dark-card font-semibold flex items-center justify-between text-sm">
+          <div className="px-3 py-2 rounded-[10px] bg-gray-50 font-semibold flex items-center justify-between text-sm dark:bg-white/[0.04]">
             <p>{ParseISOStringDate({ date: date })}</p>
             {txs.length > 1 ? (
               <Tooltip>

@@ -155,7 +155,7 @@ export function BudgetDetails({
             exit={{ opacity: 0 }}
             onAnimationStart={() => setAnimating(true)}
             onAnimationComplete={() => setAnimating(false)}
-            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:max-w-250 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden ${
+            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:max-w-250 flex flex-col bg-white rounded-xl overflow-hidden dark:border dark:border-white/[0.07] dark:bg-[#08080a]/95 dark:backdrop-blur-xl sm:rounded-[14px] ${
               animating ? "will-change-transform" : "will-change-auto"
             }`}
           >
@@ -174,13 +174,13 @@ export function BudgetDetails({
                       <p className="text-lg font-semibold">
                         {currCategory?.name ?? "Uncategorized"}
                       </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                      <p className="text-sm text-gray-600 dark:text-[#b5b3b2]">
                         {budget.name ? budget.name : period}
                       </p>
                     </div>
                   </div>
                   {budget.isRecurring && (
-                    <Badge className="bg-[#00b4d8] text-white cursor-default whitespace-nowrap">
+                    <Badge className="bg-sky-100 text-sky-700 cursor-default whitespace-nowrap dark:bg-sky-400/15 dark:text-sky-300">
                       <Repeat size={12} />
                       Recurring
                     </Badge>
@@ -194,7 +194,7 @@ export function BudgetDetails({
                 <div className="space-y-2">
                   <Progress value={progress} className="w-full" />
                   <div className="flex items-center justify-between text-sm">
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-[#b5b3b2]">
                       {formatCurrency(budget.spentAmount, currency)} spent · {progress}%
                     </p>
                     {budget.spentAmount > budget.amount ? (
@@ -369,7 +369,7 @@ function BudgetEditForm({
             </div>
             <Field
               orientation="horizontal"
-              className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
+              className="rounded-lg border border-gray-200 px-3 py-2 dark:border-white/[0.07]"
             >
               <FieldContent>
                 <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>

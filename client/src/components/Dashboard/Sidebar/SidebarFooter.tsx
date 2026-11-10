@@ -45,8 +45,8 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
                   isLogout
                     ? "text-red-500 hover:text-red-600 hover:bg-transparent"
                     : currentUrl === item.url || isActive
-                      ? "bg-primary text-white lg:hover:bg-primary lg:hover:text-white"
-                      : "lg:hover:bg-gray-100 dark:lg:hover:bg-dark-elevated",
+                      ? "border border-[#ff7900]/30 bg-[#ff7900]/12 text-primary lg:hover:bg-[#ff7900]/12 lg:hover:text-primary dark:text-[#ff9a3d]"
+                      : "lg:hover:bg-gray-100 dark:lg:hover:bg-white/[0.06]",
                 )}
               >
                 <Link from="/" to={item.url} className="text-lg font-semibold">

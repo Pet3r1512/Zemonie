@@ -47,12 +47,12 @@ export default function ProfilePage() {
           </svg>
         </div>
         <AvatarSprites />
-        <p className="text-lg font-semibold text-gray-900 dark:text-white capitalize">
+        <p className="font-display font-bold text-lg text-gray-900 dark:text-white capitalize">
           {data?.preferences.avatar ?? "fox"}
         </p>
       </div>
 
-      <div className="rounded-2xl bg-white dark:bg-dark-bg md:shadow-2xl border border-gray-200 dark:border-dark-card divide-y divide-gray-100 dark:divide-dark-card">
+      <div className="rounded-[14px] border border-gray-200 bg-white shadow-sm divide-y divide-gray-100 dark:divide-white/[0.07] dark:border-white/[0.07] dark:bg-[#08080a]/85 dark:backdrop-blur-xl">
         {profileFields.map((field) => {
           const Icon = field.icon;
           return (
@@ -63,7 +63,7 @@ export default function ProfilePage() {
               {field.key === "email" ? (
                 <div className="flex-1 min-w-0 flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{field.label}</p>
+                    <p className="text-sm text-gray-600 dark:text-[#b5b3b2]">{field.label}</p>
                     <p className="text-base font-medium text-gray-900 dark:text-white truncate max-w-7/8 md:max-w-none">
                       {fieldValues[field.key]}
                     </p>
@@ -71,7 +71,7 @@ export default function ProfilePage() {
                   {emailVerified ? (
                     <Badge
                       variant="secondary"
-                      className="gap-1 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 border-green-200 dark:border-green-800 cursor-default"
+                      className="gap-1 border-green-300 bg-green-100 text-green-700 cursor-default dark:border-emerald-400/30 dark:bg-emerald-400/15 dark:text-emerald-300"
                     >
                       <CheckCircle className="size-3" />
                       Verified
@@ -85,7 +85,7 @@ export default function ProfilePage() {
                       <TooltipTrigger>
                         <Badge
                           variant="secondary"
-                          className="gap-1 cursor-pointer hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800"
+                          className="gap-1 cursor-pointer border-red-300 bg-red-100 text-red-700 hover:bg-red-100 dark:border-red-400/30 dark:bg-red-400/15 dark:text-red-300 dark:hover:bg-red-400/20"
                           onClick={() => setDialogOpen(true)}
                         >
                           <ShieldAlert className="size-3" />
@@ -100,7 +100,7 @@ export default function ProfilePage() {
                 </div>
               ) : (
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{field.label}</p>
+                  <p className="text-sm text-gray-600 dark:text-[#b5b3b2]">{field.label}</p>
                   <p className="text-base font-medium text-gray-900 dark:text-white truncate">
                     {fieldValues[field.key]}
                   </p>

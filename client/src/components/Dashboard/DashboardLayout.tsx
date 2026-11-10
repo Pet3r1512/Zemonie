@@ -91,18 +91,18 @@ export default function DashboardLayout({
   const dashboard = (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full max-w-7xl mx-auto flex flex-col flex-1 p-6 md:p-8 h-dvh overflow-hidden relative bg-white dark:bg-dark-bg">
-        <div className="space-y-3 shrink-0 bg-white dark:bg-dark-bg md:mb-6 pb-6 md:pb-0">
+      <main className="w-full max-w-7xl mx-auto flex flex-col flex-1 p-6 md:p-8 h-dvh overflow-hidden relative bg-white dark:bg-black">
+        <div className="space-y-3 shrink-0 bg-white dark:bg-black md:mb-6 pb-6 md:pb-0">
           <SidebarTrigger />
-          <p className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-primary">
+          <p className="font-display font-bold tracking-[-0.03em] text-2xl md:text-3xl lg:text-4xl text-gray-900 dark:text-white">
             {section}
           </p>
           {currentUrl === "/dashboard" && (
-            <p className="text-base font-medium text-gray-500 dark:text-gray-400">
+            <p className="text-base font-medium text-gray-600 dark:text-[#b5b3b2]">
               Welcome back, {sessionQuery.data?.user.name}
             </p>
           )}
-          <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base">{sectionDesc}</p>
+          <p className="text-gray-600 dark:text-[#b5b3b2] text-sm md:text-base">{sectionDesc}</p>
         </div>
         <div className="flex-1 min-h-0 flex flex-col gap-y-6 overflow-y-auto overscroll-contain no-scrollbar">
           {children}
@@ -143,7 +143,7 @@ export default function DashboardLayout({
           <div className="flex gap-2 justify-center">
             <button
               type="button"
-              className="px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium cursor-pointer"
+              className="rounded-full bg-[linear-gradient(135deg,#ff9d33_0%,#ff7900_55%,#ff6200_100%)] px-4 py-2 text-sm font-semibold text-[#1a0c00] cursor-pointer hover:brightness-110"
               onClick={() => setupQuery.refetch()}
             >
               Retry

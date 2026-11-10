@@ -26,7 +26,7 @@ export default function SettingsContainer() {
             onClick={() => {
               setLatestTab("security");
             }}
-            className="justify-start gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
+            className="justify-start gap-2 rounded-[10px] border border-transparent px-4 py-3 data-[state=active]:border-[#ff7900]/30 data-[state=active]:bg-[#ff7900]/12 data-[state=active]:text-primary dark:data-[state=active]:text-[#ff9a3d]"
           >
             <Lock className="h-4 w-4" />
             <span>Security</span>
@@ -36,7 +36,7 @@ export default function SettingsContainer() {
             onClick={() => {
               setLatestTab("preferences");
             }}
-            className="justify-start gap-2 px-4 py-3 data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
+            className="justify-start gap-2 rounded-[10px] border border-transparent px-4 py-3 data-[state=active]:border-[#ff7900]/30 data-[state=active]:bg-[#ff7900]/12 data-[state=active]:text-primary dark:data-[state=active]:text-[#ff9a3d]"
           >
             <Settings className="h-4 w-4" />
             <span>Preferences</span>
@@ -47,8 +47,10 @@ export default function SettingsContainer() {
             <Security />
           </TabsContent>
           <TabsContent value="preferences" className="mt-0 space-y-5">
-            <p className="lg:text-lg font-bold text-secondary">App Preferences</p>
-            <Separator className="dark:bg-white/15 md:max-w-xl lg:max-w-2xl" />
+            <p className="font-display font-bold text-gray-900 lg:text-lg dark:text-white">
+              App Preferences
+            </p>
+            <Separator className="dark:bg-white/10 md:max-w-xl lg:max-w-2xl" />
             <div className="flex items-center justify-between md:max-w-xl lg:max-w-2xl px-6 md:px-10">
               <p>Theme</p>
               <ThemeToggle />

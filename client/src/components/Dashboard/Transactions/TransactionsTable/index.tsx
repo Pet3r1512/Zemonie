@@ -56,8 +56,8 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
   if (isLoading) {
     return (
       <div className="space-y-5">
-        <Skeleton className="text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card p-1.5 rounded-lg"></Skeleton>
-        <Skeleton className="rounded-2xl px-2.5 py-3 text-gray-300 dark:text-gray-500 bg-gray-300 dark:bg-dark-card flex items-center gap-x-5 h-20"></Skeleton>
+        <Skeleton className="bg-gray-200 p-1.5 rounded-lg dark:bg-white/[0.06]"></Skeleton>
+        <Skeleton className="rounded-[14px] px-2.5 py-3 bg-gray-200 flex items-center gap-x-5 h-20 dark:bg-white/[0.06]"></Skeleton>
       </div>
     );
   }
@@ -67,7 +67,7 @@ export default function TransactionsTable({ userId }: TransactionsTableProps) {
 
   if (allTransactions.length === 0) {
     return (
-      <p className="lg:text-lg italic text-gray-400 dark:text-gray-300">
+      <p className="lg:text-lg italic text-gray-500 dark:text-[#8b8988]">
         You do not have any transactions.
       </p>
     );

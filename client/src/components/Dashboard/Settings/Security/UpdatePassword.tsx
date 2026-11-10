@@ -58,7 +58,7 @@ export default function UpdatePassword() {
           <Field>
             <Label
               htmlFor="currentPassword"
-              className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
+              className="text-sm font-medium text-gray-900 dark:text-white"
             >
               Current Password <span className="text-red-500">*</span>
             </Label>
@@ -67,7 +67,7 @@ export default function UpdatePassword() {
                 id="currentPassword"
                 type={hideCurrentPassword ? "password" : "text"}
                 role="currentPasswordInput"
-                className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="h-10 bg-white border-gray-200 text-gray-900 placeholder:text-gray-500 dark:bg-[#08080a]/85 dark:border-white/[0.07] dark:text-white dark:placeholder:text-[#8b8988]"
                 {...register("currentPassword", {
                   required: "Current password is required",
                   minLength: {
@@ -100,7 +100,7 @@ export default function UpdatePassword() {
           <Field>
             <Label
               htmlFor="newPassword"
-              className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
+              className="text-sm font-medium text-gray-900 dark:text-white"
             >
               New Password <span className="text-red-500">*</span>
             </Label>
@@ -109,7 +109,7 @@ export default function UpdatePassword() {
                 id="newPassword"
                 type={hideNewPassword ? "password" : "text"}
                 role="newPasswordInput"
-                className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="h-10 bg-white border-gray-200 text-gray-900 placeholder:text-gray-500 dark:bg-[#08080a]/85 dark:border-white/[0.07] dark:text-white dark:placeholder:text-[#8b8988]"
                 {...register("newPassword", {
                   required: "New password is required",
                   minLength: {
@@ -145,7 +145,7 @@ export default function UpdatePassword() {
           <Field>
             <Label
               htmlFor="newPassword"
-              className="text-sm font-medium text-neutral-900 dark:text-neutral-100"
+              className="text-sm font-medium text-gray-900 dark:text-white"
             >
               Confirm New Password <span className="text-red-500">*</span>
             </Label>
@@ -154,7 +154,7 @@ export default function UpdatePassword() {
                 id="newPasswordConfirm"
                 type={hideNewConfirmPassword ? "password" : "text"}
                 role="newPasswordConfirmInput"
-                className="h-10 bg-white dark:bg-dark-card/50 border-neutral-200 dark:border-dark-elevated text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
+                className="h-10 bg-white border-gray-200 text-gray-900 placeholder:text-gray-500 dark:bg-[#08080a]/85 dark:border-white/[0.07] dark:text-white dark:placeholder:text-[#8b8988]"
                 {...register("newPasswordConfirm", {
                   required: "New password confirm is required",
                   validate: (value) =>

@@ -164,13 +164,13 @@
 */
 
 .dark {
-  --sidebar: hsl(218 19% 12%);
+  --sidebar: #000000;
   --sidebar-foreground: hsl(217 33% 97%);
   --sidebar-primary: hsl(28 100% 50%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(219 20% 17%);
-  --sidebar-accent-foreground: hsl(217 33% 97%);
-  --sidebar-border: hsl(217 21% 21%);
+  --sidebar-accent: hsl(0 0% 100% / 6%);
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(0 0% 100% / 7%);
   --sidebar-ring: hsl(28 100% 50%);
 }
 

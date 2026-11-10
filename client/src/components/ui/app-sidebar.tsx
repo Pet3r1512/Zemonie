@@ -78,7 +78,7 @@ export function AppSidebar() {
         {sidebarItems.map((group) => {
           return (
             <SidebarGroup key={group.groupLabel}>
-              <SidebarGroupLabel className="text-secondary font-bold">
+              <SidebarGroupLabel className="font-semibold text-gray-500 dark:text-[#8b8988]">
                 {group.groupLabel}
               </SidebarGroupLabel>
               <SidebarMenu className="md:space-y-2.5">
@@ -90,7 +90,7 @@ export function AppSidebar() {
                         className={cn(
                           "py-5 font-medium text-[12.5px] rounded-xl transition-all duration-150 ease-linear",
                           currentUrl === item.url
-                            ? "flex h-7.5 items-center gap-2.25 rounded-[9px] px-2.5 border border-primary/30 bg-primary/12 text-secondary hover:bg-primary/12 hover:text-secondary"
+                            ? "flex h-7.5 items-center gap-2.25 rounded-[9px] px-2.5 border border-[#ff7900]/30 bg-[#ff7900]/12 text-primary hover:bg-[#ff7900]/12 hover:text-primary dark:text-[#ff9a3d]"
                             : "",
                         )}
                       >
@@ -104,7 +104,7 @@ export function AppSidebar() {
                           <span>{item.title}</span>
 
                           {item.isNew && (
-                            <span className="ml-auto flex items-center gap-1 rounded-full bg-green-500 px-2 py-0.5 text-xs font-bold text-white relative">
+                            <span className="ml-auto flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-bold text-green-700 relative dark:bg-emerald-400/15 dark:text-emerald-300">
                               New
                             </span>
                           )}

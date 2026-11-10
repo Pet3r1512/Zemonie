@@ -183,7 +183,7 @@ export function ExpandableCard({
             transition={transition}
             onAnimationStart={() => setAnimating(true)}
             onAnimationComplete={() => setAnimating(false)}
-            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:max-w-250 flex flex-col bg-white dark:bg-dark-elevated sm:rounded-3xl rounded-xl overflow-hidden ${
+            className={`fixed inset-0 size-fit! m-auto z-100 max-h-[90dvh] w-[95dvw] md:w-[90dvw]! lg:max-w-250 flex flex-col bg-white shadow-2xl sm:rounded-[14px] rounded-xl overflow-hidden dark:bg-[#08080a]/95 dark:shadow-none dark:backdrop-blur-xl dark:border dark:border-white/[0.07] ${
               animating ? "will-change-transform" : "will-change-auto"
             }`}
           >
@@ -378,7 +378,7 @@ export function ExpandableCard({
       >
         <div
           ref={lastElementRef}
-          className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 dark:border-dark-card lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card transition-all duration-150 ease-linear"
+          className="px-2.5 py-1.5 lg:py-3 flex items-center gap-x-5 border-b-[1.5px] border-gray-200 lg:hover:bg-gray-50 dark:border-white/[0.07] dark:lg:hover:bg-white/[0.04] transition-all duration-150 ease-linear"
         >
           {currCategory && TransactionTypeDictionary[isIncome ? "INCOME" : "EXPENSE"]}
 

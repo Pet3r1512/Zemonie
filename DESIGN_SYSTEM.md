@@ -75,6 +75,9 @@ each `useTheme()` call holds independent state and won't sync across components.
   donut mock, dashboard cards).
 - Header/footer follow the theme: light = white/10 bar + `#111827` footer (original design),
   dark = `#08080a` bar with `#ff7900` ring + pure-black footer.
+- **Dashboard** follows the same language: chrome/sidebar `dark:bg-black`, hero cards
+  (`rounded-[14px]`, dark `#08080a]/85` + `white/[0.07]`), `font-display` headings, gradient
+  primary buttons, orange active nav chips; semantic income/expense/chart colors are kept.
 
 ## Content-page & hero visual language
 

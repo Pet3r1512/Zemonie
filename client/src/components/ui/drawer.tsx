@@ -68,7 +68,7 @@ const DrawerContent = ({
       <DrawerPrimitive.Content
         className={cn(
           drawerContentVariants({ direction, className }),
-          "bg-white dark:bg-dark-elevated border-none",
+          "border-none bg-white dark:bg-black",
         )}
         {...props}
       >

@@ -36,18 +36,19 @@ export default function DetailTableContainer({ option }: { option: TransactionQu
   const allTransactions: TransactionInfo[] = data?.pages.flatMap((page) => page.transactions) ?? [];
 
   return (
-    <section className="bg-white dark:bg-dark-card rounded-2xl p-6 flex flex-col gap-y-5 flex-1 min-h-0 shadow-sm border border-black/5 dark:border-white/10">
-      <p className="text-xl lg:text-2xl font-semibold tracking-tight shrink-0">
+    <section className="group relative overflow-hidden rounded-[14px] p-6 flex flex-col gap-y-5 flex-1 min-h-0 shadow-sm border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-[#08080a]/85 dark:backdrop-blur-xl">
+      <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,#ff7900_18%,#ffc48a_50%,#ff7900_82%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_14px_2px_rgba(255,121,0,0.5)]" />
+      <p className="font-display font-bold tracking-[-0.03em] text-xl lg:text-2xl text-gray-900 shrink-0 dark:text-white">
         {TableTileDictionary[option]}
       </p>
       {isLoading ? (
         <div className="space-y-3 flex-1">
-          <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
-          <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
-          <Skeleton className="h-10 w-full bg-gray-200 dark:bg-dark-card" />
+          <Skeleton className="h-10 w-full bg-gray-200 dark:bg-white/[0.06]" />
+          <Skeleton className="h-10 w-full bg-gray-200 dark:bg-white/[0.06]" />
+          <Skeleton className="h-10 w-full bg-gray-200 dark:bg-white/[0.06]" />
         </div>
       ) : allTransactions.length === 0 ? (
-        <p className="text-gray-400 dark:text-gray-300 italic flex-1">No transactions found.</p>
+        <p className="text-gray-500 italic flex-1 dark:text-[#8b8988]">No transactions found.</p>
       ) : (
         <div className="flex-1 min-h-50 max-h-[75dvh] md:max-h-none overflow-auto no-scrollbar">
           <DetailsTable
