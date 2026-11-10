@@ -89,7 +89,7 @@ export default function DashboardLayout({
   }
 
   const dashboard = (
-    <SidebarProvider>
+    <SidebarProvider className="bg-white dark:bg-black">
       <AppSidebar />
       <main className="w-full max-w-7xl mx-auto flex flex-col flex-1 p-6 md:p-8 h-dvh overflow-hidden relative bg-white dark:bg-black">
         <div className="space-y-3 shrink-0 bg-white dark:bg-black md:mb-6 pb-6 md:pb-0">
