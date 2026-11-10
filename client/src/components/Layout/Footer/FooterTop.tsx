@@ -10,7 +10,7 @@ export default function FooterTop() {
     >
       <div className="flex flex-col gap-y-5 md:w-1/3 lg:w-1/4">
         <Logo />
-        <p>
+        <p className="text-white/90 dark:text-[#b5b3b2]">
           Smart money management for <strong className="text-primary">GenZ</strong>. Take control of
           your finances today.
         </p>

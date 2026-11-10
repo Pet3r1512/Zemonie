@@ -21,6 +21,9 @@ const menuItems = [
   })),
 ];
 
+const BAR =
+  "bg-white/10 backdrop-blur-lg shadow-lg ring-1 ring-black/5 dark:bg-[#08080a]/85 dark:backdrop-blur-xl dark:shadow-[0_8px_40px_rgba(0,0,0,0.45)] dark:ring-[#ff7900]/25";
+
 export default function Header({ hideHeader }: { hideHeader: boolean }) {
   const [bannerVisible] = useReleaseBannerVisible();
   const [scrolled, setScrolled] = useState(() => {
@@ -66,7 +69,8 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
           }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
           className={cn(
-            "flex justify-between items-center px-6 py-3 bg-white/10 dark:bg-black/10 backdrop-blur-lg shadow-lg ring-1 ring-black/5 dark:ring-white/5 text-gray-900 dark:text-gray-100",
+            "flex justify-between items-center px-6 py-3 text-gray-900 transition-colors duration-150 dark:text-white",
+            BAR,
             !scrolled ? "" : "rounded-full",
           )}
         >
@@ -94,9 +98,7 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
           accentColor="#ff7900"
           isFixed={true}
           closeOnClickAway={true}
-          headerClassName={`bg-white/10 dark:bg-black/10 backdrop-blur-lg shadow-lg ring-1 ring-black/5 dark:ring-white/5${
-            offsetBelowBanner ? " top-[2.75rem]!" : ""
-          }`}
+          headerClassName={cn(BAR, offsetBelowBanner && "top-[2.75rem]!")}
         />
       </header>
     </>
