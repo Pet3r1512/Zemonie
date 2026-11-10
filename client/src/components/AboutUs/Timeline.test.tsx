@@ -53,7 +53,7 @@ describe("Timeline", () => {
   it("applies the highlighted border only to the last milestone", () => {
     const { container } = render(<Timeline />);
 
-    const highlighted = container.querySelectorAll(".border-primary.border-2");
+    const highlighted = container.querySelectorAll("[data-highlighted=true]");
     expect(highlighted.length).toBe(1);
   });
 });

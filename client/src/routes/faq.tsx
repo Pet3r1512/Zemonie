@@ -68,23 +68,23 @@ function RouteComponent() {
         description="Frequently asked questions about Zemonie — privacy, pricing, features, and more."
         canonicalPath="/faq"
       />
-      <Page className="py-12">
+      <Page className="py-12" content>
         <div className="max-w-3xl mx-auto px-5 lg:px-0">
           <div className="mb-10">
-            <div className="w-16 h-1 bg-primary rounded-full mb-4" />
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary">
+            <div className="w-16 h-1 bg-linear-to-r from-primary to-secondary rounded-full mb-4" />
+            <h1 className="font-display font-bold tracking-[-0.03em] text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white">
               Frequently Asked Questions
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2">
+            <p className="text-gray-500 dark:text-[#8b8988] mt-2">
               Everything you need to know about Zemonie.
             </p>
           </div>
 
-          <div className="rounded-2xl bg-white dark:bg-dark-card/50 shadow-2xl p-8 lg:p-10">
+          <div className="rounded-[14px] border border-gray-200 bg-white shadow-xl p-6 md:p-8 lg:p-10 dark:border-white/[0.07] dark:bg-[#08080a]/85 dark:backdrop-blur-xl dark:shadow-none">
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-base lg:text-lg font-semibold text-left">
+                  <AccordionTrigger className="text-base lg:text-lg font-semibold text-left text-gray-900 dark:text-white">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-base">{faq.answer}</AccordionContent>

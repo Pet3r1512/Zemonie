@@ -15,7 +15,7 @@ function RouteComponent() {
         description="Learn about Zemonie — the team building the future of personal finance for Gen Z."
         canonicalPath="/about-us"
       />
-      <Page pageName="About Us" fullScreen>
+      <Page pageName="About Us" fullScreen content>
         <About />
       </Page>
     </>
