@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
-import { DrawFn } from "@/lib/draw-fn";
+
+export type DrawFn = (ctx: CanvasRenderingContext2D, width: number, height: number) => void;
 
 export function mulberry32(seed: number) {
   let value = seed >>> 0;
