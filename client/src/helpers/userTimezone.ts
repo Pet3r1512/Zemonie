@@ -1,4 +1,4 @@
-function getUserTimeZone(): string {
+export function getUserTimeZone(): string {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
 

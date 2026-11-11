@@ -1,4 +1,5 @@
 import { SERVER_URL } from "@/constant/auth";
+import { getUserTimeZone } from "@/helpers/userTimezone";
 
 export default async function getHighestExpenseCategory(credentails?: {
   month?: number;
@@ -6,7 +7,7 @@ export default async function getHighestExpenseCategory(credentails?: {
 }) {
   const response = await fetch(
     `${SERVER_URL}/api/trpc/analytics.highestExpenseCategory?input=${encodeURIComponent(
-      JSON.stringify(credentails),
+      JSON.stringify({ ...credentails, timeZone: getUserTimeZone() }),
     )}`,
     {
       method: "GET",

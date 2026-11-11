@@ -5,6 +5,9 @@ import { SupportedCurrency } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { readAmount, writeAmount } from "@/lib/crypto";
 import getNextRecurrenceDate from "@/helpers/getNextRecurrenceDate";
+import { DEFAULT_TIME_ZONE, getMonthRange, isValidTimeZone } from "@/helpers/serverTimeZone";
+
+const timeZoneInput = z.string().refine(isValidTimeZone).default(DEFAULT_TIME_ZONE);
 
 export const transactionsRouter = router({
   getTransactions: authenticatedProcedure
@@ -137,15 +140,14 @@ export const transactionsRouter = router({
           .default(new Date().getMonth() + 1),
 
         year: z.number().default(new Date().getFullYear()),
+        timeZone: timeZoneInput,
       }),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { month, year } = input;
+      const { month, year, timeZone } = input;
 
-      const startOfMonth = new Date(year, month - 1, 1);
-
-      const endOfMonth = new Date(year, month, 0, 23, 59, 59);
+      const { start: startOfMonth, end: startOfNextMonth } = getMonthRange(year, month, timeZone);
 
       const transactions = await prisma.transaction.findMany({
         where: {
@@ -155,7 +157,7 @@ export const transactionsRouter = router({
           },
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth,
+            lt: startOfNextMonth,
           },
         },
         select: {

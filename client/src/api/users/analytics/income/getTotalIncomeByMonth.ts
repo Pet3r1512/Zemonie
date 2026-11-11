@@ -1,4 +1,5 @@
 import { SERVER_URL } from "@/constant/auth";
+import { getUserTimeZone } from "@/helpers/userTimezone";
 
 export default async function getTotalIncomeByMonth(credentials?: {
   month?: number;
@@ -6,7 +7,7 @@ export default async function getTotalIncomeByMonth(credentials?: {
 }) {
   const response = await fetch(
     `${SERVER_URL}/api/trpc/transactions.getTotalIncomeByMonth?input=${encodeURIComponent(
-      JSON.stringify(credentials),
+      JSON.stringify({ ...credentials, timeZone: getUserTimeZone() }),
     )}`,
     {
       method: "GET",
