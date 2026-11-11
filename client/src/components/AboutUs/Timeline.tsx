@@ -31,6 +31,12 @@ const milestones = [
     description:
       "Zemonie launches its first official version (v1.1.0), bringing a stable, secure and refined money-management experience — complete with email verification, password recovery, and detailed financial insights — to everyone.",
   },
+  {
+    year: "Nov 2026",
+    title: "V1.2.0 - Huge UI Updates 🔊",
+    description:
+      "A brand-new look across the app, with clearer colors, spacing, and layouts on every page. Dates and times now match your local time zone, and a new cookie consent pop-up lets you choose your privacy preferences.",
+  },
 ];
 
 export default function Timeline() {
