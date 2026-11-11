@@ -29,7 +29,7 @@ export default function SidebarFooter({ currUrl }: { currUrl: string }) {
   const currentUrl = useCurrentUrl().currUrl;
 
   return (
-    <section className="pb-10">
+    <section className="pb-[calc(2.5rem+env(safe-area-inset-bottom))]">
       <div className="px-2 md:px-5 md:space-y-2.5">
         {items.map((item) => {
           const isLogout = item?.type === "action";
