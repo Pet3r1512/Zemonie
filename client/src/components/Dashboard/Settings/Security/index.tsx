@@ -52,11 +52,13 @@ export default function Security() {
 
   return (
     <section className="space-y-6">
-      <p className="lg:text-lg font-bold text-secondary">Account Security</p>
+      <p className="font-display font-bold text-gray-900 lg:text-lg dark:text-white">
+        Account Security
+      </p>
 
-      <Separator className="dark:bg-white/15 md:max-w-xl lg:max-w-2xl" />
+      <Separator className="dark:bg-white/10 md:max-w-xl lg:max-w-2xl" />
 
-      <p className="text-secondary font-semibold">Update Password</p>
+      <p className="font-semibold text-gray-900 dark:text-white">Update Password</p>
 
       {accountsQuery.isError && <p>Error: {accountsQuery.error.message}</p>}
       {accountsQuery.isPending && <p>Loading...</p>}

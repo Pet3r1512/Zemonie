@@ -6,7 +6,6 @@ const features = [
     title: "Transaction Tracking",
     description:
       "Log income and expenses, edit past entries, and mark transactions as recurring — everything stays organised and up to date.",
-    color: "from-blue-500 to-cyan-500",
     benefits: [
       "Add, edit & delete entries",
       "Recurring transactions",
@@ -19,7 +18,6 @@ const features = [
     title: "Category Management",
     description:
       "Assign every transaction to a category — from salary to subscriptions — so your money always tells a clear story.",
-    color: "from-green-500 to-emerald-500",
     benefits: [
       "Predefined categories",
       "Income & expense types",
@@ -32,7 +30,6 @@ const features = [
     title: "Spending Analysis",
     description:
       "See monthly summaries, compare income vs expenses, and drill into category breakdowns — all updated in real time.",
-    color: "from-orange-500 to-red-500",
     benefits: [
       "Monthly summaries",
       "Income vs expense view",
@@ -45,7 +42,6 @@ const features = [
     title: "Visual Reports",
     description:
       "Your finances at a glance. Pie charts, bar charts, and a clean dashboard — no spreadsheets, just clarity.",
-    color: "from-indigo-500 to-purple-500",
     benefits: [
       "At-a-glance pie & bar charts",
       "Balance overview",
@@ -66,33 +62,36 @@ export default function MainFeaturesGrid() {
             return (
               <div
                 key={index}
-                className="group relative bg-white dark:bg-dark-card rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-black"
+                className="group relative bg-white rounded-[14px] p-8 transition-all duration-300 border border-gray-200 shadow-sm hover:border-[#ff7900]/40 hover:shadow-md dark:bg-[#08080a]/85 dark:backdrop-blur-xl dark:border-white/[0.07] dark:hover:border-[#ff7900]/30 dark:hover:shadow-[0_0_40px_rgba(255,121,0,0.08)]"
               >
-                <div
-                  className={`w-14 h-14 rounded-xl bg-linear-to-br ${feature.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                >
+                <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,#ff7900_20%,#ffc48a_50%,#ff7900_80%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_14px_2px_rgba(255,121,0,0.5)]" />
+
+                <div className="w-14 h-14 rounded-xl bg-linear-to-br from-[#ff9d33] to-[#ff6200] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Icon size={28} className="text-white" />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {feature.title}
                 </h3>
 
-                <p className="text-gray-600 dark:text-gray-400 mb-6">{feature.description}</p>
+                <p className="text-gray-500 dark:text-[#8b8988] mb-6">{feature.description}</p>
 
                 <ul className="space-y-2">
                   {feature.benefits.map((benefit, i) => (
                     <li
                       key={i}
-                      className="flex items-center text-sm text-gray-600 dark:text-gray-400"
+                      className="flex items-center text-sm text-gray-600 dark:text-[#b5b3b2]"
                     >
-                      <CheckIcon size={16} className="text-primary mr-2 shrink-0" />
+                      <CheckIcon
+                        size={16}
+                        className="text-primary mr-2 shrink-0 dark:text-[#ff9a3d]"
+                      />
                       {benefit}
                     </li>
                   ))}
                 </ul>
 
-                <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute inset-0 rounded-[14px] bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
             );
           })}

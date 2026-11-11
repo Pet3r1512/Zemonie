@@ -17,6 +17,9 @@
 }
 
 @theme {
+  --font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+
   --color-primary: #ff7900;
   --color-secondary: #f79d65;
 
@@ -146,7 +149,7 @@
 */
 
 :root {
-  --sidebar: hsl(0 0% 98%);
+  --sidebar: hsl(0 0% 100%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
   --sidebar-primary: hsl(240 5.9% 10%);
   --sidebar-primary-foreground: hsl(0 0% 98%);
@@ -161,13 +164,13 @@
 */
 
 .dark {
-  --sidebar: hsl(218 19% 12%);
+  --sidebar: #000000;
   --sidebar-foreground: hsl(217 33% 97%);
   --sidebar-primary: hsl(28 100% 50%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(219 20% 17%);
-  --sidebar-accent-foreground: hsl(217 33% 97%);
-  --sidebar-border: hsl(217 21% 21%);
+  --sidebar-accent: hsl(0 0% 100% / 6%);
+  --sidebar-accent-foreground: hsl(0 0% 100%);
+  --sidebar-border: hsl(0 0% 100% / 7%);
   --sidebar-ring: hsl(28 100% 50%);
 }
 

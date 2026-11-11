@@ -63,14 +63,16 @@ export default function CommonLinks() {
       {links.map((link) => {
         return (
           <div key={link.title} className="flex flex-col gap-y-4">
-            <p className="font-bold text-lg cursor-default pointer-events-none">{link.title}</p>
+            <p className="font-bold text-lg cursor-default pointer-events-none text-white">
+              {link.title}
+            </p>
             <div className="flex flex-col gap-y-2">
               {link.items.map((item) => {
                 return (
                   <a
                     key={item.name}
                     href={item.href}
-                    className="lg:hover:text-secondary transition-all duration-150 ease-linear"
+                    className="transition-all duration-150 ease-linear text-white/90 hover:text-[#ff9a3d] dark:text-[#b5b3b2] dark:hover:text-[#ff9a3d]"
                   >
                     {item.name}
                   </a>

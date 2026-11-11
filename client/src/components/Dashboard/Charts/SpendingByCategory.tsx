@@ -63,7 +63,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
 
   if (summary.length === 0) {
     return (
-      <Card className="flex flex-col rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-black/5 dark:border-white/10">
+      <Card className="flex flex-col shadow-sm hover:shadow-md transition-shadow duration-200">
         <CardHeader className="items-center pb-0">
           <CardTitle>Spending by Category</CardTitle>
         </CardHeader>
@@ -75,7 +75,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
   }
 
   return (
-    <Card className="flex flex-col rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 border border-black/5 dark:border-white/10">
+    <Card className="flex flex-col shadow-sm hover:shadow-md transition-shadow duration-200">
       <CardHeader className="items-center pb-0">
         <CardTitle>Spending by Category</CardTitle>
       </CardHeader>
@@ -89,7 +89,7 @@ export function SpendingByCategory({ data }: SpendingByCategoryProps) {
                 if (!active || !payload?.length) return null;
                 const entry = payload[0];
                 return (
-                  <div className="rounded-lg border bg-white dark:bg-dark-elevated dark:border-dark-elevated px-3 py-2 text-xs shadow-xl">
+                  <div className="rounded-[10px] border border-gray-200 bg-white px-3 py-2 text-xs shadow-xl dark:border-white/[0.07] dark:bg-[#08080a]/95 dark:backdrop-blur-xl">
                     <div className="flex items-center gap-2">
                       <span
                         className="inline-block h-2.5 w-2.5 rounded-[2px]"

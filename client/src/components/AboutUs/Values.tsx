@@ -29,11 +29,13 @@ const values = [
 
 export default function Values() {
   return (
-    <section className="py-20 px-4 bg-gray-50 dark:bg-dark-card/50">
+    <section className="py-20 px-4 bg-gray-50 dark:bg-transparent">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-secondary mb-4">What we believe</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400">
+          <h2 className="font-display font-bold tracking-[-0.03em] text-4xl text-gray-900 dark:text-white mb-4">
+            What we believe
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-[#b5b3b2]">
             The principles that guide every decision we make
           </p>
         </div>
@@ -43,15 +45,15 @@ export default function Values() {
             return (
               <div
                 key={index}
-                className="p-8 rounded-2xl bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-card"
+                className="p-8 rounded-[14px] bg-white border border-gray-200 shadow-sm hover:border-[#ff7900]/40 transition-colors duration-200 dark:bg-[#08080a]/85 dark:backdrop-blur-xl dark:border-white/[0.07] dark:hover:border-[#ff7900]/25"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
-                  <Icon size={24} className="text-primary" />
+                <div className="w-12 h-12 rounded-xl bg-[#ff7900]/10 flex items-center justify-center mb-5 dark:bg-[#ff7900]/12">
+                  <Icon size={24} className="text-primary dark:text-[#ff9a3d]" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {value.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-gray-500 dark:text-[#8b8988] leading-relaxed">
                   {value.description}
                 </p>
               </div>

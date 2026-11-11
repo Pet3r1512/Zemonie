@@ -38,8 +38,10 @@ export default function Timeline() {
     <section className="py-20 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-secondary mb-4">Our journey</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400">From idea to impact</p>
+          <h2 className="font-display font-bold tracking-[-0.03em] text-4xl text-gray-900 dark:text-white mb-4">
+            Our journey
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-[#b5b3b2]">From idea to impact</p>
         </div>
         <div className="relative">
           <div className="absolute left-8 inset-y-0 w-0.5 bg-linear-to-b from-primary to-secondary" />
@@ -55,22 +57,25 @@ export default function Timeline() {
                       <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-75" />
                     )}
 
-                    <div className="relative size-5 rounded-full bg-primary shadow-lg border-4 border-white dark:border-dark-bg" />
+                    <div className="relative size-5 rounded-full bg-primary shadow-lg border-4 border-white dark:border-black" />
                   </div>
 
                   <div
+                    data-highlighted={isLast ? "true" : undefined}
                     className={cn(
-                      "rounded-2xl border border-gray-200 bg-white p-6 dark:border-dark-card dark:bg-dark-card",
-                      isLast && "border-primary border-2",
+                      "rounded-[14px] border border-gray-200 bg-white shadow-sm p-6 dark:border-white/[0.07] dark:bg-[#08080a]/85 dark:backdrop-blur-xl",
+                      isLast && "border-[#ff7900]/40 dark:border-[#ff7900]/40",
                     )}
                   >
-                    <p className="mb-1 text-sm font-semibold text-primary">{milestone.year}</p>
+                    <p className="mb-1 text-sm font-semibold text-primary dark:text-[#ff9a3d]">
+                      {milestone.year}
+                    </p>
 
-                    <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="mb-2 font-display text-xl font-bold text-gray-900 dark:text-white">
                       {milestone.title}
                     </h3>
 
-                    <p className="text-gray-600 dark:text-gray-400">{milestone.description}</p>
+                    <p className="text-gray-500 dark:text-[#8b8988]">{milestone.description}</p>
                   </div>
                 </div>
               );

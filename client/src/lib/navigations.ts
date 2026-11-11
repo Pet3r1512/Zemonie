@@ -5,12 +5,24 @@ interface Navigations {
 
 const pages: Navigations[] = [
   {
+    name: "Home",
+    link: "/",
+  },
+  {
     name: "Features",
     link: "/features",
   },
   {
     name: "About Us",
     link: "/about-us",
+  },
+  {
+    name: "FAQ",
+    link: "/faq",
+  },
+  {
+    name: "Release Notes",
+    link: "/release-notes",
   },
 ];
 

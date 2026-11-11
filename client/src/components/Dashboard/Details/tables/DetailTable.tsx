@@ -35,7 +35,7 @@ export function DetailsTable({
   const currency = useUserPreferences().data?.preferences?.currency ?? "AUD";
 
   return (
-    <div className="rounded-lg border dark:border-dark-elevated overflow-x-auto">
+    <div className="overflow-x-auto rounded-[10px] border border-gray-200 dark:border-white/[0.07]">
       <Table className="min-w-150 md:min-w-full table-fixed">
         <TableHeader>
           <TableRow>
@@ -60,7 +60,7 @@ export function DetailsTable({
             <TableRow
               key={index + "_" + transaction.id}
               ref={transaction.id === lastTxId ? lastElementRef : undefined}
-              className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-dark-card"
+              className="transition-all duration-150 ease-linear lg:hover:bg-gray-100 dark:lg:hover:bg-white/[0.04]"
             >
               <TableCell className="text-xs sm:text-sm md:text-base truncate">
                 {ParseISOStringDate({ date: transaction.createdAt })}
@@ -76,9 +76,11 @@ export function DetailsTable({
 
               <TableCell className="text-right">
                 {transaction.parentTransactionId ? (
-                  <Badge className="bg-[#00b4d8] cursor-default truncate">Monthly</Badge>
+                  <Badge className="bg-sky-100 text-sky-700 cursor-default truncate dark:bg-sky-400/15 dark:text-sky-300">
+                    Monthly
+                  </Badge>
                 ) : (
-                  <Badge className="bg-[#dad7cd] text-black cursor-default truncate">
+                  <Badge className="bg-gray-100 text-gray-700 cursor-default truncate dark:bg-white/[0.08] dark:text-[#b5b3b2]">
                     One Time
                   </Badge>
                 )}
@@ -91,7 +93,10 @@ export function DetailsTable({
           ))}
           {isLoadingMore && (
             <TableRow>
-              <TableCell colSpan={4} className="text-center py-4 text-sm text-gray-400">
+              <TableCell
+                colSpan={4}
+                className="text-center py-4 text-sm text-gray-500 dark:text-[#8b8988]"
+              >
                 Loading more...
               </TableCell>
             </TableRow>

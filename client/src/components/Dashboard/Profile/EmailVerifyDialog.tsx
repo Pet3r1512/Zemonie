@@ -46,12 +46,14 @@ export default function EmailVerifyDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md dark:bg-black bg-white border-0 shadow-2xl space-y-2">
+      <DialogContent className="space-y-2 shadow-2xl sm:max-w-md dark:shadow-none">
         <DialogHeader>
           <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-primary/10">
             <Mail className="size-6 text-primary" />
           </div>
-          <DialogTitle className="text-center">Verify your email</DialogTitle>
+          <DialogTitle className="text-center font-display font-bold">
+            Verify your email
+          </DialogTitle>
           <DialogDescription className="text-center">
             We'll send a verification link to{" "}
             <span className="font-bold text-primary">{email}</span>. Check your inbox and click the

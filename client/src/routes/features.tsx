@@ -15,7 +15,7 @@ function RouteComponent() {
         description="Discover powerful features for tracking income, categorising expenses, and visualising your financial data with Zemonie."
         canonicalPath="/features"
       />
-      <Page pageName="Features" fullScreen>
+      <Page pageName="Features" fullScreen content>
         <Features />
       </Page>
     </>

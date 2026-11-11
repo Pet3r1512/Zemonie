@@ -51,16 +51,18 @@ export default function AdditionalFeatures() {
     <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 mb-4">
-            <SparklesIcon size={16} className="text-primary" />
-            <span className="text-sm font-medium text-primary">Additional Features</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#ff7900]/30 bg-[#ff7900]/10 mb-4">
+            <SparklesIcon size={16} className="text-primary dark:text-[#ff9a3d]" />
+            <span className="text-[13px] font-semibold text-primary dark:text-[#ff9a3d]">
+              Additional Features
+            </span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="font-display font-bold tracking-[-0.03em] text-3xl md:text-4xl text-gray-900 dark:text-white mb-4">
             And there's more
           </h2>
 
-          <p className="text-xl text-gray-600 dark:text-gray-400">
+          <p className="text-xl text-gray-600 dark:text-[#b5b3b2]">
             Additional features to make your financial life easier
           </p>
         </div>
@@ -73,7 +75,7 @@ export default function AdditionalFeatures() {
               <div
                 key={index}
                 className={cn(
-                  "relative flex items-start p-6 rounded-xl bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-card/80 hover:border-primary transition-colors duration-200",
+                  "relative flex items-start p-6 rounded-[14px] bg-white border border-gray-200 shadow-sm hover:border-[#ff7900]/40 transition-colors duration-200 dark:bg-[#08080a]/85 dark:backdrop-blur-xl dark:border-white/[0.07] dark:hover:border-[#ff7900]/30",
                   feature.badge === "Coming Soon" &&
                     "opacity-75 cursor-default pointer-events-none",
                 )}
@@ -81,25 +83,25 @@ export default function AdditionalFeatures() {
                 {feature.badge && (
                   <span
                     className={cn(
-                      "absolute top-0 right-0 px-2 py-0.5 rounded-full text-xs font-semibold text-white cursor-default",
+                      "absolute top-3 right-3 px-2.5 py-0.5 rounded-full text-xs font-semibold border cursor-default",
                       feature.badge === "New"
-                        ? "bg-green-500 dark:bg-green-600"
-                        : "bg-blue-400 dark:bg-blue-500",
+                        ? "bg-green-100 text-green-700 border-green-300 dark:bg-emerald-400/15 dark:text-emerald-300 dark:border-emerald-400/30"
+                        : "bg-blue-100 text-blue-700 border-blue-300 dark:bg-sky-400/15 dark:text-sky-300 dark:border-sky-400/30",
                     )}
                   >
                     {feature.badge}
                   </span>
                 )}
 
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4 shrink-0">
-                  <Icon size={20} className="text-primary" />
+                <div className="w-10 h-10 rounded-lg bg-[#ff7900]/10 flex items-center justify-center mr-4 shrink-0 dark:bg-[#ff7900]/12">
+                  <Icon size={20} className="text-primary dark:text-[#ff9a3d]" />
                 </div>
 
-                <div>
+                <div className={cn(feature.badge && "pt-6")}>
                   <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                     {feature.title}
                   </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{feature.description}</p>
+                  <p className="text-sm text-gray-500 dark:text-[#8b8988]">{feature.description}</p>
                 </div>
               </div>
             );
