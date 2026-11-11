@@ -14,7 +14,6 @@ import {
   Settings,
   TrendingUp,
   Wallet,
-  Zap,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
@@ -27,6 +26,7 @@ const STAGE_H = 941;
 const DASH_W = 1204;
 const DASH_TOP = 651;
 const DASH_H = 640;
+const MOCK_BOTTOM = DASH_TOP + DASH_H + 32;
 const VIDEO_W = 1672;
 const VIDEO_H = 717;
 const RIM_HALF_SPAN = 836;
@@ -133,7 +133,12 @@ function readStage(): Stage {
   const vh = typeof window === "undefined" ? 900 : window.innerHeight;
   if (vw < MOBILE_BREAKPOINT || vh >= vw) return { mobile: true, scale: 1, width: vw, height: vh };
   const scale = Math.min(vw / STAGE_W, vh / STAGE_H);
-  return { mobile: false, scale, width: vw / scale, height: vh / scale };
+  return {
+    mobile: false,
+    scale,
+    width: vw / scale,
+    height: Math.max(vh / scale, MOCK_BOTTOM),
+  };
 }
 
 function useStage() {
@@ -339,18 +344,6 @@ function paintRim(ctx: CanvasRenderingContext2D, options: RimOptions) {
   ctx.globalCompositeOperation = "source-over";
 }
 
-function Bolt({ className }: { className?: string }) {
-  return (
-    <span
-      aria-hidden
-      className={cn("grid size-[30px] place-items-center rounded-[9px]", className)}
-      style={{ background: "linear-gradient(150deg, rgba(255,121,0,0.24), rgba(255,121,0,0.06))" }}
-    >
-      <Zap size={17} strokeWidth={2.4} className="text-[#ff9a3d]" fill="currentColor" />
-    </span>
-  );
-}
-
 function GetStarted({ className, label = "Get Started" }: { className?: string; label?: string }) {
   return (
     <Link
@@ -479,7 +472,7 @@ function StatCard({
   valueClass?: string;
 }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col justify-center gap-[5px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] px-[14px] py-[11px]">
+    <div className="flex min-w-0 flex-1 flex-col justify-center gap-[5px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] px-[14px] py-[9px]">
       <div className="flex items-center justify-between gap-3">
         <p className="truncate font-display text-[12px] font-bold text-white sm:text-[14px]">
           {title}
@@ -571,48 +564,52 @@ function SpendingByCategoryCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex shrink-0 flex-col gap-[10px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] p-[14px]",
+        "flex shrink-0 flex-col gap-[6px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] p-[12px]",
         className,
       )}
     >
       <p className="text-[12.5px] font-medium text-white">Spending by Category</p>
-      <div className="flex min-h-0 flex-1 items-center gap-[16px]">
-        <svg aria-hidden viewBox="0 0 104 104" className="size-[104px] shrink-0 -rotate-90">
-          <circle
-            cx="52"
-            cy="52"
-            r={radius}
-            fill="none"
-            stroke="rgba(255,255,255,0.06)"
-            strokeWidth="15"
-          />
-          {SPEND_SEGMENTS.map((seg) => {
-            const length = (seg.pct / 100) * circumference;
-            const element = (
-              <circle
-                key={seg.name}
-                cx="52"
-                cy="52"
-                r={radius}
-                fill="none"
-                stroke={seg.color}
-                strokeWidth="15"
-                strokeDasharray={`${length} ${circumference - length}`}
-                strokeDashoffset={-offset}
-              />
-            );
-            offset += length;
-            return element;
-          })}
-        </svg>
-        <div className="flex min-w-0 flex-1 flex-col gap-[8px]">
+      <div className="flex flex-1 flex-col items-center justify-center gap-[6px]">
+        <div className="relative mx-auto size-[96px] shrink-0">
+          <svg aria-hidden viewBox="0 0 104 104" className="size-full -rotate-90">
+            <circle
+              cx="52"
+              cy="52"
+              r={radius}
+              fill="none"
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth="15"
+            />
+            {SPEND_SEGMENTS.map((seg) => {
+              const length = (seg.pct / 100) * circumference;
+              const element = (
+                <circle
+                  key={seg.name}
+                  cx="52"
+                  cy="52"
+                  r={radius}
+                  fill="none"
+                  stroke={seg.color}
+                  strokeWidth="15"
+                  strokeDasharray={`${length} ${circumference - length}`}
+                  strokeDashoffset={-offset}
+                />
+              );
+              offset += length;
+              return element;
+            })}
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-[10px] font-bold text-white">A$2,184.60</span>
+            <span className="text-[9.5px] text-[#8b8988]">Total</span>
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-center gap-x-[12px] gap-y-[6px] text-[10.5px]">
           {SPEND_SEGMENTS.map((seg) => (
-            <div key={seg.name} className="flex items-center justify-between gap-2 text-[11.5px]">
-              <span className="flex min-w-0 items-center gap-[7px]">
-                <i className="size-[8px] shrink-0 rounded-full" style={{ background: seg.color }} />
-                <span className="truncate font-medium text-white">{seg.name}</span>
-              </span>
-              <span className="shrink-0 font-semibold text-[#8b8988]">{seg.pct}%</span>
+            <div key={seg.name} className="flex items-center gap-[5px]">
+              <i className="size-[7px] shrink-0 rounded-full" style={{ background: seg.color }} />
+              <span className="font-medium text-white">{seg.name}</span>
+              <span className="text-[#8b8988]">{seg.pct}%</span>
             </div>
           ))}
         </div>
@@ -643,12 +640,10 @@ function Last7DaysCard({ className }: { className?: string }) {
       <div className="flex min-h-0 flex-1 items-end gap-[10px]">
         {bars.map((bar) => (
           <div key={bar.day} className="flex min-w-0 flex-1 flex-col items-center gap-[5px]">
-            <div className="flex min-h-0 w-full flex-1 items-end">
-              <div
-                className="w-full max-w-[26px] rounded-t-[6px]"
-                style={{ height: `${bar.h}%`, background: "#ff7900" }}
-              />
-            </div>
+            <div
+              className="w-full max-w-[26px] rounded-t-[6px]"
+              style={{ height: `${bar.h * 1.4}px`, background: "#ff7900" }}
+            />
             <span className="text-[9.5px] text-[#8b8988]">{bar.day}</span>
           </div>
         ))}
@@ -713,19 +708,22 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
             <div className="flex h-full">
               <motion.div
                 variants={dashPart(1.16)}
-                className="flex w-[256px] shrink-0 flex-col border-r border-white/[0.07] bg-white/[0.02] p-[16px]"
+                className="flex w-[256px] shrink-0 flex-col border-r border-white/[0.07] bg-white/[0.02]"
               >
-                <div className="flex items-center gap-[8px] px-[6px]">
-                  <Bolt className="size-[26px] rounded-[7px]" />
-                  <span className="font-display text-[14.5px] font-bold text-white">Zemonie</span>
+                <div className="flex flex-col gap-2 px-5 py-2">
+                  <img
+                    src="/logo/zemonie_logo.webp"
+                    alt=""
+                    className="my-5 h-12 w-auto self-start"
+                  />
                 </div>
-                <div className="flex flex-1 flex-col">
+                <div className="flex flex-1 flex-col space-y-5 px-5">
                   {SIDE_GROUPS.map((group) => (
-                    <div key={group.label} className="mt-[14px]">
-                      <p className="mb-[7px] px-[10px] text-[10.5px] font-semibold tracking-[0.06em] text-secondary">
+                    <div key={group.label} className="flex flex-col p-2">
+                      <p className="flex h-8 shrink-0 items-center px-2 text-xs font-semibold text-secondary">
                         {group.label}
                       </p>
-                      <div className="flex flex-col gap-[6px]">
+                      <div className="flex flex-col gap-[14px]">
                         {group.items.map((item) => (
                           <SidebarItem key={item.label} {...item} />
                         ))}
@@ -733,15 +731,15 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
                     </div>
                   ))}
                 </div>
-                <div className="mt-[14px] flex flex-col gap-[6px]">
+                <div className="flex flex-col gap-[6px] px-5 pb-2">
                   {SIDE_FOOTER.map((item) => (
                     <SidebarItem key={item.label} {...item} />
                   ))}
                 </div>
               </motion.div>
 
-              <div className="flex min-w-0 flex-1 flex-col gap-[12px] p-[18px]">
-                <motion.div className="flex flex-col gap-[6px]" variants={dashPart(1.24)}>
+              <div className="flex min-w-0 flex-1 flex-col gap-[8px] p-[18px]">
+                <motion.div className="flex flex-col gap-[4px]" variants={dashPart(1.24)}>
                   <div className="flex items-center justify-between gap-3">
                     <span className="flex min-w-0 items-center gap-[10px]">
                       <span className="grid size-[26px] shrink-0 place-items-center text-[#8b8988]">
@@ -765,12 +763,15 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
                     <StatCard key={card.title} {...card} />
                   ))}
                 </motion.div>
-                <motion.div className="flex gap-[12px]" variants={dashPart(1.48)}>
-                  <IncomeVsExpensesCard className="h-[240px] flex-1" />
-                  <SpendingByCategoryCard className="h-[240px] flex-1" />
+                <motion.div className="grid grid-cols-2 gap-[12px]" variants={dashPart(1.48)}>
+                  <IncomeVsExpensesCard className="h-[176px] min-w-0" />
+                  <SpendingByCategoryCard className="h-[176px] min-w-0" />
                 </motion.div>
-                <motion.div className="min-h-0 flex-1" variants={dashPart(1.56)}>
-                  <Last7DaysCard className="h-full" />
+                <motion.div
+                  className="grid min-h-0 flex-1 grid-cols-2 gap-[12px]"
+                  variants={dashPart(1.56)}
+                >
+                  <Last7DaysCard className="h-full min-w-0" />
                 </motion.div>
               </div>
             </div>
@@ -865,8 +866,8 @@ function MobileStage({ initial }: { initial: "hidden" | "show" }) {
               ))}
             </div>
             <IncomeVsExpensesCard className="h-[190px] w-full" />
-            <SpendingByCategoryCard className="h-[200px] w-full" />
-            <Last7DaysCard className="h-[150px] w-full" />
+            <SpendingByCategoryCard className="h-[224px] w-full" />
+            <Last7DaysCard className="h-[200px] w-full" />
           </div>
         </div>
       </motion.div>
@@ -914,7 +915,9 @@ export default function Hero() {
       aria-label="Zemonie hero"
       className="relative w-full overflow-hidden font-ui text-gray-900 dark:bg-black dark:text-[#f7f7f8]"
       style={{
-        height: stage.mobile ? undefined : `calc(100vh - ${bannerOffset}px)`,
+        height: stage.mobile
+          ? undefined
+          : `max(calc(100vh - ${bannerOffset}px), ${MOCK_BOTTOM * stage.scale}px)`,
         minHeight: stage.mobile ? `calc(100vh - ${bannerOffset}px)` : undefined,
         isolation: "isolate",
       }}
