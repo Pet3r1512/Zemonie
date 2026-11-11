@@ -18,7 +18,7 @@ export default function BudgetListContainer() {
     return (
       <section
         aria-label="BudgetListContainer"
-        className="bg-white dark:bg-dark-card rounded-2xl p-5 flex flex-col gap-y-5 flex-1"
+        className="rounded-[14px] border border-gray-200 bg-white p-5 flex flex-col gap-y-5 flex-1 shadow-sm dark:border-white/[0.07] dark:bg-[#08080a]/85 dark:backdrop-blur-xl"
       >
         <Skeleton className="h-[220.5px] md:h-[196.5px] w-full" />
       </section>
@@ -28,9 +28,11 @@ export default function BudgetListContainer() {
   return (
     <section
       aria-label="BudgetListContainer"
-      className="bg-white dark:bg-dark-card rounded-2xl p-5 flex flex-col gap-y-5 flex-1"
+      className="rounded-[14px] border border-gray-200 bg-white p-5 flex flex-col gap-y-5 flex-1 shadow-sm dark:border-white/[0.07] dark:bg-[#08080a]/85 dark:backdrop-blur-xl"
     >
-      <p className="text-lg lg:text-xl font-bold shrink-0">Budget By Category</p>
+      <p className="font-display font-bold text-lg lg:text-xl text-gray-900 shrink-0 dark:text-white">
+        Budget By Category
+      </p>
       {data?.budgets.budgets.length !== 0 ? (
         data?.budgets.budgets.map((budget: BudgetResponseType) => {
           return (
@@ -40,7 +42,7 @@ export default function BudgetListContainer() {
           );
         })
       ) : (
-        <p>You have no budget.</p>
+        <p className="text-gray-500 dark:text-[#8b8988]">You have no budget.</p>
       )}
     </section>
   );

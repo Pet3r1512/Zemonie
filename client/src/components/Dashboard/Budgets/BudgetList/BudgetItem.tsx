@@ -17,17 +17,17 @@ export default function BudgetItem({ budget }: { budget: BudgetResponseType }) {
   return (
     <Card
       aria-label="budget-item"
-      className="p-5 shadow-xl dark:shadow-dark-bg lg:hover:scale-101 transition-all duration-150 ease-linear"
+      className="p-5 shadow-sm lg:hover:scale-101 transition-all duration-150 ease-linear"
     >
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1.5">
         <div className="space-y-1.5">
           <article className="flex items-center gap-x-1.5">
             {currentCategory.icon}
-            <p className={"text-md md:text-lg font-bold"}>{currentCategory.name}</p>
+            <p className={"font-display font-bold text-md md:text-lg"}>{currentCategory.name}</p>
           </article>
-          <p className="text-xs md:text-sm text-gray-700 dark:text-gray-500">
+          <p className="text-xs md:text-sm text-gray-600 dark:text-[#b5b3b2]">
             End Date:{" "}
-            <span className="text-white/80 font-semibold">
+            <span className="font-semibold text-gray-900 dark:text-white">
               {formatUserCalendarDate(budget.endDate)}
             </span>
           </p>

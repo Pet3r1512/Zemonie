@@ -13,7 +13,7 @@ const Progress = ({
 }) => (
   <ProgressPrimitive.Root
     className={cn(
-      "relative h-4 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800",
+      "relative h-4 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-white/[0.08]",
       className,
     )}
     {...props}

@@ -104,15 +104,13 @@ export function BudgetForm() {
           e.currentTarget.blur();
         }}
       >
-        <Button className="bg-primary text-white hover:bg-primary/80 dark:bg-primary/75 dark:hover:bg-primary/85 dark:text-white rounded-2xl text-lg h-10.5">
-          + Add Budget
-        </Button>
+        <Button className="text-lg h-10.5">+ Add Budget</Button>
       </DialogTrigger>
       <DialogContent
         onInteractOutside={() => {}}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
-        className="sm:max-w-sm bg-white dark:bg-dark-elevated pointer-events-auto"
+        className="sm:max-w-sm pointer-events-auto"
       >
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -167,7 +165,7 @@ export function BudgetForm() {
 
               <Field
                 orientation="horizontal"
-                className="rounded-lg border border-neutral-200 dark:border-dark-card px-3 py-2"
+                className="rounded-lg border border-gray-200 px-3 py-2 dark:border-white/[0.07]"
               >
                 <FieldContent>
                   <FieldLabel htmlFor="isRecurring">Repeat every month</FieldLabel>
@@ -203,12 +201,7 @@ export function BudgetForm() {
                   Cancel
                 </Button>
               </DialogClose>
-              <Button
-                type="submit"
-                className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white"
-              >
-                Create
-              </Button>
+              <Button type="submit">Create</Button>
             </DialogFooter>
           </form>
         </FormProvider>

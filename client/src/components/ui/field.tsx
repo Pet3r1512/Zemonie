@@ -165,7 +165,7 @@ function FieldSeparator({
       <Separator className="absolute inset-0 top-1/2" />
       {children && (
         <span
-          className="bg-oklch(1 0 0) text-oklch(0.556 0 0) relative mx-auto block w-fit px-2 dark:bg-oklch(0.145 0 0) dark:text-oklch(0.708 0 0)"
+          className="relative mx-auto block w-fit bg-white px-2 text-gray-600 dark:bg-[#08080a] dark:text-[#b5b3b2]"
           data-slot="field-separator-content"
         >
           {children}

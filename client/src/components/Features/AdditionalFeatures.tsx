@@ -97,7 +97,7 @@ export default function AdditionalFeatures() {
                   <Icon size={20} className="text-primary dark:text-[#ff9a3d]" />
                 </div>
 
-                <div>
+                <div className={cn(feature.badge && "pt-6")}>
                   <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                     {feature.title}
                   </h4>

@@ -84,7 +84,7 @@ export default function AccountSetupForm({ className }: { className?: string }) 
       data-testid="signup-form-container"
       className={cn("flex flex-col gap-6 w-full md:max-w-106.25 lg:max-w-lg", className)}
     >
-      <Card className="dark:bg-black/50 shadow-2xl">
+      <Card className="shadow-2xl dark:bg-[#08080a]/90 dark:backdrop-blur-xl">
         <CardHeader className="text-center flex flex-col items-center gap-y-3">
           <div className="flex items-center gap-x-2.5 cursor-default">
             <img src="/logo/zemonie-icon-light.svg" alt="" className="w-auto h-8" />
@@ -108,11 +108,11 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                   <SelectTrigger id="source" name="source" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white dark:bg-dark-elevated w-full">
+                  <SelectContent className="w-full">
                     <SelectGroup>
                       <SelectItem
                         key="english"
-                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
+                        className="lg:hover:bg-gray-100 dark:lg:hover:bg-white/[0.06]"
                         value={"english"}
                       >
                         English
@@ -147,13 +147,13 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                   <SelectTrigger id="source" name="source" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white dark:bg-dark-elevated w-full">
+                  <SelectContent className="w-full">
                     <SelectGroup>
                       {currencyLists.map((currency) => {
                         return (
                           <SelectItem
                             key={currency.code}
-                            className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
+                            className="lg:hover:bg-gray-100 dark:lg:hover:bg-white/[0.06]"
                             value={currency.code}
                           >
                             <div className="flex gap-x-2">
@@ -182,11 +182,11 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                   <SelectTrigger id="source" name="source" className="w-full">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white dark:bg-dark-elevated w-full">
+                  <SelectContent className="w-full">
                     <SelectGroup>
                       <SelectItem
                         key={"light"}
-                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
+                        className="lg:hover:bg-gray-100 dark:lg:hover:bg-white/[0.06]"
                         value={"light"}
                       >
                         <div className="flex items-center gap-x-2">
@@ -196,7 +196,7 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                       </SelectItem>
                       <SelectItem
                         key={"dark"}
-                        className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
+                        className="lg:hover:bg-gray-100 dark:lg:hover:bg-white/[0.06]"
                         value={"dark"}
                       >
                         <div className="flex items-center gap-x-2">
@@ -228,7 +228,7 @@ export default function AccountSetupForm({ className }: { className?: string }) 
                 role="submit-btn"
                 disabled={mutation.isPending}
                 type="submit"
-                className="w-full bg-primary hover:bg-primary-dark"
+                className="w-full"
               >
                 {mutation.isPending ? <LoaderCircle className="animate-spin" /> : <p>Done</p>}
               </Button>

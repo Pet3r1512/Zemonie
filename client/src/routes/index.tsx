@@ -1,6 +1,7 @@
 import CTASection from "@/components/Layout/Home/CTASection";
 import FeatureGrid from "@/components/Layout/Home/FeatureGrid";
 import Hero from "@/components/Layout/Home/Hero";
+import Footer from "@/components/Layout/Footer";
 import Header from "@/components/Layout/Header";
 import SEO from "@/components/SEO";
 import { createFileRoute } from "@tanstack/react-router";
@@ -18,6 +19,7 @@ function Index() {
       {/* <Showcase /> */}
       <FeatureGrid />
       <CTASection />
+      <Footer />
     </>
   );
 }

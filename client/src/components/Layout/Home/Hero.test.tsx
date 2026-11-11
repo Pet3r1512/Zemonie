@@ -45,11 +45,21 @@ describe("Home hero", () => {
   it("renders the product dashboard preview", () => {
     render(<Hero />);
 
-    expect(screen.getByText("Money managed (since inception)")).toBeInTheDocument();
-    expect(screen.getByText("$214,402")).toBeInTheDocument();
-    expect(screen.getByText("Daily spending dynamics")).toBeInTheDocument();
-    expect(screen.getByText("January 2026")).toBeInTheDocument();
-    expect(screen.getByText("Zemonie Pro")).toBeInTheDocument();
-    expect(screen.getByText("Transactions")).toBeInTheDocument();
+    expect(screen.getAllByText("Dashboard").length).toBeGreaterThan(0);
+    expect(screen.getByText("OVERVIEW")).toBeInTheDocument();
+    expect(screen.getByText("Money Moves")).toBeInTheDocument();
+    expect(screen.getByText("Budgets")).toBeInTheDocument();
+    expect(screen.getByText("New")).toBeInTheDocument();
+    expect(screen.getByText("+ Add")).toBeInTheDocument();
+    expect(screen.getByText("Welcome back, Alex")).toBeInTheDocument();
+    expect(screen.getByText("Total Balance")).toBeInTheDocument();
+    expect(screen.getByText("A$12,480.50")).toBeInTheDocument();
+    expect(screen.getByText("Net Savings")).toBeInTheDocument();
+    expect(screen.getByText("Latest Income")).toBeInTheDocument();
+    expect(screen.getByText("Latest Expense")).toBeInTheDocument();
+    expect(screen.getByText("Income vs Expenses")).toBeInTheDocument();
+    expect(screen.getByText("Spending by Category")).toBeInTheDocument();
+    expect(screen.getByText("Last 7 Days Spendings")).toBeInTheDocument();
+    expect(screen.queryByText("Zemonie Pro")).not.toBeInTheDocument();
   });
 });

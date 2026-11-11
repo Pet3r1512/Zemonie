@@ -77,14 +77,14 @@ export default function IncomeSelect({
       <SelectTrigger id="source" name="source" className="w-full h-9 py-1">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className={cn("bg-white dark:bg-dark-elevated w-full", contentClassName)}>
+      <SelectContent className={cn("w-full", contentClassName)}>
         <SelectGroup>
           {incomesources.map((source: SourceIncome) => {
             return (
               <SelectItem
                 key={source.id}
                 value={source.id.toString()}
-                className="lg:hover:bg-gray-200 dark:lg:hover:bg-dark-card"
+                className="lg:hover:bg-gray-100 dark:lg:hover:bg-white/[0.06]"
               >
                 <div className="flex items-center gap-x-1">
                   {source.icon}

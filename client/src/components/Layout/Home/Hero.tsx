@@ -1,17 +1,20 @@
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import {
-  ArrowLeftRight,
-  Bell,
-  Gauge,
+  ArrowDown,
+  ArrowUp,
+  Banknote,
+  CircleUser,
+  Crosshair,
+  LayoutDashboard,
   LogOut,
-  Maximize2,
-  PieChart,
-  Search,
+  Menu,
+  MoveDown,
+  MoveUp,
   Settings,
-  Sun,
+  TrendingUp,
   Wallet,
-  Zap,
+  type LucideIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { useReleaseBannerVisible } from "@/hooks/useReleaseBanner";
@@ -23,6 +26,7 @@ const STAGE_H = 941;
 const DASH_W = 1204;
 const DASH_TOP = 651;
 const DASH_H = 640;
+const MOCK_BOTTOM = DASH_TOP + DASH_H + 32;
 const VIDEO_W = 1672;
 const VIDEO_H = 717;
 const RIM_HALF_SPAN = 836;
@@ -32,9 +36,6 @@ const MOBILE_BREAKPOINT = 900;
 
 const BTN_GRADIENT = "linear-gradient(135deg, #ff9d33 0%, #ff7900 55%, #ff6200 100%)";
 const NAME_GRADIENT = "linear-gradient(105deg, #ffb257, #ff7900 52%, #ff5e00)";
-const POSITIVE = "#45b558";
-const NEGATIVE = "#f03b2a";
-
 const GLOW_VIDEO =
   "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/e859f229-8ebd-43fb-a5a0-58006ba75327.mp4";
 const DASH_GLOW =
@@ -42,17 +43,87 @@ const DASH_GLOW =
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const SIDE_PRIMARY = [
-  { label: "Search", Icon: Search },
-  { label: "Dashboard", Icon: Gauge },
-  { label: "Transactions", Icon: ArrowLeftRight },
-  { label: "Sign out", Icon: LogOut },
+const SIDE_GROUPS = [
+  {
+    label: "OVERVIEW",
+    items: [{ label: "Dashboard", Icon: LayoutDashboard, active: true }],
+  },
+  {
+    label: "TRACKING",
+    items: [
+      { label: "Money Moves", Icon: Banknote },
+      { label: "Income", Icon: ArrowDown },
+      { label: "Expenses", Icon: ArrowUp },
+    ],
+  },
+  {
+    label: "GOALS",
+    items: [{ label: "Budgets", Icon: Crosshair, isNew: true }],
+  },
 ];
 
-const SIDE_SECONDARY = [
-  { label: "Income", Icon: Wallet },
-  { label: "Budgets", Icon: PieChart },
+const SIDE_FOOTER = [
   { label: "Settings", Icon: Settings },
+  { label: "Profile", Icon: CircleUser },
+  { label: "Log Out", Icon: LogOut, danger: true },
+];
+
+const STAT_ICONS = {
+  balance: (
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-blue-100 dark:bg-blue-900/30">
+      <Wallet size={14} className="text-blue-500" />
+    </span>
+  ),
+  savings: (
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-yellow-100 dark:bg-yellow-900/30">
+      <TrendingUp size={14} className="text-yellow-500" />
+    </span>
+  ),
+  income: (
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-green-100 dark:bg-green-900/30">
+      <MoveDown size={14} className="text-green-500" />
+    </span>
+  ),
+  expense: (
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-red-100 dark:bg-red-900/30">
+      <MoveUp size={14} className="text-red-500" />
+    </span>
+  ),
+};
+
+const STAT_CARDS = [
+  {
+    title: "Total Balance",
+    value: "A$12,480.50",
+    subtitle: "Current Balance",
+    icon: STAT_ICONS.balance,
+  },
+  {
+    title: "Net Savings",
+    value: "A$1,240.00",
+    subtitle: "Current Month",
+    icon: STAT_ICONS.savings,
+    valueClass: "text-green-500",
+  },
+  {
+    title: "Latest Income",
+    value: "A$3,200.00",
+    subtitle: "Salary \u00b7 Nov 8",
+    icon: STAT_ICONS.income,
+  },
+  {
+    title: "Latest Expense",
+    value: "A$860.40",
+    subtitle: "Groceries \u00b7 Nov 9",
+    icon: STAT_ICONS.expense,
+  },
+];
+
+const SPEND_SEGMENTS = [
+  { name: "Housing", pct: 42, color: "#eab308" },
+  { name: "Groceries", pct: 26, color: "#f97316" },
+  { name: "Travel", pct: 18, color: "#3b82f6" },
+  { name: "Entertainment", pct: 14, color: "#d946ef" },
 ];
 
 type Stage = { mobile: boolean; scale: number; width: number; height: number };
@@ -62,7 +133,12 @@ function readStage(): Stage {
   const vh = typeof window === "undefined" ? 900 : window.innerHeight;
   if (vw < MOBILE_BREAKPOINT || vh >= vw) return { mobile: true, scale: 1, width: vw, height: vh };
   const scale = Math.min(vw / STAGE_W, vh / STAGE_H);
-  return { mobile: false, scale, width: vw / scale, height: vh / scale };
+  return {
+    mobile: false,
+    scale,
+    width: vw / scale,
+    height: Math.max(vh / scale, MOCK_BOTTOM),
+  };
 }
 
 function useStage() {
@@ -268,18 +344,6 @@ function paintRim(ctx: CanvasRenderingContext2D, options: RimOptions) {
   ctx.globalCompositeOperation = "source-over";
 }
 
-function Bolt({ className }: { className?: string }) {
-  return (
-    <span
-      aria-hidden
-      className={cn("grid size-[30px] place-items-center rounded-[9px]", className)}
-      style={{ background: "linear-gradient(150deg, rgba(255,121,0,0.24), rgba(255,121,0,0.06))" }}
-    >
-      <Zap size={17} strokeWidth={2.4} className="text-[#ff9a3d]" fill="currentColor" />
-    </span>
-  );
-}
-
 function GetStarted({ className, label = "Get Started" }: { className?: string; label?: string }) {
   return (
     <Link
@@ -363,90 +427,99 @@ function SidebarItem({
   label,
   Icon,
   active = false,
+  isNew = false,
+  danger = false,
 }: {
   label: string;
-  Icon: typeof Search;
+  Icon: LucideIcon;
   active?: boolean;
+  isNew?: boolean;
+  danger?: boolean;
 }) {
   return (
     <div
       className={cn(
         "flex h-[30px] items-center gap-[9px] rounded-[9px] px-[10px] text-[12.5px] font-medium",
         active
-          ? "border border-[#ff7900]/30 bg-[#ff7900]/12 text-[#ff9a3d]"
-          : "border border-transparent text-[#8b8988]",
+          ? "border border-[#ff7900]/30 bg-[#ff7900]/12 text-primary dark:text-[#ff9a3d]"
+          : danger
+            ? "border border-transparent text-red-500"
+            : "border border-transparent text-gray-500 dark:text-[#8b8988]",
       )}
     >
       <Icon size={14} strokeWidth={2} />
       <span>{label}</span>
+      {isNew ? (
+        <span className="ml-auto rounded-full bg-green-100 px-1.5 py-0.5 text-[9.5px] font-bold text-green-700 dark:bg-emerald-400/15 dark:text-emerald-300">
+          New
+        </span>
+      ) : null}
     </div>
   );
 }
 
 function StatCard({
-  label,
+  title,
   value,
-  delta,
-  positive,
+  subtitle,
+  icon,
+  valueClass,
 }: {
-  label: string;
+  title: string;
   value: string;
-  delta: string;
-  positive: boolean;
+  subtitle: string;
+  icon: ReactNode;
+  valueClass?: string;
 }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col justify-center gap-[7px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] px-[16px] py-[13px]">
-      <p className="truncate text-[11px] text-[#8b8988]">{label}</p>
-      <div className="flex items-end justify-between gap-3">
-        <p className="text-[26px] leading-none font-semibold tracking-[-0.02em] text-white">
-          {value}
+    <div className="flex min-w-0 flex-1 flex-col justify-center gap-[5px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] px-[14px] py-[9px]">
+      <div className="flex items-center justify-between gap-3">
+        <p className="truncate font-display text-[12px] font-bold text-gray-900 dark:text-white sm:text-[14px]">
+          {title}
         </p>
-        <span
-          className="rounded-full px-[8px] py-[3px] text-[11px] font-semibold"
-          style={{
-            color: positive ? POSITIVE : NEGATIVE,
-            background: positive ? "rgba(69,181,88,0.14)" : "rgba(240,59,42,0.14)",
-          }}
-        >
-          {delta}
-        </span>
+        {icon}
       </div>
+      <p
+        className={cn(
+          "text-[19px] leading-none font-semibold tracking-[-0.02em]",
+          valueClass ?? "text-gray-900 dark:text-white",
+        )}
+      >
+        {value}
+      </p>
+      <p className="truncate text-[11px] text-gray-500 dark:text-[#8b8988]">{subtitle}</p>
     </div>
   );
 }
 
-const CHART_VALUES = [46, 58, 51, 66, 60, 74, 63, 79, 71, 86, 77, 92, 84, 96];
+const INCOME_COLOR = "#38b000";
+const EXPENSE_COLOR = "#ef233c";
 
-function buildChartPath(values: number[], width: number, height: number) {
-  const points = values.map((value, index) => ({
-    x: (index / (values.length - 1)) * width,
-    y: height - (value / 100) * height,
-  }));
-
-  const line = points.reduce((path, point, index, all) => {
-    if (index === 0) return `M ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
-    const prev = all[index - 1];
-    const midX = (prev.x + point.x) / 2;
-    return `${path} C ${midX.toFixed(2)} ${prev.y.toFixed(2)}, ${midX.toFixed(2)} ${point.y.toFixed(2)}, ${point.x.toFixed(2)} ${point.y.toFixed(2)}`;
-  }, "");
-
-  const last = points[points.length - 1];
-  return { line, area: `${line} L ${width} ${height} L 0 ${height} Z`, last };
-}
-
-function ChartCard({ className }: { className?: string }) {
-  const { line, area, last } = useMemo(() => buildChartPath(CHART_VALUES, 600, 170), []);
+function IncomeVsExpensesCard({ className }: { className?: string }) {
+  const incomeH = 118;
+  const expenseH = 42;
 
   return (
     <div
       className={cn(
-        "flex min-w-0 flex-col gap-[10px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] p-[14px]",
+        "flex min-w-0 flex-col gap-[10px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] p-[14px]",
         className,
       )}
     >
       <div className="flex items-center justify-between gap-3">
-        <p className="text-[12.5px] font-medium text-white">Daily spending dynamics</p>
-        <p className="text-[11px] text-[#8b8988]">Last 30 days</p>
+        <p className="text-[12.5px] font-medium text-gray-900 dark:text-white">
+          Income vs Expenses
+        </p>
+        <span className="flex items-center gap-[10px] text-[10.5px] text-gray-500 dark:text-[#8b8988]">
+          <span className="flex items-center gap-[5px]">
+            <i className="size-[7px] rounded-full" style={{ background: INCOME_COLOR }} />
+            Income
+          </span>
+          <span className="flex items-center gap-[5px]">
+            <i className="size-[7px] rounded-full" style={{ background: EXPENSE_COLOR }} />
+            Expenses
+          </span>
+        </span>
       </div>
       <div className="relative min-h-0 flex-1">
         <svg
@@ -455,135 +528,132 @@ function ChartCard({ className }: { className?: string }) {
           preserveAspectRatio="none"
           className="absolute inset-0 h-full w-full"
         >
-          <defs>
-            <linearGradient id="zemonie-hero-chart" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#ff7900" stopOpacity="0.42" />
-              <stop offset="100%" stopColor="#ff7900" stopOpacity="0" />
-            </linearGradient>
-          </defs>
           {[0, 1, 2, 3].map((row) => (
             <line
               key={row}
               x1="0"
               x2="600"
-              y1={12 + row * 48}
-              y2={12 + row * 48}
-              stroke="rgba(255,255,255,0.06)"
+              y1={14 + row * 40}
+              y2={14 + row * 40}
+              className="stroke-gray-200 dark:stroke-white/[0.06]"
               strokeWidth="1"
               vectorEffect="non-scaling-stroke"
             />
           ))}
-          <path d={area} fill="url(#zemonie-hero-chart)" />
-          <path
-            d={line}
-            fill="none"
-            stroke="#ff7900"
-            strokeWidth="2"
-            strokeLinecap="round"
-            vectorEffect="non-scaling-stroke"
+          <rect x="238" y={150 - incomeH} width="86" height={incomeH} rx="4" fill={INCOME_COLOR} />
+          <rect
+            x="342"
+            y={150 - expenseH}
+            width="86"
+            height={expenseH}
+            rx="4"
+            fill={EXPENSE_COLOR}
           />
-          <circle cx={last.x} cy={last.y} r="4" fill="#ff9a3d" />
         </svg>
+        <span className="absolute inset-x-0 bottom-[-2px] text-center text-[10.5px] text-gray-500 dark:text-[#8b8988]">
+          Nov 2026
+        </span>
       </div>
     </div>
   );
 }
 
-function CalendarRow({
-  label,
-  value,
-  delta,
-  positive,
-}: {
-  label: string;
-  value: string;
-  delta?: string;
-  positive?: boolean;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] py-[7px] text-[11.5px]">
-      <span className="truncate text-[#8b8988]">{label}</span>
-      <span className="flex shrink-0 items-center gap-[8px]">
-        <span className="font-semibold text-white">{value}</span>
-        {delta ? (
-          <span
-            className="text-[11px] font-semibold"
-            style={{ color: positive ? POSITIVE : NEGATIVE }}
-          >
-            {delta}
-          </span>
-        ) : null}
-      </span>
-    </div>
-  );
-}
+function SpendingByCategoryCard({ className }: { className?: string }) {
+  const radius = 42;
+  const circumference = 2 * Math.PI * radius;
+  let offset = 0;
 
-function CalendarCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex shrink-0 flex-col rounded-[12px] border border-white/[0.07] bg-white/[0.03] p-[14px]",
+        "flex shrink-0 flex-col gap-[6px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] p-[12px]",
         className,
       )}
     >
-      <p className="text-[12.5px] font-semibold text-white">January 2026</p>
-      <p className="mt-[2px] text-[11px] text-[#8b8988]">This month – Now (monthly)</p>
-      <div className="mt-[8px] flex flex-col">
-        <CalendarRow label="Total transactions" value="1,284" delta="+8.4%" positive />
-        <CalendarRow label="Avg. categorisation" value="0.42s" />
-        <CalendarRow label="Savings rate" value="68.2%" delta="+2.1%" positive />
-        <CalendarRow label="Connected apps" value="Banking · Wallets" />
+      <p className="text-[12.5px] font-medium text-gray-900 dark:text-white">
+        Spending by Category
+      </p>
+      <div className="flex flex-1 flex-col items-center justify-center gap-[6px]">
+        <div className="relative mx-auto size-[96px] shrink-0">
+          <svg aria-hidden viewBox="0 0 104 104" className="size-full -rotate-90">
+            <circle
+              cx="52"
+              cy="52"
+              r={radius}
+              fill="none"
+              className="stroke-gray-200 dark:stroke-white/[0.06]"
+              strokeWidth="15"
+            />
+            {SPEND_SEGMENTS.map((seg) => {
+              const length = (seg.pct / 100) * circumference;
+              const element = (
+                <circle
+                  key={seg.name}
+                  cx="52"
+                  cy="52"
+                  r={radius}
+                  fill="none"
+                  stroke={seg.color}
+                  strokeWidth="15"
+                  strokeDasharray={`${length} ${circumference - length}`}
+                  strokeDashoffset={-offset}
+                />
+              );
+              offset += length;
+              return element;
+            })}
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-[10px] font-bold text-gray-900 dark:text-white">A$2,184.60</span>
+            <span className="text-[9.5px] text-gray-500 dark:text-[#8b8988]">Total</span>
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-center gap-x-[12px] gap-y-[6px] text-[10.5px]">
+          {SPEND_SEGMENTS.map((seg) => (
+            <div key={seg.name} className="flex items-center gap-[5px]">
+              <i className="size-[7px] shrink-0 rounded-full" style={{ background: seg.color }} />
+              <span className="font-medium text-gray-900 dark:text-white">{seg.name}</span>
+              <span className="text-gray-500 dark:text-[#8b8988]">{seg.pct}%</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-function ProCard() {
+function Last7DaysCard({ className }: { className?: string }) {
+  const bars = [
+    { day: "Mon", h: 46 },
+    { day: "Tue", h: 72 },
+    { day: "Wed", h: 38 },
+    { day: "Thu", h: 88 },
+    { day: "Fri", h: 64 },
+    { day: "Sat", h: 96 },
+    { day: "Sun", h: 54 },
+  ];
+
   return (
     <div
-      className="rounded-[12px] border border-[#ff7900]/25 p-[12px]"
-      style={{ background: "linear-gradient(160deg, rgba(255,121,0,0.16), rgba(255,121,0,0.04))" }}
+      className={cn(
+        "flex min-h-0 flex-col gap-[8px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] p-[14px]",
+        className,
+      )}
     >
-      <p className="flex items-center gap-[6px] text-[12px] font-semibold text-white">
-        <Zap size={12} className="text-[#ff9a3d]" fill="currentColor" />
-        Zemonie Pro
+      <p className="text-[12.5px] font-medium text-gray-900 dark:text-white">
+        Last 7 Days Spendings
       </p>
-      <p className="mt-[4px] text-[10.5px] leading-[1.45] text-[#b9b7b6]">
-        Smart rules, unlimited budgets and priority sync.
-      </p>
-      <span
-        className="mt-[10px] inline-flex rounded-full px-[14px] py-[6px] text-[10.5px] font-semibold text-[#1a0c00]"
-        style={{ backgroundImage: BTN_GRADIENT }}
-      >
-        Upgrade
-      </span>
-    </div>
-  );
-}
-
-function TopBar() {
-  return (
-    <div className="flex h-[30px] shrink-0 items-center justify-end gap-[10px]">
-      {[Bell, Sun, Maximize2].map((Icon, index) => (
-        <span
-          key={index}
-          className="grid size-[28px] place-items-center rounded-[8px] border border-white/[0.07] bg-white/[0.03] text-[#8b8988]"
-        >
-          <Icon size={13} />
-        </span>
-      ))}
-      <span className="ml-[4px] flex items-center gap-[8px] rounded-full border border-white/[0.07] bg-white/[0.03] py-[3px] pr-[12px] pl-[3px]">
-        <span
-          className="grid size-[24px] place-items-center rounded-full text-[11px] font-semibold text-[#1a0c00]"
-          style={{ backgroundImage: BTN_GRADIENT }}
-        >
-          A
-        </span>
-        <span className="flex flex-col leading-[1.15]">
-          <span className="text-[11.5px] font-medium text-white">Alex T.</span>
-          <span className="text-[9.5px] text-[#8b8988]">alex@zemonie.app</span>
-        </span>
-      </span>
+      <div className="flex min-h-0 flex-1 items-end gap-[10px]">
+        {bars.map((bar) => (
+          <div key={bar.day} className="flex min-w-0 flex-1 flex-col items-center gap-[5px]">
+            <div
+              className="w-full max-w-[26px] rounded-t-[6px]"
+              style={{ height: `${bar.h * 1.4}px`, background: "#ff7900" }}
+            />
+            <span className="text-[9.5px] text-gray-500 dark:text-[#8b8988]">{bar.day}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -631,7 +701,7 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
         <motion.div className="pointer-events-none absolute inset-0" variants={dashVariants}>
           <motion.aside
             aria-hidden
-            className="pointer-events-auto absolute overflow-hidden rounded-[14px] border border-[#ff7900]/35 bg-[#08080a]/85 backdrop-blur-xl"
+            className="pointer-events-auto absolute overflow-hidden rounded-[14px] border border-[#ff7900]/35 bg-white/90 dark:bg-[#08080a]/85 backdrop-blur-xl"
             style={{
               left: dashLeft,
               top: DASH_TOP,
@@ -644,44 +714,72 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
             <div className="flex h-full">
               <motion.div
                 variants={dashPart(1.16)}
-                className="flex w-[236px] shrink-0 flex-col gap-[14px] border-r border-white/[0.07] bg-white/[0.02] p-[18px]"
+                className="flex w-[256px] shrink-0 flex-col border-r border-gray-200 bg-gray-50 dark:border-white/[0.07] dark:bg-white/[0.02]"
               >
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-[8px]">
-                    <Bolt className="size-[24px] rounded-[7px]" />
-                    <span className="font-display text-[14.5px] font-bold text-white">Zemonie</span>
-                  </span>
-                  <Settings size={13} className="text-[#8b8988]" />
+                <div className="flex flex-col gap-2 px-5 py-2">
+                  <img
+                    src="/logo/zemonie_logo.webp"
+                    alt=""
+                    className="my-5 h-12 w-auto self-start"
+                  />
                 </div>
-                <div className="flex flex-col gap-[6px]">
-                  {SIDE_PRIMARY.map((item) => (
-                    <SidebarItem key={item.label} {...item} active={item.label === "Dashboard"} />
+                <div className="flex flex-1 flex-col space-y-5 px-5">
+                  {SIDE_GROUPS.map((group) => (
+                    <div key={group.label} className="flex flex-col p-2">
+                      <p className="flex h-8 shrink-0 items-center px-2 text-xs font-semibold text-secondary">
+                        {group.label}
+                      </p>
+                      <div className="flex flex-col gap-[14px]">
+                        {group.items.map((item) => (
+                          <SidebarItem key={item.label} {...item} />
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
-                <div className="flex flex-col gap-[6px]">
-                  {SIDE_SECONDARY.map((item) => (
+                <div className="flex flex-col gap-[6px] px-5 pb-2">
+                  {SIDE_FOOTER.map((item) => (
                     <SidebarItem key={item.label} {...item} />
                   ))}
                 </div>
-                <ProCard />
               </motion.div>
 
-              <div className="flex min-w-0 flex-1 flex-col gap-[14px] p-[18px]">
-                <motion.div variants={dashPart(1.24)}>
-                  <TopBar />
+              <div className="flex min-w-0 flex-1 flex-col gap-[8px] p-[18px]">
+                <motion.div className="flex flex-col gap-[4px]" variants={dashPart(1.24)}>
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="flex min-w-0 items-center gap-[10px]">
+                      <span className="grid size-[26px] shrink-0 place-items-center text-gray-500 dark:text-[#8b8988]">
+                        <Menu size={16} />
+                      </span>
+                      <span className="truncate font-display text-[24px] leading-none font-bold tracking-[-0.03em] text-gray-900 dark:text-white">
+                        Dashboard
+                      </span>
+                    </span>
+                    <span
+                      className="shrink-0 rounded-full px-[16px] py-[7px] text-[12px] font-semibold text-[#1a0c00]"
+                      style={{ backgroundImage: BTN_GRADIENT }}
+                    >
+                      + Add
+                    </span>
+                  </div>
+                  <p className="pl-[36px] text-[12.5px] text-gray-600 dark:text-[#b5b3b2]">
+                    Welcome back, Alex
+                  </p>
                 </motion.div>
-                <motion.div className="flex gap-[14px]" variants={dashPart(1.36)}>
-                  <StatCard
-                    label="Money managed (since inception)"
-                    value="$214,402"
-                    delta="+12.5%"
-                    positive
-                  />
-                  <StatCard label="Active users" value="6,412" delta="-3.1%" positive={false} />
+                <motion.div className="flex gap-[12px]" variants={dashPart(1.36)}>
+                  {STAT_CARDS.map((card) => (
+                    <StatCard key={card.title} {...card} />
+                  ))}
                 </motion.div>
-                <motion.div className="flex gap-[14px]" variants={dashPart(1.48)}>
-                  <ChartCard className="h-[280px] flex-1" />
-                  <CalendarCard className="h-[280px] w-[330px]" />
+                <motion.div className="grid grid-cols-2 gap-[12px]" variants={dashPart(1.48)}>
+                  <IncomeVsExpensesCard className="h-[176px] min-w-0" />
+                  <SpendingByCategoryCard className="h-[176px] min-w-0" />
+                </motion.div>
+                <motion.div
+                  className="grid min-h-0 flex-1 grid-cols-2 gap-[12px]"
+                  variants={dashPart(1.56)}
+                >
+                  <Last7DaysCard className="h-full min-w-0" />
                 </motion.div>
               </div>
             </div>
@@ -748,33 +846,18 @@ function MobileStage({ initial }: { initial: "hidden" | "show" }) {
         />
         <div
           aria-hidden
-          className="relative overflow-hidden rounded-[16px] border border-[#ff7900]/30 bg-[#08080a]/85 p-4 backdrop-blur-xl"
+          className="relative overflow-hidden rounded-[16px] border border-[#ff7900]/30 bg-white/90 dark:bg-[#08080a]/85 p-4 backdrop-blur-xl"
         >
           <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,#ff7900_20%,#ffc48a_50%,#ff7900_80%,transparent)] shadow-[0_0_14px_2px_rgba(255,121,0,0.55)]" />
-          <div className="mt-2 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-            {[...SIDE_PRIMARY, ...SIDE_SECONDARY].map((item) => (
-              <span
-                key={item.label}
-                className={cn(
-                  "flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium",
-                  item.label === "Dashboard"
-                    ? "border-[#ff7900]/30 bg-[#ff7900]/12 text-[#ff9a3d]"
-                    : "border-white/10 bg-white/5 text-[#8b8988]",
-                )}
-              >
-                <item.Icon size={13} />
-                {item.label}
-              </span>
-            ))}
-          </div>
-          <div className="mt-3 space-y-3">
-            <div className="flex gap-3">
-              <StatCard label="Money managed" value="$214,402" delta="+12.5%" positive />
-              <StatCard label="Active users" value="6,412" delta="-3.1%" positive={false} />
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3">
+              {STAT_CARDS.map((card) => (
+                <StatCard key={card.title} {...card} />
+              ))}
             </div>
-            <ChartCard className="h-[190px] w-full" />
-            <CalendarCard className="w-full" />
-            <ProCard />
+            <IncomeVsExpensesCard className="h-[190px] w-full" />
+            <SpendingByCategoryCard className="h-[224px] w-full" />
+            <Last7DaysCard className="h-[200px] w-full" />
           </div>
         </div>
       </motion.div>
@@ -822,7 +905,9 @@ export default function Hero() {
       aria-label="Zemonie hero"
       className="relative w-full overflow-hidden font-ui text-gray-900 dark:bg-black dark:text-[#f7f7f8]"
       style={{
-        height: stage.mobile ? undefined : `calc(100vh - ${bannerOffset}px)`,
+        height: stage.mobile
+          ? undefined
+          : `max(calc(100vh - ${bannerOffset}px), ${MOCK_BOTTOM * stage.scale}px)`,
         minHeight: stage.mobile ? `calc(100vh - ${bannerOffset}px)` : undefined,
         isolation: "isolate",
       }}

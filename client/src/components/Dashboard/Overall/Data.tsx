@@ -17,9 +17,10 @@ export default function Data({ data }: { data: OverallDataType }) {
   const rateColor = data.amount >= 0 ? "text-green-500" : "text-red-500";
 
   return (
-    <Card className="w-full py-6 px-6 gap-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 ease-out border border-black/5 dark:border-white/10">
+    <Card className="group relative overflow-hidden w-full py-6 px-6 gap-3 shadow-sm hover:shadow-md transition-shadow duration-200 ease-out">
+      <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,#ff7900_18%,#ffc48a_50%,#ff7900_82%,transparent)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-[0_0_14px_2px_rgba(255,121,0,0.5)]" />
       <div className="flex items-center justify-between">
-        <p className="lg:text-xl font-extrabold truncate">{data.name}</p>
+        <p className="lg:text-xl font-display font-bold truncate">{data.name}</p>
         {data.icon}
       </div>
 
@@ -78,7 +79,7 @@ export default function Data({ data }: { data: OverallDataType }) {
         </div>
       )}
 
-      <div className="text-gray-400 dark:text-gray-300 lg:text-sm">
+      <div className="text-gray-500 dark:text-[#8b8988] lg:text-sm">
         {data.isLoading ? (
           <Skeleton className="h-4 w-24" />
         ) : data.subtitle === "" ? (

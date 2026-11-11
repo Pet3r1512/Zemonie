@@ -22,7 +22,7 @@ export default function CTASection() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
             <Link
               to="/auth/signin"
-              className="inline-flex items-center justify-center gap-2 rounded-full px-[26px] py-[13px] text-[14.5px] font-semibold text-[#1a0c00] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_28px_rgba(255,121,0,0.5)]"
+              className="inline-flex w-52 items-center justify-center gap-2 rounded-full px-[26px] py-[13px] text-[14.5px] font-semibold text-[#1a0c00] transition-all duration-200 hover:brightness-110 hover:shadow-[0_0_28px_rgba(255,121,0,0.5)]"
               style={{ backgroundImage: BTN_GRADIENT }}
             >
               <Play size={17} />
@@ -30,7 +30,7 @@ export default function CTASection() {
             </Link>
             <Link
               to="/features"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-[26px] py-[13px] text-[14.5px] font-semibold text-gray-900 transition-all duration-200 hover:border-[#ff7900]/40 hover:bg-gray-50 dark:border-white/10 dark:bg-white/[0.05] dark:text-white dark:hover:bg-white/[0.09] dark:hover:shadow-[0_0_24px_rgba(255,121,0,0.25)]"
+              className="inline-flex w-52 items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-[26px] py-[13px] text-[14.5px] font-semibold text-gray-900 transition-all duration-200 hover:border-[#ff7900]/40 hover:bg-gray-50 dark:border-white/10 dark:bg-white/[0.05] dark:text-white dark:hover:bg-white/[0.09] dark:hover:shadow-[0_0_24px_rgba(255,121,0,0.25)]"
             >
               <Info size={17} />
               Explore features

@@ -206,7 +206,7 @@ export default function SignUpForm({ className }: { className?: string }) {
                         id="terms"
                         checked={field.value}
                         onCheckedChange={field.onChange}
-                        className="mt-0.5 h-5 w-5 shrink-0"
+                        className="mt-0.5 h-5 w-5 shrink-0 data-[state=checked]:border-green-600 data-[state=checked]:bg-green-600 data-[state=checked]:text-white dark:data-[state=checked]:border-green-500 dark:data-[state=checked]:bg-green-500 dark:data-[state=checked]:text-white"
                       />
                     )}
                   />

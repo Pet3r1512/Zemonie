@@ -175,10 +175,7 @@ export function ExpenseForm({ onClose }: { onClose: () => void }) {
           </Field>
         </FieldGroup>
         <DialogFooter className="flex flex-row items-center justify-end gap-x-3.5">
-          <Button
-            type="submit"
-            className="bg-primary hover:bg-primary/90 dark:bg-primary/90 dark:hover:bg-primary/80 dark:text-white w-full"
-          >
+          <Button type="submit" className="w-full">
             {mutation.isPending ? <LoaderCircle className="animate-spin" /> : "Save Transaction"}
           </Button>
         </DialogFooter>

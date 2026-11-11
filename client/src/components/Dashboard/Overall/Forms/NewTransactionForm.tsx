@@ -27,15 +27,13 @@ export default function NewTransactionForm() {
           e.currentTarget.blur();
         }}
       >
-        <Button className="bg-primary hover:bg-primary/80 dark:bg-primary/80 dark:hover:bg-primary/90 dark:text-white text-white rounded-2xl text-lg h-10.5">
-          + Add
-        </Button>
+        <Button className="text-lg h-10.5">+ Add</Button>
       </DialogTrigger>
       <DialogContent
         onInteractOutside={() => {}}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
-        className="sm:max-w-sm bg-white dark:bg-dark-elevated pointer-events-auto"
+        className="sm:max-w-sm pointer-events-auto"
       >
         <DialogHeader>
           <DialogTitle>{activeTab === "income" ? "Add Income" : "Add Expense"}</DialogTitle>
@@ -44,7 +42,7 @@ export default function NewTransactionForm() {
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as TabValue)}>
           <TabsList className="flex items-center gap-x-2.5">
             <TabsTrigger
-              className="flex-1 bg-gray-600 border-2 border-transparent
+              className="flex-1 rounded-[10px] border-2 border-transparent bg-gray-100 dark:bg-white/[0.06]
              data-[state=active]:border-b-green-500
              data-[state=active]:bg-b-green-500/20"
               value="income"
@@ -53,7 +51,7 @@ export default function NewTransactionForm() {
               Income
             </TabsTrigger>
             <TabsTrigger
-              className="flex-1 bg-gray-600 border-2 border-transparent
+              className="flex-1 rounded-[10px] border-2 border-transparent bg-gray-100 dark:bg-white/[0.06]
              data-[state=active]:border-b-red-500
              data-[state=active]:bg-b-red-500/20"
               value="expense"
