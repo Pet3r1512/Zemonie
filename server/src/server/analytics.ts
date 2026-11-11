@@ -3,6 +3,17 @@ import { authenticatedProcedure, router } from "./tRPC";
 import z from "zod";
 import CalculateHighestIncome from "../lib/analytics/CalculateHighestIncome";
 import { readAmount } from "@/lib/crypto";
+import {
+  DEFAULT_TIME_ZONE,
+  getDayKey,
+  getMonthRange,
+  getYearMonth,
+  isValidTimeZone,
+  shiftDayKey,
+  startOfDayInTimeZone,
+} from "@/helpers/serverTimeZone";
+
+const timeZoneInput = z.string().refine(isValidTimeZone).default(DEFAULT_TIME_ZONE);
 
 export const analyticsRouter = router({
   highestIncomeOfMonth: authenticatedProcedure
@@ -15,15 +26,14 @@ export const analyticsRouter = router({
           .default(new Date().getMonth() + 1),
 
         year: z.number().default(new Date().getFullYear()),
+        timeZone: timeZoneInput,
       }),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { month, year } = input;
+      const { month, year, timeZone } = input;
 
-      const startOfMonth = new Date(year, month - 1, 1);
-
-      const endOfMonth = new Date(year, month, 0, 23, 59, 59);
+      const { start: startOfMonth, end: startOfNextMonth } = getMonthRange(year, month, timeZone);
 
       const allIncomeAmount = await prisma.transaction.findMany({
         where: {
@@ -33,7 +43,7 @@ export const analyticsRouter = router({
           },
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth,
+            lt: startOfNextMonth,
           },
         },
         select: {
@@ -60,66 +70,75 @@ export const analyticsRouter = router({
 
       return { highestIncome: CalculateHighestIncome(formattedIncome) };
     }),
-  incomeGrowth: authenticatedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.userId;
-    const today = new Date();
+  incomeGrowth: authenticatedProcedure
+    .input(z.object({ timeZone: timeZoneInput }).optional())
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.userId;
+      const timeZone = input?.timeZone ?? DEFAULT_TIME_ZONE;
 
-    // Current month
-    const startOfCurrentMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      const current = getYearMonth(new Date(), timeZone);
+      const previousYear = current.month === 1 ? current.year - 1 : current.year;
+      const previousMonth = current.month === 1 ? 12 : current.month - 1;
 
-    const startOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+      const { start: startOfCurrentMonth, end: startOfNextMonth } = getMonthRange(
+        current.year,
+        current.month,
+        timeZone,
+      );
+      const { start: startOfLastMonth, end: startOfCurrentMonthEnd } = getMonthRange(
+        previousYear,
+        previousMonth,
+        timeZone,
+      );
 
-    // Last month
-    const startOfLastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
-
-    const currentMonthTransactions = await prisma.transaction.findMany({
-      where: {
-        userId: userId,
-        categoryId: {
-          lt: 8,
+      const currentMonthTransactions = await prisma.transaction.findMany({
+        where: {
+          userId: userId,
+          categoryId: {
+            lt: 8,
+          },
+          createdAt: {
+            gte: startOfCurrentMonth,
+            lt: startOfNextMonth,
+          },
         },
-        createdAt: {
-          gte: startOfCurrentMonth,
-          lt: startOfNextMonth,
+        select: { amount: true },
+      });
+
+      const lastMonthTransactions = await prisma.transaction.findMany({
+        where: {
+          userId,
+          categoryId: {
+            lt: 8,
+          },
+          createdAt: {
+            gte: startOfLastMonth,
+            lt: startOfCurrentMonthEnd,
+          },
         },
-      },
-      select: { amount: true },
-    });
+        select: { amount: true },
+      });
 
-    const lastMonthTransactions = await prisma.transaction.findMany({
-      where: {
-        userId,
-        categoryId: {
-          lt: 8,
-        },
-        createdAt: {
-          gte: startOfLastMonth,
-          lt: startOfCurrentMonth,
-        },
-      },
-      select: { amount: true },
-    });
+      let lastIncome = 0;
+      for (const tx of lastMonthTransactions) {
+        lastIncome += await readAmount(tx.amount);
+      }
 
-    let lastIncome = 0;
-    for (const tx of lastMonthTransactions) {
-      lastIncome += await readAmount(tx.amount);
-    }
+      let currentIncome = 0;
+      for (const tx of currentMonthTransactions) {
+        currentIncome += await readAmount(tx.amount);
+      }
 
-    let currentIncome = 0;
-    for (const tx of currentMonthTransactions) {
-      currentIncome += await readAmount(tx.amount);
-    }
+      let growthRate = 0;
 
-    let growthRate = 0;
+      if (lastIncome > 0) {
+        growthRate = ((currentIncome - lastIncome) / lastIncome) * 100;
+      }
 
-    if (lastIncome > 0) {
-      growthRate = ((currentIncome - lastIncome) / lastIncome) * 100;
-    }
+      growthRate = Number(growthRate.toFixed(2));
 
-    growthRate = Number(growthRate.toFixed(2));
-
-    return { growthRate };
-  }),
+      return { growthRate };
+    }),
   totalExpensesOfMonth: authenticatedProcedure
     .input(
       z.object({
@@ -130,15 +149,14 @@ export const analyticsRouter = router({
           .default(new Date().getMonth() + 1),
 
         year: z.number().default(new Date().getFullYear()),
+        timeZone: timeZoneInput,
       }),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { month, year } = input;
+      const { month, year, timeZone } = input;
 
-      const startOfMonth = new Date(year, month - 1, 1);
-
-      const endOfMonth = new Date(year, month, 0, 23, 59, 59);
+      const { start: startOfMonth, end: startOfNextMonth } = getMonthRange(year, month, timeZone);
 
       const transactions = await prisma.transaction.findMany({
         where: {
@@ -148,7 +166,7 @@ export const analyticsRouter = router({
           },
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth,
+            lt: startOfNextMonth,
           },
         },
         select: { amount: true },
@@ -171,15 +189,14 @@ export const analyticsRouter = router({
           .default(new Date().getMonth() + 1),
 
         year: z.number().default(new Date().getFullYear()),
+        timeZone: timeZoneInput,
       }),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { month, year } = input;
+      const { month, year, timeZone } = input;
 
-      const startOfMonth = new Date(year, month - 1, 1);
-
-      const endOfMonth = new Date(year, month, 0, 23, 59, 59);
+      const { start: startOfMonth, end: startOfNextMonth } = getMonthRange(year, month, timeZone);
 
       const expenseTransactions = await prisma.transaction.findMany({
         where: {
@@ -189,7 +206,7 @@ export const analyticsRouter = router({
           },
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth,
+            lt: startOfNextMonth,
           },
         },
         select: {
@@ -247,22 +264,21 @@ export const analyticsRouter = router({
           .max(12)
           .default(new Date().getMonth() + 1),
         year: z.number().default(new Date().getFullYear()),
+        timeZone: timeZoneInput,
       }),
     )
     .query(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { month, year } = input;
+      const { month, year, timeZone } = input;
 
-      const startOfMonth = new Date(year, month - 1, 1);
-
-      const endOfMonth = new Date(year, month, 0, 23, 59, 59);
+      const { start: startOfMonth, end: startOfNextMonth } = getMonthRange(year, month, timeZone);
 
       const expenseTransactions = await prisma.transaction.findMany({
         where: {
           userId,
           createdAt: {
             gte: startOfMonth,
-            lt: endOfMonth,
+            lt: startOfNextMonth,
           },
           category: {
             type: "EXPENSE",
@@ -289,57 +305,59 @@ export const analyticsRouter = router({
 
       return { expenseCategorySummary: expensesSummary };
     }),
-  getLast7DaysExpense: authenticatedProcedure.query(async ({ ctx }) => {
-    const userId = ctx.userId;
-    const now = new Date();
+  getLast7DaysExpense: authenticatedProcedure
+    .input(z.object({ timeZone: timeZoneInput }).optional())
+    .query(async ({ ctx, input }) => {
+      const userId = ctx.userId;
+      const timeZone = input?.timeZone ?? DEFAULT_TIME_ZONE;
+      const now = new Date();
 
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
-    sevenDaysAgo.setHours(0, 0, 0, 0);
+      const today = getDayKey(now, timeZone);
+      const dayKeys = Array.from({ length: 7 }, (_, i) => shiftDayKey(today, i - 6));
 
-    // Find all expenses in last 7 days
-    const last7DaysTransactions = await prisma.transaction.findMany({
-      where: {
-        userId,
-        category: {
-          type: "EXPENSE",
+      const [firstYear, firstMonth, firstDay] = dayKeys[0].split("-").map(Number);
+      const windowStart = startOfDayInTimeZone(firstYear, firstMonth - 1, firstDay, timeZone);
+
+      // Find all expenses in last 7 days (user's local calendar days)
+      const last7DaysTransactions = await prisma.transaction.findMany({
+        where: {
+          userId,
+          category: {
+            type: "EXPENSE",
+          },
+          createdAt: {
+            gte: windowStart,
+            lte: now,
+          },
         },
-        createdAt: {
-          gt: sevenDaysAgo,
-          lte: now,
+        select: {
+          amount: true,
+          createdAt: true,
         },
-      },
-      select: {
-        amount: true,
-        createdAt: true,
-      },
-    });
+      });
 
-    const spendingByLast7Days: Record<string, number> = {};
+      const spendingByLast7Days: Record<string, number> = {};
 
-    // Init an empty Record with 7 days and 0 amount for each day
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(sevenDaysAgo);
-      date.setDate(sevenDaysAgo.getDate() + i);
+      // Init an empty Record with 7 days and 0 amount for each day
+      for (const day of dayKeys) {
+        spendingByLast7Days[day] = 0;
+      }
 
-      const day = date.toISOString().split("T")[0];
+      // Update with that day's total amount
+      for (const transaction of last7DaysTransactions) {
+        const day = getDayKey(transaction.createdAt, timeZone);
 
-      spendingByLast7Days[day] = 0;
-    }
+        if (day in spendingByLast7Days) {
+          spendingByLast7Days[day] += await readAmount(transaction.amount);
+        }
+      }
 
-    // Update with that day's total amount
-    for (const transaction of last7DaysTransactions) {
-      const day = transaction.createdAt.toISOString().split("T")[0];
+      // format result
+      const result = Object.entries(spendingByLast7Days).map(([date, amount]) => ({
+        date,
+        amount,
+      }));
 
-      spendingByLast7Days[day] += await readAmount(transaction.amount);
-    }
-
-    // format result
-    const result = Object.entries(spendingByLast7Days).map(([date, amount]) => ({
-      date,
-      amount,
-    }));
-
-    return result;
-  }),
+      return result;
+    }),
 });

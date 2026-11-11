@@ -1,13 +1,17 @@
 import { SERVER_URL } from "@/constant/auth";
+import { getUserTimeZone } from "@/helpers/userTimezone";
 
 export default async function getIncomeGrowth() {
-  const response = await fetch(`${SERVER_URL}/api/trpc/analytics.incomeGrowth`, {
-    method: "GET",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${SERVER_URL}/api/trpc/analytics.incomeGrowth?input=${encodeURIComponent(JSON.stringify({ timeZone: getUserTimeZone() }))}`,
+    {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     },
-  });
+  );
 
   const res = await response.json();
 

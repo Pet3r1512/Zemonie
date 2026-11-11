@@ -1,7 +1,10 @@
 import { SERVER_URL } from "@/constant/auth";
+import { getUserTimeZone } from "@/helpers/userTimezone";
 
 export default async function getHighestIncomeOfMonth(input?: { month?: number; year?: number }) {
-  const encodedInput = encodeURIComponent(JSON.stringify(input ?? {}));
+  const encodedInput = encodeURIComponent(
+    JSON.stringify({ ...input, timeZone: getUserTimeZone() }),
+  );
 
   const response = await fetch(
     `${SERVER_URL}/api/trpc/analytics.highestIncomeOfMonth?input=${encodedInput}`,
