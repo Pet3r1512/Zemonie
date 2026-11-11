@@ -2,6 +2,7 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Logo from "@/components/Layout/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
+import { Menu, X } from "lucide-react";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -476,7 +477,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           >
             <span
               ref={textWrapRef}
-              className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap w-(--sm-toggle-width,auto) min-w-(--sm-toggle-width,auto)"
+              className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap w-(--sm-toggle-width,auto) min-w-(--sm-toggle-width,auto) hidden!"
               aria-hidden="true"
             >
               <span
@@ -493,6 +494,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 ))}
               </span>
             </span>
+
+            {open ? (
+              <X size={24} aria-hidden="true" className="text-black dark:text-white" />
+            ) : (
+              <Menu size={24} aria-hidden="true" className="text-black dark:text-white" />
+            )}
 
             <span
               ref={iconRef}
@@ -628,8 +635,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 @media (max-width: 640px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
 @media (max-width: 640px) {
   .sm-scope .staggered-menu-panel { padding: 5em 1.5em 1.5em 1.5em; overflow-y: hidden; }
-  .sm-scope .sm-panel-item { font-size: 2.5rem; }
-  .sm-scope .sm-panel-list { gap: 0.25rem; }
+  .sm-scope .sm-panel-item { font-size: 1.75rem; white-space: nowrap; }
+  .sm-scope .sm-panel-list { gap: 1rem; }
 }
 .dark .sm-scope .staggered-menu-panel { background: #030712; }
 .dark .sm-scope .sm-panel-item { color: #fff; }

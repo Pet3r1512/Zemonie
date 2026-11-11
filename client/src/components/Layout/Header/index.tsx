@@ -94,6 +94,7 @@ export default function Header({ hideHeader }: { hideHeader: boolean }) {
           menuButtonColor="#111"
           openMenuButtonColor="#fff"
           changeMenuColorOnOpen={true}
+          className="[&_.sm-panel-list]:!mt-10"
           colors={["#181C23", "#222833", "#030712", "#111827"]}
           accentColor="#ff7900"
           isFixed={true}
