@@ -70,22 +70,22 @@ const SIDE_FOOTER = [
 
 const STAT_ICONS = {
   balance: (
-    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-blue-900/30">
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-blue-100 dark:bg-blue-900/30">
       <Wallet size={14} className="text-blue-500" />
     </span>
   ),
   savings: (
-    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-yellow-900/30">
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-yellow-100 dark:bg-yellow-900/30">
       <TrendingUp size={14} className="text-yellow-500" />
     </span>
   ),
   income: (
-    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-green-900/30">
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-green-100 dark:bg-green-900/30">
       <MoveDown size={14} className="text-green-500" />
     </span>
   ),
   expense: (
-    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-red-900/30">
+    <span className="grid size-[22px] shrink-0 place-items-center rounded-full sm:size-[26px] bg-red-100 dark:bg-red-900/30">
       <MoveUp size={14} className="text-red-500" />
     </span>
   ),
@@ -441,16 +441,16 @@ function SidebarItem({
       className={cn(
         "flex h-[30px] items-center gap-[9px] rounded-[9px] px-[10px] text-[12.5px] font-medium",
         active
-          ? "border border-[#ff7900]/30 bg-[#ff7900]/12 text-[#ff9a3d]"
+          ? "border border-[#ff7900]/30 bg-[#ff7900]/12 text-primary dark:text-[#ff9a3d]"
           : danger
             ? "border border-transparent text-red-500"
-            : "border border-transparent text-[#8b8988]",
+            : "border border-transparent text-gray-500 dark:text-[#8b8988]",
       )}
     >
       <Icon size={14} strokeWidth={2} />
       <span>{label}</span>
       {isNew ? (
-        <span className="ml-auto rounded-full bg-emerald-400/15 px-1.5 py-0.5 text-[9.5px] font-bold text-emerald-300">
+        <span className="ml-auto rounded-full bg-green-100 px-1.5 py-0.5 text-[9.5px] font-bold text-green-700 dark:bg-emerald-400/15 dark:text-emerald-300">
           New
         </span>
       ) : null}
@@ -472,9 +472,9 @@ function StatCard({
   valueClass?: string;
 }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col justify-center gap-[5px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] px-[14px] py-[9px]">
+    <div className="flex min-w-0 flex-1 flex-col justify-center gap-[5px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] px-[14px] py-[9px]">
       <div className="flex items-center justify-between gap-3">
-        <p className="truncate font-display text-[12px] font-bold text-white sm:text-[14px]">
+        <p className="truncate font-display text-[12px] font-bold text-gray-900 dark:text-white sm:text-[14px]">
           {title}
         </p>
         {icon}
@@ -482,12 +482,12 @@ function StatCard({
       <p
         className={cn(
           "text-[19px] leading-none font-semibold tracking-[-0.02em]",
-          valueClass ?? "text-white",
+          valueClass ?? "text-gray-900 dark:text-white",
         )}
       >
         {value}
       </p>
-      <p className="truncate text-[11px] text-[#8b8988]">{subtitle}</p>
+      <p className="truncate text-[11px] text-gray-500 dark:text-[#8b8988]">{subtitle}</p>
     </div>
   );
 }
@@ -502,13 +502,15 @@ function IncomeVsExpensesCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex min-w-0 flex-col gap-[10px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] p-[14px]",
+        "flex min-w-0 flex-col gap-[10px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] p-[14px]",
         className,
       )}
     >
       <div className="flex items-center justify-between gap-3">
-        <p className="text-[12.5px] font-medium text-white">Income vs Expenses</p>
-        <span className="flex items-center gap-[10px] text-[10.5px] text-[#8b8988]">
+        <p className="text-[12.5px] font-medium text-gray-900 dark:text-white">
+          Income vs Expenses
+        </p>
+        <span className="flex items-center gap-[10px] text-[10.5px] text-gray-500 dark:text-[#8b8988]">
           <span className="flex items-center gap-[5px]">
             <i className="size-[7px] rounded-full" style={{ background: INCOME_COLOR }} />
             Income
@@ -533,7 +535,7 @@ function IncomeVsExpensesCard({ className }: { className?: string }) {
               x2="600"
               y1={14 + row * 40}
               y2={14 + row * 40}
-              stroke="rgba(255,255,255,0.06)"
+              className="stroke-gray-200 dark:stroke-white/[0.06]"
               strokeWidth="1"
               vectorEffect="non-scaling-stroke"
             />
@@ -548,7 +550,7 @@ function IncomeVsExpensesCard({ className }: { className?: string }) {
             fill={EXPENSE_COLOR}
           />
         </svg>
-        <span className="absolute inset-x-0 bottom-[-2px] text-center text-[10.5px] text-[#8b8988]">
+        <span className="absolute inset-x-0 bottom-[-2px] text-center text-[10.5px] text-gray-500 dark:text-[#8b8988]">
           Nov 2026
         </span>
       </div>
@@ -564,11 +566,13 @@ function SpendingByCategoryCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex shrink-0 flex-col gap-[6px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] p-[12px]",
+        "flex shrink-0 flex-col gap-[6px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] p-[12px]",
         className,
       )}
     >
-      <p className="text-[12.5px] font-medium text-white">Spending by Category</p>
+      <p className="text-[12.5px] font-medium text-gray-900 dark:text-white">
+        Spending by Category
+      </p>
       <div className="flex flex-1 flex-col items-center justify-center gap-[6px]">
         <div className="relative mx-auto size-[96px] shrink-0">
           <svg aria-hidden viewBox="0 0 104 104" className="size-full -rotate-90">
@@ -577,7 +581,7 @@ function SpendingByCategoryCard({ className }: { className?: string }) {
               cy="52"
               r={radius}
               fill="none"
-              stroke="rgba(255,255,255,0.06)"
+              className="stroke-gray-200 dark:stroke-white/[0.06]"
               strokeWidth="15"
             />
             {SPEND_SEGMENTS.map((seg) => {
@@ -600,16 +604,16 @@ function SpendingByCategoryCard({ className }: { className?: string }) {
             })}
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-[10px] font-bold text-white">A$2,184.60</span>
-            <span className="text-[9.5px] text-[#8b8988]">Total</span>
+            <span className="text-[10px] font-bold text-gray-900 dark:text-white">A$2,184.60</span>
+            <span className="text-[9.5px] text-gray-500 dark:text-[#8b8988]">Total</span>
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-x-[12px] gap-y-[6px] text-[10.5px]">
           {SPEND_SEGMENTS.map((seg) => (
             <div key={seg.name} className="flex items-center gap-[5px]">
               <i className="size-[7px] shrink-0 rounded-full" style={{ background: seg.color }} />
-              <span className="font-medium text-white">{seg.name}</span>
-              <span className="text-[#8b8988]">{seg.pct}%</span>
+              <span className="font-medium text-gray-900 dark:text-white">{seg.name}</span>
+              <span className="text-gray-500 dark:text-[#8b8988]">{seg.pct}%</span>
             </div>
           ))}
         </div>
@@ -632,11 +636,13 @@ function Last7DaysCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex min-h-0 flex-col gap-[8px] rounded-[12px] border border-white/[0.07] bg-white/[0.03] p-[14px]",
+        "flex min-h-0 flex-col gap-[8px] rounded-[12px] border border-gray-200 bg-white dark:border-white/[0.07] dark:bg-white/[0.03] p-[14px]",
         className,
       )}
     >
-      <p className="text-[12.5px] font-medium text-white">Last 7 Days Spendings</p>
+      <p className="text-[12.5px] font-medium text-gray-900 dark:text-white">
+        Last 7 Days Spendings
+      </p>
       <div className="flex min-h-0 flex-1 items-end gap-[10px]">
         {bars.map((bar) => (
           <div key={bar.day} className="flex min-w-0 flex-1 flex-col items-center gap-[5px]">
@@ -644,7 +650,7 @@ function Last7DaysCard({ className }: { className?: string }) {
               className="w-full max-w-[26px] rounded-t-[6px]"
               style={{ height: `${bar.h * 1.4}px`, background: "#ff7900" }}
             />
-            <span className="text-[9.5px] text-[#8b8988]">{bar.day}</span>
+            <span className="text-[9.5px] text-gray-500 dark:text-[#8b8988]">{bar.day}</span>
           </div>
         ))}
       </div>
@@ -695,7 +701,7 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
         <motion.div className="pointer-events-none absolute inset-0" variants={dashVariants}>
           <motion.aside
             aria-hidden
-            className="pointer-events-auto absolute overflow-hidden rounded-[14px] border border-[#ff7900]/35 bg-[#08080a]/85 backdrop-blur-xl"
+            className="pointer-events-auto absolute overflow-hidden rounded-[14px] border border-[#ff7900]/35 bg-white/90 dark:bg-[#08080a]/85 backdrop-blur-xl"
             style={{
               left: dashLeft,
               top: DASH_TOP,
@@ -708,7 +714,7 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
             <div className="flex h-full">
               <motion.div
                 variants={dashPart(1.16)}
-                className="flex w-[256px] shrink-0 flex-col border-r border-white/[0.07] bg-white/[0.02]"
+                className="flex w-[256px] shrink-0 flex-col border-r border-gray-200 bg-gray-50 dark:border-white/[0.07] dark:bg-white/[0.02]"
               >
                 <div className="flex flex-col gap-2 px-5 py-2">
                   <img
@@ -742,10 +748,10 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
                 <motion.div className="flex flex-col gap-[4px]" variants={dashPart(1.24)}>
                   <div className="flex items-center justify-between gap-3">
                     <span className="flex min-w-0 items-center gap-[10px]">
-                      <span className="grid size-[26px] shrink-0 place-items-center text-[#8b8988]">
+                      <span className="grid size-[26px] shrink-0 place-items-center text-gray-500 dark:text-[#8b8988]">
                         <Menu size={16} />
                       </span>
-                      <span className="truncate font-display text-[24px] leading-none font-bold tracking-[-0.03em] text-white">
+                      <span className="truncate font-display text-[24px] leading-none font-bold tracking-[-0.03em] text-gray-900 dark:text-white">
                         Dashboard
                       </span>
                     </span>
@@ -756,7 +762,9 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
                       + Add
                     </span>
                   </div>
-                  <p className="pl-[36px] text-[12.5px] text-[#b5b3b2]">Welcome back, Alex</p>
+                  <p className="pl-[36px] text-[12.5px] text-gray-600 dark:text-[#b5b3b2]">
+                    Welcome back, Alex
+                  </p>
                 </motion.div>
                 <motion.div className="flex gap-[12px]" variants={dashPart(1.36)}>
                   {STAT_CARDS.map((card) => (
@@ -838,28 +846,10 @@ function MobileStage({ initial }: { initial: "hidden" | "show" }) {
         />
         <div
           aria-hidden
-          className="relative overflow-hidden rounded-[16px] border border-[#ff7900]/30 bg-[#08080a]/85 p-4 backdrop-blur-xl"
+          className="relative overflow-hidden rounded-[16px] border border-[#ff7900]/30 bg-white/90 dark:bg-[#08080a]/85 p-4 backdrop-blur-xl"
         >
           <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,#ff7900_20%,#ffc48a_50%,#ff7900_80%,transparent)] shadow-[0_0_14px_2px_rgba(255,121,0,0.55)]" />
-          <div className="mt-2 flex gap-2 overflow-x-auto pb-1 no-scrollbar">
-            {[...SIDE_GROUPS.flatMap((group) => group.items), ...SIDE_FOOTER].map((item) => (
-              <span
-                key={item.label}
-                className={cn(
-                  "flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium",
-                  "active" in item && item.active
-                    ? "border-[#ff7900]/30 bg-[#ff7900]/12 text-[#ff9a3d]"
-                    : "danger" in item && item.danger
-                      ? "border-white/10 bg-white/5 text-red-400"
-                      : "border-white/10 bg-white/5 text-[#8b8988]",
-                )}
-              >
-                <item.Icon size={13} />
-                {item.label}
-              </span>
-            ))}
-          </div>
-          <div className="mt-3 space-y-3">
+          <div className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
               {STAT_CARDS.map((card) => (
                 <StatCard key={card.title} {...card} />
