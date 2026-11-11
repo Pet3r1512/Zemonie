@@ -1,5 +1,52 @@
 const release_official = [
   {
+    version: "v1.2.0",
+    date: "Nov 11, 2026",
+    tag: "Official",
+    changes: [
+      {
+        type: "update",
+        text: "Brand-new look across the app: a fresh, easier-to-read design with clearer colors, spacing, and layouts on every page. 🚀",
+      },
+      {
+        type: "update",
+        text: "Refreshed the landing page with updated content and a new design.",
+      },
+      {
+        type: "feature",
+        text: "Dates and times now show in your own local time zone, so your transactions, budgets, charts, and insights line up with your day.",
+      },
+      {
+        type: "feature",
+        text: "Added a cookie consent pop-up so you can choose your privacy preferences, and we will remember them for your next visit.",
+      },
+      {
+        type: "update",
+        text: "Transaction dates and times are now shown in a consistent format across all transaction pages.",
+      },
+      {
+        type: "update",
+        text: "The Last 7 Days Spending chart is simpler to read, and days with no spending now clearly show zero.",
+      },
+      {
+        type: "fix",
+        text: "Fixed chart tooltips so large amounts and their transaction types no longer appear cramped.",
+      },
+      {
+        type: "fix",
+        text: "Fixed the amount field in the budget form so it looks consistent with the rest of the form.",
+      },
+      {
+        type: "fix",
+        text: "Fixed the dashboard jumping around on mobile browsers. The header now stays in place while the content scrolls smoothly below it.",
+      },
+      {
+        type: "fix",
+        text: "Fixed the size of the icon in the budget amount field.",
+      },
+    ],
+  },
+  {
     version: "v1.1.6",
     date: "Nov 01, 2026",
     tag: "Official",

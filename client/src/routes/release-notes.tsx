@@ -47,20 +47,20 @@ function ReleaseCard({ release, showCurrent }: { release: ReleaseNote; showCurre
         <h3 className="font-display text-2xl lg:text-3xl font-bold text-primary">
           {release.version}
         </h3>
-        {release.tag === "Beta" ? (
-          <span className="rounded-full w-fit border border-yellow-300 bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 dark:border-yellow-400/30 dark:bg-yellow-400/15 dark:text-yellow-300">
-            {release.tag}
-          </span>
-        ) : (
-          <span className="rounded-full border border-green-300 bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 dark:border-emerald-400/30 dark:bg-emerald-400/15 dark:text-emerald-300">
-            {release.tag}
-          </span>
-        )}
         {showCurrent && (
           <div className="text-green-600 text-xs font-extrabold md:ml-auto flex items-center gap-x-1 dark:text-emerald-400">
             <Tag size={16} />
             <p>Current Version</p>
           </div>
+        )}
+        {release.tag === "Beta" ? (
+          <span className="rounded-full w-fit border border-yellow-300 bg-yellow-100 text-yellow-800 text-xs font-semibold px-3 py-1 dark:border-yellow-400/30 dark:bg-yellow-400/15 dark:text-yellow-300">
+            {release.tag}
+          </span>
+        ) : (
+          <span className="rounded-full w-fit border border-green-300 bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 dark:border-emerald-400/30 dark:bg-emerald-400/15 dark:text-emerald-300">
+            {release.tag}
+          </span>
         )}
       </div>
       <p className="text-gray-500 text-sm mb-6 mt-2 md:mt-0 dark:text-[#8b8988]">{release.date}</p>
