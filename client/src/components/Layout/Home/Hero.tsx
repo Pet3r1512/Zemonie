@@ -27,8 +27,6 @@ const DASH_W = 1204;
 const DASH_TOP = 651;
 const DASH_H = 640;
 const MOCK_BOTTOM = DASH_TOP + DASH_H + 32;
-const VIDEO_W = 1672;
-const VIDEO_H = 717;
 const RIM_HALF_SPAN = 836;
 const RIM_APEX = 217;
 const MOBILE_RIM_APEX = 128;
@@ -36,8 +34,6 @@ const MOBILE_BREAKPOINT = 900;
 
 const BTN_GRADIENT = "linear-gradient(135deg, #ff9d33 0%, #ff7900 55%, #ff6200 100%)";
 const NAME_GRADIENT = "linear-gradient(105deg, #ffb257, #ff7900 52%, #ff5e00)";
-const GLOW_VIDEO =
-  "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/e859f229-8ebd-43fb-a5a0-58006ba75327.mp4";
 const DASH_GLOW =
   "https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/e0e14572-12e1-4c08-b471-a21521844945.png";
 
@@ -679,7 +675,7 @@ function DesktopStage({ stage, initial }: { stage: Stage; initial: "hidden" | "s
       style={{ width: stage.width, height: stage.height, transform: `scale(${stage.scale})` }}
     >
       <motion.div className="h-full w-full" initial={initial} animate="show">
-        <div className="absolute inset-x-0 top-[272px] mx-auto w-[1180px]">
+        <div className="absolute inset-x-0 top-[190px] mx-auto w-[1180px]">
           <HeroCopy
             headingClass="text-[84px] leading-[0.92]"
             ledeClass="mt-[24px] w-[880px] text-[16.5px] leading-[1.7] text-gray-600 dark:text-[#b5b3b2]"
@@ -869,9 +865,7 @@ export default function Hero() {
   const reduced = useReducedMotion();
   const stage = useStage();
   const [bannerVisible] = useReleaseBannerVisible();
-  const [videoState, setVideoState] = useState<"idle" | "ready" | "error">("idle");
   const bannerOffset = bannerVisible ? 44 : 0;
-  const showVideo = !stage.mobile && !reduced;
   const initial: "hidden" | "show" = reduced ? "show" : "hidden";
 
   const drawRimLayer = useMemo<DrawFn>(() => {
@@ -895,9 +889,6 @@ export default function Hero() {
     };
   }, [stage.mobile, stage.scale]);
 
-  const rimVisible = !showVideo || videoState !== "ready";
-  const videoWidth = Math.max(VIDEO_W, stage.width) * stage.scale;
-  const videoHeight = (VIDEO_H / VIDEO_W) * videoWidth;
   const dashLeft = (stage.width - DASH_W) / 2;
 
   return (
@@ -913,36 +904,7 @@ export default function Hero() {
       }}
     >
       <Starfield className="hidden dark:block" />
-      <CanvasLayer
-        draw={drawRimLayer}
-        className="hidden dark:block transition-opacity duration-[800ms]"
-        style={{ opacity: rimVisible ? 1 : 0 }}
-      />
-      {showVideo ? (
-        <video
-          className="pointer-events-none absolute top-0 hidden dark:block"
-          style={{
-            left: "50%",
-            width: videoWidth,
-            height: videoHeight,
-            transform: "translateX(-50%)",
-            mixBlendMode: "screen",
-            filter: "hue-rotate(128deg) saturate(1.15)",
-            opacity: videoState === "ready" ? 1 : 0,
-            transition: "opacity 0.8s ease",
-          }}
-          src={GLOW_VIDEO}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          aria-hidden
-          onLoadedData={() => setVideoState("ready")}
-          onCanPlay={() => setVideoState("ready")}
-          onError={() => setVideoState("error")}
-        />
-      ) : null}
+      <CanvasLayer draw={drawRimLayer} className="hidden dark:block" />
       {stage.mobile ? null : (
         <motion.img
           src={DASH_GLOW}
