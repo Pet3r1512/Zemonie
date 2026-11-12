@@ -52,7 +52,7 @@ export default function UpdatePassword() {
   };
 
   return (
-    <div className="px-6 md:px-10  md:max-w-xl lg:max-w-2xl">
+    <div className="px-6 md:px-10 md:max-w-xl lg:max-w-2xl">
       <form onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <Field>
