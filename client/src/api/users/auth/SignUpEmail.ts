@@ -1,3 +1,4 @@
+import { getAuthErrorMessage } from "@/lib/auth-errors";
 import { authClient } from "@/lib/auth-client";
 import { SignUpFormType } from "@/lib/types/signupform";
 
@@ -15,6 +16,9 @@ export default async function SignUpEmail(credentials: SignUpFormType & { captch
     },
   );
 
+  if (error?.status === 429) {
+    throw new Error(getAuthErrorMessage(error, "Too many attempts"));
+  }
   if (error) {
     throw error;
   }

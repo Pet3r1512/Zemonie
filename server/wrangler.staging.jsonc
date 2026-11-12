@@ -24,6 +24,12 @@
     "EMAIL_DAILY_LIMIT": "250",
   },
 
+  "kv_namespaces": [
+    {
+      "binding": "LOGIN_LIMITS",
+      "id": "624b154739c247ba8a4b319f88df6863",
+    },
+  ],
   "triggers": {
     "crons": ["0 0 * * *"],
   },

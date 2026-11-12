@@ -241,15 +241,16 @@ src/
 
 #### `src/lib/` — Core Modules
 
-| File                                  | Purpose                                                                    |
-| ------------------------------------- | -------------------------------------------------------------------------- |
-| `auth.ts`                             | Better-Auth config (adapter, email/password, email verification, sessions) |
-| `brevo.ts`                            | Brevo transactional email client + rate-limiting wrapper                   |
-| `crypto.ts`                           | AES-GCM encryption for balances                                            |
-| `prisma.ts`                           | Prisma client with Neon adapter                                            |
-| `processRecurringBudgets.ts`          | Cron-processed recurring budget creation                                   |
-| `processRecurringTransactions.ts`     | Cron-processed recurring transactions                                      |
-| `analytics/CalculateHighestIncome.ts` | Highest income calculation utility                                         |
+| File                                  | Purpose                                                                                     |
+| ------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `auth.ts`                             | Better-Auth config (adapter, email/password, email verification, sessions)                  |
+| `brevo.ts`                            | Brevo transactional email client + rate-limiting wrapper                                    |
+| `login-lockout.ts`                    | Per-email sign-in lockout (3 fails: 3 min, 5: 10 min, 10: 24 h) stored in KV `LOGIN_LIMITS` |
+| `crypto.ts`                           | AES-GCM encryption for balances                                                             |
+| `prisma.ts`                           | Prisma client with Neon adapter                                                             |
+| `processRecurringBudgets.ts`          | Cron-processed recurring budget creation                                                    |
+| `processRecurringTransactions.ts`     | Cron-processed recurring transactions                                                       |
+| `analytics/CalculateHighestIncome.ts` | Highest income calculation utility                                                          |
 
 ### Database Models (`prisma/schema.prisma`)
 

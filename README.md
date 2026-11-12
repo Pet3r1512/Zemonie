@@ -257,6 +257,10 @@ Loaded via `env_file`. Compose overrides some values for local container usage.
 | `TRUSTED_ORIGINS`                   | Allowed origins     | In dev the server is permissive, but keep it set.                                                                                        |
 | `TURNSTILE_SECRET`                  | Turnstile secret    | Required. Cloudflare Turnstile secret for the captcha on sign-up, sign-in and forgot-password. Missing it makes those endpoints fail.    |
 
+#### Login lockout (KV)
+
+Sign-in is locked per email after repeated wrong passwords: 3 failures lock for 3 minutes, 5 for 10 minutes, 10 for 24 hours. A successful sign-in clears the count. The counters live in the Cloudflare KV namespace bound as `LOGIN_LIMITS` (`wrangler.jsonc` for production, `wrangler.staging.jsonc` for staging). Create a namespace with `pnpm wrangler kv namespace create LOGIN_LIMITS` and put its id in the config before deploying.
+
 #### Client
 
 `VITE_SERVER_URL` is baked in at build time via the `VITE_SERVER_URL` build arg. Default is `http://localhost:9999` in Compose. Changing it requires rebuilding the image.

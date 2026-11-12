@@ -1,3 +1,4 @@
+import { getAuthErrorMessage } from "@/lib/auth-errors";
 import { authClient } from "@/lib/auth-client";
 import { ForgotPasswordFormType } from "@/lib/types/forgotpasswordform";
 
@@ -16,7 +17,7 @@ export default async function RequestPasswordReset({
   );
 
   if (error) {
-    throw new Error(error.message || "Failed to send reset link");
+    throw new Error(getAuthErrorMessage(error, "Failed to send reset link"));
   }
 
   return data;

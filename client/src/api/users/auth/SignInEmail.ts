@@ -1,3 +1,4 @@
+import { getAuthErrorMessage } from "@/lib/auth-errors";
 import { authClient } from "@/lib/auth-client";
 import { SignInFormType } from "@/lib/types/signinform";
 
@@ -13,7 +14,7 @@ export default async function SignInEmail(credentials: SignInFormType & { captch
   );
 
   if (error) {
-    throw new Error(error.message || "Sign in failed");
+    throw new Error(getAuthErrorMessage(error, "Sign in failed"));
   }
 
   return data;
