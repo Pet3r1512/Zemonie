@@ -16,10 +16,13 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormErrorMessage from "../FormErrorMessage";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
+import TurnstileWidget, { TurnstileHandle } from "../Turnstile/TurnstileWidget";
 
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState<boolean>(true);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const router = useRouter();
 
@@ -48,13 +51,21 @@ export default function SignUpForm({ className }: { className?: string }) {
         router.navigate({ to: "/dashboard" });
       }, 1250);
     },
+    onSettled: () => {
+      setCaptchaToken(null);
+      turnstileRef.current?.reset();
+    },
   });
 
   const passwordRef = useRef({});
   passwordRef.current = watch("password", "");
 
   const onSubmit: SubmitHandler<SignUpFormType> = (credential) => {
-    mutation.mutate(credential);
+    if (!captchaToken) {
+      toast.error("Please complete the verification");
+      return;
+    }
+    mutation.mutate({ ...credential, captchaToken });
   };
 
   return (
@@ -237,6 +248,11 @@ export default function SignUpForm({ className }: { className?: string }) {
                 {errors.terms && errors.terms.message && (
                   <FormErrorMessage message={errors.terms.message} />
                 )}
+                <TurnstileWidget
+                  ref={turnstileRef}
+                  onVerify={setCaptchaToken}
+                  onExpire={() => setCaptchaToken(null)}
+                />
                 <Button
                   role="submit-btn"
                   disabled={mutation.isPending}

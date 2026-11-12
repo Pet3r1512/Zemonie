@@ -94,6 +94,7 @@ src/
 | `Auth/ForgotPassword/`               | Request-password-reset form                                                                                                 |
 | `Auth/FormErrorMessage.tsx`          | Shared form error display                                                                                                   |
 | `Auth/SignInViaGoogleBtn.tsx`        | Google OAuth button                                                                                                         |
+| `Auth/Turnstile/`                    | Cloudflare Turnstile widget (sign-up, sign-in, forgot-password captcha)                                                     |
 | `Banner/`                            | Release banner, version tag, cookie consent notice + hooks                                                                  |
 | `Dashboard/DashboardLayout.tsx`      | Dashboard layout wrapper                                                                                                    |
 | `Dashboard/Budgets/`                 | Recurring budget form, list, and overview                                                                                   |

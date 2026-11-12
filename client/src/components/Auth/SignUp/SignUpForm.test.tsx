@@ -42,6 +42,18 @@ vi.mock("../SignInViaGoogleBtn", () => ({
   default: () => <button>Sign In with Google</button>,
 }));
 
+vi.mock("../Turnstile/TurnstileWidget", async () => {
+  const React = await import("react");
+  return {
+    default: ({ onVerify }: { onVerify: (token: string) => void }) => {
+      React.useEffect(() => {
+        onVerify("test-captcha-token");
+      }, [onVerify]);
+      return null;
+    },
+  };
+});
+
 function renderForm(className?: string) {
   return render(<SignUpForm className={className} />);
 }
@@ -386,6 +398,7 @@ describe("Form submission", () => {
         password: "Password1",
         confirmPassword: "Password1",
         terms: true,
+        captchaToken: "test-captcha-token",
       });
     });
   });

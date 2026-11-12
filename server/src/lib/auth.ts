@@ -1,4 +1,5 @@
 import { betterAuth } from "better-auth/minimal";
+import { captcha } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./prisma";
 import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
@@ -19,6 +20,13 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+
+  plugins: [
+    captcha({
+      provider: "cloudflare-turnstile",
+      secretKey: process.env.TURNSTILE_SECRET ?? "",
+    }),
+  ],
 
   emailAndPassword: {
     enabled: true,

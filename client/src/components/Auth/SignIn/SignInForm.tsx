@@ -9,14 +9,17 @@ import { Label } from "@radix-ui/react-label";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormErrorMessage from "../FormErrorMessage";
 import SignInViaGoogleBtn from "../SignInViaGoogleBtn";
+import TurnstileWidget, { TurnstileHandle } from "../Turnstile/TurnstileWidget";
 
 export default function SignInForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileHandle>(null);
   const router = useRouter();
 
   const {
@@ -34,10 +37,18 @@ export default function SignInForm({ className }: { className?: string }) {
     onSuccess: async () => {
       router.navigate({ to: "/dashboard" });
     },
+    onSettled: () => {
+      setCaptchaToken(null);
+      turnstileRef.current?.reset();
+    },
   });
 
   const onSubmit: SubmitHandler<SignInFormType> = async (credentials) => {
-    mutation.mutate(credentials);
+    if (!captchaToken) {
+      toast.error("Please complete the verification");
+      return;
+    }
+    mutation.mutate({ ...credentials, captchaToken });
   };
 
   return (
@@ -118,6 +129,11 @@ export default function SignInForm({ className }: { className?: string }) {
                     <FormErrorMessage message={errors.password.message} />
                   )}
                 </div>
+                <TurnstileWidget
+                  ref={turnstileRef}
+                  onVerify={setCaptchaToken}
+                  onExpire={() => setCaptchaToken(null)}
+                />
                 <Button
                   role="submit-btn"
                   disabled={mutation.isPending}

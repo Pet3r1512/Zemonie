@@ -37,7 +37,7 @@ app.use(
     },
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type", "Authorization", "Cookie"],
+    allowHeaders: ["Content-Type", "Authorization", "Cookie", "x-captcha-response"],
     exposeHeaders: ["Content-Length"],
     maxAge: 600,
   }),
