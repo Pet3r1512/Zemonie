@@ -14,7 +14,7 @@ export default function SettingsContainer() {
   }, [latestTab]);
 
   return (
-    <Card className="p-5 h-full lg:min-h-[50vh]">
+    <Card className="p-5 h-auto lg:min-h-[50vh]">
       <Tabs
         defaultValue={localStorage.getItem("latestSettingsTab") || "security"}
         orientation="vertical"
