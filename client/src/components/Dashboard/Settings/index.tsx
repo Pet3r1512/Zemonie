@@ -26,7 +26,7 @@ export default function SettingsContainer() {
             onClick={() => {
               setLatestTab("security");
             }}
-            className="justify-start gap-2 rounded-[10px] border border-transparent px-4 py-3 data-[state=active]:border-[#ff7900]/30 data-[state=active]:bg-[#ff7900]/12 data-[state=active]:text-primary dark:data-[state=active]:text-[#ff9a3d]"
+            className="justify-start gap-2 rounded-[10px] border border-transparent px-4 py-3 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/12 data-[state=active]:text-primary dark:data-[state=active]:text-[#ff9a3d]"
           >
             <Lock className="h-4 w-4" />
             <span>Security</span>
@@ -36,7 +36,7 @@ export default function SettingsContainer() {
             onClick={() => {
               setLatestTab("preferences");
             }}
-            className="justify-start gap-2 rounded-[10px] border border-transparent px-4 py-3 data-[state=active]:border-[#ff7900]/30 data-[state=active]:bg-[#ff7900]/12 data-[state=active]:text-primary dark:data-[state=active]:text-[#ff9a3d]"
+            className="justify-start gap-2 rounded-[10px] border border-transparent px-4 py-3 data-[state=active]:border-primary/30 data-[state=active]:bg-primary/12 data-[state=active]:text-primary dark:data-[state=active]:text-[#ff9a3d]"
           >
             <Settings className="h-4 w-4" />
             <span>Preferences</span>
