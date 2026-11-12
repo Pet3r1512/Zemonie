@@ -1,4 +1,4 @@
-import { Ref, useEffect, useImperativeHandle, useRef } from "react";
+import { Ref, useEffect, useImperativeHandle, useRef, useState } from "react";
 
 const TURNSTILE_SCRIPT_URL =
   "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
@@ -50,7 +50,11 @@ export default function TurnstileWidget({ ref, onVerify, onExpire }: TurnstileWi
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
   const callbacksRef = useRef({ onVerify, onExpire });
-  callbacksRef.current = { onVerify, onExpire };
+  const [loadFailed, setLoadFailed] = useState(false);
+
+  useEffect(() => {
+    callbacksRef.current = { onVerify, onExpire };
+  });
 
   useImperativeHandle(ref, () => ({
     reset: () => {
@@ -76,7 +80,7 @@ export default function TurnstileWidget({ ref, onVerify, onExpire }: TurnstileWi
         });
       })
       .catch(() => {
-        callbacksRef.current.onExpire?.();
+        if (!cancelled) setLoadFailed(true);
       });
 
     return () => {
@@ -87,6 +91,14 @@ export default function TurnstileWidget({ ref, onVerify, onExpire }: TurnstileWi
       widgetIdRef.current = null;
     };
   }, []);
+
+  if (!SITE_KEY || loadFailed) {
+    return (
+      <p role="alert" className="text-center text-sm text-destructive">
+        Verification is unavailable. Please refresh the page and try again.
+      </p>
+    );
+  }
 
   return <div ref={containerRef} data-testid="turnstile-widget" className="flex justify-center" />;
 }

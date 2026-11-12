@@ -21,7 +21,7 @@ import TurnstileWidget, { TurnstileHandle } from "../Turnstile/TurnstileWidget";
 export default function SignUpForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
   const [hideConfirmPassword, setHideConfirmPassword] = useState<boolean>(true);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captchaTokenRef = useRef<string | null>(null);
   const turnstileRef = useRef<TurnstileHandle>(null);
 
   const router = useRouter();
@@ -52,7 +52,7 @@ export default function SignUpForm({ className }: { className?: string }) {
       }, 1250);
     },
     onSettled: () => {
-      setCaptchaToken(null);
+      captchaTokenRef.current = null;
       turnstileRef.current?.reset();
     },
   });
@@ -60,7 +60,16 @@ export default function SignUpForm({ className }: { className?: string }) {
   const passwordRef = useRef({});
   passwordRef.current = watch("password", "");
 
+  const handleCaptchaVerify = (token: string) => {
+    captchaTokenRef.current = token;
+  };
+
+  const handleCaptchaExpire = () => {
+    captchaTokenRef.current = null;
+  };
+
   const onSubmit: SubmitHandler<SignUpFormType> = (credential) => {
+    const captchaToken = captchaTokenRef.current;
     if (!captchaToken) {
       toast.error("Please complete the verification");
       return;
@@ -250,8 +259,8 @@ export default function SignUpForm({ className }: { className?: string }) {
                 )}
                 <TurnstileWidget
                   ref={turnstileRef}
-                  onVerify={setCaptchaToken}
-                  onExpire={() => setCaptchaToken(null)}
+                  onVerify={handleCaptchaVerify}
+                  onExpire={handleCaptchaExpire}
                 />
                 <Button
                   role="submit-btn"

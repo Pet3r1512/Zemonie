@@ -135,6 +135,7 @@ jobs:
         working-directory: client
         env:
           VITE_SERVER_URL: https://api.zemonie.site
+          VITE_TURNSTILE_SITE_KEY: 0x4AAAAAAF-F5zDNfACWQAq_
 
   deploy-staging:
     if: github.actor != 'dependabot[bot]'
@@ -164,6 +165,7 @@ jobs:
           printf 'BETTER_AUTH_SECRET=%s\n' "$BETTER_AUTH_SECRET" >> .secrets.env
           printf 'BETTER_AUTH_URL=%s\n' "$BETTER_AUTH_URL" >> .secrets.env
           printf 'TRUSTED_ORIGINS=%s\n' "$TRUSTED_ORIGINS" >> .secrets.env
+          printf 'TURNSTILE_SECRET=%s\n' "$TURNSTILE_SECRET" >> .secrets.env
           pnpm wrangler deploy --minify --config wrangler.staging.jsonc --secrets-file .secrets.env
         working-directory: server
         env:
@@ -171,6 +173,7 @@ jobs:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
           BETTER_AUTH_URL: ${{ secrets.BETTER_AUTH_URL_STAGING }}
           TRUSTED_ORIGINS: ${{ secrets.TRUSTED_ORIGINS_STAGING }}
+          TURNSTILE_SECRET: ${{ secrets.TURNSTILE_SECRET }}
 
       # Deploy client
       - name: Build client
@@ -178,6 +181,7 @@ jobs:
         working-directory: client
         env:
           VITE_SERVER_URL: https://staging.api.zemonie.site
+          VITE_TURNSTILE_SITE_KEY: 0x4AAAAAAF-F5zDNfACWQAq_
 
       - name: Deploy client to staging
         run: pnpm wrangler deploy --minify --config wrangler.staging.toml

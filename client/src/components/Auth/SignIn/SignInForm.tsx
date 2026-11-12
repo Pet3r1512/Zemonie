@@ -18,7 +18,7 @@ import TurnstileWidget, { TurnstileHandle } from "../Turnstile/TurnstileWidget";
 
 export default function SignInForm({ className }: { className?: string }) {
   const [hidePassword, setHidePassword] = useState<boolean>(true);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captchaTokenRef = useRef<string | null>(null);
   const turnstileRef = useRef<TurnstileHandle>(null);
   const router = useRouter();
 
@@ -38,12 +38,21 @@ export default function SignInForm({ className }: { className?: string }) {
       router.navigate({ to: "/dashboard" });
     },
     onSettled: () => {
-      setCaptchaToken(null);
+      captchaTokenRef.current = null;
       turnstileRef.current?.reset();
     },
   });
 
+  const handleCaptchaVerify = (token: string) => {
+    captchaTokenRef.current = token;
+  };
+
+  const handleCaptchaExpire = () => {
+    captchaTokenRef.current = null;
+  };
+
   const onSubmit: SubmitHandler<SignInFormType> = async (credentials) => {
+    const captchaToken = captchaTokenRef.current;
     if (!captchaToken) {
       toast.error("Please complete the verification");
       return;
@@ -131,8 +140,8 @@ export default function SignInForm({ className }: { className?: string }) {
                 </div>
                 <TurnstileWidget
                   ref={turnstileRef}
-                  onVerify={setCaptchaToken}
-                  onExpire={() => setCaptchaToken(null)}
+                  onVerify={handleCaptchaVerify}
+                  onExpire={handleCaptchaExpire}
                 />
                 <Button
                   role="submit-btn"
