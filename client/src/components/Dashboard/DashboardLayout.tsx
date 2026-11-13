@@ -91,8 +91,8 @@ export default function DashboardLayout({
   const dashboard = (
     <SidebarProvider className="bg-white dark:bg-black">
       <AppSidebar />
-      <main className="w-full max-w-7xl mx-auto flex flex-col flex-1 p-6 md:p-8 h-dvh overflow-hidden relative bg-white dark:bg-black">
-        <div className="space-y-3 shrink-0 bg-white dark:bg-black md:mb-6 pb-6 md:pb-0">
+      <main className="w-full max-w-7xl mx-auto flex flex-col flex-1 p-2.5 md:p-8 h-dvh overflow-hidden relative bg-white dark:bg-black">
+        <div className="space-y-3 shrink-0 bg-white dark:bg-black mb-6">
           <SidebarTrigger />
           <p className="font-display font-bold tracking-[-0.03em] text-2xl md:text-3xl lg:text-4xl text-gray-900 dark:text-white">
             {section}
@@ -104,7 +104,7 @@ export default function DashboardLayout({
           )}
           <p className="text-gray-600 dark:text-[#b5b3b2] text-sm md:text-base">{sectionDesc}</p>
         </div>
-        <div className="flex-1 min-h-0 flex flex-col gap-y-6 overflow-y-auto overscroll-contain no-scrollbar p-8 -m-8">
+        <div className="flex-1 min-h-0 flex flex-col gap-y-6 overflow-y-auto overscroll-contain no-scrollbar">
           {children}
         </div>
       </main>
