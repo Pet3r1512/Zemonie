@@ -352,6 +352,9 @@ importers:
       tsx:
         specifier: ^4.20.3
         version: 4.22.3
+      typescript:
+        specifier: ~5.6.3
+        version: 5.6.3
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.12.4)(@vitest/browser@3.2.4)(jiti@2.7.0)(jsdom@25.0.1)(lightningcss@1.32.0)(tsx@4.22.3)(yaml@2.9.0)
@@ -4220,6 +4223,7 @@ packages:
   eslint@9.39.4:
     resolution: {integrity: sha512-XoMjdBOwe/esVgEvLmNsD3IRHkm7fbKIUGvrleloJXUZgDHig2IPWNniv+GwjyJXzuNqVjlr5+4yVUZjycJwfQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -8806,7 +8810,7 @@ snapshots:
       magicast: 0.3.5
       test-exclude: 7.0.2
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/node@20.19.41)(@vitest/browser@3.2.4)(jiti@2.7.0)(jsdom@25.0.1)(lightningcss@1.32.0)(tsx@4.22.3)(yaml@2.9.0)
+      vitest: 3.2.4(@types/node@24.12.4)(@vitest/browser@3.2.4)(jiti@2.7.0)(jsdom@25.0.1)(lightningcss@1.32.0)(tsx@4.22.3)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -9009,7 +9013,7 @@ snapshots:
       prisma: 7.8.0(@types/react-dom@19.2.3(@types/react@19.2.15))(@types/react@19.2.15)(magicast@0.5.3)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.6.3)
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
-      vitest: 3.2.4(@types/node@20.19.41)(@vitest/browser@3.2.4)(jiti@2.7.0)(jsdom@25.0.1)(lightningcss@1.32.0)(tsx@4.22.3)(yaml@2.9.0)
+      vitest: 3.2.4(@types/node@24.12.4)(@vitest/browser@3.2.4)(jiti@2.7.0)(jsdom@25.0.1)(lightningcss@1.32.0)(tsx@4.22.3)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - '@opentelemetry/api'
