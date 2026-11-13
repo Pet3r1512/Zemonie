@@ -8,13 +8,16 @@ import { cn } from "@/lib/utils";
 import { Label } from "@radix-ui/react-label";
 import { useMutation } from "@tanstack/react-query";
 import { LoaderCircle, MailCheck } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import FormErrorMessage from "../FormErrorMessage";
+import TurnstileWidget, { TurnstileHandle } from "../Turnstile/TurnstileWidget";
 
 export default function ForgotPasswordForm({ className }: { className?: string }) {
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const captchaTokenRef = useRef<string | null>(null);
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const {
     register,
@@ -31,10 +34,27 @@ export default function ForgotPasswordForm({ className }: { className?: string }
     onSuccess: () => {
       setSubmitted(true);
     },
+    onSettled: () => {
+      captchaTokenRef.current = null;
+      turnstileRef.current?.reset();
+    },
   });
 
+  const handleCaptchaVerify = (token: string) => {
+    captchaTokenRef.current = token;
+  };
+
+  const handleCaptchaExpire = () => {
+    captchaTokenRef.current = null;
+  };
+
   const onSubmit: SubmitHandler<ForgotPasswordFormType> = (data) => {
-    mutation.mutate(data);
+    const captchaToken = captchaTokenRef.current;
+    if (!captchaToken) {
+      toast.error("Please complete the verification");
+      return;
+    }
+    mutation.mutate({ ...data, captchaToken });
   };
 
   return (
@@ -85,6 +105,11 @@ export default function ForgotPasswordForm({ className }: { className?: string }
                     <FormErrorMessage message={errors.email.message} />
                   )}
                 </div>
+                <TurnstileWidget
+                  ref={turnstileRef}
+                  onVerify={handleCaptchaVerify}
+                  onExpire={handleCaptchaExpire}
+                />
                 <Button
                   role="submit-btn"
                   disabled={mutation.isPending}

@@ -129,6 +129,7 @@ BETTER_AUTH_URL="http://localhost:8787"
 ENCRYPTION_KEY="your-32-byte-base64-key"
 BREVO_API="your-brevo-api-key"
 TRUSTED_ORIGINS="http://localhost:5173"
+TURNSTILE_SECRET="your-turnstile-secret-key"
 ```
 
 ### Running Locally
@@ -254,10 +255,16 @@ Loaded via `env_file`. Compose overrides some values for local container usage.
 | `ENCRYPTION_KEY`                    | Encryption key      | Required to encrypt/decrypt monetary amounts.                                                                                            |
 | `BREVO_API`                         | Brevo API key       | Required for transactional emails.                                                                                                       |
 | `TRUSTED_ORIGINS`                   | Allowed origins     | In dev the server is permissive, but keep it set.                                                                                        |
+| `TURNSTILE_SECRET`                  | Turnstile secret    | Required. Cloudflare Turnstile secret for the captcha on sign-up, sign-in and forgot-password. Missing it makes those endpoints fail.    |
+
+#### Login lockout (KV)
+
+Sign-in is locked per email after repeated wrong passwords: 3 failures lock for 3 minutes, 5 for 10 minutes, 10 for 24 hours. A successful sign-in clears the count. The counters live in the Cloudflare KV namespace bound as `LOGIN_LIMITS` (`wrangler.jsonc` for production, `wrangler.staging.jsonc` for staging). Create a namespace with `pnpm wrangler kv namespace create LOGIN_LIMITS` and put its id in the config before deploying.
 
 #### Client
 
 `VITE_SERVER_URL` is baked in at build time via the `VITE_SERVER_URL` build arg. Default is `http://localhost:9999` in Compose. Changing it requires rebuilding the image.
+`VITE_TURNSTILE_SITE_KEY` (Turnstile site key, public) is also baked in at build time. Set it in the client build environment wherever the client is built.
 
 ### Manual Build & Run (Without Compose)
 

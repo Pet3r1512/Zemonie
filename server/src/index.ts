@@ -5,8 +5,9 @@ import { trpcServer } from "@hono/trpc-server";
 import { appRouter } from "./server/_index";
 import type { ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
 import { setBrevoApiKey } from "./lib/brevo";
+import type { LoginLimitStore } from "./lib/login-lockout";
 import prisma, { setPrismaConnectionString } from "./lib/prisma";
-import { auth } from "./lib/auth";
+import { auth, setLoginLimitStore } from "./lib/auth";
 import { processRecurringBudgets } from "./lib/processRecurringBudgets";
 import { createContext } from "./server/context";
 import { processRecurringTransactions } from "./lib/processRecurringTransactions";
@@ -37,8 +38,8 @@ app.use(
     },
     credentials: true,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type", "Authorization", "Cookie"],
-    exposeHeaders: ["Content-Length"],
+    allowHeaders: ["Content-Type", "Authorization", "Cookie", "x-captcha-response"],
+    exposeHeaders: ["Content-Length", "X-Retry-After", "Retry-After"],
     maxAge: 600,
   }),
 );
@@ -165,6 +166,7 @@ export default {
       setPrismaConnectionString(env.DATABASE_URL);
     }
     setBrevoApiKey(env.BREVO_API);
+    setLoginLimitStore(env.LOGIN_LIMITS as unknown as LoginLimitStore | undefined);
     return app.fetch(request, env, ctx);
   },
   async scheduled(
