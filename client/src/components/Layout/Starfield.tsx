@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 
 export type DrawFn = (ctx: CanvasRenderingContext2D, width: number, height: number) => void;
 
+const MAX_CANVAS_DPR = 1.5;
+
 export function mulberry32(seed: number) {
   let value = seed >>> 0;
   return () => {
@@ -40,6 +42,7 @@ export function CanvasLayer({
   style?: CSSProperties;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const painted = useRef<{ key: string; draw: DrawFn | null }>({ key: "", draw: null });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -48,11 +51,15 @@ export function CanvasLayer({
 
     let timer = 0;
     const paint = () => {
+      if (canvas.getClientRects().length === 0) return;
       const { width, height } = host.getBoundingClientRect();
       if (width < 1 || height < 1) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_CANVAS_DPR);
       const w = Math.round(width);
       const h = Math.round(height);
+      const key = `${w}x${h}@${dpr}`;
+      if (painted.current.key === key && painted.current.draw === draw) return;
+      painted.current = { key, draw };
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = `${w}px`;
@@ -68,9 +75,10 @@ export function CanvasLayer({
       timer = window.setTimeout(paint, 140);
     };
 
-    paint();
+    schedule();
     const observer = new ResizeObserver(schedule);
     observer.observe(host);
+    observer.observe(canvas);
     return () => {
       window.clearTimeout(timer);
       observer.disconnect();

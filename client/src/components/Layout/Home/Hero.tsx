@@ -137,14 +137,30 @@ function readStage(): Stage {
   };
 }
 
+function isSameStage(a: Stage, b: Stage) {
+  return (
+    a.mobile === b.mobile && a.scale === b.scale && a.width === b.width && a.height === b.height
+  );
+}
+
 function useStage() {
   const [stage, setStage] = useState<Stage>(readStage);
 
   useEffect(() => {
-    const update = () => setStage(readStage());
-    update();
-    window.addEventListener("resize", update, { passive: true });
-    return () => window.removeEventListener("resize", update);
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const next = readStage();
+      setStage((prev) => (isSameStage(prev, next) ? prev : next));
+    };
+    const onResize = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   return stage;
