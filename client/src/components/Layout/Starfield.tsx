@@ -32,6 +32,17 @@ function drawStars(ctx: CanvasRenderingContext2D, width: number, height: number,
   }
 }
 
+function createDebouncedTimer(callback: () => void, delay: number) {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return {
+    schedule: () => {
+      clearTimeout(timer);
+      timer = setTimeout(callback, delay);
+    },
+    cancel: () => clearTimeout(timer),
+  };
+}
+
 export function CanvasLayer({
   draw,
   className,
@@ -49,7 +60,6 @@ export function CanvasLayer({
     const host = canvas?.parentElement;
     if (!canvas || !host) return;
 
-    let timer = 0;
     const paint = () => {
       if (canvas.getClientRects().length === 0) return;
       const { width, height } = host.getBoundingClientRect();
@@ -70,17 +80,14 @@ export function CanvasLayer({
       ctx.clearRect(0, 0, w, h);
       draw(ctx, w, h);
     };
-    const schedule = () => {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(paint, 140);
-    };
+    const debouncedPaint = createDebouncedTimer(paint, 140);
 
-    schedule();
-    const observer = new ResizeObserver(schedule);
+    debouncedPaint.schedule();
+    const observer = new ResizeObserver(debouncedPaint.schedule);
     observer.observe(host);
     observer.observe(canvas);
     return () => {
-      window.clearTimeout(timer);
+      debouncedPaint.cancel();
       observer.disconnect();
     };
   }, [draw]);
