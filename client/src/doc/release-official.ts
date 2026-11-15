@@ -1,5 +1,32 @@
 const release_official = [
   {
+    version: "v1.2.1",
+    date: "Nov 15, 2026",
+    tag: "official",
+    changes: [
+      {
+        type: "feature",
+        text: "Added rate limiting and Cloudflare Turnstile protection to authentication pages, including sign-in, sign-up, and password reset, to help prevent automated abuse. 🚀",
+      },
+      {
+        type: "update",
+        text: "Reduced unnecessary spacing on mobile devices to make better use of screen space and improve readability.",
+      },
+      {
+        type: "update",
+        text: "Improved homepage performance for a faster browsing experience.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where the password reset form's submit button could appear outside its container on mobile browsers.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where dashboard titles could be obscured by content when scrolling to the bottom of the page.",
+      },
+    ],
+  },
+  {
     version: "v1.2.0",
     date: "Nov 11, 2026",
     tag: "Official",
