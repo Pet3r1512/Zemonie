@@ -28,11 +28,10 @@ describe("Home hero", () => {
     expect(heading.textContent).toContain("Master Your Money,");
     expect(heading.textContent).toContain("Smarter, Faster, Safer.");
 
-    const started = screen.getAllByRole("link", { name: "Get Started" });
-    expect(started.length).toBeGreaterThan(0);
-    for (const link of started) {
-      expect(link).toHaveAttribute("href", "/auth/signup");
-    }
+    expect(screen.getByRole("link", { name: "Get Started" })).toHaveAttribute(
+      "href",
+      "/auth/signup",
+    );
     expect(screen.getByRole("link", { name: "Learn More" })).toHaveAttribute("href", "/features");
   });
 
@@ -42,24 +41,25 @@ describe("Home hero", () => {
     expect(screen.queryByRole("navigation", { name: "Main" })).not.toBeInTheDocument();
   });
 
-  it("renders the product dashboard preview", () => {
+  it("renders light and dark dashboard screenshots, switched by theme", () => {
     render(<Hero />);
 
-    expect(screen.getAllByText("Dashboard").length).toBeGreaterThan(0);
-    expect(screen.getByText("OVERVIEW")).toBeInTheDocument();
-    expect(screen.getByText("Money Moves")).toBeInTheDocument();
-    expect(screen.getByText("Budgets")).toBeInTheDocument();
-    expect(screen.getByText("New")).toBeInTheDocument();
-    expect(screen.getByText("+ Add")).toBeInTheDocument();
-    expect(screen.getByText("Welcome back, Alex")).toBeInTheDocument();
-    expect(screen.getByText("Total Balance")).toBeInTheDocument();
-    expect(screen.getByText("A$12,480.50")).toBeInTheDocument();
-    expect(screen.getByText("Net Savings")).toBeInTheDocument();
-    expect(screen.getByText("Latest Income")).toBeInTheDocument();
-    expect(screen.getByText("Latest Expense")).toBeInTheDocument();
-    expect(screen.getByText("Income vs Expenses")).toBeInTheDocument();
-    expect(screen.getByText("Spending by Category")).toBeInTheDocument();
-    expect(screen.getByText("Last 7 Days Spendings")).toBeInTheDocument();
-    expect(screen.queryByText("Zemonie Pro")).not.toBeInTheDocument();
+    const light = screen.getByAltText("Zemonie dashboard preview");
+    const dark = screen.getByAltText("Zemonie dashboard preview in dark mode");
+
+    expect(light).toHaveAttribute("src", "/screenshots/Hero-dashboard-light.webp");
+    expect(light).toHaveClass("dark:hidden");
+    expect(dark).toHaveAttribute("src", "/screenshots/Hero-dashboard-dark.webp");
+    expect(dark).toHaveClass("hidden", "dark:block");
+  });
+
+  it("lazy-loads both screenshots so the hidden theme variant is not fetched", () => {
+    render(<Hero />);
+
+    expect(screen.getByAltText("Zemonie dashboard preview")).toHaveAttribute("loading", "lazy");
+    expect(screen.getByAltText("Zemonie dashboard preview in dark mode")).toHaveAttribute(
+      "loading",
+      "lazy",
+    );
   });
 });

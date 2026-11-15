@@ -9,7 +9,7 @@ describe("Showcase", () => {
     expect(screen.getByAltText("Zemonie dashboard screenshot")).toBeInTheDocument();
     expect(screen.getByAltText("Zemonie dashboard screenshot")).toHaveAttribute(
       "src",
-      "/screenshots/Dashboard-dark.webp",
+      "/screenshots/Hero-dashboard-dark.webp",
     );
   });
 
