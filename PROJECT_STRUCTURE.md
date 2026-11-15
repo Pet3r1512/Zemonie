@@ -111,7 +111,7 @@ src/
 | `Features/`                          | Landing features page (hero, showcase, grid, CTA)                                                                           |
 | `Layout/Header/`                     | Site header — Logo + `PagesNav` (Home/Features/About/FAQ/Release Notes, orange active chip) + Navbar + mobile StaggeredMenu |
 | `Layout/Footer/`                     | Footer sections                                                                                                             |
-| `Layout/Home/`                       | Homepage sections — hero (`Hero.tsx`, rim canvas, dashboard mock), `Showcase`, `FeatureGrid`, `CTASection`                  |
+| `Layout/Home/`                       | Homepage sections — hero (`Hero.tsx`: copy + light/dark dashboard screenshots), `Showcase`, `FeatureGrid`, `CTASection`     |
 | `Layout/LoadingScreen.tsx`           | Loading spinner                                                                                                             |
 | `Layout/Logo.tsx`                    | Zemonie logo component                                                                                                      |
 | `Layout/Page.tsx`                    | Generic page wrapper (`content` prop: theme-aware bg + starfield; default light wrapper)                                    |
