@@ -1,5 +1,6 @@
 {
   "name": "zemonie",
+  "packageManager": "pnpm@10.34.9",
   "private": true,
   "scripts": {
     "dev": "concurrently \"pnpm --dir client dev --host\" \"pnpm --dir server dev\"",
