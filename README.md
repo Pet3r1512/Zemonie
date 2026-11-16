@@ -88,7 +88,7 @@ In its initial release, Zemonie offers a simple platform where users can easily 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) 22+
-- [pnpm](https://pnpm.io/installation) 10 — pinned via `packageManager` in the root `package.json` (newer pnpm versions switch to it automatically)
+- [pnpm](https://pnpm.io/installation)
 - A [Neon PostgreSQL](https://neon.tech/) database (or local Postgres for development)
 - A [Brevo](https://www.brevo.com/) account for transactional email
 - A Cloudflare account (for deployment)
