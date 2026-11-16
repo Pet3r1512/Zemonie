@@ -9,6 +9,11 @@ RUN npm install -g pnpm@10.11.1
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 
 COPY client/package.json ./client/
+# The client type-checks against the server's tRPC AppRouter, so the server workspace must be
+# installed too
+COPY server/package.json ./server/
+COPY server/prisma ./server/prisma
+COPY server/prisma.config.ts ./server/
 
 # Prevent husky hook and install only client workspace dependencies
 RUN HUSKY=0 pnpm install --frozen-lockfile --filter client
