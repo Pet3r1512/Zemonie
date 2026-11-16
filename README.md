@@ -78,7 +78,7 @@ In its initial release, Zemonie offers a simple platform where users can easily 
 
 <!-- Add screenshots here -->
 <p align="center">
-  <img src="client/public/screenshots/Dashboard-dark.webp" alt="Dashboard" width="600">
+  <img src="client/public/screenshots/Hero-dashboard-dark.webp" alt="Dashboard" width="600">
 </p>
 
 ---
