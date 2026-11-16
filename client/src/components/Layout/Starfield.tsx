@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 
 export type DrawFn = (ctx: CanvasRenderingContext2D, width: number, height: number) => void;
 
+const MAX_CANVAS_DPR = 1.5;
+
 export function mulberry32(seed: number) {
   let value = seed >>> 0;
   return () => {
@@ -30,6 +32,17 @@ function drawStars(ctx: CanvasRenderingContext2D, width: number, height: number,
   }
 }
 
+function createDebouncedTimer(callback: () => void, delay: number) {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return {
+    schedule: () => {
+      clearTimeout(timer);
+      timer = setTimeout(callback, delay);
+    },
+    cancel: () => clearTimeout(timer),
+  };
+}
+
 export function CanvasLayer({
   draw,
   className,
@@ -40,19 +53,23 @@ export function CanvasLayer({
   style?: CSSProperties;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const painted = useRef<{ key: string; draw: DrawFn | null }>({ key: "", draw: null });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const host = canvas?.parentElement;
     if (!canvas || !host) return;
 
-    let timer = 0;
     const paint = () => {
+      if (canvas.getClientRects().length === 0) return;
       const { width, height } = host.getBoundingClientRect();
       if (width < 1 || height < 1) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_CANVAS_DPR);
       const w = Math.round(width);
       const h = Math.round(height);
+      const key = `${w}x${h}@${dpr}`;
+      if (painted.current.key === key && painted.current.draw === draw) return;
+      painted.current = { key, draw };
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       canvas.style.width = `${w}px`;
@@ -63,16 +80,14 @@ export function CanvasLayer({
       ctx.clearRect(0, 0, w, h);
       draw(ctx, w, h);
     };
-    const schedule = () => {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(paint, 140);
-    };
+    const debouncedPaint = createDebouncedTimer(paint, 140);
 
-    paint();
-    const observer = new ResizeObserver(schedule);
+    debouncedPaint.schedule();
+    const observer = new ResizeObserver(debouncedPaint.schedule);
     observer.observe(host);
+    observer.observe(canvas);
     return () => {
-      window.clearTimeout(timer);
+      debouncedPaint.cancel();
       observer.disconnect();
     };
   }, [draw]);

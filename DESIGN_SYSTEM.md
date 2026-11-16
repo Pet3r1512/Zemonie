@@ -66,8 +66,9 @@ each `useTheme()` call holds independent state and won't sync across components.
   `dark:bg-black` + shared `Starfield` gated with `hidden dark:block`). Legal/auth pages keep the
   default light wrapper.
 - **Homepage** has no `Page` wrapper: its sections carry `dark:bg-black` themselves, and the hero
-  is transparent in light (html `#f5f7f7` shows) with `dark:bg-black`. Starfield, rim canvas,
-  video, and glow images are gated with `hidden dark:block`.
+  is transparent in light (html `#f5f7f7` shows) with `dark:bg-black`. The hero dashboard is a
+  pair of light/dark screenshots (`dark:hidden` / `hidden dark:block`), not a live mock, to keep
+  homepage load light. Starfield sections are still gated with `hidden dark:block`.
 - Token mapping: headings `text-gray-900 dark:text-white`; ledes `text-gray-600 dark:text-[#b5b3b2]`;
   secondary `text-gray-500 dark:text-[#8b8988]`; cards `bg-white border-gray-200` →
   `dark:bg-[#08080a]/85 dark:border-white/[0.07]`; section bands `bg-gray-50 dark:bg-transparent`.
