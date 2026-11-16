@@ -18,8 +18,9 @@ COPY server/prisma.config.ts ./server/
 # Prevent husky hook and install only client workspace dependencies
 RUN HUSKY=0 pnpm install --frozen-lockfile --filter client
 
-# Copy client source after installing dependencies and run the build from the client package directory
+# Copy sources after installing dependencies and run the build from the client package directory
 COPY client ./client
+COPY server ./server
 WORKDIR /src/client
 
 # Define run-time env variables
