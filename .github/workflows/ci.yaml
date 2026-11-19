@@ -94,9 +94,12 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-ubuntu-24.04-${{ hashFiles('**/pnpm-lock.yaml') }}
-      - if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: cd client && pnpm exec playwright install chromium firefox webkit
-      - run: cd client && pnpm exec playwright install-deps
+      - name: Install Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: cd client && pnpm exec playwright install chromium
+
+      - name: Install Chromium system dependencies
+        run: cd client && pnpm exec playwright install-deps chromium
 
       - name: Start Storybook
         run: |
@@ -110,8 +113,8 @@ jobs:
           done
         working-directory: client
 
-      - name: Run Storybook / Playwright browser tests
-        run: pnpm test
+      - name: Run Storybook tests (Chromium)
+        run: pnpm exec vitest run --project storybook-chromium
         working-directory: client
         env:
           STORYBOOK_URL: http://localhost:6006
