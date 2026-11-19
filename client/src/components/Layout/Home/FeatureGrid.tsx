@@ -19,7 +19,7 @@ const cards = [
     label: "Privacy First",
     title: "Your Amounts Stay Yours",
     description:
-      "Every transaction amount is encrypted end-to-end (AES-GCM). Not even we can read your numbers.",
+      "Every transaction amount is encrypted at rest (AES-GCM). Keys are held by Zemonie, so amounts are not hidden from our systems.",
   },
   {
     icon: Wallet,
