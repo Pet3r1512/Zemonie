@@ -1,5 +1,6 @@
 import { BudgetFormData } from "@/components/Dashboard/Budgets/BudgetForm";
 import { SERVER_URL } from "@/constant/auth";
+import { getUserTimeZone } from "@/helpers/userTimezone";
 
 export default async function createBudget({ credentials }: { credentials: BudgetFormData }) {
   const response = await fetch(`${SERVER_URL}/api/trpc/budget.createBudget`, {
@@ -8,7 +9,7 @@ export default async function createBudget({ credentials }: { credentials: Budge
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(credentials),
+    body: JSON.stringify({ ...credentials, timeZone: getUserTimeZone() }),
   });
 
   const res = await response.json();

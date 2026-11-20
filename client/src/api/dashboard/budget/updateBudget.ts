@@ -1,4 +1,5 @@
 import { SERVER_URL } from "@/constant/auth";
+import { getUserTimeZone } from "@/helpers/userTimezone";
 
 export type UpdateBudgetCredentials = {
   id: string;
@@ -19,7 +20,7 @@ export default async function updateBudget({
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify(credentials),
+    body: JSON.stringify({ ...credentials, timeZone: getUserTimeZone() }),
   });
 
   const res = await response.json();
