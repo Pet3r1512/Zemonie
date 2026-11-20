@@ -351,4 +351,4 @@ Browser → Cloudflare Worker (client) → API calls → Cloudflare Worker (serv
 - Dev: Vite proxy forwards `/api/*` to `localhost:8787`
 - Prod: `www.zemonie.site` → client worker, `api.zemonie.site` → server worker
 - Auth session cookies shared cross-subdomain
-- Cron job pings server every 5 min to keep DB warm
+- Cron job pings server every 15 min (production) to keep DB warm; daily cron processes recurring budgets and transactions
