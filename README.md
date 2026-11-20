@@ -5,7 +5,7 @@ Money management built for Gen Z — track spending, manage budgets, and grow sa
 ![GitHub Release](https://img.shields.io/github/v/release/Pet3r1512/Zemonie)
 [![CI](https://img.shields.io/github/actions/workflow/status/Pet3r1512/Zemonie/ci.yaml?branch=master&label=CI)](https://github.com/Pet3r1512/Zemonie/actions/workflows/ci.yaml)
 [![Coverage](https://codecov.io/gh/Pet3r1512/Zemonie/branch/master/graph/badge.svg)](https://app.codecov.io/gh/Pet3r1512/Zemonie)
-[![License: MIT](https://img.shields.io/github/license/Pet3r1512/Zemonie)](LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/github/license/Pet3r1512/Zemonie)](LICENSE)
 
 ---
 
@@ -78,7 +78,7 @@ In its initial release, Zemonie offers a simple platform where users can easily 
 
 <!-- Add screenshots here -->
 <p align="center">
-  <img src="client/public/screenshots/Dashboard-dark.webp" alt="Dashboard" width="600">
+  <img src="client/public/screenshots/Hero-dashboard-dark.webp" alt="Dashboard" width="600">
 </p>
 
 ---
@@ -333,7 +333,7 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for de
 
 ## License
 
-Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
+Distributed under the GNU Affero General Public License v3.0 (AGPL-3.0). See [`LICENSE`](LICENSE) for more information.
 
 ---
 

@@ -1,6 +1,7 @@
 {
   "name": "zemonie",
   "private": true,
+  "license": "AGPL-3.0-only",
   "scripts": {
     "dev": "concurrently \"pnpm --dir client dev --host\" \"pnpm --dir server dev\"",
     "test:client": "pnpm --dir client test",

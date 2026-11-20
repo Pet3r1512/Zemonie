@@ -51,7 +51,7 @@ const faqs = [
   {
     question: "How are users transactions being stored?",
     answer:
-      "Every transaction you enter is stored securely on our servers. All monetary amounts are encrypted end-to-end using AES-GCM before they ever reach the database — not even we can read your numbers. Your authentication is handled by Better-Auth, and your session data is kept safe with encrypted cookies.",
+      "Every transaction you enter is stored securely on our servers. All monetary amounts are encrypted at rest using AES-GCM before they are written to the database. The encryption keys are held by Zemonie on our servers, so our systems can read amounts to calculate your totals and charts. Your authentication is handled by Better-Auth, and your session data is kept safe with encrypted cookies.",
   },
   {
     question: "Can I delete my account and data?",
