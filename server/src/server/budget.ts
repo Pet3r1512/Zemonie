@@ -23,7 +23,7 @@ export const budgetRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { categoryId, budgetName, amount, isRecurring } = input;
+      const { categoryId, budgetName, amount, isRecurring, timeZone } = input;
 
       const now = new Date();
       const startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
