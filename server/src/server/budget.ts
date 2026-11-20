@@ -18,6 +18,7 @@ export const budgetRouter = router({
         budgetName: z.string().optional(),
         amount: z.number(),
         isRecurring: z.boolean(),
+        timeZone: z.string().refine(isValidTimeZone).default(DEFAULT_TIME_ZONE),
       }),
     )
     .mutation(async ({ ctx, input }) => {
