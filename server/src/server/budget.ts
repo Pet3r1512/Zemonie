@@ -26,9 +26,9 @@ export const budgetRouter = router({
       const { categoryId, budgetName, amount, isRecurring, timeZone } = input;
 
       const now = new Date();
-      const startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
-
-      const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 12, 0, 0, 0);
+      const { year, month } = getYearMonth(now, timeZone);
+      const { start: startDate, end: startOfNextMonth } = getMonthRange(year, month, timeZone);
+      const endDate = new Date(startOfNextMonth.getTime() - 1); // last instant of the month
 
       const newBudget = await prisma.budget.create({
         data: {
@@ -43,7 +43,7 @@ export const budgetRouter = router({
       });
 
       if (isRecurring) {
-        const scheduledAt = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0, 0);
+        const scheduledAt = startOfNextMonth;
         await prisma.pendingBudget.create({
           data: {
             userId,
