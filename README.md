@@ -255,7 +255,7 @@ Loaded via `env_file`. Compose overrides some values for local container usage.
 | `ENCRYPTION_KEY`                    | Encryption key      | Required to encrypt/decrypt monetary amounts.                                                                                            |
 | `BREVO_API`                         | Brevo API key       | Required for transactional emails.                                                                                                       |
 | `TRUSTED_ORIGINS`                   | Allowed origins     | In dev the server is permissive, but keep it set.                                                                                        |
-| `TURNSTILE_SECRET`                  | Turnstile secret    | Required. Cloudflare Turnstile secret for the captcha on sign-up, sign-in and forgot-password. Missing it makes those endpoints fail.    |
+| `TURNSTILE_SECRET`                  | Turnstile secret    | Cloudflare Turnstile secret for the captcha on sign-up, sign-in and forgot-password. Required in production; in development the server falls back to Cloudflare's public test secret. |
 
 #### Login lockout (KV)
 
@@ -264,14 +264,14 @@ Sign-in is locked per email after repeated wrong passwords: 3 failures lock for 
 #### Client
 
 `VITE_SERVER_URL` is baked in at build time via the `VITE_SERVER_URL` build arg. Default is `http://localhost:9999` in Compose. Changing it requires rebuilding the image.
-`VITE_TURNSTILE_SITE_KEY` (Turnstile site key, public) is also baked in at build time. Set it in the client build environment wherever the client is built.
+`VITE_TURNSTILE_SITE_KEY` (Turnstile site key, public) is also baked in at build time. Set it in the client build environment wherever the client is built. Without it the auth forms show "Verification is unavailable". Compose defaults to Cloudflare's public Turnstile **test** site key (`1x00000000000000000000AA`) and the matching test secret, so local sign-in works without Cloudflare credentials. To test with real keys, override `VITE_TURNSTILE_SITE_KEY` in your shell (or root `.env`) and set `TURNSTILE_SECRET` in `server/.env`, then recreate both containers.
 
 ### Manual Build & Run (Without Compose)
 
 ```bash
 # Build images
 docker build -f server/Dockerfile -t zemonie-server .
-docker build -f client/Dockerfile --build-arg VITE_SERVER_URL=http://localhost:9999 -t zemonie-client .
+docker build -f client/Dockerfile --build-arg VITE_SERVER_URL=http://localhost:9999 --build-arg VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA -t zemonie-client .
 
 # Run server
 docker run --rm -p 9999:9999 \

@@ -14,6 +14,11 @@ import {
 
 const isProduction = process.env.NODE_ENV !== "development";
 
+// Cloudflare's public Turnstile test secret keeps local/dev sign-in usable without real credentials.
+// A configured secret always wins; production never falls back.
+const turnstileSecret =
+  process.env.TURNSTILE_SECRET || (isProduction ? "" : "1x0000000000000000000000000000000AA");
+
 const betterAuthUrl =
   process.env.BETTER_AUTH_URL ||
   (isProduction ? "https://api.zemonie.site" : "http://localhost:8787");
@@ -77,7 +82,7 @@ export const auth = betterAuth({
   plugins: [
     captcha({
       provider: "cloudflare-turnstile",
-      secretKey: process.env.TURNSTILE_SECRET ?? "",
+      secretKey: turnstileSecret,
     }),
   ],
 
