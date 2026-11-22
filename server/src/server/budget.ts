@@ -18,16 +18,17 @@ export const budgetRouter = router({
         budgetName: z.string().optional(),
         amount: z.number(),
         isRecurring: z.boolean(),
+        timeZone: z.string().refine(isValidTimeZone).default(DEFAULT_TIME_ZONE),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { categoryId, budgetName, amount, isRecurring } = input;
+      const { categoryId, budgetName, amount, isRecurring, timeZone } = input;
 
       const now = new Date();
-      const startDate = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
-
-      const endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 12, 0, 0, 0);
+      const { year, month } = getYearMonth(now, timeZone);
+      const { start: startDate, end: startOfNextMonth } = getMonthRange(year, month, timeZone);
+      const endDate = new Date(startOfNextMonth.getTime() - 1); // last instant of the month
 
       const newBudget = await prisma.budget.create({
         data: {
@@ -42,7 +43,7 @@ export const budgetRouter = router({
       });
 
       if (isRecurring) {
-        const scheduledAt = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0, 0);
+        const scheduledAt = startOfNextMonth;
         await prisma.pendingBudget.create({
           data: {
             userId,
@@ -112,11 +113,12 @@ export const budgetRouter = router({
         budgetName: z.string().optional(),
         amount: z.number(),
         isRecurring: z.boolean(),
+        timeZone: z.string().refine(isValidTimeZone).default(DEFAULT_TIME_ZONE),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.userId;
-      const { id, categoryId, budgetName, amount, isRecurring } = input;
+      const { id, categoryId, budgetName, amount, isRecurring, timeZone } = input;
 
       const currBudget = await prisma.budget.findUnique({
         where: {
@@ -150,8 +152,8 @@ export const budgetRouter = router({
         });
 
         if (!existingPending) {
-          const now = new Date();
-          const scheduledAt = new Date(now.getFullYear(), now.getMonth() + 1, 1, 0, 0, 0, 0);
+          const { year, month } = getYearMonth(new Date(), timeZone);
+          const { end: scheduledAt } = getMonthRange(year, month, timeZone);
           await prisma.pendingBudget.create({
             data: {
               userId,
