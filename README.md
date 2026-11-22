@@ -245,16 +245,16 @@ This builds and starts both services:
 
 Loaded via `env_file`. Compose overrides some values for local container usage.
 
-| Variable                            | Purpose             | Notes                                                                                                                                    |
-| :---------------------------------- | :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| `NODE_ENV`                          | Environment mode    | Overridden to `development` by compose. Enables localhost CORS and dev DB selection.                                                     |
-| `PORT`                              | Server port         | Overridden to `9999` by compose.                                                                                                         |
-| `BETTER_AUTH_URL`                   | Auth base URL       | Overridden to `http://localhost:9999` by compose.                                                                                        |
-| `DEV_DATABASE_URL` / `DATABASE_URL` | Database connection | `prisma.ts` prefers `DEV_DATABASE_URL` when `NODE_ENV=development`. Use `host.docker.internal` if pointing to a local Postgres instance. |
-| `BETTER_AUTH_SECRET`                | Auth secret         | Required.                                                                                                                                |
-| `ENCRYPTION_KEY`                    | Encryption key      | Required to encrypt/decrypt monetary amounts.                                                                                            |
-| `BREVO_API`                         | Brevo API key       | Required for transactional emails.                                                                                                       |
-| `TRUSTED_ORIGINS`                   | Allowed origins     | In dev the server is permissive, but keep it set.                                                                                        |
+| Variable                            | Purpose             | Notes                                                                                                                                                                                 |
+| :---------------------------------- | :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `NODE_ENV`                          | Environment mode    | Overridden to `development` by compose. Enables localhost CORS and dev DB selection.                                                                                                  |
+| `PORT`                              | Server port         | Overridden to `9999` by compose.                                                                                                                                                      |
+| `BETTER_AUTH_URL`                   | Auth base URL       | Overridden to `http://localhost:9999` by compose.                                                                                                                                     |
+| `DEV_DATABASE_URL` / `DATABASE_URL` | Database connection | `prisma.ts` prefers `DEV_DATABASE_URL` when `NODE_ENV=development`. Use `host.docker.internal` if pointing to a local Postgres instance.                                              |
+| `BETTER_AUTH_SECRET`                | Auth secret         | Required.                                                                                                                                                                             |
+| `ENCRYPTION_KEY`                    | Encryption key      | Required to encrypt/decrypt monetary amounts.                                                                                                                                         |
+| `BREVO_API`                         | Brevo API key       | Required for transactional emails.                                                                                                                                                    |
+| `TRUSTED_ORIGINS`                   | Allowed origins     | In dev the server is permissive, but keep it set.                                                                                                                                     |
 | `TURNSTILE_SECRET`                  | Turnstile secret    | Cloudflare Turnstile secret for the captcha on sign-up, sign-in and forgot-password. Required in production; in development the server falls back to Cloudflare's public test secret. |
 
 #### Login lockout (KV)
