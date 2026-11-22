@@ -3,5 +3,4 @@ packages:
   - server
 
 minimumReleaseAge: 10080
-trustPolicy:
-  no-downgrade: true
+trustPolicy: no-downgrade
