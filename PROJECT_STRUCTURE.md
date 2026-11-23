@@ -300,11 +300,12 @@ Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND), `B
 
 ## CI/CD — `.github/workflows/`
 
-| File           | Trigger                                 | Purpose                                                                                                     |
-| -------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `ci.yaml`      | PR + push to master                     | React Doctor, server tests, client jsdom tests, Storybook browser tests, build; deploys staging on `master` |
-| `e2e.yaml`     | Schedule (3AM UTC), `e2e` label, manual | Playwright E2E tests (Chromium)                                                                             |
-| `release.yaml` | Tag push `v*`                           | Deploy client + server to production workers                                                                |
+| File                  | Trigger                                 | Purpose                                                                        |
+| --------------------- | --------------------------------------- | ------------------------------------------------------------------------------ |
+| `ci.yaml`             | PR + push to master, manual             | React Doctor, server tests, client jsdom tests, Storybook browser tests, build |
+| `deploy-staging.yaml` | Manual (`workflow_dispatch`)            | Deploy client + server to staging workers                                      |
+| `e2e.yaml`            | Schedule (3AM UTC), `e2e` label, manual | Playwright E2E tests (Chromium)                                                |
+| `release.yaml`        | Tag push `v*`                           | Deploy client + server to production workers                                   |
 
 ---
 
