@@ -1,5 +1,24 @@
 const release_official = [
   {
+    version: "v1.2.2",
+    date: "Nov 23, 2026",
+    tag: "official",
+    changes: [
+      {
+        type: "update",
+        text: "Improved documentation and feature descriptions, including clearer explanations of how transaction amount encryption protects users' financial data.",
+      },
+      {
+        type: "fix",
+        text: "Fixed timezone inconsistencies between the server and users' local time that could cause budget calculations and displayed data to be inaccurate.",
+      },
+      {
+        type: "fix",
+        text: "Fixed an issue where welcome emails could be sent without the user's name.",
+      },
+    ],
+  },
+  {
     version: "v1.2.1",
     date: "Nov 15, 2026",
     tag: "official",
