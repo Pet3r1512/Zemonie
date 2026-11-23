@@ -60,7 +60,7 @@ export const transactionsRouter = router({
     .input(
       z.object({
         categoryId: z.number().optional(),
-        amount: z.number(),
+        amount: z.number().min(0.01),
         currency: z.enum(SupportedCurrency).optional(),
         description: z.string().max(100).optional(),
         isRecurring: z.boolean().optional(),
