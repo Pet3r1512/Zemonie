@@ -4,8 +4,8 @@ on:
   schedule:
     - cron: "0 3 * * *" #3AM UTC
   pull_request:
-    types: [labeled]
-    path:
+    types: [opened, synchronize, reopened, labeled]
+    paths:
       - "client/**"
       - "server/**"
 jobs:
@@ -14,8 +14,8 @@ jobs:
       github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'pull_request' &&
-      github.event.label.name == 'e2e' &&
-      github.event.pull_request.head.repo.full_name == github.repository)
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (github.event.action != 'labeled' || github.event.label.name == 'e2e'))
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -30,7 +30,7 @@ jobs:
         with: { node-version: 22, cache: "pnpm" }
       - run: pnpm install --frozen-lockfile
 
-      - name: Create server dev varsr
+      - name: Create server dev vars
         run: |
           cat > server/.dev.vars <<EOF
           NODE_ENV=development
