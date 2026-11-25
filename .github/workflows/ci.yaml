@@ -53,8 +53,23 @@ jobs:
       - name: Typecheck server
         run: cd server && pnpm exec tsc --noEmit
 
-      - name: Test server
-        run: pnpm test:server
+      - name: Test server with coverage
+        run: pnpm test:server:coverage
+
+      - name: Upload server coverage to Codecov
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./server/coverage/lcov.info
+          flags: server
+
+      - name: Typecheck client
+        run: pnpm typecheck:client
+
+      # Advisory until the existing advisories are triaged; flip to blocking once clean.
+      - name: Audit production dependencies
+        run: pnpm audit:prod
+        continue-on-error: true
 
       # CLIENT: fast jsdom unit / component tests (first-class gate) + coverage
       - name: Run jsdom unit & component tests with coverage
@@ -140,6 +155,9 @@ jobs:
         env:
           VITE_SERVER_URL: https://api.zemonie.site
           VITE_TURNSTILE_SITE_KEY: 0x4AAAAAAF-F5zDNfACWQAq_
+
+      - name: Enforce client bundle-size budget
+        run: pnpm size:client
 
   deploy-staging:
     if: >-

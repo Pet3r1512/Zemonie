@@ -111,7 +111,8 @@ Read `PROJECT_STRUCTURE.md` for a full map of the codebase before making changes
 - **Location:** co-locate tests next to the source as `*.test.tsx` / `*.test.ts`.
 - **E2E:** Playwright specs live in `client/e2e/`; run
   `pnpm --dir client exec playwright test --project=chromium`. CI runs them on a
-  schedule, manual dispatch, or the `e2e` PR label.
+  schedule, manual dispatch, the `e2e` PR label, or PRs that touch `client/**` /
+  `server/**` (same-repo PRs only).
 - **Browser/Storybook tests:** `client/vitest.workspace.ts` defines Storybook browser
   projects (`chromium`, `firefox`, `webkit`) via Playwright + `@storybook/addon-vitest`.
   CI runs these against a running Storybook (`STORYBOOK_URL`).
