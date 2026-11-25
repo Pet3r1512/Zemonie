@@ -300,11 +300,11 @@ Enums: `CategoryType` (INCOME, EXPENSE), `SupportedCurrency` (USD, AUD, VND), `B
 
 ## CI/CD — `.github/workflows/`
 
-| File           | Trigger                                 | Purpose                                                                                                     |
-| -------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `ci.yaml`      | PR + push to master                     | React Doctor, server tests, client jsdom tests, Storybook browser tests, build; deploys staging on `master` |
-| `e2e.yaml`     | Schedule (3AM UTC), `e2e` label, manual | Playwright E2E tests (Chromium)                                                                             |
-| `release.yaml` | Tag push `v*`                           | Deploy client + server to production workers                                                                |
+| File           | Trigger                                                                       | Purpose                                                                                                                                                                 |
+| -------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ci.yaml`      | PR + push to master                                                           | React Doctor, server tests + coverage, client typecheck/jsdom tests, Storybook browser tests, dependency audit, build + bundle-size budget; deploys staging on `master` |
+| `e2e.yaml`     | PRs touching `client/**`/`server/**`, `e2e` label, schedule (3AM UTC), manual | Playwright E2E tests (Chromium)                                                                                                                                         |
+| `release.yaml` | Tag push `v*`                                                                 | Deploy client + server to production workers                                                                                                                            |
 
 ---
 
@@ -321,7 +321,7 @@ Tests are co-located with source as `*.test.ts` / `*.test.tsx`.
 
 Commands: `pnpm --dir client test`, `pnpm --dir client coverage`,
 `pnpm --dir client exec playwright test`, `pnpm --dir server test`.
-CI runs the server suite first, then client tests across Chromium/Firefox/WebKit, plus E2E on a schedule or `e2e` label.
+CI runs the server suite (with coverage) first, then client typecheck/jsdom tests across Chromium/Firefox/WebKit, plus E2E on relevant PRs, a schedule, or the `e2e` label.
 
 ---
 
