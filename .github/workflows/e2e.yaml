@@ -20,8 +20,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
       DATABASE_URL: ${{ secrets.DATABASE_URL_STAGING}}
       # Cloudflare Turnstile "always passes" test sitekey for CI.
       VITE_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
