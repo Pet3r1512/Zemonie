@@ -51,6 +51,9 @@ test.describe("Sign In Flow", () => {
     test("signs in with valid credentials and redirects to dashboard", async ({ page }) => {
       await page.locator("#email").fill(USER_EMAIL);
       await page.locator("#password").fill(USER_PASSWORD);
+      await expect(page.locator('input[name="cf-turnstile-response"]')).toHaveValue(/.+/, {
+        timeout: 15000,
+      });
       await page.locator('button[type="submit"]').click();
       await expect(page).toHaveURL(/\/dashboard/, { timeout: 15000 });
     });
