@@ -23,6 +23,8 @@ jobs:
       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
       DATABASE_URL: ${{ secrets.DATABASE_URL_STAGING}}
+      # Cloudflare Turnstile "always passes" test sitekey for CI.
+      VITE_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -41,6 +43,7 @@ jobs:
           TRUSTED_ORIGIN=http://localhost:5173
           ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
           BREVO_API=${{ secrets.BREVO_API }}
+          TURNSTILE_SECRET=1x0000000000000000000000000000000AA
           EOF
 
       - run: cd client && pnpm exec playwright install --with-deps chromium
