@@ -187,6 +187,9 @@ test.describe("Sign Up Flow", () => {
     await page.locator("#password").fill("validpassword123");
     await page.locator("#confirmPassword").fill("validpassword123");
     await page.getByRole("checkbox").check();
+    await expect(page.locator('input[name="cf-turnstile-response"]')).toHaveValue(/.+/, {
+      timeout: 15000,
+    });
     await page.locator('button[type="submit"]').click();
 
     await expect(page).toHaveURL(/\/dashboard/, { timeout: 15000 });

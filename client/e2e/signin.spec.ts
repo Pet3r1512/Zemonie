@@ -1,7 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 
-const USER_EMAIL = process.env.TEST_USER_EMAIL || "";
-const USER_PASSWORD = process.env.TEST_USER_PASSWORD || "";
+async function waitForTurnstile(page: Page) {
+  await expect(page.locator('input[name="cf-turnstile-response"]')).toHaveValue(/.+/, {
+    timeout: 15000,
+  });
+}
 
 test.describe("Sign In Flow", () => {
   test.beforeEach(async ({ page }) => {
@@ -45,14 +48,26 @@ test.describe("Sign In Flow", () => {
     await expect(page).toHaveURL("/auth/signup");
   });
 
-  test.describe("authenticated", () => {
-    test.skip(!USER_EMAIL || !USER_PASSWORD, "set TEST_USER_EMAIL and TEST_USER_PASSWORD env vars");
+  test("signs in with valid credentials and redirects to dashboard", async ({ page, context }) => {
+    const email = `e2e-signin-${Date.now()}-${Math.random().toString(36).slice(2)}@example.com`;
+    const password = "validpassword123";
 
-    test("signs in with valid credentials and redirects to dashboard", async ({ page }) => {
-      await page.locator("#email").fill(USER_EMAIL);
-      await page.locator("#password").fill(USER_PASSWORD);
-      await page.locator('button[type="submit"]').click();
-      await expect(page).toHaveURL(/\/dashboard/, { timeout: 15000 });
-    });
+    await page.goto("/auth/signup", { waitUntil: "load", timeout: 30000 });
+    await page.locator("#email").fill(email);
+    await page.locator("#name").fill("Valid Name");
+    await page.locator("#password").fill(password);
+    await page.locator("#confirmPassword").fill(password);
+    await page.getByRole("checkbox").check();
+    await waitForTurnstile(page);
+    await page.locator('button[type="submit"]').click();
+    await expect(page).toHaveURL(/\/dashboard/, { timeout: 30000 });
+
+    await context.clearCookies();
+    await page.goto("/auth/signin", { waitUntil: "load", timeout: 30000 });
+    await page.locator("#email").fill(email);
+    await page.locator("#password").fill(password);
+    await waitForTurnstile(page);
+    await page.locator('button[type="submit"]').click();
+    await expect(page).toHaveURL(/\/dashboard/, { timeout: 15000 });
   });
 });
