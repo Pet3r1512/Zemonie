@@ -25,6 +25,7 @@ services:
       dockerfile: client/Dockerfile
       args:
         VITE_SERVER_URL: ${VITE_SERVER_URL:-http://localhost:9999}
+        VITE_TURNSTILE_SITE_KEY: ${VITE_TURNSTILE_SITE_KEY:-1x00000000000000000000AA}
     depends_on:
       server:
         condition: service_healthy

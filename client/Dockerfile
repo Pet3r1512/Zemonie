@@ -9,17 +9,25 @@ RUN npm install -g pnpm@10.11.1
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 
 COPY client/package.json ./client/
+# The client type-checks against the server's tRPC AppRouter, so the server workspace must be
+# installed too
+COPY server/package.json ./server/
+COPY server/prisma ./server/prisma
+COPY server/prisma.config.ts ./server/
 
-# Prevent husky hook and install only client workspace dependencies
-RUN HUSKY=0 pnpm install --frozen-lockfile --filter client
+# Prevent husky hook and install client + server workspace dependencies
+RUN HUSKY=0 pnpm install --frozen-lockfile --filter client --filter server
 
-# Copy client source after installing dependencies and run the build from the client package directory
+# Copy sources after installing dependencies and run the build from the client package directory
 COPY client ./client
+COPY server ./server
 WORKDIR /src/client
 
 # Define run-time env variables
 ARG VITE_SERVER_URL
 ENV VITE_SERVER_URL=${VITE_SERVER_URL}
+ARG VITE_TURNSTILE_SITE_KEY
+ENV VITE_TURNSTILE_SITE_KEY=${VITE_TURNSTILE_SITE_KEY}
 
 # Test if env variables are valid => Prevent creating a client without needed variables
 RUN test -n "$VITE_SERVER_URL" || (echo "VITE_SERVER_URL build arg is required" && exit 1)
